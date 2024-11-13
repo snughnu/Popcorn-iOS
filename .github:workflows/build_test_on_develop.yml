@@ -34,8 +34,8 @@ jobs:
     # shell 이용해서 command 수행
     - name: Build the project 🛠
       run: |
-        xcodebuild clean build -project Popcorn-iOS.xcodeproj -scheme Popcorn-iOS -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest'
+        xcodebuild clean build -project Popcorn-iOS.xcodeproj -scheme Popcorn-iOS -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' -skipPackagePluginValidation -skipMacroValidation
     
     - name: Run tests 🧪
       run: |
-        xcodebuild test -project Popcorn-iOS.xcodeproj -scheme Popcorn-iOS -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest'
+        xcodebuild test-without-building -project Popcorn-iOS.xcodeproj -scheme Popcorn-iOS -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' -skipPackagePluginValidation -skipMacroValidation
