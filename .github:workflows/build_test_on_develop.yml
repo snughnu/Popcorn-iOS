@@ -1,0 +1,41 @@
+# GitHub의 액션 탭에서 표시되는 워크플로우의 이름
+name: Build and Test
+
+on:
+  # develop 브랜치에 push 나 pull request 이벤트가 일어났을때 해당 workflow를 트리거
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+# workflow의 실행은 하나 이상의 job으로 구성 됨. 여기서는 "build" 라는 single job 으로 구성
+jobs:
+  build:
+    runs-on: macos-latest     # job이 실행될 환경 - 최신 mac os
+    # Step은 job의 일부로 실행될 일련의 task들을 나타냄
+    steps:
+    # uses 키워드를 통해 Github Actions에서 기본으로 제공하는 액션을 사용 가능. 아래 액션은 repository 에 체크아웃하는 것
+    - uses: actions/checkout@v4
+    
+    # 해당 가상 머신 환경에서의 가용 Xcode 버전을 출력
+    - name: List available Xcode versions
+      run: ls /Applications | grep Xcode
+
+    # 현재 Xcode 버전 출력
+    - name: Show current version of Xcode
+      run: xcodebuild -version
+
+    # Xcode 버전 직접 설정 후 확인
+    - name: Set up Xcode version
+      run: |
+        sudo xcode-select -s /Applications/Xcode_16.0.app/Contents/Developer
+        xcodebuild -version
+        
+    # shell 이용해서 command 수행
+    - name: Build the project 🛠
+      run: |
+        xcodebuild clean build -project Popcorn-iOS.xcodeproj -scheme Popcorn-iOS -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' -skipPackagePluginValidation -skipMacroValidation
+    
+    - name: Run tests 🧪
+      run: |
+        xcodebuild test-without-building -project Popcorn-iOS.xcodeproj -scheme Popcorn-iOS -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' -skipPackagePluginValidation -skipMacroValidation
