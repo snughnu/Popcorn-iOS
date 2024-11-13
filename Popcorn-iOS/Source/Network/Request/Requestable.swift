@@ -14,7 +14,7 @@ protocol Requestable {
     var queryItems: [URLQueryItem] { get }
     var headers: [String: String] { get }
     var bodyParameters: Encodable { get }
-    
+
     func makeURLRequest() -> URLRequest?
 }
 
@@ -23,7 +23,7 @@ extension Requestable {
         guard var components = URLComponents(string: baseURL) else { return nil }
         components.path = path
         components.queryItems = queryItems
-        
+
         return components.url
     }
 }
