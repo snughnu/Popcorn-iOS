@@ -12,15 +12,15 @@ final class Request: Requestable {
     var httpMethod: HttpMethod
     var path: String
     var queryItems: [URLQueryItem]
-    var headers: [String : String]
+    var headers: [String: String]
     var bodyParameters: Encodable
-    
+
     init(
         baseURL: String = "",
         httpMethod: HttpMethod,
         path: String,
         queryItems: [URLQueryItem] = [],
-        headers: [String : String] = [:],
+        headers: [String: String] = [:],
         bodyParameters: Encodable
     ) {
         self.baseURL = baseURL
@@ -30,14 +30,14 @@ final class Request: Requestable {
         self.headers = headers
         self.bodyParameters = bodyParameters
     }
-    
+
     func makeURLRequest() -> URLRequest? {
         guard let url = makeURL() else { return nil }
-        
+
         var urlRequest = URLRequest(url: url)
         urlRequest.allHTTPHeaderFields = headers
         urlRequest.httpMethod = httpMethod.rawValue
-        
+
         return urlRequest
     }
 }
