@@ -23,19 +23,11 @@
 			remoteGlobalIDString = 56537B722CE0F5100092A292;
 			remoteInfo = "Popcorn-iOS";
 		};
-		56537B942CE0F5110092A292 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 56537B6B2CE0F5100092A292 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 56537B722CE0F5100092A292;
-			remoteInfo = "Popcorn-iOS";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		56537B732CE0F5100092A292 /* Popcorn-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Popcorn-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		56537B892CE0F5110092A292 /* Popcorn-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Popcorn-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		56537B932CE0F5110092A292 /* Popcorn-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Popcorn-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		56537BA72CE0F5290092A292 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56537BA82CE0F5290092A292 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56537BA92CE0F5290092A292 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,11 +41,6 @@
 		56537B8C2CE0F5110092A292 /* Popcorn-iOSTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Popcorn-iOSTests";
-			sourceTree = "<group>";
-		};
-		56537B962CE0F5110092A292 /* Popcorn-iOSUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Popcorn-iOSUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -73,13 +60,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		56537B902CE0F5110092A292 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -89,7 +69,6 @@
 				56AA6C0B2CE373A7001952C2 /* .swiftlint.yml */,
 				56537BB02CE0F5290092A292 /* Popcorn-iOS */,
 				56537B8C2CE0F5110092A292 /* Popcorn-iOSTests */,
-				56537B962CE0F5110092A292 /* Popcorn-iOSUITests */,
 				56537B742CE0F5100092A292 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,7 +78,6 @@
 			children = (
 				56537B732CE0F5100092A292 /* Popcorn-iOS.app */,
 				56537B892CE0F5110092A292 /* Popcorn-iOSTests.xctest */,
-				56537B932CE0F5110092A292 /* Popcorn-iOSUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -187,29 +165,6 @@
 			productReference = 56537B892CE0F5110092A292 /* Popcorn-iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		56537B922CE0F5110092A292 /* Popcorn-iOSUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 56537BA42CE0F5110092A292 /* Build configuration list for PBXNativeTarget "Popcorn-iOSUITests" */;
-			buildPhases = (
-				56537B8F2CE0F5110092A292 /* Sources */,
-				56537B902CE0F5110092A292 /* Frameworks */,
-				56537B912CE0F5110092A292 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				56537B952CE0F5110092A292 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				56537B962CE0F5110092A292 /* Popcorn-iOSUITests */,
-			);
-			name = "Popcorn-iOSUITests";
-			packageProductDependencies = (
-			);
-			productName = "Popcorn-iOSUITests";
-			productReference = 56537B932CE0F5110092A292 /* Popcorn-iOSUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -224,10 +179,6 @@
 						CreatedOnToolsVersion = 16.1;
 					};
 					56537B882CE0F5110092A292 = {
-						CreatedOnToolsVersion = 16.1;
-						TestTargetID = 56537B722CE0F5100092A292;
-					};
-					56537B922CE0F5110092A292 = {
 						CreatedOnToolsVersion = 16.1;
 						TestTargetID = 56537B722CE0F5100092A292;
 					};
@@ -252,7 +203,6 @@
 			targets = (
 				56537B722CE0F5100092A292 /* Popcorn-iOS */,
 				56537B882CE0F5110092A292 /* Popcorn-iOSTests */,
-				56537B922CE0F5110092A292 /* Popcorn-iOSUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -269,13 +219,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		56537B872CE0F5110092A292 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		56537B912CE0F5110092A292 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -324,13 +267,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		56537B8F2CE0F5110092A292 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -338,11 +274,6 @@
 			isa = PBXTargetDependency;
 			target = 56537B722CE0F5100092A292 /* Popcorn-iOS */;
 			targetProxy = 56537B8A2CE0F5110092A292 /* PBXContainerItemProxy */;
-		};
-		56537B952CE0F5110092A292 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 56537B722CE0F5100092A292 /* Popcorn-iOS */;
-			targetProxy = 56537B942CE0F5110092A292 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -373,6 +304,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -401,6 +333,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -571,40 +504,6 @@
 			};
 			name = Release;
 		};
-		56537BA52CE0F5110092A292 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5JD4YAFH7N;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Popcorn.Popcorn-iOSUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Popcorn-iOS";
-			};
-			name = Debug;
-		};
-		56537BA62CE0F5110092A292 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5JD4YAFH7N;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Popcorn.Popcorn-iOSUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Popcorn-iOS";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -631,15 +530,6 @@
 			buildConfigurations = (
 				56537BA22CE0F5110092A292 /* Debug */,
 				56537BA32CE0F5110092A292 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		56537BA42CE0F5110092A292 /* Build configuration list for PBXNativeTarget "Popcorn-iOSUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				56537BA52CE0F5110092A292 /* Debug */,
-				56537BA62CE0F5110092A292 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
