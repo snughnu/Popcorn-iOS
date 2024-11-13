@@ -12,7 +12,7 @@
 		56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56537BA72CE0F5290092A292 /* AppDelegate.swift */; };
 		56537BB62CE0F5290092A292 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56537BAE2CE0F5290092A292 /* SceneDelegate.swift */; };
 		56537BB72CE0F5290092A292 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56537BAF2CE0F5290092A292 /* ViewController.swift */; };
-		56BDDC9B2CE1D9B000072342 /* .swiftlint.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 56BDDC9A2CE1D99B00072342 /* .swiftlint.yaml */; };
+		56AA6C0C2CE373A7001952C2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 56AA6C0B2CE373A7001952C2 /* .swiftlint.yml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +42,7 @@
 		56537BAA2CE0F5290092A292 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		56537BAE2CE0F5290092A292 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		56537BAF2CE0F5290092A292 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		56BDDC9A2CE1D99B00072342 /* .swiftlint.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yaml; sourceTree = "<group>"; };
+		56AA6C0B2CE373A7001952C2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -86,7 +86,7 @@
 		56537B6A2CE0F5100092A292 = {
 			isa = PBXGroup;
 			children = (
-				56BDDC9A2CE1D99B00072342 /* .swiftlint.yaml */,
+				56AA6C0B2CE373A7001952C2 /* .swiftlint.yml */,
 				56537BB02CE0F5290092A292 /* Popcorn-iOS */,
 				56537B8C2CE0F5110092A292 /* Popcorn-iOSTests */,
 				56537B962CE0F5110092A292 /* Popcorn-iOSUITests */,
@@ -149,13 +149,13 @@
 			buildConfigurationList = 56537B9C2CE0F5110092A292 /* Build configuration list for PBXNativeTarget "Popcorn-iOS" */;
 			buildPhases = (
 				56537B6F2CE0F5100092A292 /* Sources */,
+				56AA6C0A2CE36F2C001952C2 /* SwiftLint Script */,
 				56537B702CE0F5100092A292 /* Frameworks */,
 				56537B712CE0F5100092A292 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				56537BBE2CE0F6880092A292 /* PBXTargetDependency */,
 			);
 			name = "Popcorn-iOS";
 			packageProductDependencies = (
@@ -243,7 +243,7 @@
 			mainGroup = 56537B6A2CE0F5100092A292;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				56537BBC2CE0F6420092A292 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				56AA6C032CE36EA8001952C2 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 56537B742CE0F5100092A292 /* Products */;
@@ -262,6 +262,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56AA6C0C2CE373A7001952C2 /* .swiftlint.yml in Resources */,
 				56537BB12CE0F5290092A292 /* Assets.xcassets in Resources */,
 				56537BB32CE0F5290092A292 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -271,7 +272,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56BDDC9B2CE1D9B000072342 /* .swiftlint.yaml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +283,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		56AA6C0A2CE36F2C001952C2 /* SwiftLint Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		56537B6F2CE0F5100092A292 /* Sources */ = {
@@ -322,10 +344,6 @@
 			target = 56537B722CE0F5100092A292 /* Popcorn-iOS */;
 			targetProxy = 56537B942CE0F5110092A292 /* PBXContainerItemProxy */;
 		};
-		56537BBE2CE0F6880092A292 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 56537BBD2CE0F6880092A292 /* SwiftLintBuildToolPlugin */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -348,6 +366,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5JD4YAFH7N;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Popcorn-iOS/Resource/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -375,6 +394,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5JD4YAFH7N;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Popcorn-iOS/Resource/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -627,23 +647,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		56537BBC2CE0F6420092A292 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+		56AA6C032CE36EA8001952C2 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
 			requirement = {
-				kind = exactVersion;
-				version = 0.57.0;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.57.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		56537BBD2CE0F6880092A292 /* SwiftLintBuildToolPlugin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 56537BBC2CE0F6420092A292 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
-			productName = "plugin:SwiftLintBuildToolPlugin";
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 56537B6B2CE0F5100092A292 /* Project object */;
 }
