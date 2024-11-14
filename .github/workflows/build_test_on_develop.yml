@@ -4,9 +4,9 @@ name: Build and Test
 on:
   # develop 브랜치에 push 나 pull request 이벤트가 일어났을때 해당 workflow를 트리거
   push:
-    branches: [ chore/githubAction ]
+    branches: [ develop ]
   pull_request:
-    branches: [ chore/githubAction ]
+    branches: [ develop ]
 
 # workflow의 실행은 하나 이상의 job으로 구성 됨. 여기서는 "build" 라는 single job 으로 구성
 jobs:
