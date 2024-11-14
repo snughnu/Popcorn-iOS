@@ -34,18 +34,4 @@ line_length:
 trailing_whitespace:
   ignores_empty_lines: false # 빈 줄에서 공백 허용 제외
 
-# 기타 커스텀 규칙
-custom_rules:
-  non_final_class: # final이 없는 클래스 선언 탐지
-    name: "Non-final Class"
-    regex: 'class\s+[A-Z][A-Za-z]+'
-    message: "Consider marking this class as final if it's not intended for inheritance."
-    severity: warning
-
-  prohibit_lower_snake_case: # lower_snake_case 식별자 탐지
-    name: "Prohibit Lower Snake Case"
-    regex: "[a-z]+_[a-z]+"
-    message: "Identifiers should not be written in lower snake case."
-    severity: warning
-
 reporter: "xcode" # 리포트 형식 설정 (xcode 형식)
