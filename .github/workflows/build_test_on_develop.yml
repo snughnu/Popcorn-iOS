@@ -11,7 +11,7 @@ on:
 # workflow의 실행은 하나 이상의 job으로 구성 됨. 여기서는 "build" 라는 single job 으로 구성
 jobs:
   build:
-    runs-on: macos-latest     # job이 실행될 환경 - 최신 mac os
+    runs-on: macos-15
     # Step은 job의 일부로 실행될 일련의 task들을 나타냄
     steps:
     # uses 키워드를 통해 Github Actions에서 기본으로 제공하는 액션을 사용 가능. 아래 액션은 repository 에 체크아웃하는 것
@@ -38,4 +38,4 @@ jobs:
     
     - name: Run tests 🧪
       run: |
-        xcodebuild test-without-building -project Popcorn-iOS.xcodeproj -scheme Popcorn-iOS -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' -skipPackagePluginValidation -skipMacroValidation
+        xcodebuild test -project Popcorn-iOS.xcodeproj -scheme Popcorn-iOS -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' -skipPackagePluginValidation -skipMacroValidation
