@@ -19,6 +19,8 @@ final class MainCellPagingImageView: UIView {
 
     init() {
         super.init(frame: .zero)
+        configureSubviews()
+        configureLayout()
     }
 
     required init?(coder: NSCoder) {
@@ -26,3 +28,21 @@ final class MainCellPagingImageView: UIView {
     }
 }
 
+// MARK: - Configure UI
+extension MainCellPagingImageView {
+    private func configureSubviews() {
+        [pagingImageCollectionView].forEach {
+            addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }
+
+    private func configureLayout() {
+        NSLayoutConstraint.activate([
+            pagingImageCollectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            pagingImageCollectionView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
+            pagingImageCollectionView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            pagingImageCollectionView.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor)
+        ])
+    }
+}
