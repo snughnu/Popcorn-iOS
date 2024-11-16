@@ -33,6 +33,7 @@ final class MainCellPagingImageView: UIView {
 extension MainCellPagingImageView {
     private func configureInitialSetting() {
         pagingImageCollectionView.dataSource = self
+        pagingImageCollectionView.delegate = self
     }
 }
 
@@ -50,6 +51,20 @@ extension MainCellPagingImageView: UICollectionViewDataSource {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         return UICollectionViewCell()
+    }
+}
+
+// MARK: - Configure UICollectionViewDelegateFlowLayout
+extension MainCellPagingImageView: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        let width: CGFloat = collectionView.bounds.width
+        let height: CGFloat = collectionView.bounds.height
+
+        return CGSize(width: width, height: height)
     }
 }
 
