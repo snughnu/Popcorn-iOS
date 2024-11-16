@@ -47,6 +47,11 @@ extension MainCellPagingImageView {
     private func configureInitialSetting() {
         pagingImageCollectionView.dataSource = self
         pagingImageCollectionView.delegate = self
+
+        pagingImageCollectionView.register(
+            MainCellPagingCollectionViewCell.self,
+            forCellWithReuseIdentifier: MainCellPagingCollectionViewCell.reuseIdentifier
+        )
     }
 }
 
@@ -63,16 +68,13 @@ extension MainCellPagingImageView: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        return UICollectionViewCell()
-// MARK: - Configure ScrollView Delegate
-extension MainCellPagingImageView {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let width = scrollView.frame.width
-        
-        if width != 0 {
-            let currentPosition = scrollView.contentOffset.x / width
-            imagePageControl.currentPage = Int(currentPosition)
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: MainCellPagingCollectionViewCell.reuseIdentifier,
+            for: indexPath
+        ) as? MainCellPagingCollectionViewCell else {
+            return UICollectionViewCell()
         }
+        return cell
     }
 }
 
