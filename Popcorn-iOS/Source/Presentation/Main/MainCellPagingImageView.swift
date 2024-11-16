@@ -8,16 +8,18 @@
 import UIKit
 
 final class MainCellPagingImageView: UIView {
+    private let viewModel: MainCellPagingViewModel
+
     private let pagingImageCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
-        
+
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isPagingEnabled = true
-        
+
         return collectionView
     }()
 
@@ -26,19 +28,33 @@ final class MainCellPagingImageView: UIView {
         pageControl.hidesForSinglePage = true
         pageControl.currentPageIndicatorTintColor = UIColor(red: 0.3, green: 1, blue: 1, alpha: 1)
         pageControl.pageIndicatorTintColor = .white
-        
+
         return pageControl
     }()
-    
-    init() {
+
+    init(mainCellPagingViewModel: MainCellPagingViewModel) {
+        viewModel = mainCellPagingViewModel
         super.init(frame: .zero)
         configureInitialSetting()
         configureSubviews()
         configureLayout()
+        bind(to: viewModel)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    private func bind(to viewModel: MainCellPagingViewModel) {
+        viewModel.popUpImagesPublisher = { [weak self] in
+            guard let self else { return }
+            self.imagePageControl.numberOfPages = self.viewModel.numberOfImages()
+            self.pagingImageCollectionView.reloadData()
+        }
+
+        viewModel.currentPagePublisher = { [weak self] currentPage in
+            self?.imagePageControl.currentPage = currentPage
+        }
     }
 }
 
@@ -61,7 +77,7 @@ extension MainCellPagingImageView: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        return 10
+        return viewModel.numberOfImages()
     }
 
     func collectionView(
@@ -74,6 +90,13 @@ extension MainCellPagingImageView: UICollectionViewDataSource {
         ) as? MainCellPagingCollectionViewCell else {
             return UICollectionViewCell()
         }
+
+        let imageData = viewModel.image(at: indexPath.row)
+
+        if let image = UIImage(data: imageData) {
+            cell.configureContents(image: image)
+        }
+
         return cell
     }
 }
@@ -89,6 +112,18 @@ extension MainCellPagingImageView: UICollectionViewDelegateFlowLayout {
         let height: CGFloat = collectionView.bounds.height
 
         return CGSize(width: width, height: height)
+    }
+}
+
+// MARK: - Configure ScrollView Delegate
+extension MainCellPagingImageView {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let width = scrollView.frame.width
+
+        if width != 0 {
+            let currentPosition = Int(scrollView.contentOffset.x / width)
+            viewModel.updateCurrentPage(at: currentPosition)
+        }
     }
 }
 

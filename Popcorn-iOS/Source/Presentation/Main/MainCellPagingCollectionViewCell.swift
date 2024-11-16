@@ -25,6 +25,13 @@ final class MainCellPagingCollectionViewCell: UICollectionViewCell {
     }
 }
 
+// MARK: - Public Interface
+extension MainCellPagingCollectionViewCell {
+    func configureContents(image: UIImage) {
+        imageView.image = image
+    }
+}
+
 // MARK: - Configure UI
 extension MainCellPagingCollectionViewCell {
     private func configureSubviews() {
