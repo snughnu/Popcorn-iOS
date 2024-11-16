@@ -21,6 +21,15 @@ final class MainCellPagingImageView: UIView {
         return collectionView
     }()
 
+    private let imagePageControl: UIPageControl = {
+        let pageControl = UIPageControl()
+        pageControl.hidesForSinglePage = true
+        pageControl.currentPageIndicatorTintColor = UIColor(red: 0.3, green: 1, blue: 1, alpha: 1)
+        pageControl.pageIndicatorTintColor = .white
+        
+        return pageControl
+    }()
+    
     init() {
         super.init(frame: .zero)
         configureInitialSetting()
@@ -55,6 +64,15 @@ extension MainCellPagingImageView: UICollectionViewDataSource {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         return UICollectionViewCell()
+// MARK: - Configure ScrollView Delegate
+extension MainCellPagingImageView {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let width = scrollView.frame.width
+        
+        if width != 0 {
+            let currentPosition = scrollView.contentOffset.x / width
+            imagePageControl.currentPage = Int(currentPosition)
+        }
     }
 }
 
@@ -75,7 +93,7 @@ extension MainCellPagingImageView: UICollectionViewDelegateFlowLayout {
 // MARK: - Configure UI
 extension MainCellPagingImageView {
     private func configureSubviews() {
-        [pagingImageCollectionView].forEach {
+        [pagingImageCollectionView, imagePageControl].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -86,7 +104,10 @@ extension MainCellPagingImageView {
             pagingImageCollectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             pagingImageCollectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             pagingImageCollectionView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            pagingImageCollectionView.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor)
+            pagingImageCollectionView.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
+
+            imagePageControl.bottomAnchor.constraint(equalTo: pagingImageCollectionView.bottomAnchor),
+            imagePageControl.centerXAnchor.constraint(equalTo: pagingImageCollectionView.centerXAnchor)
         ])
     }
 }
