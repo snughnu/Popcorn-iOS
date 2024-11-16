@@ -37,7 +37,7 @@ extension MainCellPagingCollectionViewCell {
     private func configureLayout() {
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            imageView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            imageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             imageView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor)
         ])

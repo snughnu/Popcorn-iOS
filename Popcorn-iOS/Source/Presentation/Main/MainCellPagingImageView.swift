@@ -65,7 +65,7 @@ extension MainCellPagingImageView {
     private func configureLayout() {
         NSLayoutConstraint.activate([
             pagingImageCollectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            pagingImageCollectionView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
+            pagingImageCollectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             pagingImageCollectionView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             pagingImageCollectionView.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor)
         ])
