@@ -21,6 +21,7 @@
 		BC7420FA2CE23A9500BEED0A /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7420F92CE23A8A00BEED0A /* Requestable.swift */; };
 		BC7420FC2CE23B9600BEED0A /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7420FB2CE23B9200BEED0A /* Request.swift */; };
 		BC7420FE2CE23FD700BEED0A /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7420FD2CE23FCC00BEED0A /* NetworkError.swift */; };
+		BCC45D1A2CEB9A980045DC57 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC45D192CEB9A980045DC57 /* LoginTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		BC7420F92CE23A8A00BEED0A /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		BC7420FB2CE23B9200BEED0A /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		BC7420FD2CE23FCC00BEED0A /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		BCC45D192CEB9A980045DC57 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -141,6 +143,7 @@
 		56C5DDB72CE797FB0090D3A2 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				BCC45D162CEB9A790045DC57 /* Login */,
 				56C5DDB82CE7989E0090D3A2 /* Main */,
 			);
 			path = Presentation;
@@ -169,13 +172,6 @@
 				56C5DDCB2CE9B1D50090D3A2 /* View */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		56C5DDCA2CE9B1B70090D3A2 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		56C5DDCB2CE9B1D50090D3A2 /* View */ = {
@@ -212,6 +208,30 @@
 				BC7420F72CE2391400BEED0A /* HttpMethod.swift */,
 			);
 			path = Request;
+			sourceTree = "<group>";
+		};
+		BCC45D162CEB9A790045DC57 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				BCC45D172CEB9A800045DC57 /* Common */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		BCC45D172CEB9A800045DC57 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				BCC45D182CEB9A870045DC57 /* View */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		BCC45D182CEB9A870045DC57 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BCC45D192CEB9A980045DC57 /* LoginTextField.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,6 +378,7 @@
 				BC7420FC2CE23B9600BEED0A /* Request.swift in Sources */,
 				BC7420F82CE2395600BEED0A /* HttpMethod.swift in Sources */,
 				56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */,
+				BCC45D1A2CEB9A980045DC57 /* LoginTextField.swift in Sources */,
 				56537BB62CE0F5290092A292 /* SceneDelegate.swift in Sources */,
 				56537BB72CE0F5290092A292 /* ViewController.swift in Sources */,
 			);
