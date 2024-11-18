@@ -8,7 +8,7 @@
 import UIKit
 
 final class MainCellPagingImageView: UIView {
-    private let viewModel: MainCellPagingViewModel
+    private let viewModel: MainSceneViewModel
 
     private let pagingImageCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -32,7 +32,7 @@ final class MainCellPagingImageView: UIView {
         return pageControl
     }()
 
-    init(mainCellPagingViewModel: MainCellPagingViewModel) {
+    init(mainCellPagingViewModel: MainSceneViewModel) {
         viewModel = mainCellPagingViewModel
         super.init(frame: .zero)
         configureInitialSetting()
@@ -45,10 +45,10 @@ final class MainCellPagingImageView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func bind(to viewModel: MainCellPagingViewModel) {
-        viewModel.popUpImagesPublisher = { [weak self] in
+    private func bind(to viewModel: MainSceneViewModel) {
+        viewModel.todayRecommendedPopupPublisher = { [weak self] in
             guard let self else { return }
-            self.imagePageControl.numberOfPages = self.viewModel.numberOfImages()
+            self.imagePageControl.numberOfPages = self.viewModel.numbersOfPopup(of: .todayRecommended)
             self.pagingImageCollectionView.reloadData()
         }
 
@@ -77,7 +77,7 @@ extension MainCellPagingImageView: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        return viewModel.numberOfImages()
+        return viewModel.numbersOfPopup(of: .todayRecommended)
     }
 
     func collectionView(
@@ -91,7 +91,7 @@ extension MainCellPagingImageView: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        let imageData = viewModel.image(at: indexPath.row)
+        let imageData = viewModel.popupPreview(at: indexPath.row, of: .todayRecommended).popUpImage
 
         if let image = UIImage(data: imageData) {
             cell.configureContents(image: image)
