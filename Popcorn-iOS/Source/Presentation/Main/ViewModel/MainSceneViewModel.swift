@@ -32,10 +32,17 @@ class MainSceneViewModel {
         }
     }
 
+    private var currentTodayRecommendPopupPages: Int = 0 {
+        didSet {
+            currentPagePublisher?(currentTodayRecommendPopupPages)
+        }
+    }
+
     // MARK: - Output
+    var todayRecommendedPopupPublisher: (() -> Void)?
     var userPickPopupPublisher: (() -> Void)?
     var userInterestPopupPublihser: (() -> Void)?
-    var todayRecommendedPopupPublisher: (() -> Void)?
+    var currentPagePublisher: ((Int) -> Void)?
 
     init() {
     }
@@ -60,5 +67,15 @@ class MainSceneViewModel {
         case .userInterest:
             return userInterestPopup[index].popups[row]
         }
+    }
+
+    func updateCurrentPage(at currentPage: Int) {
+        self.currentTodayRecommendPopupPages = currentPage
+    }
+}
+
+// MARK: - Input
+extension MainSceneViewModel {
+    func fetchPopupImages(images: [Data]) {
     }
 }
