@@ -55,27 +55,35 @@ class MainSceneViewModel {
     init() {
     }
 
-    func numbersOfPopup(of category: MainCategory) -> Int {
+    func numbersOfPopup(of category: MainCategory, at index: Int = 0) -> Int {
         switch category {
         case .todayRecommended:
             return todayRecommendedPopup.count
         case .userPick:
             return userPickPopup.count
         case .userInterest:
-            return userInterestPopup.count
+            return userInterestPopup[index].popups.count
         case .basic:
             return basicPopup.count
         }
     }
 
-    func popupPreview(at index: Int, of category: MainCategory, row: Int = 0) -> PopupPreviewRepresentable {
+    func numbersOfInterest() -> Int {
+        return userInterestPopup.count
+    }
+
+    func popupPreview(
+        at index: Int,
+        of category: MainCategory,
+        sectionOfInterest: Int = 0
+    ) -> PopupPreviewRepresentable {
         switch category {
         case .todayRecommended:
             return todayRecommendedPopup[index]
         case .userPick:
             return userPickPopup[index]
         case .userInterest:
-            return userInterestPopup[index].popups[row]
+            return userInterestPopup[sectionOfInterest].popups[index]
         case .basic:
             return basicPopup[index]
         }
