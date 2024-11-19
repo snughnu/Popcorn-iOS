@@ -8,8 +8,8 @@
 import Foundation
 
 struct PopupPreview: PopupPreviewRepresentable {
-    let popUpImage: Data
-    let popUpTitle: String
-    let popUpDueDate: Date
+    let popupImage: Data
+    let popupTitle: String
+    let popupDueDate: Date
     let isPick: Bool
 }
