@@ -335,7 +335,18 @@ extension LoginView: UITextFieldDelegate {
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+        if textField == emailTextField {
+            guard let emailText = emailTextField.text, !emailText.isEmpty else { return false }
+            passwordTextField.becomeFirstResponder()
+            return true
+        }
+        if textField == passwordTextField {
+            guard let emailText = emailTextField.text, !emailText.isEmpty,
+                  let passwordText = passwordTextField.text, !passwordText.isEmpty else { return false }
+            passwordTextField.resignFirstResponder()
+            loginButton.sendActions(for: .touchUpInside)
+            return true
+        }
+       return false
     }
 }
