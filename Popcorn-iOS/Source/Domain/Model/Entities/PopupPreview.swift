@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PopupPreview {
+struct PopupPreview: PopupPreviewRepresentable {
     let popUpImage: Data
     let popUpTitle: String
     let popUpDueDate: Date
