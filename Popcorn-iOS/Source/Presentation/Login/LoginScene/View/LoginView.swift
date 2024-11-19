@@ -59,7 +59,7 @@ final class LoginView: UIView {
         return stackView
     }()
 
-    private let findButton: UIButton = {
+    let findButton: UIButton = {
         let button = UIButton()
         button.setTitle("아이디 /비밀번호 찾기", for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -80,7 +80,7 @@ final class LoginView: UIView {
         return view
     }()
 
-    private let signUpButton: UIButton = {
+    let signUpButton: UIButton = {
         let button = UIButton()
         button.setTitle("회원가입", for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -142,7 +142,7 @@ final class LoginView: UIView {
         return stackView
     }()
 
-    private let kakaoButton: UIButton = {
+    let kakaoButton: UIButton = {
         let button = UIButton()
         button.setTitle("카카오", for: UIControl.State.normal)
         button.setTitleColor(.lightGray, for: UIControl.State.normal)
@@ -150,7 +150,7 @@ final class LoginView: UIView {
         return button
     }()
 
-    private let googleButton: UIButton = {
+    let googleButton: UIButton = {
         let button = UIButton()
         button.setTitle("구글", for: UIControl.State.normal)
         button.setTitleColor(.lightGray, for: UIControl.State.normal)
@@ -158,7 +158,7 @@ final class LoginView: UIView {
         return button
     }()
 
-    private let appleButton: UIButton = {
+    let appleButton: UIButton = {
         let button = UIButton()
         button.setTitle("애플", for: UIControl.State.normal)
         button.setTitleColor(.lightGray, for: UIControl.State.normal)
