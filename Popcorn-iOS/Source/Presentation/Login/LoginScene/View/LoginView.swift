@@ -35,13 +35,14 @@ final class LoginView: UIView {
         isSecureTextEntry: true
     )
 
-    private let loginButton: UIButton = {
+    let loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("로그인", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = #colorLiteral(red: 1.0, green: 0.384, blue: 0.004, alpha: 1.0)
+        button.backgroundColor = .lightGray
         button.layer.cornerRadius = 10
         button.contentVerticalAlignment = .center
+        button.isEnabled = false
         return button
     }()
 
@@ -62,8 +63,7 @@ final class LoginView: UIView {
         let button = UIButton()
         button.setTitle("아이디 /비밀번호 찾기", for: .normal)
         button.setTitleColor(.black, for: .normal)
-//        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .medium)
-        button.titleLabel?.font = .systemFont(ofSize: 14)
+        button.titleLabel?.font = .systemFont(ofSize: 15)
         button.backgroundColor = .clear
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -75,7 +75,7 @@ final class LoginView: UIView {
     private let findSignUpSeparateView: UIView = {
         let view = UIView()
         view.widthAnchor.constraint(equalToConstant: 1).isActive = true
-        view.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 15).isActive = true
         view.backgroundColor = .lightGray
         return view
     }()
@@ -84,8 +84,7 @@ final class LoginView: UIView {
         let button = UIButton()
         button.setTitle("회원가입", for: .normal)
         button.setTitleColor(.black, for: .normal)
-//        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .medium)
-        button.titleLabel?.font = .systemFont(ofSize: 14)
+        button.titleLabel?.font = .systemFont(ofSize: 15)
         button.backgroundColor = .clear
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -183,12 +182,20 @@ final class LoginView: UIView {
     // MARK: - initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureSubviews()
-        configureLayout()
+        setup()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - setup
+extension LoginView {
+    func setup() {
+        backgroundColor = .white
+        configureSubviews()
+        configureLayout()
     }
 }
 
@@ -206,6 +213,7 @@ extension LoginView {
         $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
+
     private func configureLayout() {
         popcornImageViewConstraints()
         popcornLogoViewConstraints()
@@ -227,11 +235,11 @@ extension LoginView {
 
     private func popcornLogoViewConstraints() {
         NSLayoutConstraint.activate([
-            popcornLogoView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 100),
+            popcornLogoView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 122),
             popcornLogoView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            popcornLogoView.widthAnchor.constraint(equalToConstant: 122),
-            popcornLogoView.heightAnchor.constraint(equalToConstant: 122),
-            popcornLogoView.topAnchor.constraint(equalTo: popcornImageView.topAnchor, constant: 18)
+            popcornLogoView.widthAnchor.constraint(equalToConstant: 150),
+            popcornLogoView.heightAnchor.constraint(equalToConstant: 45),
+            popcornLogoView.topAnchor.constraint(equalTo: popcornImageView.bottomAnchor, constant: 3)
         ])
     }
 
@@ -239,15 +247,15 @@ extension LoginView {
         NSLayoutConstraint.activate([
             emailPasswordLoginStackView.leadingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.leadingAnchor,
-                constant: 30
+                constant: 32
             ),
             emailPasswordLoginStackView.trailingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.trailingAnchor,
-                constant: -30
+                constant: -32
             ),
             emailPasswordLoginStackView.topAnchor.constraint(
                 equalTo: popcornLogoView.bottomAnchor,
-                constant: -5
+                constant: 32
             )
         ])
     }
@@ -262,7 +270,7 @@ extension LoginView {
 
     private func separateStackViewConstraints() {
         NSLayoutConstraint.activate([
-            separateStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 30),
+            separateStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 26),
             separateStackView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             separateStackView.topAnchor.constraint(equalTo: findSignUpStackView.bottomAnchor, constant: 60)
         ])
@@ -270,9 +278,9 @@ extension LoginView {
 
     private func socialLoginStackViewConstraints() {
         NSLayoutConstraint.activate([
-            socialLoginStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 100),
-            socialLoginStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -100),
-            socialLoginStackView.topAnchor.constraint(equalTo: separateStackView.bottomAnchor, constant: 20)
+            socialLoginStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 116),
+            socialLoginStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -116),
+            socialLoginStackView.topAnchor.constraint(equalTo: separateStackView.bottomAnchor, constant: 26)
         ])
     }
 }
