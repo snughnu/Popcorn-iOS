@@ -24,12 +24,12 @@ final class LoginView: UIView {
         return imageView
     }()
 
-    private let emailTextField = LoginTextField(
+    let emailTextField = LoginTextField(
         placeholder: "이메일",
         keyboardType: .emailAddress
     )
 
-    private let passwordTextField = LoginTextField(
+    let passwordTextField = LoginTextField(
         placeholder: "비밀번호",
         keyboardType: .default,
         isSecureTextEntry: true
@@ -198,8 +198,6 @@ extension LoginView {
         configureLayout()
         emailTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
-        emailTextField.delegate = self
-        passwordTextField.delegate = self
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -311,42 +309,5 @@ extension LoginView {
         }
         loginButton.backgroundColor = #colorLiteral(red: 1.0, green: 0.384, blue: 0.004, alpha: 1.0)
         loginButton.isEnabled = true
-    }
-}
-
-// MARK: - textField delegate protocol
-extension LoginView: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == emailTextField {
-            emailTextField.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
-        }
-        if textField == passwordTextField {
-            passwordTextField.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
-        }
-    }
-
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-        if textField == emailTextField {
-            emailTextField.backgroundColor = #colorLiteral(red: 0.969, green: 0.973, blue: 0.976, alpha: 1)
-        }
-        if textField == passwordTextField {
-            passwordTextField.backgroundColor = #colorLiteral(red: 0.969, green: 0.973, blue: 0.976, alpha: 1)
-        }
-    }
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == emailTextField {
-            guard let emailText = emailTextField.text, !emailText.isEmpty else { return false }
-            passwordTextField.becomeFirstResponder()
-            return true
-        }
-        if textField == passwordTextField {
-            guard let emailText = emailTextField.text, !emailText.isEmpty,
-                  let passwordText = passwordTextField.text, !passwordText.isEmpty else { return false }
-            passwordTextField.resignFirstResponder()
-            loginButton.sendActions(for: .touchUpInside)
-            return true
-        }
-       return false
     }
 }
