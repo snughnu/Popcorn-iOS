@@ -196,6 +196,8 @@ extension LoginView {
         backgroundColor = .white
         configureSubviews()
         configureLayout()
+        emailTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
     }
 }
 
@@ -282,5 +284,26 @@ extension LoginView {
             socialLoginStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -116),
             socialLoginStackView.topAnchor.constraint(equalTo: separateStackView.bottomAnchor, constant: 26)
         ])
+    }
+}
+
+// MARK: - LoginButton Active
+extension LoginView {
+    @objc func textFieldEditingChanged(_ textField: UITextField) {
+        if textField.text?.count == 1 {
+            if textField.text?.first == " " {
+                textField.text = " "
+                return
+            }
+        }
+        guard
+            let email = emailTextField.text, !email.isEmpty,
+            let password = passwordTextField.text, !password.isEmpty else {
+            loginButton.backgroundColor = .lightGray
+            loginButton.isEnabled = false
+            return
+        }
+        loginButton.backgroundColor = #colorLiteral(red: 1.0, green: 0.384, blue: 0.004, alpha: 1.0)
+        loginButton.isEnabled = true
     }
 }
