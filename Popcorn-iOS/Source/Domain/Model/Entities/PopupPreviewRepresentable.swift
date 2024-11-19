@@ -8,8 +8,8 @@
 import Foundation
 
 protocol PopupPreviewRepresentable {
-    var popUpImage: Data { get }
-    var popUpTitle: String { get }
-    var popUpDueDate: Date { get }
+    var popupImage: Data { get }
+    var popupTitle: String { get }
+    var popupDueDate: Date { get }
     var isPick: Bool { get }
 }
