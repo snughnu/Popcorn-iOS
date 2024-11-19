@@ -97,6 +97,16 @@ final class BasicCell: UICollectionViewCell {
     }
 }
 
+// MARK: - Public Interface
+extension BasicCell {
+    func configureContents(popupImage: UIImage, popupTitle: String, period: String, location: String) {
+        popupImageView.image = popupImage
+        popupTitleLabel.text = popupTitle
+        popupPeriodLabel.text = period
+        popupLocationLabel.text = location
+    }
+}
+
 // MARK: - Configure UI
 extension BasicCell {
     private func configureSubviews() {
