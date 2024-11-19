@@ -36,7 +36,7 @@ extension MainCellPagingCollectionViewCell {
 extension MainCellPagingCollectionViewCell {
     private func configureSubviews() {
         [imageView].forEach {
-            addSubview($0)
+            contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
