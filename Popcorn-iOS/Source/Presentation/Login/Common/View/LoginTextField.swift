@@ -13,7 +13,7 @@ final class LoginTextField: UITextField {
         super.init(frame: .zero)
         self.attributedPlaceholder = NSAttributedString(
             string: placeholder,
-            attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)]
+            attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)]
         )
         self.keyboardType = keyboardType
         self.isSecureTextEntry = isSecureTextEntry
@@ -35,8 +35,8 @@ final class LoginTextField: UITextField {
 
 extension LoginTextField {
     private func configureTextField() {
-        backgroundColor = #colorLiteral(red: 0.9519017339, green: 0.9519017339, blue: 0.9519017339, alpha: 1)
-        textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        backgroundColor = #colorLiteral(red: 0.969, green: 0.973, blue: 0.976, alpha: 1)
+        textColor = #colorLiteral(red: 0.514, green: 0.568, blue: 0.631, alpha: 1)
         autocapitalizationType = .none
         autocorrectionType = .no
         spellCheckingType = .no
@@ -45,7 +45,7 @@ extension LoginTextField {
         textAlignment = .left
         clipsToBounds = true
         layer.cornerRadius = 10
-        layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        layer.borderColor = #colorLiteral(red: 0.855, green: 0.855, blue: 0.855, alpha: 1)
         layer.borderWidth = 1
     }
 }
