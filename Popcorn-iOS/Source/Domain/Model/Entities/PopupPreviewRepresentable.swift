@@ -12,4 +12,12 @@ protocol PopupPreviewRepresentable {
     var popupTitle: String { get }
     var popupDueDate: Date { get }
     var isPick: Bool { get }
+
+    var popupStartDate: Date? { get }
+    var popupLocation: String? { get }
+}
+
+extension PopupPreviewRepresentable {
+    var popupStartDate: Date? { nil }
+    var popupLocation: String? { nil }
 }
