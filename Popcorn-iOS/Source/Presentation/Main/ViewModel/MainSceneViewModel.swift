@@ -42,6 +42,7 @@ class MainSceneViewModel {
     var todayRecommendedPopupPublisher: (() -> Void)?
     var userPickPopupPublisher: (() -> Void)?
     var userInterestPopupPublihser: (() -> Void)?
+    var basicPopupPublisher: (() -> Void)?
     var currentPagePublisher: ((Int) -> Void)?
 
     init() {
@@ -58,7 +59,7 @@ class MainSceneViewModel {
         }
     }
 
-    func popupPreview(at index: Int, of category: MainCategory, row: Int = 0) -> PopupPreview {
+    func popupPreview(at index: Int, of category: MainCategory, row: Int = 0) -> PopupPreviewRepresentable {
         switch category {
         case .todayRecommended:
             return todayRecommendedPopup[index]
