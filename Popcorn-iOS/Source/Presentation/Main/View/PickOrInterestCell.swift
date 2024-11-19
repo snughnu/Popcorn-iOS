@@ -63,7 +63,7 @@ extension PickOrInterestCell {
 extension PickOrInterestCell {
     private func configureSubviews() {
         [popupImageView, popupTitleLabel].forEach {
-            addSubview($0)
+            contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
 
