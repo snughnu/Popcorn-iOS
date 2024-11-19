@@ -92,6 +92,15 @@ class MainSceneViewModel {
     func updateCurrentPage(at currentPage: Int) {
         self.currentTodayRecommendPopupPages = currentPage
     }
+
+    func calculateDaysUntil(targetDate: Date) -> Int {
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: Date())
+        let startOfTargetDate = calendar.startOfDay(for: targetDate)
+
+        let components = calendar.dateComponents([.day], from: startOfTargetDate, to: startOfDay)
+        return components.day ?? 0
+    }
 }
 
 // MARK: - Input
