@@ -11,6 +11,7 @@ enum MainCategory {
     case todayRecommended
     case userPick
     case userInterest
+    case basic
 }
 
 class MainSceneViewModel {
@@ -27,6 +28,12 @@ class MainSceneViewModel {
     }
 
     var userInterestPopup: [UserInterestPopup] = [] {
+        didSet {
+            userInterestPopupPublihser?()
+        }
+    }
+
+    var basicPopup: [BasicPopupPreview] = [] {
         didSet {
             userInterestPopupPublihser?()
         }
@@ -56,6 +63,8 @@ class MainSceneViewModel {
             return userPickPopup.count
         case .userInterest:
             return userInterestPopup.count
+        case .basic:
+            return basicPopup.count
         }
     }
 
@@ -67,6 +76,8 @@ class MainSceneViewModel {
             return userPickPopup[index]
         case .userInterest:
             return userInterestPopup[index].popups[row]
+        case .basic:
+            return basicPopup[index]
         }
     }
 
