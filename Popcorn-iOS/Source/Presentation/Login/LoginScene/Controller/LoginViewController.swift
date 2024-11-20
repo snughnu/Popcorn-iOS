@@ -54,7 +54,7 @@ class LoginViewController: UIViewController {
     }
 }
 
-// MARK: - textField delegate protocol
+// MARK: - TextField Delegate Protocol
 extension LoginViewController: UITextFieldDelegate {
     private func setupTextField() {
         loginView.emailTextField.delegate = self
