@@ -57,8 +57,6 @@ final class LoginView: UIView {
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.backgroundColor = .clear
         button.titleLabel?.textAlignment = .center
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.minimumScaleFactor = 1.0
         button.titleLabel?.numberOfLines = 1
         return button
     }()
@@ -78,8 +76,6 @@ final class LoginView: UIView {
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.backgroundColor = .clear
         button.titleLabel?.textAlignment = .center
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.minimumScaleFactor = 1.0
         button.titleLabel?.numberOfLines = 1
         return button
     }()
