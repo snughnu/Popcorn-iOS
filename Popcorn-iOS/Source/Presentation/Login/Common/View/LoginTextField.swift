@@ -8,7 +8,8 @@
 import UIKit
 
 final class LoginTextField: UITextField {
-    private let insets: UIEdgeInsets = .init(top: 16, left: 16, bottom: 16, right: 40)
+    private let insets: UIEdgeInsets = .init(top: 17, left: 20, bottom: 15, right: 20)
+    
     init(placeholder: String, keyboardType: UIKeyboardType, isSecureTextEntry: Bool = false) {
         super.init(frame: .zero)
         self.attributedPlaceholder = NSAttributedString(
@@ -33,6 +34,7 @@ final class LoginTextField: UITextField {
     }
 }
 
+// MARK: - configure TextField
 extension LoginTextField {
     private func configureTextField() {
         backgroundColor = #colorLiteral(red: 0.969, green: 0.973, blue: 0.976, alpha: 1)
