@@ -39,7 +39,7 @@ final class LoginView: UIView {
         let button = UIButton()
         button.setTitle("로그인", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .lightGray
+        button.backgroundColor = #colorLiteral(red: 0.851, green: 0.851, blue: 0.851, alpha: 1.0)
         button.layer.cornerRadius = 10
         button.contentVerticalAlignment = .center
         button.isEnabled = false
@@ -63,7 +63,7 @@ final class LoginView: UIView {
         let button = UIButton()
         button.setTitle("아이디 /비밀번호 찾기", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 15)
+        button.titleLabel?.font = .systemFont(ofSize: 14)
         button.backgroundColor = .clear
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -75,7 +75,7 @@ final class LoginView: UIView {
     private let findSignUpSeparateView: UIView = {
         let view = UIView()
         view.widthAnchor.constraint(equalToConstant: 1).isActive = true
-        view.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 11).isActive = true
         view.backgroundColor = .lightGray
         return view
     }()
@@ -84,7 +84,7 @@ final class LoginView: UIView {
         let button = UIButton()
         button.setTitle("회원가입", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 15)
+        button.titleLabel?.font = .systemFont(ofSize: 14)
         button.backgroundColor = .clear
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -182,7 +182,7 @@ final class LoginView: UIView {
     // MARK: - initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+        configureInitialSetting()
     }
 
     required init?(coder: NSCoder) {
@@ -192,10 +192,14 @@ final class LoginView: UIView {
 
 // MARK: - setup
 extension LoginView {
-    func setup() {
+    func configureInitialSetting() {
         backgroundColor = .white
         configureSubviews()
         configureLayout()
+        configureTextFields()
+    }
+
+    func configureTextFields() {
         emailTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
     }
@@ -205,7 +209,7 @@ extension LoginView {
     }
 }
 
-// MARK: - configure
+// MARK: - configure Layout
 extension LoginView {
     private func configureSubviews() {[
         popcornImageView,
