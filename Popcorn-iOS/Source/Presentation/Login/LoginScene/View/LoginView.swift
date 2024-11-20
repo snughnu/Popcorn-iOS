@@ -10,15 +10,7 @@ import UIKit
 final class LoginView: UIView {
     private var popcornImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "login_popcornImage")
-        imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
-        return imageView
-    }()
-
-    private var popcornLogoView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "login_popcornLogo")
+        imageView.image = UIImage(named: "login_popcorn")
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView
@@ -213,7 +205,6 @@ extension LoginView {
 extension LoginView {
     private func configureSubviews() {[
         popcornImageView,
-        popcornLogoView,
         emailPasswordLoginStackView,
         findSignUpStackView,
         separateStackView,
@@ -226,7 +217,6 @@ extension LoginView {
 
     private func configureLayout() {
         popcornImageViewConstraints()
-        popcornLogoViewConstraints()
         emailPasswordLoginStackViewConstraints()
         findSignUpStackViewConstraints()
         separateStackViewConstraints()
@@ -235,21 +225,9 @@ extension LoginView {
 
     private func popcornImageViewConstraints() {
         NSLayoutConstraint.activate([
-            popcornImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 168),
+            popcornImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 126),
             popcornImageView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            popcornImageView.widthAnchor.constraint(equalToConstant: 58),
-            popcornImageView.heightAnchor.constraint(equalToConstant: 52),
-            popcornImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 93)
-        ])
-    }
-
-    private func popcornLogoViewConstraints() {
-        NSLayoutConstraint.activate([
-            popcornLogoView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 122),
-            popcornLogoView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            popcornLogoView.widthAnchor.constraint(equalToConstant: 150),
-            popcornLogoView.heightAnchor.constraint(equalToConstant: 45),
-            popcornLogoView.topAnchor.constraint(equalTo: popcornImageView.bottomAnchor, constant: 3)
+            popcornImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 81)
         ])
     }
 
@@ -264,8 +242,8 @@ extension LoginView {
                 constant: -32
             ),
             emailPasswordLoginStackView.topAnchor.constraint(
-                equalTo: popcornLogoView.bottomAnchor,
-                constant: 32
+                equalTo: popcornImageView.bottomAnchor,
+                constant: 56
             )
         ])
     }
