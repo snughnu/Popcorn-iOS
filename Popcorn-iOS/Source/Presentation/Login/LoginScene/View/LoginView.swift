@@ -203,36 +203,25 @@ extension LoginView {
 
 // MARK: - configure Layout
 extension LoginView {
-    private func configureSubviews() {[
-        popcornImageView,
-        emailPasswordLoginStackView,
-        findSignUpStackView,
-        separateStackView,
-        socialLoginStackView
-    ].forEach {
-        addSubview($0)
-        $0.translatesAutoresizingMaskIntoConstraints = false
+    private func configureSubviews() {
+        [
+            popcornImageView,
+            emailPasswordLoginStackView,
+            findSignUpStackView,
+            separateStackView,
+            socialLoginStackView
+        ].forEach {
+            addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
 
     private func configureLayout() {
-        popcornImageViewConstraints()
-        emailPasswordLoginStackViewConstraints()
-        findSignUpStackViewConstraints()
-        separateStackViewConstraints()
-        socialLoginStackViewConstraints()
-    }
-
-    private func popcornImageViewConstraints() {
         NSLayoutConstraint.activate([
             popcornImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 126),
             popcornImageView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            popcornImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 81)
-        ])
-    }
+            popcornImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 81),
 
-    private func emailPasswordLoginStackViewConstraints() {
-        NSLayoutConstraint.activate([
             emailPasswordLoginStackView.leadingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.leadingAnchor,
                 constant: 32
@@ -244,28 +233,16 @@ extension LoginView {
             emailPasswordLoginStackView.topAnchor.constraint(
                 equalTo: popcornImageView.bottomAnchor,
                 constant: 56
-            )
-        ])
-    }
+            ),
 
-    private func findSignUpStackViewConstraints() {
-        NSLayoutConstraint.activate([
             findSignUpStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 96),
             findSignUpStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -96),
-            findSignUpStackView.topAnchor.constraint(equalTo: emailPasswordLoginStackView.bottomAnchor, constant: 28)
-        ])
-    }
+            findSignUpStackView.topAnchor.constraint(equalTo: emailPasswordLoginStackView.bottomAnchor, constant: 28),
 
-    private func separateStackViewConstraints() {
-        NSLayoutConstraint.activate([
             separateStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 26),
             separateStackView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            separateStackView.topAnchor.constraint(equalTo: findSignUpStackView.bottomAnchor, constant: 60)
-        ])
-    }
+            separateStackView.topAnchor.constraint(equalTo: findSignUpStackView.bottomAnchor, constant: 60),
 
-    private func socialLoginStackViewConstraints() {
-        NSLayoutConstraint.activate([
             socialLoginStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 116),
             socialLoginStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -116),
             socialLoginStackView.topAnchor.constraint(equalTo: separateStackView.bottomAnchor, constant: 26)
