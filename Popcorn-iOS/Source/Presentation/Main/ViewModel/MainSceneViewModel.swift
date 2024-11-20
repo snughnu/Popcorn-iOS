@@ -72,9 +72,9 @@ class MainSceneViewModel {
         return userInterestPopup.count
     }
 
-    func popupPreview(
-        at index: Int,
+    func providePopupPreviewData(
         of category: MainCategory,
+        at index: Int,
         sectionOfInterest: Int = 0
     ) -> PopupPreviewRepresentable {
         switch category {

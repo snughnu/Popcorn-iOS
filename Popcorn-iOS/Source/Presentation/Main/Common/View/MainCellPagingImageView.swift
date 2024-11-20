@@ -91,7 +91,7 @@ extension MainCellPagingImageView: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        let imageData = viewModel.popupPreview(at: indexPath.row, of: .todayRecommended).popupImage
+        let imageData = viewModel.providePopupPreviewData(of: .todayRecommended, at: indexPath.row).popupImage
 
         if let image = UIImage(data: imageData) {
             cell.configureContents(image: image)
