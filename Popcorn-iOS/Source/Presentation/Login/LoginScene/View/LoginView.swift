@@ -171,10 +171,13 @@ final class LoginView: UIView {
         return stackView
     }()
 
-    // MARK: - initializer
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureInitialSetting()
+        configureSubviews()
+        configureLayout()
+        configureTextFields()
     }
 
     required init?(coder: NSCoder) {
@@ -182,15 +185,15 @@ final class LoginView: UIView {
     }
 }
 
-// MARK: - setup
+// MARK: - Configure InitialSetting
 extension LoginView {
     func configureInitialSetting() {
         backgroundColor = .white
-        configureSubviews()
-        configureLayout()
-        configureTextFields()
     }
+}
 
+// MARK: - Configure TextFields
+extension LoginView {
     func configureTextFields() {
         emailTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
@@ -201,7 +204,7 @@ extension LoginView {
     }
 }
 
-// MARK: - configure Layout
+// MARK: - Configure Layout
 extension LoginView {
     private func configureSubviews() {
         [
