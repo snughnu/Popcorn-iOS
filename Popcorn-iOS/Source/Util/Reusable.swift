@@ -18,3 +18,5 @@ extension Reusable where Self: UIView {
 extension UICollectionViewCell: Reusable { }
 
 extension UITableViewCell: Reusable { }
+
+extension UICollectionReusableView: Reusable { }
