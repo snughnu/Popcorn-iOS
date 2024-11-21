@@ -16,8 +16,8 @@ final class LoginView: UIView {
         return imageView
     }()
 
-    let emailTextField = LoginTextField(
-        placeholder: "이메일",
+    let idTextField = LoginTextField(
+        placeholder: "아이디",
         keyboardType: .emailAddress
     )
 
@@ -38,11 +38,10 @@ final class LoginView: UIView {
         return button
     }()
 
-    lazy var emailPasswordLoginStackView: UIStackView = {
+    lazy var idPasswordStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            emailTextField,
-            passwordTextField,
-            loginButton
+            idTextField,
+            passwordTextField
         ])
         stackView.axis = .vertical
         stackView.spacing = 20
@@ -53,13 +52,11 @@ final class LoginView: UIView {
 
     let findButton: UIButton = {
         let button = UIButton()
-        button.setTitle("아이디 /비밀번호 찾기", for: .normal)
+        button.setTitle("아이디 / 비밀번호 찾기", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.backgroundColor = .clear
         button.titleLabel?.textAlignment = .center
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.minimumScaleFactor = 1.0
         button.titleLabel?.numberOfLines = 1
         return button
     }()
@@ -79,8 +76,6 @@ final class LoginView: UIView {
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.backgroundColor = .clear
         button.titleLabel?.textAlignment = .center
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.minimumScaleFactor = 1.0
         button.titleLabel?.numberOfLines = 1
         return button
     }()
@@ -195,7 +190,7 @@ extension LoginView {
 // MARK: - Configure TextFields
 extension LoginView {
     func configureTextFields() {
-        emailTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
+        idTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
     }
 
@@ -209,7 +204,8 @@ extension LoginView {
     private func configureSubviews() {
         [
             popcornImageView,
-            emailPasswordLoginStackView,
+            idPasswordStackView,
+            loginButton,
             findSignUpStackView,
             separateStackView,
             socialLoginStackView
@@ -225,22 +221,18 @@ extension LoginView {
             popcornImageView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             popcornImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 81),
 
-            emailPasswordLoginStackView.leadingAnchor.constraint(
-                equalTo: safeAreaLayoutGuide.leadingAnchor,
-                constant: 32
-            ),
-            emailPasswordLoginStackView.trailingAnchor.constraint(
-                equalTo: safeAreaLayoutGuide.trailingAnchor,
-                constant: -32
-            ),
-            emailPasswordLoginStackView.topAnchor.constraint(
-                equalTo: popcornImageView.bottomAnchor,
-                constant: 56
-            ),
+            idPasswordStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
+            idPasswordStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
+            idPasswordStackView.topAnchor.constraint(equalTo: popcornImageView.bottomAnchor, constant: 56),
 
-            findSignUpStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 96),
-            findSignUpStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -96),
-            findSignUpStackView.topAnchor.constraint(equalTo: emailPasswordLoginStackView.bottomAnchor, constant: 28),
+            loginButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
+            loginButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
+            loginButton.topAnchor.constraint(equalTo: idPasswordStackView.bottomAnchor, constant: 27),
+            loginButton.heightAnchor.constraint(equalTo: idTextField.heightAnchor, constant: 3),
+
+            findSignUpStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 95),
+            findSignUpStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -95),
+            findSignUpStackView.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 28),
 
             separateStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 26),
             separateStackView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
@@ -263,7 +255,7 @@ extension LoginView {
             }
         }
         guard
-            let email = emailTextField.text, !email.isEmpty,
+            let id = idTextField.text, !id.isEmpty,
             let password = passwordTextField.text, !password.isEmpty else {
             loginButton.backgroundColor = .lightGray
             loginButton.isEnabled = false
