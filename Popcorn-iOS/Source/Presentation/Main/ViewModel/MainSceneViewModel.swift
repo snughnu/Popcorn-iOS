@@ -92,10 +92,11 @@ class MainSceneViewModel {
                 return PopUpPreviewData(popupImage: popupImage)
             }
             else if category == .userInterest || category == .userPick {
+                let dDay = calculateDDay(from: popupData.popupDueDate)
                 return PopUpPreviewData(
                     popupImage: popupImage,
                     popupTitle: popupData.popupTitle,
-                    popupDDay: calculateDDay(from: popupData.popupDueDate)
+                    popupDDay: "D-\(dDay)"
                 )
             }
             else if category == .closingSoon,
