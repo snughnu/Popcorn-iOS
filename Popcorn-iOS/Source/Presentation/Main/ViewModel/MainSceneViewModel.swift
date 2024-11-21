@@ -61,7 +61,7 @@ class MainSceneViewModel {
         }
     }
 
-    private var closingSoonPopup: [ClosingSoonPopupPreview] = [] {
+    private var closingSoonPopup: [PopupPreview] = [] {
         didSet {
             userInterestPopupPublihser?()
         }
@@ -85,7 +85,7 @@ class MainSceneViewModel {
 
     private func preparePopupPreview(
         of category: MainCategory,
-        popupData: PopupPreviewRepresentable
+        popupData: PopupPreview
     ) -> PopUpPreviewData? {
         if let popupImage = UIImage(data: popupData.popupImage) {
             if category == .todayRecommended {
@@ -154,7 +154,7 @@ extension MainSceneViewModel {
         at index: Int,
         sectionOfInterest: Int = 0
     ) -> PopUpPreviewData? {
-        let popupData: PopupPreviewRepresentable
+        let popupData: PopupPreview
 
         switch category {
         case .todayRecommended:
