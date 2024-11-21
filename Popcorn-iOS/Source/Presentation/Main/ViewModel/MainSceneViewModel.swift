@@ -127,7 +127,8 @@ class MainSceneViewModel {
 
 // MARK: - Input
 extension MainSceneViewModel {
-    func fetchPopupImages(images: [Data]) {
+    func fetchPopupImages() {
+        genereateMockData()
     }
 }
 
@@ -175,5 +176,56 @@ extension MainSceneViewModel {
 
     func updateCurrentPage(at currentPage: Int) {
         self.currentTodayRecommendPopupPages = currentPage
+    }
+}
+
+// MARK: - Mocking
+extension MainSceneViewModel {
+    private func genereateMockData() {
+        let calendar = Calendar.current
+        let today = Date()
+        guard let tomorrow = calendar.date(byAdding: .day, value: 1, to: today) else { return }
+
+        if let image = UIImage(named: "MainImage"),
+           let imageData = image.jpegData(compressionQuality: 1.0) {
+            let popupPreview = PopupPreview(popupImage: imageData, popupTitle: "찜", popupDueDate: tomorrow, isPick: true)
+            let interestPreview = PopupPreview(popupImage: imageData, popupTitle: "아트아트아트아트아트아트아트아트아트아트아트", popupDueDate: tomorrow, isPick: true)
+            let interestPreview2 = PopupPreview(popupImage: imageData, popupTitle: "뷰티", popupDueDate: tomorrow, isPick: true)
+            let interestPreview3 = PopupPreview(popupImage: imageData, popupTitle: "셀럽", popupDueDate: tomorrow, isPick: true)
+            let artPreview = UserInterestPopup(interestCategory: .art, popups: [interestPreview, interestPreview, interestPreview])
+            let beautyPreview = UserInterestPopup(interestCategory: .beauty, popups: [interestPreview2, interestPreview2, interestPreview2])
+            let celebPreview = UserInterestPopup(interestCategory: .celebrity, popups: [interestPreview3, interestPreview3, interestPreview3])
+            let closingSoonPreview = PopupPreview(
+                popupImage: imageData,
+                popupTitle: "흰둥이흰둥이흰둥이흰둥이흰둥이",
+                popupDueDate: Date(),
+                isPick: true,
+                popupStartDate: tomorrow,
+                popupLocation: "부산광역시 남구 용소로 1번길"
+            )
+            
+            let closingSoonPreview2 = PopupPreview(
+                popupImage: imageData,
+                popupTitle: "흰둥이",
+                popupDueDate: Date(),
+                isPick: true,
+                popupStartDate: tomorrow,
+                popupLocation: "부산광역시 남구 용소로 1번길"
+            )
+
+            for _ in 0..<5 {
+                todayRecommendedPopup.append(popupPreview)
+                userPickPopup.append(popupPreview)
+            }
+            closingSoonPopup.append(closingSoonPreview)
+            closingSoonPopup.append(closingSoonPreview2)
+            closingSoonPopup.append(closingSoonPreview)
+            closingSoonPopup.append(closingSoonPreview)
+            closingSoonPopup.append(closingSoonPreview)
+
+            userInterestPopup.append(artPreview)
+            userInterestPopup.append(beautyPreview)
+            userInterestPopup.append(celebPreview)
+        }
     }
 }

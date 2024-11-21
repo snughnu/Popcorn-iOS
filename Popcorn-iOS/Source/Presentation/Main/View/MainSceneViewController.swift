@@ -214,3 +214,10 @@ extension MainSceneViewController {
         ])
     }
 }
+
+// MARK: - Mocking
+extension MainSceneViewController {
+    private func mockingData() {
+        mainViewModel.fetchPopupImages()
+    }
+}
