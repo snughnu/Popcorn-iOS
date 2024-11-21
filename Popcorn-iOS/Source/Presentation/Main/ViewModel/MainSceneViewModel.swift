@@ -11,7 +11,7 @@ enum MainCategory {
     case todayRecommended
     case userPick
     case userInterest
-    case basic
+    case closingSoon
 }
 
 struct PopUpPreviewData {
@@ -61,7 +61,7 @@ class MainSceneViewModel {
         }
     }
 
-    private var basicPopup: [BasicPopupPreview] = [] {
+    private var closingSoonPopup: [ClosingSoonPopupPreview] = [] {
         didSet {
             userInterestPopupPublihser?()
         }
@@ -77,7 +77,7 @@ class MainSceneViewModel {
     var todayRecommendedPopupPublisher: (() -> Void)?
     var userPickPopupPublisher: (() -> Void)?
     var userInterestPopupPublihser: (() -> Void)?
-    var basicPopupPublisher: (() -> Void)?
+    var closingSoonPopupPublisher: (() -> Void)?
     var currentPagePublisher: ((Int) -> Void)?
 
     init() {
@@ -98,7 +98,7 @@ class MainSceneViewModel {
                     popupDDay: calculateDDay(from: popupData.popupDueDate)
                 )
             }
-            else if category == .basic,
+            else if category == .closingSoon,
                     let popupStartDate = popupData.popupStartDate,
                     let popupLocation = popupData.popupLocation {
                 return PopUpPreviewData(
@@ -140,8 +140,8 @@ extension MainSceneViewModel {
             return userPickPopup.count
         case .userInterest:
             return userInterestPopup[index].popups.count
-        case .basic:
-            return basicPopup.count
+        case .closingSoon:
+            return closingSoonPopup.count
         }
     }
 
@@ -166,9 +166,9 @@ extension MainSceneViewModel {
         case .userInterest:
             popupData = userInterestPopup[sectionOfInterest].popups[index]
             return preparePopupPreview(of: .userInterest, popupData: popupData)
-        case .basic:
-            popupData = basicPopup[index]
-            return preparePopupPreview(of: .basic, popupData: popupData)
+        case .closingSoon:
+            popupData = closingSoonPopup[index]
+            return preparePopupPreview(of: .closingSoon, popupData: popupData)
         }
     }
 

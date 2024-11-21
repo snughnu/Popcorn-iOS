@@ -1,5 +1,5 @@
 //
-//  BasicCell.swift
+//  ClosingSoonPopupCell.swift
 //  Popcorn-iOS
 //
 //  Created by 제민우 on 11/19/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class BasicCell: UICollectionViewCell {
+final class ClosingSoonPopupCell: UICollectionViewCell {
     private let popupImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "MainImage")
@@ -98,7 +98,7 @@ final class BasicCell: UICollectionViewCell {
 }
 
 // MARK: - Public Interface
-extension BasicCell {
+extension ClosingSoonPopupCell {
     func configureContents(popupImage: UIImage, popupTitle: String, period: String, location: String) {
         popupImageView.image = popupImage
         popupTitleLabel.text = popupTitle
@@ -108,7 +108,7 @@ extension BasicCell {
 }
 
 // MARK: - Configure UI
-extension BasicCell {
+extension ClosingSoonPopupCell {
     private func configureSubviews() {
         [popupTitleLabel, popupPeriodLabel].forEach {
             titlePeriodStackView.addArrangedSubview($0)
