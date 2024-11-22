@@ -174,6 +174,10 @@ extension MainSceneViewModel {
         }
     }
 
+    func provideUserInterestTitle(sectionOfInterest: Int) -> String {
+        return userInterestPopup[sectionOfInterest].interestCategory.rawValue
+    }
+
     func updateCurrentPage(at currentPage: Int) {
         self.currentTodayRecommendPopupPages = currentPage
     }
