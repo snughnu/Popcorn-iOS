@@ -21,6 +21,8 @@ final class PickOrInterestCell: UICollectionViewCell {
         label.text = "팝업 스토어 제목"
         label.textColor = .black
         label.numberOfLines = 0
+        // MARK: - ToDo 폰트 변경
+        label.font = .systemFont(ofSize: 14, weight: .medium)
         return label
     }()
 
@@ -35,6 +37,7 @@ final class PickOrInterestCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "D-0"
         label.textColor = .white
+        label.font = .systemFont(ofSize: 11, weight: .bold)
         label.numberOfLines = 1
         return label
     }()
@@ -79,15 +82,15 @@ extension PickOrInterestCell {
     }
 
     private func configureLayout() {
+        popupTitleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         NSLayoutConstraint.activate([
-            popupImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            popupImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            popupImageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            popupImageView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.84),
+            popupImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            popupImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            popupImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            popupImageView.heightAnchor.constraint(equalTo: popupImageView.widthAnchor),
 
             dDayView.topAnchor.constraint(equalTo: popupImageView.topAnchor),
             dDayView.leadingAnchor.constraint(equalTo: popupImageView.leadingAnchor),
-            dDayView.trailingAnchor.constraint(equalTo: dDayLabel.trailingAnchor, constant: 8),
             dDayView.heightAnchor.constraint(equalTo: popupImageView.heightAnchor, multiplier: 0.22),
 
             dDayLabel.topAnchor.constraint(equalTo: dDayView.topAnchor, constant: 7),
@@ -97,9 +100,9 @@ extension PickOrInterestCell {
             dDayLabel.centerYAnchor.constraint(equalTo: dDayView.centerYAnchor),
 
             popupTitleLabel.topAnchor.constraint(equalTo: popupImageView.bottomAnchor, constant: 10),
-            popupTitleLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            popupTitleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            popupTitleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
+            popupTitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            popupTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            popupTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
     }
 }

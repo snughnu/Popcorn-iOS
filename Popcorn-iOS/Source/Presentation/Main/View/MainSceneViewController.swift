@@ -42,7 +42,6 @@ extension MainSceneViewController {
 
     private func configureCollectionView() {
         mainCollectionView.dataSource = self
-//        mainCollectionView.delegate = self
 
         mainCollectionView.register(
             PickOrInterestCell.self,
@@ -214,8 +213,7 @@ extension MainSceneViewController {
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 20
-        section.contentInsets = NSDirectionalEdgeInsets(top: 35, leading: 25, bottom: 20, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 35, leading: 26, bottom: 25, trailing: 0)
         section.interGroupSpacing = 10
 
         section.orthogonalScrollingBehavior = .continuous
@@ -244,10 +242,10 @@ extension MainSceneViewController {
         group.interItemSpacing = NSCollectionLayoutSpacing.fixed(9)
 
         let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 50
-        section.contentInsets = NSDirectionalEdgeInsets(top: 62, leading: 25, bottom: 0, trailing: 25)
+        section.interGroupSpacing = 35
+        section.contentInsets = NSDirectionalEdgeInsets(top: 35, leading: 25, bottom: 0, trailing: 25)
 
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(64))
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
         let headerSupplementary = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
             elementKind: UICollectionView.elementKindSectionHeader,
@@ -276,11 +274,11 @@ extension MainSceneViewController {
             mainCellPagingImageView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             mainCellPagingImageView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
             mainCellPagingImageView.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.37),
-            
-            mainCellPagingImageView.topAnchor.constraint(equalTo: mainCellPagingImageView.bottomAnchor),
-            mainCellPagingImageView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            mainCellPagingImageView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-            mainCellPagingImageView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)
+
+            mainCollectionView.topAnchor.constraint(equalTo: mainCellPagingImageView.bottomAnchor, constant: 20),
+            mainCollectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            mainCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            mainCollectionView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)
         ])
     }
 }

@@ -19,7 +19,7 @@ class MainCollectionHeaderView: UICollectionReusableView {
     private let showAllButton: UIButton = {
         var container = AttributeContainer()
         // MARK: - ToDo 폰트 변경, 이미지 변경
-        container.font = .systemFont(ofSize: 16, weight: .semibold)
+        container.font = .systemFont(ofSize: 15, weight: .medium)
         var config = UIButton.Configuration.plain()
         config.attributedTitle = AttributedString("전체 보기", attributes: container)
         config.baseForegroundColor = UIColor(red: 0.514, green: 0.568, blue: 0.631, alpha: 1)
@@ -61,10 +61,7 @@ extension MainCollectionHeaderView {
 // MARK: - Configure UI
 extension MainCollectionHeaderView {
     private func configureUI() {
-        layer.borderWidth = 0
-        layer.borderColor = nil
-
-        bottomBorder.backgroundColor = UIColor(red: 0.514, green: 0.568, blue: 0.631, alpha: 1).cgColor
+        bottomBorder.backgroundColor = UIColor(red: 0.851, green: 0.851, blue: 0.851, alpha: 1).cgColor
         bottomBorder.frame = CGRect(x: 0, y: bounds.height - 1, width: bounds.width, height: 1)
 
         layer.addSublayer(bottomBorder)
@@ -80,12 +77,11 @@ extension MainCollectionHeaderView {
     private func configureLayout() {
         headerLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         NSLayoutConstraint.activate([
-            headerLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
-            headerLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            headerLabel.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
+            headerLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+            headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
 
-            showAllButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            showAllButton.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor)
+            showAllButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            showAllButton.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor)
         ])
     }
 }

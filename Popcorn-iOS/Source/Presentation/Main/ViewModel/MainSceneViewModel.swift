@@ -107,8 +107,7 @@ class MainSceneViewModel {
                     popupTitle: popupData.popupTitle,
                     popupStartDate: popupStartDate.toYYMMDDString(),
                     popupDueDate: popupData.popupDueDate.toYYMMDDString(),
-                    popupLocation: popupLocation,
-                    isPick: popupData.isPick
+                    popupLocation: popupLocation
                 )
             }
         }
@@ -192,10 +191,10 @@ extension MainSceneViewModel {
 
         if let image = UIImage(named: "MainImage"),
            let imageData = image.jpegData(compressionQuality: 1.0) {
-            let popupPreview = PopupPreview(popupImage: imageData, popupTitle: "찜", popupDueDate: tomorrow, isPick: true)
-            let interestPreview = PopupPreview(popupImage: imageData, popupTitle: "아트아트아트아트아트아트아트아트아트아트아트", popupDueDate: tomorrow, isPick: true)
-            let interestPreview2 = PopupPreview(popupImage: imageData, popupTitle: "뷰티", popupDueDate: tomorrow, isPick: true)
-            let interestPreview3 = PopupPreview(popupImage: imageData, popupTitle: "셀럽", popupDueDate: tomorrow, isPick: true)
+            let popupPreview = PopupPreview(popupImage: imageData, popupTitle: "찜", popupDueDate: tomorrow)
+            let interestPreview = PopupPreview(popupImage: imageData, popupTitle: "아트아트아트아트아트아트아트아트아트아트아트", popupDueDate: tomorrow)
+            let interestPreview2 = PopupPreview(popupImage: imageData, popupTitle: "뷰티", popupDueDate: tomorrow)
+            let interestPreview3 = PopupPreview(popupImage: imageData, popupTitle: "셀럽", popupDueDate: tomorrow)
             let artPreview = UserInterestPopup(interestCategory: .art, popups: [interestPreview, interestPreview, interestPreview])
             let beautyPreview = UserInterestPopup(interestCategory: .beauty, popups: [interestPreview2, interestPreview2, interestPreview2])
             let celebPreview = UserInterestPopup(interestCategory: .celebrity, popups: [interestPreview3, interestPreview3, interestPreview3])
@@ -203,16 +202,14 @@ extension MainSceneViewModel {
                 popupImage: imageData,
                 popupTitle: "흰둥이흰둥이흰둥이흰둥이흰둥이",
                 popupDueDate: Date(),
-                isPick: true,
                 popupStartDate: tomorrow,
                 popupLocation: "부산광역시 남구 용소로 1번길"
             )
-            
+
             let closingSoonPreview2 = PopupPreview(
                 popupImage: imageData,
                 popupTitle: "흰둥이",
                 popupDueDate: Date(),
-                isPick: true,
                 popupStartDate: tomorrow,
                 popupLocation: "부산광역시 남구 용소로 1번길"
             )
