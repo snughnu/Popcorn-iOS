@@ -29,6 +29,7 @@ final class MainSceneViewController: UIViewController {
         configureInitialSetting()
         configureSubviews()
         configureLayout()
+        mockingData()
     }
 }
 
@@ -169,20 +170,15 @@ extension MainSceneViewController: UICollectionViewDataSource {
         ) as? MainCollectionHeaderView else {
             return UICollectionReusableView()
         }
+
         switch indexPath.section {
         case 0:
             header.configureContents(headerTitle: "찜 목록")
-        case 1..<(1 + mainViewModel.numbersOfPopup(of: .userInterest)):
-            if let popupData = mainViewModel.providePopupPreviewData(
-                of: .userInterest,
-                at: indexPath.row,
-                sectionOfInterest: indexPath.section - 1
-            ),
-               let userInterestTitle = popupData.popupTitle {
-                header.configureContents(headerTitle: userInterestTitle)
-            }
+        case 1..<(1 + mainViewModel.numbersOfInterest()):
+            let headerTitle = mainViewModel.provideUserInterestTitle(sectionOfInterest: indexPath.section - 1)
+            header.configureContents(headerTitle: headerTitle)
         case 1 + mainViewModel.numbersOfInterest():
-            header.configureContents(headerTitle: "지금 놓치면 안 될 팝업스토어")
+            header.configureContents(headerTitle: "지금 놓치면 안 될 팝업스토어", shouldHiddenShowButton: true)
         default:
             break
         }

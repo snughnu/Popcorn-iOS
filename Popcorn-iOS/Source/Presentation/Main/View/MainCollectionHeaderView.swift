@@ -52,8 +52,9 @@ class MainCollectionHeaderView: UICollectionReusableView {
 
 // MARK: - Public Interface
 extension MainCollectionHeaderView {
-    func configureContents(headerTitle: String) {
+    func configureContents(headerTitle: String, shouldHiddenShowButton: Bool = false) {
         headerLabel.text = headerTitle
+        showAllButton.isHidden = shouldHiddenShowButton
     }
 }
 
