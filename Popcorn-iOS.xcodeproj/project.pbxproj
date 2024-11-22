@@ -236,8 +236,8 @@
 			isa = PBXGroup;
 			children = (
 				56018C9A2CEC9ACF00AC8ED5 /* MainCollectionHeaderView.swift */,
-				5649A58F2CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift */,
 				56CD3A7A2CEB858100BAC02D /* PickOrInterestCell.swift */,
+				5649A58F2CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift */,
 				56018CA12CECB1C400AC8ED5 /* MainSceneViewController.swift */,
 			);
 			path = View;

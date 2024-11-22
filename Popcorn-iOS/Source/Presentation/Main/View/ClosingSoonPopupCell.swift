@@ -21,7 +21,7 @@ final class ClosingSoonPopupCell: UICollectionViewCell {
         label.text = "팝업 스토어 제목"
         label.textColor = .black
         // MARK: - ToDo 폰트 교체
-        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.font = .systemFont(ofSize: 14, weight: .semibold)
         label.numberOfLines = 0
         return label
     }()
@@ -47,16 +47,9 @@ final class ClosingSoonPopupCell: UICollectionViewCell {
         label.text = "OO광역시 OO구 OO로OO"
         label.textColor = .black
         // MARK: - ToDo 폰트 교체
-        label.font = .systemFont(ofSize: 9, weight: .medium)
-        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 10, weight: .medium)
+        label.numberOfLines = 2
         return label
-    }()
-
-    private let popupPickButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.setImage(UIImage(systemName: "heart"), for: .normal)
-        button.setImage(UIImage(systemName: "heart.fill"), for: .selected)
-        return button
     }()
 
     private let titlePeriodStackView: UIStackView = {
@@ -64,7 +57,7 @@ final class ClosingSoonPopupCell: UICollectionViewCell {
         stackView.axis = .vertical
         stackView.spacing = 0
         stackView.alignment = .leading
-        stackView.distribution = .fill
+        stackView.distribution = .fillProportionally
         return stackView
     }()
 
@@ -80,7 +73,7 @@ final class ClosingSoonPopupCell: UICollectionViewCell {
     private let popupDescriptionStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 0
+        stackView.spacing = 6
         stackView.alignment = .leading
         stackView.distribution = .fill
         return stackView
@@ -126,27 +119,19 @@ extension ClosingSoonPopupCell {
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-
-        [popupPickButton].forEach {
-            popupImageView.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
     }
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            popupImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            popupImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            popupImageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            popupImageView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.77),
-
-            popupPickButton.topAnchor.constraint(equalTo: popupImageView.topAnchor, constant: 15),
-            popupPickButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -15),
+            popupImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            popupImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            popupImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            popupImageView.heightAnchor.constraint(equalTo: popupImageView.widthAnchor, multiplier: 1.2),
 
             popupDescriptionStackView.topAnchor.constraint(equalTo: popupImageView.bottomAnchor, constant: 13),
             popupDescriptionStackView.leadingAnchor.constraint(equalTo: popupImageView.leadingAnchor),
             popupDescriptionStackView.trailingAnchor.constraint(equalTo: popupImageView.trailingAnchor),
-            popupDescriptionStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+            popupDescriptionStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }
