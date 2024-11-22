@@ -8,7 +8,7 @@
 import UIKit
 
 final class MainCellPagingImageView: UIView {
-    private let viewModel: MainCellPagingViewModel
+    private let viewModel: MainSceneViewModel
 
     private let pagingImageCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -26,13 +26,13 @@ final class MainCellPagingImageView: UIView {
     private let imagePageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.hidesForSinglePage = true
-        pageControl.currentPageIndicatorTintColor = UIColor(red: 0.3, green: 1, blue: 1, alpha: 1)
+        pageControl.currentPageIndicatorTintColor = UIColor(red: 0.996, green: 0.486, blue: 0.055, alpha: 1)
         pageControl.pageIndicatorTintColor = .white
 
         return pageControl
     }()
 
-    init(mainCellPagingViewModel: MainCellPagingViewModel) {
+    init(mainCellPagingViewModel: MainSceneViewModel) {
         viewModel = mainCellPagingViewModel
         super.init(frame: .zero)
         configureInitialSetting()
@@ -45,10 +45,10 @@ final class MainCellPagingImageView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func bind(to viewModel: MainCellPagingViewModel) {
-        viewModel.popUpImagesPublisher = { [weak self] in
+    private func bind(to viewModel: MainSceneViewModel) {
+        viewModel.todayRecommendedPopupPublisher = { [weak self] in
             guard let self else { return }
-            self.imagePageControl.numberOfPages = self.viewModel.numberOfImages()
+            self.imagePageControl.numberOfPages = self.viewModel.numbersOfPopup(of: .todayRecommended)
             self.pagingImageCollectionView.reloadData()
         }
 
@@ -77,7 +77,7 @@ extension MainCellPagingImageView: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        return viewModel.numberOfImages()
+        return viewModel.numbersOfPopup(of: .todayRecommended)
     }
 
     func collectionView(
@@ -91,10 +91,8 @@ extension MainCellPagingImageView: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        let imageData = viewModel.image(at: indexPath.row)
-
-        if let image = UIImage(data: imageData) {
-            cell.configureContents(image: image)
+        if let popupData = viewModel.providePopupPreviewData(of: .todayRecommended, at: indexPath.row) {
+            cell.configureContents(image: popupData.popupImage)
         }
 
         return cell
@@ -138,10 +136,10 @@ extension MainCellPagingImageView {
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            pagingImageCollectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            pagingImageCollectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            pagingImageCollectionView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            pagingImageCollectionView.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
+            pagingImageCollectionView.topAnchor.constraint(equalTo: topAnchor),
+            pagingImageCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            pagingImageCollectionView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            pagingImageCollectionView.centerYAnchor.constraint(equalTo: centerYAnchor),
 
             imagePageControl.bottomAnchor.constraint(equalTo: pagingImageCollectionView.bottomAnchor),
             imagePageControl.centerXAnchor.constraint(equalTo: pagingImageCollectionView.centerXAnchor)
