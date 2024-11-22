@@ -43,7 +43,7 @@ extension LoginTextField {
         autocorrectionType = .no
         spellCheckingType = .no
         clearsOnBeginEditing = false
-        font = UIFont.systemFont(ofSize: 14)
+        font = UIFont(name: "Roboto-Medium", size: 15)
         textAlignment = .left
         clipsToBounds = true
         layer.cornerRadius = 10
