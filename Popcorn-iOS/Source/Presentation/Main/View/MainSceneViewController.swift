@@ -10,7 +10,10 @@ import UIKit
 final class MainSceneViewController: UIViewController {
     private let mainViewModel = MainSceneViewModel()
     private let mainCellPagingImageView: MainCellPagingImageView
-    private lazy var mainCollectionView = UICollectionView()
+    private lazy var mainCollectionView = UICollectionView(
+        frame: .zero,
+        collectionViewLayout: generateCollectionViewLayout()
+    )
 
     init() {
         mainCellPagingImageView = MainCellPagingImageView(mainCellPagingViewModel: mainViewModel)
@@ -187,6 +190,77 @@ extension MainSceneViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - Configure CollectionView Compositional Layout
+extension MainSceneViewController {
+    private func generateCollectionViewLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { [weak self] sectionIndex, _ in
+            guard let self else { return nil }
+
+            switch sectionIndex {
+            case 0..<self.mainViewModel.numbersOfInterest() + 1:
+                return generateHorizontalLayout()
+            case self.mainViewModel.numbersOfInterest() + 1:
+                return generateVerticalGridLayout()
+            default:
+                return generateHorizontalLayout()
+            }
+        }
+    }
+
+    private func generateHorizontalLayout() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(178)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(140), heightDimension: .estimated(178))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 20
+        section.contentInsets = NSDirectionalEdgeInsets(top: 35, leading: 25, bottom: 20, trailing: 0)
+        section.interGroupSpacing = 10
+
+        section.orthogonalScrollingBehavior = .continuous
+
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
+        let headerSupplementary = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        section.boundarySupplementaryItems = [headerSupplementary]
+        section.supplementaryContentInsetsReference = .none
+
+        return section
+    }
+
+    private func generateVerticalGridLayout() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.5),
+            heightDimension: .estimated(260)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(260))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item, item])
+        group.interItemSpacing = NSCollectionLayoutSpacing.fixed(9)
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 50
+        section.contentInsets = NSDirectionalEdgeInsets(top: 62, leading: 25, bottom: 0, trailing: 25)
+
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(64))
+        let headerSupplementary = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        section.boundarySupplementaryItems = [headerSupplementary]
+        section.supplementaryContentInsetsReference = .none
+
+        return section
     }
 }
 
