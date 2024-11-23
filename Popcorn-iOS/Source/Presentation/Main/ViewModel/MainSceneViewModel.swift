@@ -14,7 +14,7 @@ enum MainCategory {
     case closingSoon
 }
 
-struct PopUpPreviewData {
+struct PopupPreviewData {
     let popupImage: UIImage
     let popupTitle: String?
     let popupStartDate: String?
@@ -57,13 +57,13 @@ class MainSceneViewModel {
 
     private var userInterestPopup: [UserInterestPopup] = [] {
         didSet {
-            userInterestPopupPublihser?()
+            userInterestPopupPublisher?()
         }
     }
 
     private var closingSoonPopup: [PopupPreview] = [] {
         didSet {
-            userInterestPopupPublihser?()
+            userInterestPopupPublisher?()
         }
     }
 
@@ -76,7 +76,7 @@ class MainSceneViewModel {
     // MARK: - Output
     var todayRecommendedPopupPublisher: (() -> Void)?
     var userPickPopupPublisher: (() -> Void)?
-    var userInterestPopupPublihser: (() -> Void)?
+    var userInterestPopupPublisher: (() -> Void)?
     var closingSoonPopupPublisher: (() -> Void)?
     var currentPagePublisher: ((Int) -> Void)?
 
@@ -86,14 +86,14 @@ class MainSceneViewModel {
     private func preparePopupPreview(
         of category: MainCategory,
         popupData: PopupPreview
-    ) -> PopUpPreviewData? {
+    ) -> PopupPreviewData? {
         if let popupImage = UIImage(data: popupData.popupImage) {
             if category == .todayRecommended {
-                return PopUpPreviewData(popupImage: popupImage)
+                return PopupPreviewData(popupImage: popupImage)
             }
             else if category == .userInterest || category == .userPick {
                 let dDay = calculateDDay(from: popupData.popupDueDate)
-                return PopUpPreviewData(
+                return PopupPreviewData(
                     popupImage: popupImage,
                     popupTitle: popupData.popupTitle,
                     popupDDay: "D-\(dDay)"
@@ -102,7 +102,7 @@ class MainSceneViewModel {
             else if category == .closingSoon,
                     let popupStartDate = popupData.popupStartDate,
                     let popupLocation = popupData.popupLocation {
-                return PopUpPreviewData(
+                return PopupPreviewData(
                     popupImage: popupImage,
                     popupTitle: popupData.popupTitle,
                     popupStartDate: popupStartDate.toYYMMDDString(),
@@ -154,7 +154,7 @@ extension MainSceneViewModel {
         of category: MainCategory,
         at index: Int,
         sectionOfInterest: Int = 0
-    ) -> PopUpPreviewData? {
+    ) -> PopupPreviewData? {
         let popupData: PopupPreview
 
         switch category {
