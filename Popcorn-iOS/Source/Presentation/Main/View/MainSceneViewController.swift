@@ -86,7 +86,7 @@ extension MainSceneViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        let numberOfInterest = mainViewModel.numbersOfInterest()
+        let numbersOfInterest = mainViewModel.numbersOfInterest()
         switch indexPath.section {
         case 0:
             guard let cell = collectionView.dequeueReusableCell(
@@ -107,7 +107,7 @@ extension MainSceneViewController: UICollectionViewDataSource {
             }
             return cell
 
-        case (1..<(1 + numberOfInterest)):
+        case (1..<(1 + numbersOfInterest)):
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: PickOrInterestCell.reuseIdentifier,
                 for: indexPath
@@ -130,7 +130,7 @@ extension MainSceneViewController: UICollectionViewDataSource {
             }
             return cell
 
-        case (1 + numberOfInterest):
+        case (1 + numbersOfInterest):
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: ClosingSoonPopupCell.reuseIdentifier,
                 for: indexPath
