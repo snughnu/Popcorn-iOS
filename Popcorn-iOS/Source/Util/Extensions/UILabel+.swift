@@ -31,7 +31,7 @@ extension UILabel {
     func popcornMedium(text: String, size: CGFloat) {
         self.attributedText = UILabel.applyCustomFont(text: text, fontName: RobotoFontName.robotoMedium, fontSize: size)
     }
-    
+
     /// UILabel의 RobotoFlex-SemiBold Font를 적용시키는 함수.
     /// - Parameters:
     ///   - text: 폰트를 적용할 텍스트
