@@ -11,7 +11,6 @@ class SignUpFirstView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont(name: "Roboto-SemiBold", size: 21)
         label.textAlignment = .center
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.08
@@ -19,7 +18,8 @@ class SignUpFirstView: UIView {
             string: "회원가입",
             attributes: [
                 NSAttributedString.Key.kern: -0.21,
-                NSAttributedString.Key.paragraphStyle: paragraphStyle
+                NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                NSAttributedString.Key.font: UILabel.popcornMediumFont(size: 21)
             ]
         )
         return label
@@ -54,19 +54,22 @@ class SignUpFirstView: UIView {
     let requestAuthButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = #colorLiteral(red: 0.996, green: 0.486, blue: 0.055, alpha: 1)
+        config.baseBackgroundColor = UIColor(resource: .popcornOrange)
         config.background.cornerRadius = 10
         config.background.strokeWidth = 1
         config.background.strokeColor = #colorLiteral(red: 0.855, green: 0.855, blue: 0.855, alpha: 1)
-        config.attributedTitle = AttributedString("인증요청", attributes: AttributeContainer([
-            .font: UIFont(name: "Urbanist-SemiBold", size: 13)!,
-            .foregroundColor: UIColor.white,
-            .paragraphStyle: {
-                let paragraphStyle = NSMutableParagraphStyle()
-                paragraphStyle.lineHeightMultiple = 1.04
-                return paragraphStyle
-            }()
-        ]))
+        config.attributedTitle = AttributedString(
+            "인증요청",
+            attributes: AttributeContainer([
+                .font: UIFont(name: RobotoFontName.robotoSemiBold, size: 13)!,
+                .foregroundColor: UIColor.white,
+                .paragraphStyle: {
+                    let paragraphStyle = NSMutableParagraphStyle()
+                    paragraphStyle.lineHeightMultiple = 1.04
+                    return paragraphStyle
+                }()
+            ])
+        )
         button.configuration = config
         return button
     }()
@@ -132,12 +135,15 @@ class SignUpFirstView: UIView {
     var nextButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = #colorLiteral(red: 0.996, green: 0.486, blue: 0.055, alpha: 1)
+        config.baseBackgroundColor = UIColor(resource: .popcornOrange)
         config.background.cornerRadius = 10
-        config.attributedTitle = AttributedString("다음", attributes: AttributeContainer([
-            .font: UIFont(name: "Urbanist-SemiBold", size: 15)!,
-            .foregroundColor: UIColor.white
-        ]))
+        config.attributedTitle = AttributedString(
+            "다음",
+            attributes: AttributeContainer([
+                .font: UIFont(name: RobotoFontName.robotoSemiBold, size: 15)!,
+                .foregroundColor: UIColor.white
+            ])
+        )
         button.configuration = config
         return button
     }()
