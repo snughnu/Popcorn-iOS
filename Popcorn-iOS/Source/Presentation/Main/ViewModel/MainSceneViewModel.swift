@@ -18,7 +18,7 @@ struct PopupPreviewData {
     let popupImage: UIImage
     let popupTitle: String?
     let popupStartDate: String?
-    let popupDueDate: String?
+    let popupEndDate: String?
     let popupLocation: String?
     let popupDDay: String?
     let isPick: Bool?
@@ -27,7 +27,7 @@ struct PopupPreviewData {
         popupImage: UIImage,
         popupTitle: String? = nil,
         popupStartDate: String? = nil,
-        popupDueDate: String? = nil,
+        popupEndDate: String? = nil,
         popupLocation: String? = nil,
         popupDDay: String? = nil,
         isPick: Bool? = nil
@@ -35,7 +35,7 @@ struct PopupPreviewData {
         self.popupImage = popupImage
         self.popupTitle = popupTitle
         self.popupStartDate = popupStartDate
-        self.popupDueDate = popupDueDate
+        self.popupEndDate = popupEndDate
         self.popupLocation = popupLocation
         self.popupDDay = popupDDay
         self.isPick = isPick
@@ -92,7 +92,7 @@ class MainSceneViewModel {
                 return PopupPreviewData(popupImage: popupImage)
             }
             else if category == .userInterest || category == .userPick {
-                let dDay = calculateDDay(from: popupData.popupDueDate)
+                let dDay = calculateDDay(from: popupData.popupEndDate)
                 return PopupPreviewData(
                     popupImage: popupImage,
                     popupTitle: popupData.popupTitle,
@@ -106,7 +106,7 @@ class MainSceneViewModel {
                     popupImage: popupImage,
                     popupTitle: popupData.popupTitle,
                     popupStartDate: popupStartDate.toYYMMDDString(),
-                    popupDueDate: popupData.popupDueDate.toYYMMDDString(),
+                    popupEndDate: popupData.popupEndDate.toYYMMDDString(),
                     popupLocation: popupLocation
                 )
             }
@@ -191,17 +191,38 @@ extension MainSceneViewModel {
 
         if let image = UIImage(named: "MainImage"),
            let imageData = image.jpegData(compressionQuality: 1.0) {
-            let popupPreview = PopupPreview(popupImage: imageData, popupTitle: "찜", popupDueDate: tomorrow)
-            let interestPreview = PopupPreview(popupImage: imageData, popupTitle: "아트아트아트아트아트아트아트아트아트아트아트", popupDueDate: tomorrow)
-            let interestPreview2 = PopupPreview(popupImage: imageData, popupTitle: "뷰티", popupDueDate: tomorrow)
-            let interestPreview3 = PopupPreview(popupImage: imageData, popupTitle: "셀럽", popupDueDate: tomorrow)
-            let artPreview = UserInterestPopup(interestCategory: .art, popups: [interestPreview, interestPreview, interestPreview])
-            let beautyPreview = UserInterestPopup(interestCategory: .beauty, popups: [interestPreview2, interestPreview2, interestPreview2])
-            let celebPreview = UserInterestPopup(interestCategory: .celebrity, popups: [interestPreview3, interestPreview3, interestPreview3])
+            let popupPreview = PopupPreview(popupImage: imageData, popupTitle: "찜", popupEndDate: tomorrow)
+            let interestPreview = PopupPreview(
+                popupImage: imageData,
+                popupTitle: "아트아트아트아트아트아트아트아트아트아트아트",
+                popupEndDate: tomorrow
+            )
+            let interestPreview2 = PopupPreview(
+                popupImage: imageData,
+                popupTitle: "뷰티",
+                popupEndDate: tomorrow
+            )
+            let interestPreview3 = PopupPreview(
+                popupImage: imageData,
+                popupTitle: "셀럽",
+                popupEndDate: tomorrow
+            )
+            let artPreview = UserInterestPopup(
+                interestCategory: .art,
+                popups: [interestPreview, interestPreview, interestPreview]
+            )
+            let beautyPreview = UserInterestPopup(
+                interestCategory: .beauty,
+                popups: [interestPreview2, interestPreview2, interestPreview2]
+            )
+            let celebPreview = UserInterestPopup(
+                interestCategory: .celebrity,
+                popups: [interestPreview3, interestPreview3, interestPreview3]
+            )
             let closingSoonPreview = PopupPreview(
                 popupImage: imageData,
                 popupTitle: "흰둥이흰둥이흰둥이흰둥이흰둥이",
-                popupDueDate: Date(),
+                popupEndDate: Date(),
                 popupStartDate: tomorrow,
                 popupLocation: "부산광역시 남구 용소로 1번길"
             )
@@ -209,7 +230,7 @@ extension MainSceneViewModel {
             let closingSoonPreview2 = PopupPreview(
                 popupImage: imageData,
                 popupTitle: "흰둥이",
-                popupDueDate: Date(),
+                popupEndDate: Date(),
                 popupStartDate: tomorrow,
                 popupLocation: "부산광역시 남구 용소로 1번길"
             )
