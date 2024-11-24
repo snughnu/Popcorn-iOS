@@ -35,7 +35,7 @@ final class SignUpLabel: UILabel {
 extension SignUpLabel {
     private func configureLabel() {
         font = UILabel.popcornMediumFont(size: 15)
-        textColor = UIColor(resource: PopcornDarkBlueGray)
+        textColor = UIColor(resource: .popcornDarkBlueGray)
         textAlignment = .left
     }
 }

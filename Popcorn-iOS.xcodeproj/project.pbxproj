@@ -37,10 +37,10 @@
 		BC9BF2012CECC52000AEE534 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9BF2002CECC52000AEE534 /* LoginViewController.swift */; };
 		BCC45D1A2CEB9A980045DC57 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC45D192CEB9A980045DC57 /* LoginTextField.swift */; };
 		BCE6E5F82CF31F1A0036BAF6 /* SignUpTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E5F72CF31F1A0036BAF6 /* SignUpTextField.swift */; };
-		BCE6E5FA2CF320100036BAF6 /* SignUpLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E5F92CF320100036BAF6 /* SignUpLabel.swift */; };
 		BCE6E5FC2CF321080036BAF6 /* SignUpFieldStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E5FB2CF321080036BAF6 /* SignUpFieldStackView.swift */; };
 		BCE6E6002CF321AE0036BAF6 /* SignUpFirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E5FF2CF321AE0036BAF6 /* SignUpFirstView.swift */; };
 		BCE6E6032CF323570036BAF6 /* SignUpFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E6022CF323570036BAF6 /* SignUpFirstViewController.swift */; };
+		BCE6E60A2CF378DF0036BAF6 /* SignUpLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E5F92CF320100036BAF6 /* SignUpLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -563,6 +563,7 @@
 				560159422CF32F5900872662 /* UIButton+.swift in Sources */,
 				56C5DDBC2CE875990090D3A2 /* MainCellPagingCollectionViewCell.swift in Sources */,
 				5601592E2CF3175E00872662 /* RobotoFontName.swift in Sources */,
+				BCE6E60A2CF378DF0036BAF6 /* SignUpLabel.swift in Sources */,
 				56C5DDBF2CE87C0E0090D3A2 /* Reusable.swift in Sources */,
 				56CD3A722CEB83CF00BAC02D /* MainSceneViewModel.swift in Sources */,
 				BC7420FC2CE23B9600BEED0A /* Request.swift in Sources */,
