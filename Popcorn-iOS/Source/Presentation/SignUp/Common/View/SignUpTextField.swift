@@ -39,7 +39,7 @@ final class SignUpTextField: UITextField {
     }
 }
 
-// MARK: - configure TextField
+// MARK: - Configure TextField
 extension SignUpTextField {
     private func configureTextField() {
         backgroundColor = #colorLiteral(red: 0.969, green: 0.973, blue: 0.976, alpha: 1)
