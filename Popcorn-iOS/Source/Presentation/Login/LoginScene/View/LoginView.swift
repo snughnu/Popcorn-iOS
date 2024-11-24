@@ -10,7 +10,7 @@ import UIKit
 final class LoginView: UIView {
     private var popcornImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "login_popcorn")
+        imageView.image = UIImage(resource: .logo)
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView
@@ -31,7 +31,7 @@ final class LoginView: UIView {
         let button = UIButton()
         button.setTitle("로그인", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = #colorLiteral(red: 0.851, green: 0.851, blue: 0.851, alpha: 1.0)
+        button.backgroundColor = UIColor(resource: .popcornGray4)
         button.layer.cornerRadius = 10
         button.contentVerticalAlignment = .center
         button.isEnabled = false
@@ -52,9 +52,8 @@ final class LoginView: UIView {
 
     let findButton: UIButton = {
         let button = UIButton()
-        button.setTitle("아이디 / 비밀번호 찾기", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14)
+        button.applyPopcornFont(text: "아이디 / 비밀번호 찾기", fontName: RobotoFontName.robotoMedium, fontSize: 15)
         button.backgroundColor = .clear
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.numberOfLines = 1
@@ -71,9 +70,8 @@ final class LoginView: UIView {
 
     let signUpButton: UIButton = {
         let button = UIButton()
-        button.setTitle("회원가입", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14)
+        button.applyPopcornFont(text: "회원가입", fontName: RobotoFontName.robotoMedium, fontSize: 15)
         button.backgroundColor = .clear
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.numberOfLines = 1
@@ -102,10 +100,9 @@ final class LoginView: UIView {
 
     private let socialLoginLabel: UILabel = {
         let label = UILabel()
-        label.text = "SNS 계정으로 로그인"
         label.textAlignment = .center
         label.textColor = .lightGray
-        label.font = .systemFont(ofSize: 12)
+        label.popcornMedium(text: "SNS 계정으로 로그인", size: 12)
         return label
     }()
 

@@ -7,6 +7,13 @@
 
 import UIKit
 
+// MARK: - UIFont를 반환하는 메서드 추가
+extension UILabel {
+    static func popcornMediumFont(size: CGFloat) -> UIFont {
+        return UIFont(name: RobotoFontName.robotoMedium, size: size) ?? UIFont.systemFont(ofSize: size)
+    }
+}
+
 final class LoginTextField: UITextField {
     private let insets: UIEdgeInsets = .init(top: 17, left: 20, bottom: 15, right: 20)
 
@@ -14,7 +21,10 @@ final class LoginTextField: UITextField {
         super.init(frame: .zero)
         self.attributedPlaceholder = NSAttributedString(
             string: placeholder,
-            attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)]
+            attributes: [
+                .foregroundColor: UIColor(resource: .popcornDarkBlueGray),
+                .font: UILabel.popcornMediumFont(size: 15)
+            ]
         )
         self.keyboardType = keyboardType
         self.isSecureTextEntry = isSecureTextEntry
@@ -37,17 +47,17 @@ final class LoginTextField: UITextField {
 // MARK: - configure TextField
 extension LoginTextField {
     private func configureTextField() {
-        backgroundColor = #colorLiteral(red: 0.969, green: 0.973, blue: 0.976, alpha: 1)
-        textColor = #colorLiteral(red: 0.514, green: 0.568, blue: 0.631, alpha: 1)
+        backgroundColor = UIColor(resource: .popcornGray4)
+        textColor = UIColor(resource: .popcornDarkBlueGray)
         autocapitalizationType = .none
         autocorrectionType = .no
         spellCheckingType = .no
         clearsOnBeginEditing = false
-        font = UIFont(name: "Roboto-Medium", size: 15)
+        font = UILabel.popcornMediumFont(size: 15)
         textAlignment = .left
         clipsToBounds = true
         layer.cornerRadius = 10
-        layer.borderColor = #colorLiteral(red: 0.855, green: 0.855, blue: 0.855, alpha: 1)
+        layer.borderColor = UIColor(resource: .popcornGray2).cgColor
         layer.borderWidth = 1
     }
 }
