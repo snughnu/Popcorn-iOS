@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "로고.png",
+      "filename" : "TabBarMyPageSelected@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "로고 (1).png",
+      "filename" : "TabBarMyPageSelected@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "로고 (2).png",
+      "filename" : "TabBarMyPageSelected@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
