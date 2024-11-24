@@ -160,12 +160,12 @@ extension MainSceneViewController: UICollectionViewDataSource {
             if let popupData = mainViewModel.providePopupPreviewData(of: .closingSoon, at: indexPath.row),
                let popupTitle = popupData.popupTitle,
                let popupStartDate = popupData.popupStartDate,
-               let popupDueDate = popupData.popupDueDate,
+               let popupEndDate = popupData.popupEndDate,
                let popupLocation = popupData.popupLocation {
                 cell.configureContents(
                     popupImage: popupData.popupImage,
                     popupTitle: popupTitle,
-                    period: "\(popupStartDate)~\(popupDueDate)",
+                    period: "\(popupStartDate)~\(popupEndDate)",
                     location: popupLocation
                 )
             }
