@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5601592C2CF3172B00872662 /* RobotoFlex-VariableFont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5601592B2CF3172B00872662 /* RobotoFlex-VariableFont.ttf */; };
+		5601592E2CF3175E00872662 /* RobotoFontName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601592D2CF3175C00872662 /* RobotoFontName.swift */; };
+		560159302CF319A700872662 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601592F2CF319A300872662 /* UILabel+.swift */; };
 		56018C9B2CEC9AE000AC8ED5 /* MainCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56018C9A2CEC9ACF00AC8ED5 /* MainCollectionHeaderView.swift */; };
 		56018CA22CECB1C400AC8ED5 /* MainSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56018CA12CECB1C400AC8ED5 /* MainSceneViewController.swift */; };
 		56018CA42CECC41000AC8ED5 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56018CA32CECC3FA00AC8ED5 /* Date+.swift */; };
@@ -45,6 +48,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5601592B2CF3172B00872662 /* RobotoFlex-VariableFont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoFlex-VariableFont.ttf"; sourceTree = "<group>"; };
+		5601592D2CF3175C00872662 /* RobotoFontName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotoFontName.swift; sourceTree = "<group>"; };
+		5601592F2CF319A300872662 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		56018C9A2CEC9ACF00AC8ED5 /* MainCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionHeaderView.swift; sourceTree = "<group>"; };
 		56018CA12CECB1C400AC8ED5 /* MainSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneViewController.swift; sourceTree = "<group>"; };
 		56018CA32CECC3FA00AC8ED5 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
@@ -101,6 +107,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5601592A2CF3170A00872662 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				5601592B2CF3172B00872662 /* RobotoFlex-VariableFont.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		56537B6A2CE0F5100092A292 = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +158,7 @@
 		56537BB92CE0F5320092A292 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				5601592A2CF3170A00872662 /* Fonts */,
 				56537BA92CE0F5290092A292 /* Info.plist */,
 				56537BAB2CE0F5290092A292 /* LaunchScreen.storyboard */,
 				56537BA82CE0F5290092A292 /* Assets.xcassets */,
@@ -183,6 +198,7 @@
 		56C5DDBD2CE87BA80090D3A2 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				5601592D2CF3175C00872662 /* RobotoFontName.swift */,
 				56CD3A7E2CEC606600BAC02D /* Extensions */,
 				56C5DDBE2CE87BE80090D3A2 /* Reusable.swift */,
 			);
@@ -250,6 +266,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		56CD3A7E2CEC606600BAC02D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5601592F2CF319A300872662 /* UILabel+.swift */,
+				56018CA32CECC3FA00AC8ED5 /* Date+.swift */,
+				56CD3A7C2CEC314E00BAC02D /* UIView+.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		BC2D115E2CEC5DCA0030F4E0 /* LoginScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,15 +291,6 @@
 				BC2D11612CEC5DF60030F4E0 /* LoginView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		56CD3A7E2CEC606600BAC02D /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				56018CA32CECC3FA00AC8ED5 /* Date+.swift */,
-				56CD3A7C2CEC314E00BAC02D /* UIView+.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		BC2D11602CEC5DE30030F4E0 /* Controller */ = {
@@ -422,6 +439,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				56AA6C0C2CE373A7001952C2 /* .swiftlint.yml in Resources */,
+				5601592C2CF3172B00872662 /* RobotoFlex-VariableFont.ttf in Resources */,
 				56537BB12CE0F5290092A292 /* Assets.xcassets in Resources */,
 				56537BB32CE0F5290092A292 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -473,6 +491,7 @@
 				56018CA22CECB1C400AC8ED5 /* MainSceneViewController.swift in Sources */,
 				56C5DDD92CE9C2780090D3A2 /* UserInterestPopup.swift in Sources */,
 				56C5DDBC2CE875990090D3A2 /* MainCellPagingCollectionViewCell.swift in Sources */,
+				5601592E2CF3175E00872662 /* RobotoFontName.swift in Sources */,
 				56C5DDBF2CE87C0E0090D3A2 /* Reusable.swift in Sources */,
 				56CD3A722CEB83CF00BAC02D /* MainSceneViewModel.swift in Sources */,
 				BC7420FC2CE23B9600BEED0A /* Request.swift in Sources */,
@@ -480,6 +499,7 @@
 				56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */,
 				56018C9B2CEC9AE000AC8ED5 /* MainCollectionHeaderView.swift in Sources */,
 				56CD3A7D2CEC31B000BAC02D /* UIView+.swift in Sources */,
+				560159302CF319A700872662 /* UILabel+.swift in Sources */,
 				5649A5902CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift in Sources */,
 				BCC45D1A2CEB9A980045DC57 /* LoginTextField.swift in Sources */,
 				BC2D11622CEC5DF60030F4E0 /* LoginView.swift in Sources */,
