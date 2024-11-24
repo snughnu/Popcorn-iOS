@@ -10,6 +10,7 @@
 		5601592C2CF3172B00872662 /* RobotoFlex-VariableFont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5601592B2CF3172B00872662 /* RobotoFlex-VariableFont.ttf */; };
 		5601592E2CF3175E00872662 /* RobotoFontName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601592D2CF3175C00872662 /* RobotoFontName.swift */; };
 		560159302CF319A700872662 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601592F2CF319A300872662 /* UILabel+.swift */; };
+		560159422CF32F5900872662 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560159412CF32F5300872662 /* UIButton+.swift */; };
 		56018C9B2CEC9AE000AC8ED5 /* MainCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56018C9A2CEC9ACF00AC8ED5 /* MainCollectionHeaderView.swift */; };
 		56018CA22CECB1C400AC8ED5 /* MainSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56018CA12CECB1C400AC8ED5 /* MainSceneViewController.swift */; };
 		56018CA42CECC41000AC8ED5 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56018CA32CECC3FA00AC8ED5 /* Date+.swift */; };
@@ -51,6 +52,7 @@
 		5601592B2CF3172B00872662 /* RobotoFlex-VariableFont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoFlex-VariableFont.ttf"; sourceTree = "<group>"; };
 		5601592D2CF3175C00872662 /* RobotoFontName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotoFontName.swift; sourceTree = "<group>"; };
 		5601592F2CF319A300872662 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
+		560159412CF32F5300872662 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		56018C9A2CEC9ACF00AC8ED5 /* MainCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionHeaderView.swift; sourceTree = "<group>"; };
 		56018CA12CECB1C400AC8ED5 /* MainSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneViewController.swift; sourceTree = "<group>"; };
 		56018CA32CECC3FA00AC8ED5 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 		56CD3A7E2CEC606600BAC02D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				560159412CF32F5300872662 /* UIButton+.swift */,
 				5601592F2CF319A300872662 /* UILabel+.swift */,
 				56018CA32CECC3FA00AC8ED5 /* Date+.swift */,
 				56CD3A7C2CEC314E00BAC02D /* UIView+.swift */,
@@ -490,6 +493,7 @@
 				56C5DDD52CE9C1E40090D3A2 /* PopupPreview.swift in Sources */,
 				56018CA22CECB1C400AC8ED5 /* MainSceneViewController.swift in Sources */,
 				56C5DDD92CE9C2780090D3A2 /* UserInterestPopup.swift in Sources */,
+				560159422CF32F5900872662 /* UIButton+.swift in Sources */,
 				56C5DDBC2CE875990090D3A2 /* MainCellPagingCollectionViewCell.swift in Sources */,
 				5601592E2CF3175E00872662 /* RobotoFontName.swift in Sources */,
 				56C5DDBF2CE87C0E0090D3A2 /* Reusable.swift in Sources */,
