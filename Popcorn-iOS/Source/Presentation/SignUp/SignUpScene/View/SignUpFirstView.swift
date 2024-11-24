@@ -98,7 +98,7 @@ class SignUpFirstView: UIView {
         stackView.distribution = .fillProportionally
         return stackView
     }()
-    
+
     let authNumberTextField = SignUpTextField(
         keyboardType: .numberPad,
         placeholder: "인증번호를 입력하세요"
@@ -168,7 +168,7 @@ extension SignUpFirstView {
         [
             titleLabel,
             signUpstackView,
-            nextButton,
+            nextButton
         ].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false

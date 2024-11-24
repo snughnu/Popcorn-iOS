@@ -36,6 +36,7 @@
 		BCE6E5FA2CF320100036BAF6 /* SignUpLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E5F92CF320100036BAF6 /* SignUpLabel.swift */; };
 		BCE6E5FC2CF321080036BAF6 /* SignUpFieldStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E5FB2CF321080036BAF6 /* SignUpFieldStackView.swift */; };
 		BCE6E6002CF321AE0036BAF6 /* SignUpFirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E5FF2CF321AE0036BAF6 /* SignUpFirstView.swift */; };
+		BCE6E6032CF323570036BAF6 /* SignUpFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E6022CF323570036BAF6 /* SignUpFirstViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		BCE6E5F92CF320100036BAF6 /* SignUpLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpLabel.swift; sourceTree = "<group>"; };
 		BCE6E5FB2CF321080036BAF6 /* SignUpFieldStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFieldStackView.swift; sourceTree = "<group>"; };
 		BCE6E5FF2CF321AE0036BAF6 /* SignUpFirstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFirstView.swift; sourceTree = "<group>"; };
+		BCE6E6022CF323570036BAF6 /* SignUpFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFirstViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -367,6 +369,7 @@
 		BCE6E5FD2CF321860036BAF6 /* SignUpScene */ = {
 			isa = PBXGroup;
 			children = (
+				BCE6E6012CF323490036BAF6 /* Controller */,
 				BCE6E5FE2CF3219A0036BAF6 /* View */,
 			);
 			path = SignUpScene;
@@ -378,6 +381,14 @@
 				BCE6E5FF2CF321AE0036BAF6 /* SignUpFirstView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		BCE6E6012CF323490036BAF6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BCE6E6022CF323570036BAF6 /* SignUpFirstViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -522,6 +533,7 @@
 				BC7420FA2CE23A9500BEED0A /* Requestable.swift in Sources */,
 				56C5DDBA2CE79AC90090D3A2 /* MainCellPagingImageView.swift in Sources */,
 				BC7420FE2CE23FD700BEED0A /* NetworkError.swift in Sources */,
+				BCE6E6032CF323570036BAF6 /* SignUpFirstViewController.swift in Sources */,
 				BCE6E5FC2CF321080036BAF6 /* SignUpFieldStackView.swift in Sources */,
 				56C5DDD52CE9C1E40090D3A2 /* PopupPreview.swift in Sources */,
 				56018CA22CECB1C400AC8ED5 /* MainSceneViewController.swift in Sources */,
