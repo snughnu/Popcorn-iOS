@@ -18,7 +18,10 @@ final class SignUpTextField: UITextField {
         super.init(frame: .zero)
         self.attributedPlaceholder = NSAttributedString(
             string: placeholder,
-            attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)]
+            attributes: [
+                .foregroundColor: UIColor(resource: .popcornDarkBlueGray),
+                .font: UILabel.popcornMediumFont(size: 15)
+            ]
         )
         self.keyboardType = keyboardType
         self.isSecureTextEntry = isSecureTextEntry
@@ -42,13 +45,13 @@ final class SignUpTextField: UITextField {
 // MARK: - Configure TextField
 extension SignUpTextField {
     private func configureTextField() {
-        backgroundColor = #colorLiteral(red: 0.969, green: 0.973, blue: 0.976, alpha: 1)
-        textColor = #colorLiteral(red: 0.514, green: 0.568, blue: 0.631, alpha: 1)
+        backgroundColor = UIColor(resource: .popcornGray4)
+        textColor = UIColor(resource: .popcornDarkBlueGray)
         autocapitalizationType = .none
         autocorrectionType = .no
         spellCheckingType = .no
         clearsOnBeginEditing = false
-        font = UIFont(name: "Roboto-Medium", size: 15)
+        font = UILabel.popcornMediumFont(size: 15)
         textAlignment = .left
         clipsToBounds = true
         layer.cornerRadius = 10

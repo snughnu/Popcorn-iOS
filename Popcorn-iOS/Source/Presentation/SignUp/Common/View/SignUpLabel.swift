@@ -34,8 +34,8 @@ final class SignUpLabel: UILabel {
 // MARK: - Configure Label
 extension SignUpLabel {
     private func configureLabel() {
-        font = UIFont(name: "Roboto-Medium", size: 15)
-        textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        font = UILabel.popcornMediumFont(size: 15)
+        textColor = UIColor(resource: PopcornDarkBlueGray)
         textAlignment = .left
     }
 }
