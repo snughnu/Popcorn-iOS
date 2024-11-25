@@ -8,29 +8,29 @@
 import UIKit
 
 final class SignUpFieldStackView: UIStackView {
-    private let textField: SignUpTextField
-    private let label: SignUpLabel
+    private let signUpTextField: SignUpTextField
+    private let signUpLabel: SignUpLabel
 
     init(
         labelText: String,
         keyboardType: UIKeyboardType = .default,
         isSecureTextEntry: Bool = false
     ) {
-        label = SignUpLabel(text: labelText)
-        textField = SignUpTextField(keyboardType: keyboardType, isSecureTextEntry: isSecureTextEntry)
+        signUpLabel = SignUpLabel(text: labelText)
+        signUpTextField = SignUpTextField(keyboardType: keyboardType, isSecureTextEntry: isSecureTextEntry)
         super.init(frame: .zero)
         axis = .vertical
         spacing = 5
-        addArrangedSubview(label)
-        addArrangedSubview(textField)
+        addArrangedSubview(signUpLabel)
+        addArrangedSubview(signUpTextField)
 
-        label.translatesAutoresizingMaskIntoConstraints = false
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        signUpLabel.translatesAutoresizingMaskIntoConstraints = false
+        signUpTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            signUpLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
 
-            textField.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            textField.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            signUpTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            signUpTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         ])
     }
 
@@ -39,6 +39,6 @@ final class SignUpFieldStackView: UIStackView {
     }
 
     var textFieldReference: SignUpTextField {
-        return textField
+        return signUpTextField
     }
 }
