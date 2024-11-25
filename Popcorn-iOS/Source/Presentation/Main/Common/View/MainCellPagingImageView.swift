@@ -26,7 +26,7 @@ final class MainCellPagingImageView: UIView {
     private let imagePageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.hidesForSinglePage = true
-        pageControl.currentPageIndicatorTintColor = UIColor(red: 0.996, green: 0.486, blue: 0.055, alpha: 1)
+        pageControl.currentPageIndicatorTintColor = UIColor(resource: .popcornOrange)
         pageControl.pageIndicatorTintColor = .white
 
         return pageControl

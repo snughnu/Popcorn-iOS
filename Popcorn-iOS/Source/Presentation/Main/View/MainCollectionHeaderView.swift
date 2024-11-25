@@ -10,24 +10,19 @@ import UIKit
 class MainCollectionHeaderView: UICollectionReusableView {
     private let headerLabel: UILabel = {
         let label = UILabel()
-        label.text = "제목"
-        // MARK: - ToDo 폰트 변경
-        label.font = .systemFont(ofSize: 21, weight: .semibold)
+        label.popcornSemiBold(text: "제목", size: 21)
         return label
     }()
 
     private let showAllButton: UIButton = {
-        var container = AttributeContainer()
-        // MARK: - ToDo 폰트 변경, 이미지 변경
-        container.font = .systemFont(ofSize: 15, weight: .medium)
         var config = UIButton.Configuration.plain()
-        config.attributedTitle = AttributedString("전체 보기", attributes: container)
-        config.baseForegroundColor = UIColor(red: 0.514, green: 0.568, blue: 0.631, alpha: 1)
-        config.image = UIImage(systemName: "arrowtriangle.right")
+        config.baseForegroundColor = UIColor(resource: .popcornDarkBlueGray)
+        config.image = UIImage(resource: .mainRightArrow)
         config.imagePlacement = .trailing
         config.imagePadding = 10
 
         let button = UIButton(configuration: config)
+        button.popcornMedium(text: "전체 보기", size: 15)
         return button
     }()
 
@@ -61,7 +56,7 @@ extension MainCollectionHeaderView {
 // MARK: - Configure UI
 extension MainCollectionHeaderView {
     private func configureUI() {
-        bottomBorder.backgroundColor = UIColor(red: 0.851, green: 0.851, blue: 0.851, alpha: 1).cgColor
+        bottomBorder.backgroundColor = UIColor(resource: .popcornGray2).cgColor
         bottomBorder.frame = CGRect(x: 0, y: bounds.height - 1, width: bounds.width, height: 1)
 
         layer.addSublayer(bottomBorder)
