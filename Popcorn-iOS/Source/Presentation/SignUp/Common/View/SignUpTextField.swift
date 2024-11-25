@@ -1,26 +1,31 @@
 //
-//  LoginTextField.swift
+//  SignUpTextField.swift
 //  Popcorn-iOS
 //
-//  Created by 김성훈 on 11/19/24.
+//  Created by 김성훈 on 11/24/24.
 //
 
 import UIKit
 
-final class LoginTextField: UITextField {
+final class SignUpTextField: UITextField {
     private let insets: UIEdgeInsets = .init(top: 17, left: 20, bottom: 15, right: 20)
 
-    init(placeholder: String, keyboardType: UIKeyboardType, isSecureTextEntry: Bool = false) {
+    init(
+        keyboardType: UIKeyboardType, isSecureTextEntry: Bool = false,
+        placeholder: String = "",
+        textAlignment: NSTextAlignment = .left
+    ) {
         super.init(frame: .zero)
         self.attributedPlaceholder = NSAttributedString(
             string: placeholder,
             attributes: [
                 .foregroundColor: UIColor(resource: .popcornDarkBlueGray),
-                .font: UIFont(name: RobotoFontName.robotoMedium, size: 15) as Any
+                .font: UIFont(name: RobotoFontName.robotoMedium, size: 15)!
             ]
         )
         self.keyboardType = keyboardType
         self.isSecureTextEntry = isSecureTextEntry
+        self.textAlignment = textAlignment
         configureTextField()
     }
 
@@ -37,8 +42,8 @@ final class LoginTextField: UITextField {
     }
 }
 
-// MARK: - configure TextField
-extension LoginTextField {
+// MARK: - Configure TextField
+extension SignUpTextField {
     private func configureTextField() {
         backgroundColor = UIColor(resource: .popcornGray4)
         textColor = UIColor(resource: .popcornDarkBlueGray)
@@ -50,7 +55,7 @@ extension LoginTextField {
         textAlignment = .left
         clipsToBounds = true
         layer.cornerRadius = 10
-        layer.borderColor = UIColor(resource: .popcornGray2).cgColor
+        layer.borderColor = #colorLiteral(red: 0.855, green: 0.855, blue: 0.855, alpha: 1)
         layer.borderWidth = 1
     }
 }
