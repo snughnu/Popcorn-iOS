@@ -10,7 +10,7 @@ import UIKit
 final class ClosingSoonPopupCell: UICollectionViewCell {
     private let popupImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "MainImage")
+        imageView.image = UIImage(resource: .popupPreviewPlaceHolder)
         imageView.contentMode = .scaleAspectFill
         imageView.cornerRadius(radius: 10)
         return imageView
@@ -18,36 +18,30 @@ final class ClosingSoonPopupCell: UICollectionViewCell {
 
     private let popupTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "팝업 스토어 제목"
-        label.textColor = .black
-        // MARK: - ToDo 폰트 교체
-        label.font = .systemFont(ofSize: 14, weight: .semibold)
+        label.popcornSemiBold(text: "팝업 스토어 제목", size: 14)
+        label.textColor = UIColor.black
         label.numberOfLines = 0
         return label
     }()
 
     private let popupPeriodLabel: UILabel = {
         let label = UILabel()
-        label.text = "yy.mm.dd~yy.mm.dd"
-        label.textColor = .black
-        // MARK: - ToDo 폰트 교체
-        label.font = .systemFont(ofSize: 11, weight: .medium)
+        label.popcornMedium(text: "yy.mm.dd~yy.mm.dd", size: 10)
+        label.textColor = UIColor.black
         label.numberOfLines = 1
         return label
     }()
 
     private let locationImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "location")
+        imageView.image = UIImage(resource: .location)
         return imageView
     }()
 
     private let popupLocationLabel: UILabel = {
         let label = UILabel()
-        label.text = "OO광역시 OO구 OO로OO"
+        label.popcornMedium(text: "OO광역시 OO구 OO로OO", size: 10)
         label.textColor = .black
-        // MARK: - ToDo 폰트 교체
-        label.font = .systemFont(ofSize: 10, weight: .medium)
         label.numberOfLines = 2
         return label
     }()
