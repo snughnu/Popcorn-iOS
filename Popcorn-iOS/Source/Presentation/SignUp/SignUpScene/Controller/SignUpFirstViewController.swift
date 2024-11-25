@@ -151,21 +151,6 @@ extension SignUpFirstViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: - 현재 응답받는 UI
-extension UIResponder {
-    private struct Static {
-        static weak var responder: UIResponder?
-    }
-    static var currentResponder: UIResponder? {
-        Static.responder = nil
-        UIApplication.shared.sendAction(#selector(UIResponder._trap), to: nil, from: nil, for: nil)
-        return Static.responder
-    }
-    @objc private func _trap() {
-        Static.responder = self
-    }
-}
-
 // MARK: - Setup Keyboard
 extension SignUpFirstViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
