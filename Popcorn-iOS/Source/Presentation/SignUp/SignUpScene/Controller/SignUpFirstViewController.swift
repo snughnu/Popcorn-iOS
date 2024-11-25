@@ -43,6 +43,8 @@ extension SignUpFirstViewController {
         customNavBar.addSubview(backButton)
 
         let titleLabel = UILabel()
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.11
         titleLabel.text = "회원가입"
         titleLabel.font = UIFont(name: RobotoFontName.robotoSemiBold, size: 21)
         titleLabel.textColor = .black
