@@ -65,12 +65,6 @@ class SignUpFirstView: UIView {
         stackView.axis = .horizontal
         stackView.spacing = 9.7
         stackView.distribution = .fill
-
-        emailTextField.translatesAutoresizingMaskIntoConstraints = false
-        requestAuthButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            emailTextField.widthAnchor.constraint(equalTo: requestAuthButton.widthAnchor, multiplier: 230 / 90)
-        ])
         return stackView
     }()
 
@@ -82,15 +76,6 @@ class SignUpFirstView: UIView {
         stackView.axis = .vertical
         stackView.spacing = 5
         stackView.distribution = .fillProportionally
-
-        emailLabel.translatesAutoresizingMaskIntoConstraints = false
-        emailTextFieldRequestAuthButtonStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            emailLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20),
-
-            emailTextFieldRequestAuthButtonStackView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-            emailTextFieldRequestAuthButtonStackView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor)
-        ])
         return stackView
     }()
 
@@ -174,6 +159,13 @@ extension SignUpFirstView {
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
+            emailLabel.leadingAnchor.constraint(equalTo: passwordField.leadingAnchor, constant: 20),
+
+            emailTextField.widthAnchor.constraint(equalTo: requestAuthButton.widthAnchor, multiplier: 230 / 90),
+
+            emailTextFieldRequestAuthButtonStackView.leadingAnchor.constraint(equalTo: passwordField.leadingAnchor),
+            emailTextFieldRequestAuthButtonStackView.trailingAnchor.constraint(equalTo: passwordField.trailingAnchor),
+
             signUpstackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
             signUpstackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
             signUpstackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 103),
