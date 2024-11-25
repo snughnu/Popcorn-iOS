@@ -62,8 +62,6 @@ final class LoginView: UIView {
 
     private let findSignUpSeparateView: UIView = {
         let view = UIView()
-        view.widthAnchor.constraint(equalToConstant: 1).isActive = true
-        view.heightAnchor.constraint(equalToConstant: 11).isActive = true
         view.backgroundColor = .lightGray
         return view
     }()
@@ -87,13 +85,12 @@ final class LoginView: UIView {
         stackView.axis = .horizontal
         stackView.spacing = 5
         stackView.alignment = .center
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .equalSpacing
         return stackView
     }()
 
     private let leftSeparateView: UIView = {
         let view = UIView()
-        view.heightAnchor.constraint(equalToConstant: 1).isActive = true
         view.backgroundColor = .lightGray
         return view
     }()
@@ -108,7 +105,6 @@ final class LoginView: UIView {
 
     private let rightSeparateView: UIView = {
         let view = UIView()
-        view.heightAnchor.constraint(equalToConstant: 1).isActive = true
         view.backgroundColor = .lightGray
         return view
     }()
@@ -227,13 +223,20 @@ extension LoginView {
             loginButton.topAnchor.constraint(equalTo: idPasswordStackView.bottomAnchor, constant: 27),
             loginButton.heightAnchor.constraint(equalTo: idTextField.heightAnchor, constant: 3),
 
+            findSignUpSeparateView.widthAnchor.constraint(equalToConstant: 1),
+            findSignUpSeparateView.heightAnchor.constraint(equalToConstant: 11),
+
             findSignUpStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 95),
             findSignUpStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -95),
             findSignUpStackView.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 28),
 
+            leftSeparateView.heightAnchor.constraint(equalToConstant: 1),
+
             separateStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 26),
             separateStackView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             separateStackView.topAnchor.constraint(equalTo: findSignUpStackView.bottomAnchor, constant: 60),
+
+            rightSeparateView.heightAnchor.constraint(equalToConstant: 1),
 
             socialLoginStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 116),
             socialLoginStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -116),
