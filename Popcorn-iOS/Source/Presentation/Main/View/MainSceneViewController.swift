@@ -55,7 +55,7 @@ final class MainSceneViewController: UIViewController {
 // MARK: - Configure Initial Setting
 extension MainSceneViewController {
     private func configureInitialSetting() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.white
         configureCollectionView()
     }
 

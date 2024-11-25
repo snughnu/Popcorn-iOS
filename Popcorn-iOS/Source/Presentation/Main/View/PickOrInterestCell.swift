@@ -10,7 +10,7 @@ import UIKit
 final class PickOrInterestCell: UICollectionViewCell {
     private let popupImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "MainImage")
+        imageView.image = UIImage(resource: .popupPreviewPlaceHolder)
         imageView.contentMode = .scaleAspectFill
         imageView.cornerRadius(radius: 15)
         return imageView
@@ -18,26 +18,23 @@ final class PickOrInterestCell: UICollectionViewCell {
 
     private let popupTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "팝업 스토어 제목"
-        label.textColor = .black
+        label.popcornMedium(text: "팝업 스토어 제목", size: 14)
+        label.textColor = UIColor.black
         label.numberOfLines = 0
-        // MARK: - ToDo 폰트 변경
-        label.font = .systemFont(ofSize: 14, weight: .medium)
         return label
     }()
 
     private let dDayView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 0.996, green: 0.486, blue: 0.055, alpha: 1)
+        view.backgroundColor = UIColor(resource: .popcornOrange)
         view.cornerRadius([.bottomRight], radius: 15)
         return view
     }()
 
     private let dDayLabel: UILabel = {
         let label = UILabel()
-        label.text = "D-0"
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 11, weight: .bold)
+        label.popcornSemiBold(text: "D-0", size: 11)
+        label.textColor = UIColor.white
         label.numberOfLines = 1
         return label
     }()
