@@ -10,6 +10,9 @@ import UIKit
 final class SignUpFieldStackView: UIStackView {
     private let signUpTextField: SignUpTextField
     private let signUpLabel: SignUpLabel
+    var textFieldReference: SignUpTextField {
+        return signUpTextField
+    }
 
     init(
         labelText: String,
@@ -26,10 +29,6 @@ final class SignUpFieldStackView: UIStackView {
 
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    var textFieldReference: SignUpTextField {
-        return signUpTextField
     }
 }
 
