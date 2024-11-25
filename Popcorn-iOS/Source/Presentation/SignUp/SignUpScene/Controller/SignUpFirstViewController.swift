@@ -7,6 +7,13 @@
 
 import UIKit
 
+// MARK: - UIFont를 반환하는 메서드 추가
+extension UILabel {
+    static func popcornSemiBoldFont(size: CGFloat) -> UIFont {
+        return UIFont(name: RobotoFontName.robotoSemiBold, size: size) ?? UIFont.systemFont(ofSize: size)
+    }
+}
+
 class SignUpFirstViewController: UIViewController {
     private let signUpFirstView = SignUpFirstView()
 
@@ -16,9 +23,54 @@ class SignUpFirstViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         setupTextField()
         setUpKeyboard()
         setupAddActions()
+    }
+}
+
+// MARK: - Setup NavigationBar
+extension SignUpFirstViewController {
+    private func setupNavigationBar() {
+        let customNavBar = UIView()
+        customNavBar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(customNavBar)
+        NSLayoutConstraint.activate([
+            customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            customNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            customNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            customNavBar.heightAnchor.constraint(equalToConstant: 72)
+        ])
+
+        navigationItem.hidesBackButton = true
+        let backButton = UIButton(type: .custom)
+        backButton.setImage(UIImage(resource: .naviBackButton), for: .normal)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        customNavBar.addSubview(backButton)
+
+        let titleLabel = UILabel()
+        titleLabel.text = "회원가입"
+        titleLabel.font = UILabel.popcornSemiBoldFont(size: 21)
+        titleLabel.textColor = .black
+        titleLabel.textAlignment = .center
+        customNavBar.addSubview(titleLabel)
+
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            backButton.leadingAnchor.constraint(equalTo: customNavBar.leadingAnchor, constant: 36),
+            backButton.centerYAnchor.constraint(equalTo: customNavBar.centerYAnchor),
+
+            titleLabel.leadingAnchor.constraint(equalTo: customNavBar.leadingAnchor, constant: 157),
+            titleLabel.centerXAnchor.constraint(equalTo: customNavBar.centerXAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: customNavBar.centerYAnchor)
+        ])
+    }
+
+    @objc private func backButtonTapped() {
+       navigationController?.popViewController(animated: true)
     }
 }
 

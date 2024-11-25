@@ -38,7 +38,8 @@ class LoginViewController: UIViewController {
     }
 
     @objc func signUpButtonTapped() {
-
+        let signUpFirstViewController = SignUpFirstViewController()
+        self.navigationController?.pushViewController(signUpFirstViewController, animated: true)
     }
 
     @objc func kakaoButtonTapped() {
