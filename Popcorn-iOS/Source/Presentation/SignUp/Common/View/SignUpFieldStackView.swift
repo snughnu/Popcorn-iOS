@@ -21,6 +21,21 @@ final class SignUpFieldStackView: UIStackView {
         super.init(frame: .zero)
         axis = .vertical
         spacing = 5
+        configureLayout()
+    }
+
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    var textFieldReference: SignUpTextField {
+        return signUpTextField
+    }
+}
+
+// MARK: - stackView 안의 label과 textField 오토레이아웃
+extension SignUpFieldStackView {
+    private func configureLayout() {
         addArrangedSubview(signUpLabel)
         addArrangedSubview(signUpTextField)
 
@@ -32,13 +47,5 @@ final class SignUpFieldStackView: UIStackView {
             signUpTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             signUpTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         ])
-    }
-
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    var textFieldReference: SignUpTextField {
-        return signUpTextField
     }
 }
