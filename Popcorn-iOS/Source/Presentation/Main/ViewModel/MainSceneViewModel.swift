@@ -188,9 +188,9 @@ extension MainSceneViewModel {
         let calendar = Calendar.current
         let today = Date()
         guard let tomorrow = calendar.date(byAdding: .day, value: 1, to: today) else { return }
-
-        if let image = UIImage(named: "MainImage"),
-           let imageData = image.jpegData(compressionQuality: 1.0) {
+        let image = UIImage(resource: .carousel)
+        
+        if let imageData = image.jpegData(compressionQuality: 1.0) {
             let popupPreview = PopupPreview(popupImage: imageData, popupTitle: "찜", popupEndDate: tomorrow)
             let interestPreview = PopupPreview(
                 popupImage: imageData,
