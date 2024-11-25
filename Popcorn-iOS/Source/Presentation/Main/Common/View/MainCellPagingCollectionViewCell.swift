@@ -10,6 +10,7 @@ import UIKit
 final class MainCellPagingCollectionViewCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = UIImage(resource: .popupPreviewPlaceHolder)
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
