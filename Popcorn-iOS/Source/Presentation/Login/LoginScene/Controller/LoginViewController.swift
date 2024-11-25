@@ -64,19 +64,19 @@ extension LoginViewController: UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == loginView.idTextField {
-            loginView.idTextField.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+            loginView.idTextField.backgroundColor = UIColor(resource: .popcornGray3)
         }
         if textField == loginView.passwordTextField {
-            loginView.passwordTextField.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+            loginView.passwordTextField.backgroundColor = UIColor(resource: .popcornGray3)
         }
     }
 
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         if textField == loginView.idTextField {
-            loginView.idTextField.backgroundColor = #colorLiteral(red: 0.969, green: 0.973, blue: 0.976, alpha: 1)
+            loginView.idTextField.backgroundColor = UIColor(resource: .popcornGray4)
         }
         if textField == loginView.passwordTextField {
-            loginView.passwordTextField.backgroundColor = #colorLiteral(red: 0.969, green: 0.973, blue: 0.976, alpha: 1)
+            loginView.passwordTextField.backgroundColor = UIColor(resource: .popcornGray4)
         }
     }
 

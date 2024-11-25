@@ -7,13 +7,6 @@
 
 import UIKit
 
-// MARK: - UIFont를 반환하는 메서드 추가
-extension UILabel {
-    static func popcornSemiBoldFont(size: CGFloat) -> UIFont {
-        return UIFont(name: RobotoFontName.robotoSemiBold, size: size) ?? UIFont.systemFont(ofSize: size)
-    }
-}
-
 class SignUpFirstViewController: UIViewController {
     private let signUpFirstView = SignUpFirstView()
 
@@ -51,7 +44,7 @@ extension SignUpFirstViewController {
 
         let titleLabel = UILabel()
         titleLabel.text = "회원가입"
-        titleLabel.font = UILabel.popcornSemiBoldFont(size: 21)
+        titleLabel.font = UIFont(name: RobotoFontName.robotoSemiBold, size: 21)
         titleLabel.textColor = .black
         titleLabel.textAlignment = .center
         customNavBar.addSubview(titleLabel)
@@ -91,43 +84,43 @@ extension SignUpFirstViewController: UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == signUpFirstView.nameField.textFieldReference {
-            textField.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+            textField.backgroundColor = UIColor(resource: .popcornGray3)
         }
         if textField == signUpFirstView.idField.textFieldReference {
-            signUpFirstView.idField.textFieldReference.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+            textField.backgroundColor = UIColor(resource: .popcornGray3)
         }
         if textField == signUpFirstView.passwordField.textFieldReference {
-            signUpFirstView.passwordField.textFieldReference.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+            textField.backgroundColor = UIColor(resource: .popcornGray3)
         }
         if textField == signUpFirstView.confirmPasswordField.textFieldReference {
-            signUpFirstView.confirmPasswordField.textFieldReference.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+            textField.backgroundColor = UIColor(resource: .popcornGray3)
         }
         if textField == signUpFirstView.emailTextField {
-            signUpFirstView.emailTextField.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+            textField.backgroundColor = UIColor(resource: .popcornGray3)
         }
         if textField == signUpFirstView.authNumberTextField {
-            signUpFirstView.authNumberTextField.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+            textField.backgroundColor = UIColor(resource: .popcornGray3)
         }
     }
 
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         if textField == signUpFirstView.nameField.textFieldReference {
-            signUpFirstView.nameField.textFieldReference.backgroundColor = #colorLiteral(red: 0.969, green: 0.973, blue: 0.976, alpha: 1)
+            textField.backgroundColor = UIColor(resource: .popcornGray4)
         }
         if textField == signUpFirstView.idField.textFieldReference {
-            signUpFirstView.idField.textFieldReference.backgroundColor = #colorLiteral(red: 0.969, green: 0.973, blue: 0.976, alpha: 1)
+            textField.backgroundColor = UIColor(resource: .popcornGray4)
         }
         if textField == signUpFirstView.passwordField.textFieldReference {
-            signUpFirstView.passwordField.textFieldReference.backgroundColor = #colorLiteral(red: 0.969, green: 0.973, blue: 0.976, alpha: 1)
+            textField.backgroundColor = UIColor(resource: .popcornGray4)
         }
         if textField == signUpFirstView.confirmPasswordField.textFieldReference {
-            signUpFirstView.confirmPasswordField.textFieldReference.backgroundColor = #colorLiteral(red: 0.969, green: 0.973, blue: 0.976, alpha: 1)
+            textField.backgroundColor = UIColor(resource: .popcornGray4)
         }
         if textField == signUpFirstView.emailTextField {
-            signUpFirstView.emailTextField.backgroundColor = #colorLiteral(red: 0.969, green: 0.973, blue: 0.976, alpha: 1)
+            textField.backgroundColor = UIColor(resource: .popcornGray4)
         }
         if textField == signUpFirstView.authNumberTextField {
-            signUpFirstView.authNumberTextField.backgroundColor = #colorLiteral(red: 0.969, green: 0.973, blue: 0.976, alpha: 1)
+            textField.backgroundColor = UIColor(resource: .popcornGray4)
         }
     }
 
