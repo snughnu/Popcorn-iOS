@@ -34,8 +34,14 @@
 		BC7420FA2CE23A9500BEED0A /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7420F92CE23A8A00BEED0A /* Requestable.swift */; };
 		BC7420FC2CE23B9600BEED0A /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7420FB2CE23B9200BEED0A /* Request.swift */; };
 		BC7420FE2CE23FD700BEED0A /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7420FD2CE23FCC00BEED0A /* NetworkError.swift */; };
+		BC90A0522CF4A6EA003488F0 /* UIResponder+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC90A0512CF4A6EA003488F0 /* UIResponder+.swift */; };
 		BC9BF2012CECC52000AEE534 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9BF2002CECC52000AEE534 /* LoginViewController.swift */; };
 		BCC45D1A2CEB9A980045DC57 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC45D192CEB9A980045DC57 /* LoginTextField.swift */; };
+		BCE6E5F82CF31F1A0036BAF6 /* SignUpTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E5F72CF31F1A0036BAF6 /* SignUpTextField.swift */; };
+		BCE6E5FC2CF321080036BAF6 /* SignUpFieldStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E5FB2CF321080036BAF6 /* SignUpFieldStackView.swift */; };
+		BCE6E6002CF321AE0036BAF6 /* SignUpFirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E5FF2CF321AE0036BAF6 /* SignUpFirstView.swift */; };
+		BCE6E6032CF323570036BAF6 /* SignUpFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E6022CF323570036BAF6 /* SignUpFirstViewController.swift */; };
+		BCE6E60A2CF378DF0036BAF6 /* SignUpLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE6E5F92CF320100036BAF6 /* SignUpLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,8 +85,14 @@
 		BC7420F92CE23A8A00BEED0A /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		BC7420FB2CE23B9200BEED0A /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		BC7420FD2CE23FCC00BEED0A /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		BC90A0512CF4A6EA003488F0 /* UIResponder+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+.swift"; sourceTree = "<group>"; };
 		BC9BF2002CECC52000AEE534 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BCC45D192CEB9A980045DC57 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
+		BCE6E5F72CF31F1A0036BAF6 /* SignUpTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTextField.swift; sourceTree = "<group>"; };
+		BCE6E5F92CF320100036BAF6 /* SignUpLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpLabel.swift; sourceTree = "<group>"; };
+		BCE6E5FB2CF321080036BAF6 /* SignUpFieldStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFieldStackView.swift; sourceTree = "<group>"; };
+		BCE6E5FF2CF321AE0036BAF6 /* SignUpFirstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFirstView.swift; sourceTree = "<group>"; };
+		BCE6E6022CF323570036BAF6 /* SignUpFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFirstViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -181,6 +193,7 @@
 		56C5DDB72CE797FB0090D3A2 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				BCE6E5F02CF31EBC0036BAF6 /* SignUp */,
 				BCC45D162CEB9A790045DC57 /* Login */,
 				56C5DDB82CE7989E0090D3A2 /* Main */,
 			);
@@ -275,6 +288,7 @@
 				5601592F2CF319A300872662 /* UILabel+.swift */,
 				56018CA32CECC3FA00AC8ED5 /* Date+.swift */,
 				56CD3A7C2CEC314E00BAC02D /* UIView+.swift */,
+				BC90A0512CF4A6EA003488F0 /* UIResponder+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -346,6 +360,58 @@
 				BCC45D192CEB9A980045DC57 /* LoginTextField.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		BCE6E5F02CF31EBC0036BAF6 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				BCE6E5FD2CF321860036BAF6 /* SignUpScene */,
+				BCE6E5F12CF31ECF0036BAF6 /* Common */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		BCE6E5F12CF31ECF0036BAF6 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				BCE6E5F52CF31EFA0036BAF6 /* View */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		BCE6E5F52CF31EFA0036BAF6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BCE6E5F72CF31F1A0036BAF6 /* SignUpTextField.swift */,
+				BCE6E5F92CF320100036BAF6 /* SignUpLabel.swift */,
+				BCE6E5FB2CF321080036BAF6 /* SignUpFieldStackView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BCE6E5FD2CF321860036BAF6 /* SignUpScene */ = {
+			isa = PBXGroup;
+			children = (
+				BCE6E6012CF323490036BAF6 /* Controller */,
+				BCE6E5FE2CF3219A0036BAF6 /* View */,
+			);
+			path = SignUpScene;
+			sourceTree = "<group>";
+		};
+		BCE6E5FE2CF3219A0036BAF6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BCE6E5FF2CF321AE0036BAF6 /* SignUpFirstView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BCE6E6012CF323490036BAF6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BCE6E6022CF323570036BAF6 /* SignUpFirstViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -487,17 +553,23 @@
 				56018CA42CECC41000AC8ED5 /* Date+.swift in Sources */,
 				56CD3A7B2CEB858100BAC02D /* PickOrInterestCell.swift in Sources */,
 				BC9BF2012CECC52000AEE534 /* LoginViewController.swift in Sources */,
+				BCE6E6002CF321AE0036BAF6 /* SignUpFirstView.swift in Sources */,
 				BC7420FA2CE23A9500BEED0A /* Requestable.swift in Sources */,
 				56C5DDBA2CE79AC90090D3A2 /* MainCellPagingImageView.swift in Sources */,
 				BC7420FE2CE23FD700BEED0A /* NetworkError.swift in Sources */,
+				BCE6E6032CF323570036BAF6 /* SignUpFirstViewController.swift in Sources */,
+				BCE6E5FC2CF321080036BAF6 /* SignUpFieldStackView.swift in Sources */,
 				56C5DDD52CE9C1E40090D3A2 /* PopupPreview.swift in Sources */,
 				56018CA22CECB1C400AC8ED5 /* MainSceneViewController.swift in Sources */,
+				BCE6E5F82CF31F1A0036BAF6 /* SignUpTextField.swift in Sources */,
 				56C5DDD92CE9C2780090D3A2 /* UserInterestPopup.swift in Sources */,
 				560159422CF32F5900872662 /* UIButton+.swift in Sources */,
 				56C5DDBC2CE875990090D3A2 /* MainCellPagingCollectionViewCell.swift in Sources */,
 				5601592E2CF3175E00872662 /* RobotoFontName.swift in Sources */,
+				BCE6E60A2CF378DF0036BAF6 /* SignUpLabel.swift in Sources */,
 				56C5DDBF2CE87C0E0090D3A2 /* Reusable.swift in Sources */,
 				56CD3A722CEB83CF00BAC02D /* MainSceneViewModel.swift in Sources */,
+				BC90A0522CF4A6EA003488F0 /* UIResponder+.swift in Sources */,
 				BC7420FC2CE23B9600BEED0A /* Request.swift in Sources */,
 				BC7420F82CE2395600BEED0A /* HttpMethod.swift in Sources */,
 				56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */,
@@ -548,7 +620,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5JD4YAFH7N;
+				DEVELOPMENT_TEAM = 4UKSP7K2F4;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Popcorn-iOS/Resource/Info.plist";
@@ -577,7 +649,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5JD4YAFH7N;
+				DEVELOPMENT_TEAM = 4UKSP7K2F4;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Popcorn-iOS/Resource/Info.plist";
