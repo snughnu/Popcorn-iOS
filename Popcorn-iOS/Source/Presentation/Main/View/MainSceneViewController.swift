@@ -9,14 +9,14 @@ import UIKit
 
 final class MainSceneViewController: UIViewController {
     private let mainViewModel = MainSceneViewModel()
-    private let mainCellPagingImageView: MainCellPagingImageView
+    private let todayRecommendedCarouselView: MainCarouselView
     private lazy var mainCollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: generateCollectionViewLayout()
     )
 
     init() {
-        mainCellPagingImageView = MainCellPagingImageView(mainCellPagingViewModel: mainViewModel)
+        todayRecommendedCarouselView = MainCarouselView(viewModel: mainViewModel)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -280,7 +280,7 @@ extension MainSceneViewController {
 // MARK: - Configure UI
 extension MainSceneViewController {
     private func configureSubviews() {
-        [mainCellPagingImageView, mainCollectionView].forEach {
+        [todayRecommendedCarouselView, mainCollectionView].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -289,12 +289,12 @@ extension MainSceneViewController {
     private func configureLayout() {
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            mainCellPagingImageView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            mainCellPagingImageView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            mainCellPagingImageView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            mainCellPagingImageView.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.37),
+            todayRecommendedCarouselView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            todayRecommendedCarouselView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            todayRecommendedCarouselView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            todayRecommendedCarouselView.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.37),
 
-            mainCollectionView.topAnchor.constraint(equalTo: mainCellPagingImageView.bottomAnchor, constant: 20),
+            mainCollectionView.topAnchor.constraint(equalTo: todayRecommendedCarouselView.bottomAnchor, constant: 20),
             mainCollectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             mainCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             mainCollectionView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)
