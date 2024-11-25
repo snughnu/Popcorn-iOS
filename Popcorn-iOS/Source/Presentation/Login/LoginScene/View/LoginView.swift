@@ -29,9 +29,9 @@ final class LoginView: UIView {
 
     let loginButton: UIButton = {
         let button = UIButton()
-        button.setTitle("로그인", for: .normal)
+        button.applyPopcornFont(text: "로그인", fontName: RobotoFontName.robotoSemiBold, fontSize: 15)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor(resource: .popcornGray4)
+        button.backgroundColor = UIColor(resource: .popcornGray2)
         button.layer.cornerRadius = 10
         button.contentVerticalAlignment = .center
         button.isEnabled = false
@@ -254,11 +254,11 @@ extension LoginView {
         guard
             let id = idTextField.text, !id.isEmpty,
             let password = passwordTextField.text, !password.isEmpty else {
-            loginButton.backgroundColor = .lightGray
+            loginButton.backgroundColor = UIColor(resource: .popcornGray2)
             loginButton.isEnabled = false
             return
         }
-        loginButton.backgroundColor = #colorLiteral(red: 1.0, green: 0.384, blue: 0.004, alpha: 1.0)
+        loginButton.backgroundColor = UIColor(resource: .popcornOrange)
         loginButton.isEnabled = true
     }
 }

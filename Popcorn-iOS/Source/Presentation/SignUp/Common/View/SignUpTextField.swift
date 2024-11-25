@@ -20,7 +20,7 @@ final class SignUpTextField: UITextField {
             string: placeholder,
             attributes: [
                 .foregroundColor: UIColor(resource: .popcornDarkBlueGray),
-                .font: UILabel.popcornMediumFont(size: 15)
+                .font: UIFont(name: RobotoFontName.robotoMedium, size: 15)!
             ]
         )
         self.keyboardType = keyboardType
@@ -51,7 +51,7 @@ extension SignUpTextField {
         autocorrectionType = .no
         spellCheckingType = .no
         clearsOnBeginEditing = false
-        font = UILabel.popcornMediumFont(size: 15)
+        font = UIFont(name: RobotoFontName.robotoMedium, size: 15)
         textAlignment = .left
         clipsToBounds = true
         layer.cornerRadius = 10

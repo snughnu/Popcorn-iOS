@@ -7,13 +7,6 @@
 
 import UIKit
 
-// MARK: - UIFont를 반환하는 메서드 추가
-extension UILabel {
-    static func popcornMediumFont(size: CGFloat) -> UIFont {
-        return UIFont(name: RobotoFontName.robotoMedium, size: size) ?? UIFont.systemFont(ofSize: size)
-    }
-}
-
 final class LoginTextField: UITextField {
     private let insets: UIEdgeInsets = .init(top: 17, left: 20, bottom: 15, right: 20)
 
@@ -23,7 +16,7 @@ final class LoginTextField: UITextField {
             string: placeholder,
             attributes: [
                 .foregroundColor: UIColor(resource: .popcornDarkBlueGray),
-                .font: UILabel.popcornMediumFont(size: 15)
+                .font: UIFont(name: RobotoFontName.robotoMedium, size: 15) as Any
             ]
         )
         self.keyboardType = keyboardType
@@ -53,7 +46,7 @@ extension LoginTextField {
         autocorrectionType = .no
         spellCheckingType = .no
         clearsOnBeginEditing = false
-        font = UILabel.popcornMediumFont(size: 15)
+        font = UIFont(name: RobotoFontName.robotoMedium, size: 15)
         textAlignment = .left
         clipsToBounds = true
         layer.cornerRadius = 10
