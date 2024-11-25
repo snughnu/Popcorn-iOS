@@ -55,7 +55,7 @@ extension SignUpTextField {
         textAlignment = .left
         clipsToBounds = true
         layer.cornerRadius = 10
-        layer.borderColor = #colorLiteral(red: 0.855, green: 0.855, blue: 0.855, alpha: 1)
+        layer.borderColor = UIColor(resource: .popcornGray2).cgColor
         layer.borderWidth = 1
     }
 }
