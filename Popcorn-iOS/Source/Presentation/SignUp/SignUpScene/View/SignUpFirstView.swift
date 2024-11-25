@@ -39,8 +39,6 @@ class SignUpFirstView: UIView {
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = UIColor(resource: .popcornOrange)
         config.background.cornerRadius = 10
-        config.background.strokeWidth = 1
-        config.background.strokeColor = #colorLiteral(red: 0.855, green: 0.855, blue: 0.855, alpha: 1)
         config.attributedTitle = AttributedString(
             "인증요청",
             attributes: AttributeContainer([
