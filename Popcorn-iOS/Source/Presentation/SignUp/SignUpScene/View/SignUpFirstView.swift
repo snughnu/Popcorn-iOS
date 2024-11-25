@@ -82,6 +82,15 @@ class SignUpFirstView: UIView {
         stackView.axis = .vertical
         stackView.spacing = 5
         stackView.distribution = .fillProportionally
+
+        emailLabel.translatesAutoresizingMaskIntoConstraints = false
+        emailTextFieldRequestAuthButtonStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            emailLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20),
+
+            emailTextFieldRequestAuthButtonStackView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            emailTextFieldRequestAuthButtonStackView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor)
+        ])
         return stackView
     }()
 
