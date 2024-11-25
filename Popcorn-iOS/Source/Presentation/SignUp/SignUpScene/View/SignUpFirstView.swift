@@ -8,23 +8,6 @@
 import UIKit
 
 class SignUpFirstView: UIView {
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
-        label.textAlignment = .center
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.08
-        label.attributedText = NSMutableAttributedString(
-            string: "회원가입",
-            attributes: [
-                NSAttributedString.Key.kern: -0.21,
-                NSAttributedString.Key.paragraphStyle: paragraphStyle,
-                NSAttributedString.Key.font: UILabel.popcornMediumFont(size: 21)
-            ]
-        )
-        return label
-    }()
-
     let nameField = SignUpFieldStackView(
         labelText: "이름"
     )
@@ -172,7 +155,6 @@ extension SignUpFirstView {
 extension SignUpFirstView {
     private func configureSubviews() {
         [
-            titleLabel,
             signUpstackView,
             nextButton
         ].forEach {
@@ -183,13 +165,9 @@ extension SignUpFirstView {
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 158),
-            titleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -158),
-            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 23),
-
             signUpstackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
             signUpstackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            signUpstackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 53),
+            signUpstackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 103),
 
             nextButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
             nextButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
