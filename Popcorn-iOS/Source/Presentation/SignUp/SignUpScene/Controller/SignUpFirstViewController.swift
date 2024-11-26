@@ -207,6 +207,7 @@ extension SignUpFirstViewController {
     }
 
     @objc func nextButtonTapped() {
-        // TODO: SignUpSecondViewController 연결
+        let signUpSecondViewController = SignUpSecondViewController()
+        self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
     }
 }
