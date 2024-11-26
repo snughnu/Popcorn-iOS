@@ -31,6 +31,22 @@ class SignUpSecondView: UIView {
         textAlignment: .center
     )
 
+    var signUpButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = UIColor(resource: .popcornOrange)
+        config.background.cornerRadius = 10
+        config.attributedTitle = AttributedString(
+            "가입하기",
+            attributes: AttributeContainer([
+                .font: UIFont(name: RobotoFontName.robotoSemiBold, size: 15)!,
+                .foregroundColor: UIColor.white
+            ])
+        )
+        button.configuration = config
+        return button
+    }()
+
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,7 +73,8 @@ extension SignUpSecondView {
         [
             profileImageView,
             selectProfileImageButton,
-            nickNameTextField
+            nickNameTextField,
+            signUpButton
         ].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -82,7 +99,13 @@ extension SignUpSecondView {
 
             nickNameTextField.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
             nickNameTextField.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            nickNameTextField.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 33)
+            nickNameTextField.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 33),
+            nickNameTextField.heightAnchor.constraint(equalToConstant: 50),
+
+            signUpButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
+            signUpButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
+            signUpButton.heightAnchor.constraint(equalToConstant: 55),
+            signUpButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -84)
         ])
     }
 }
