@@ -16,6 +16,7 @@ class SignUpSecondViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTextField()
         setupAddActions()
     }
 
@@ -30,7 +31,7 @@ extension SignUpSecondViewController {
     }
 }
 
-// MARK: - 이미지피커 프로토콜사용
+// MARK: - Image Picker Delegate Protocol
 extension SignUpSecondViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @objc func selectProfileImageButtonTapped() {
         let imagePicker = UIImagePickerController()
@@ -50,5 +51,32 @@ extension SignUpSecondViewController: UIImagePickerControllerDelegate, UINavigat
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - TextField Delegate Protocol
+extension SignUpSecondViewController: UITextFieldDelegate {
+    private func setupTextField() {
+        [
+            signUpSecondView.nickNameTextField
+        ].forEach {
+            $0.delegate = self
+        }
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == signUpSecondView.nickNameTextField {
+            textField.backgroundColor = UIColor(resource: .popcornGray3)
+        }
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        if textField == signUpSecondView.nickNameTextField {
+            textField.backgroundColor = UIColor(resource: .popcornGray4)
+        }
     }
 }

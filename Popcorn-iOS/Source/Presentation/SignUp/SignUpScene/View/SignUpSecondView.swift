@@ -25,6 +25,12 @@ class SignUpSecondView: UIView {
         return button
     }()
 
+    let nickNameTextField = SignUpTextField(
+        keyboardType: .default,
+        placeholder: "닉네임",
+        textAlignment: .center
+    )
+
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,7 +56,8 @@ extension SignUpSecondView {
     private func configureSubviews() {
         [
             profileImageView,
-            selectProfileImageButton
+            selectProfileImageButton,
+            nickNameTextField
         ].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +78,11 @@ extension SignUpSecondView {
                 equalTo: profileImageView.widthAnchor,
                 multiplier: 24 / 106
             ),
-            selectProfileImageButton.heightAnchor.constraint(equalTo: selectProfileImageButton.widthAnchor)
+            selectProfileImageButton.heightAnchor.constraint(equalTo: selectProfileImageButton.widthAnchor),
+
+            nickNameTextField.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
+            nickNameTextField.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            nickNameTextField.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 33)
         ])
     }
 }
