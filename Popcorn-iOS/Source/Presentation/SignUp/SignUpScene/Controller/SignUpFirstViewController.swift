@@ -201,7 +201,10 @@ extension SignUpFirstViewController {
             self.nextButtonTapped()
         }, for: .touchUpInside)
     }
+}
 
+// MARK: - selector 함수
+extension SignUpFirstViewController {
     @objc func requestAuthButtonTapped() {
         // TODO: 서버와 통신
     }

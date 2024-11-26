@@ -170,8 +170,8 @@ extension SignUpFirstView {
 
             nextButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
             nextButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            nextButton.topAnchor.constraint(equalTo: signUpstackView.bottomAnchor, constant: 63),
-            nextButton.heightAnchor.constraint(equalTo: requestAuthButton.heightAnchor, multiplier: 56 / 50)
+            nextButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -84),
+            nextButton.heightAnchor.constraint(equalToConstant: 55)
         ])
     }
 }

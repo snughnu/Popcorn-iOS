@@ -28,6 +28,10 @@ extension SignUpSecondViewController {
         signUpSecondView.selectProfileImageButton.addAction(UIAction { _ in
             self.selectProfileImageButtonTapped()
         }, for: .touchUpInside)
+
+        signUpSecondView.signUpButton.addAction(UIAction { _ in
+            self.signUpButtonTapped()
+        }, for: .touchUpInside)
     }
 }
 
@@ -51,6 +55,15 @@ extension SignUpSecondViewController: UIImagePickerControllerDelegate, UINavigat
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - selector 함수
+extension SignUpSecondViewController {
+    @objc func signUpButtonTapped() {
+        // TODO: 서버와 통신
+        let loginViewController = LoginViewController()
+        self.navigationController?.setViewControllers([loginViewController], animated: true)
     }
 }
 
