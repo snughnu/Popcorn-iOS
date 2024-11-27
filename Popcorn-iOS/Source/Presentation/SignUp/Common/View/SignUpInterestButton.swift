@@ -46,14 +46,12 @@ final class SignUpInterestButton: UIButton {
 extension SignUpInterestButton {
     private func configureButtonUI(with title: String) {
         var config = UIButton.Configuration.filled()
-// TODO: 리소스 색상 변경
-        config.baseBackgroundColor = UIColor(resource: .popcornGray2)
+        config.baseBackgroundColor = UIColor(resource: .popcornLightGrayOpacity1)
         config.attributedTitle = AttributedString(
             title,
             attributes: AttributeContainer([
                 .font: UIFont(name: RobotoFontName.robotoMedium, size: 15)!,
-// TODO: 리소스 색상 변경
-                .foregroundColor: UIColor(resource: .popcornGray1)
+                .foregroundColor: UIColor(resource: .popcornDarkGrayOpacity3)
             ])
         )
         config.cornerStyle = .capsule
@@ -67,16 +65,14 @@ extension SignUpInterestButton {
             var updatedConfig = configuration
             updatedConfig.baseBackgroundColor = self.isSelected
                 ? UIColor(resource: .popcornOrange)
-// TODO: 리소스 색상 변경
-                : UIColor(resource: .popcornGray2)
+                : UIColor(resource: .popcornLightGrayOpacity1)
             updatedConfig.attributedTitle = AttributedString(
                 button.configuration?.title ?? "",
                 attributes: AttributeContainer([
                     .font: UIFont(name: RobotoFontName.robotoMedium, size: 15)!,
                     .foregroundColor: self.isSelected
                         ? UIColor.white
-// TODO: 리소스 색상 변경
-                        : UIColor(resource: .popcornGray1)
+                        : UIColor(resource: .popcornDarkGrayOpacity3)
                 ])
             )
             button.configuration = updatedConfig
