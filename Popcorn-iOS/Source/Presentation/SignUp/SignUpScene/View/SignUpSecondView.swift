@@ -52,35 +52,19 @@ class SignUpSecondView: UIView {
         return stackView
     }()
 
-    var allAgreeButton: UIButton = {
-        let button = UIButton()
-        var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor(.clear)
-        config.image = UIImage(resource: .checkButton)
-        config.imagePadding = 10
-        config.attributedTitle = AttributedString(
-            "전체동의",
-            attributes: AttributeContainer([
-                .font: UIFont(name: RobotoFontName.robotoSemiBold, size: 18)!,
-                .foregroundColor: UIColor(.black),
-                .paragraphStyle: {
-                    let paragraphStyle = NSMutableParagraphStyle()
-                    paragraphStyle.lineHeightMultiple = 0.95
-                    paragraphStyle.alignment = .center
-                    return paragraphStyle
-                }()
-            ])
-        )
-        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-        button.configuration = config
-        return button
-    }()
+    let allAgreeButton = SignUpAgreeButton(
+        title: "전체동의",
+        color: UIColor(.black),
+        image: UIImage(resource: .checkButton),
+        fontName: RobotoFontName.robotoSemiBold,
+        fontSize: 18
+    )
 
-    let firstAgreeButton = SignUpIndividualAgreeButton(
+    let firstAgreeButton = SignUpAgreeButton(
         title: "마케팅 정보 앱 푸시 알림 수신 동의(선택)"
     )
 
-    let secondAgreeButton = SignUpIndividualAgreeButton(
+    let secondAgreeButton = SignUpAgreeButton(
         title: "위치기반 서비스 약관 동의(필수)"
     )
 
@@ -175,6 +159,7 @@ extension SignUpSecondView {
         NSLayoutConstraint.activate([
             profileImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 144),
             profileImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            profileImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 71),
             profileImageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 106 / 393),
             profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor),
 
@@ -196,7 +181,6 @@ extension SignUpSecondView {
             interestStackView.topAnchor.constraint(equalTo: nickNameTextField.bottomAnchor, constant: 28),
 
             allAgreeButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 37),
-            allAgreeButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -228),
             allAgreeButton.topAnchor.constraint(equalTo: interestStackView.bottomAnchor, constant: 32),
 
             individualAgreeStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 37),
