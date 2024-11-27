@@ -16,8 +16,33 @@ class SignUpSecondViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         setupTextField()
         setupAddActions()
+    }
+}
+
+// MARK: - Setup NavigationBar
+extension SignUpSecondViewController {
+    private func setupNavigationBar() {
+        let titleLabel = UILabel()
+        titleLabel.text = "회원가입"
+        titleLabel.font = UIFont(name: RobotoFontName.robotoSemiBold, size: 21)
+        titleLabel.textColor = .black
+        titleLabel.textAlignment = .center
+        navigationItem.titleView = titleLabel
+        navigationItem.hidesBackButton = true
+        let backButton = UIButton(type: .custom)
+        backButton.setImage(UIImage(resource: .naviBackButton), for: .normal)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        let leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        spacer.width = 20
+        navigationItem.leftBarButtonItems = [spacer, leftBarButtonItem]
+    }
+
+    @objc private func backButtonTapped() {
+       navigationController?.popViewController(animated: true)
     }
 }
 
