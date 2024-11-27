@@ -56,6 +56,7 @@ extension SignUpInterestButton {
                 .foregroundColor: UIColor(resource: .popcornGray1)
             ])
         )
+        config.cornerStyle = .capsule
         config.contentInsets = NSDirectionalEdgeInsets(top: 7, leading: 14, bottom: 7, trailing: 14)
         self.configuration = config
     }
@@ -80,12 +81,6 @@ extension SignUpInterestButton {
             )
             button.configuration = updatedConfig
         }
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.layer.cornerRadius = self.frame.height / 2
-        self.clipsToBounds = true
     }
 }
 
