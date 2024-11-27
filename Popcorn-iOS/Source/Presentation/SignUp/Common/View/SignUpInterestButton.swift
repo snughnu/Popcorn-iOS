@@ -1,5 +1,5 @@
 //
-//  SignUpButton.swift
+//  SignUpInterestButton.swift
 //  Popcorn-iOS
 //
 //  Created by 김성훈 on 11/26/24.

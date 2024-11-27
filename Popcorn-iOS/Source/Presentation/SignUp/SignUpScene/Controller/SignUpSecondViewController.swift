@@ -19,7 +19,6 @@ class SignUpSecondViewController: UIViewController {
         setupTextField()
         setupAddActions()
     }
-
 }
 
 // MARK: - Setup AddActions
@@ -27,6 +26,18 @@ extension SignUpSecondViewController {
     func setupAddActions() {
         signUpSecondView.selectProfileImageButton.addAction(UIAction { _ in
             self.selectProfileImageButtonTapped()
+        }, for: .touchUpInside)
+
+        signUpSecondView.allAgreeButton.addAction(UIAction { _ in
+            self.allAgreeButtonTapped()
+        }, for: .touchUpInside)
+
+        signUpSecondView.firstAgreeButton.addAction(UIAction { _ in
+            self.firstAgreeButtonTapped()
+        }, for: .touchUpInside)
+
+        signUpSecondView.secondAgreeButton.addAction(UIAction { _ in
+            self.secondAgreeButtonTapped()
         }, for: .touchUpInside)
 
         signUpSecondView.signUpButton.addAction(UIAction { _ in
@@ -64,6 +75,24 @@ extension SignUpSecondViewController {
         // TODO: 서버와 통신
         let loginViewController = LoginViewController()
         self.navigationController?.setViewControllers([loginViewController], animated: true)
+    }
+
+    @objc func allAgreeButtonTapped() {
+        // TODO: 동의버튼 눌렀을 때 동작
+        /*
+        모두 선택되어 있지 않을 때, 전체 동의를 누를 때 모든 체크박스가 on 상태가 된다
+        모두 선택되어 있을 때, 전체 동의를 누르면 모든 체크박스가 off 상태가 된다.
+        모두 선택되어 있을 때, 전체 동의하기 체크박스는 on 상태이다.
+        모두 선택되어 있을 때, 전체 동의를 제외한 체크박스 하나를 누르면 전체 동의하기 체크박스는 해제된다.
+        */
+    }
+
+    @objc func firstAgreeButtonTapped() {
+
+    }
+
+    @objc func secondAgreeButtonTapped() {
+
     }
 }
 
