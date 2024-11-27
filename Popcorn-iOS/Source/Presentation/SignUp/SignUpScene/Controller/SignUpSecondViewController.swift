@@ -17,8 +17,8 @@ class SignUpSecondViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
-        setupTextField()
         setupAddActions()
+        setupTextField()
     }
 }
 
@@ -94,30 +94,62 @@ extension SignUpSecondViewController: UIImagePickerControllerDelegate, UINavigat
     }
 }
 
-// MARK: - selector 함수
+// MARK: - Agree Buttons Action selector 함수
+extension SignUpSecondViewController {
+    @objc func allAgreeButtonTapped() {
+        let isAllSelected = signUpSecondView.allAgreeButton.isSelected
+        let newState = !isAllSelected
+        signUpSecondView.allAgreeButton.isSelected = newState
+        signUpSecondView.firstAgreeButton.isSelected = newState
+        signUpSecondView.secondAgreeButton.isSelected = newState
+
+        updateAgreeButtonImages()
+    }
+
+    @objc func firstAgreeButtonTapped() {
+        signUpSecondView.firstAgreeButton.isSelected.toggle()
+        updateAllAgreeButtonState()
+
+        updateAgreeButtonImages()
+    }
+
+    @objc func secondAgreeButtonTapped() {
+        signUpSecondView.secondAgreeButton.isSelected.toggle()
+        updateAllAgreeButtonState()
+
+        updateAgreeButtonImages()
+    }
+
+    private func updateAllAgreeButtonState() {
+        let isAllAgreed = signUpSecondView.firstAgreeButton.isSelected &&
+                          signUpSecondView.secondAgreeButton.isSelected
+        signUpSecondView.allAgreeButton.isSelected = isAllAgreed
+    }
+
+    private func updateAgreeButtonImages() {
+        let allAgreeImage = signUpSecondView.allAgreeButton.isSelected
+            ? UIImage(resource: .checkButtonSelected)
+            : UIImage(resource: .checkButton)
+        signUpSecondView.allAgreeButton.setImage(allAgreeImage, for: .normal)
+
+        let firstAgreeImage = signUpSecondView.firstAgreeButton.isSelected
+            ? UIImage(resource: .individualCheckButtonSelected)
+            : UIImage(resource: .individualCheckButton)
+        signUpSecondView.firstAgreeButton.setImage(firstAgreeImage, for: .normal)
+
+        let secondAgreeImage = signUpSecondView.secondAgreeButton.isSelected
+            ? UIImage(resource: .individualCheckButtonSelected)
+            : UIImage(resource: .individualCheckButton)
+        signUpSecondView.secondAgreeButton.setImage(secondAgreeImage, for: .normal)
+    }
+}
+
+// MARK: - SignUp Button selector 함수
 extension SignUpSecondViewController {
     @objc func signUpButtonTapped() {
         // TODO: 서버와 통신
         let loginViewController = LoginViewController()
         self.navigationController?.setViewControllers([loginViewController], animated: true)
-    }
-
-    @objc func allAgreeButtonTapped() {
-        // TODO: 동의버튼 눌렀을 때 동작
-        /*
-        모두 선택되어 있지 않을 때, 전체 동의를 누를 때 모든 체크박스가 on 상태가 된다
-        모두 선택되어 있을 때, 전체 동의를 누르면 모든 체크박스가 off 상태가 된다.
-        모두 선택되어 있을 때, 전체 동의하기 체크박스는 on 상태이다.
-        모두 선택되어 있을 때, 전체 동의를 제외한 체크박스 하나를 누르면 전체 동의하기 체크박스는 해제된다.
-        */
-    }
-
-    @objc func firstAgreeButtonTapped() {
-
-    }
-
-    @objc func secondAgreeButtonTapped() {
-
     }
 }
 
