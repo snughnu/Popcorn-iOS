@@ -166,7 +166,7 @@ extension SignUpFirstView {
 
             signUpstackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
             signUpstackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            signUpstackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 103),
+            signUpstackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 45),
 
             nextButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
             nextButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
