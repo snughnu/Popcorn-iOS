@@ -103,7 +103,7 @@ class SignUpSecondView: UIView {
     var signUpButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor(resource: .popcornOrange)
+        config.baseBackgroundColor = UIColor(resource: .popcornGray2)
         config.background.cornerRadius = 10
         config.attributedTitle = AttributedString(
             "가입하기",

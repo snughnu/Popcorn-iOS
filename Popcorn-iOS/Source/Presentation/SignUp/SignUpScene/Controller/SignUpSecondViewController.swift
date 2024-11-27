@@ -19,6 +19,7 @@ class SignUpSecondViewController: UIViewController {
         setupNavigationBar()
         setupAddActions()
         setupTextField()
+        updateSignUpButtonState()
     }
 }
 
@@ -104,6 +105,7 @@ extension SignUpSecondViewController {
         signUpSecondView.secondAgreeButton.isSelected = newState
 
         updateAgreeButtonImages()
+        updateSignUpButtonState()
     }
 
     @objc func firstAgreeButtonTapped() {
@@ -111,6 +113,7 @@ extension SignUpSecondViewController {
         updateAllAgreeButtonState()
 
         updateAgreeButtonImages()
+        updateSignUpButtonState()
     }
 
     @objc func secondAgreeButtonTapped() {
@@ -118,6 +121,7 @@ extension SignUpSecondViewController {
         updateAllAgreeButtonState()
 
         updateAgreeButtonImages()
+        updateSignUpButtonState()
     }
 
     private func updateAllAgreeButtonState() {
@@ -141,6 +145,16 @@ extension SignUpSecondViewController {
             ? UIImage(resource: .individualCheckButtonSelected)
             : UIImage(resource: .individualCheckButton)
         signUpSecondView.secondAgreeButton.setImage(secondAgreeImage, for: .normal)
+    }
+
+    private func updateSignUpButtonState() {
+        let isSecondAgreeSelected = signUpSecondView.secondAgreeButton.isSelected
+        signUpSecondView.signUpButton.isEnabled = isSecondAgreeSelected
+        var config = signUpSecondView.signUpButton.configuration
+        config?.background.backgroundColor = isSecondAgreeSelected
+            ? UIColor(resource: .popcornOrange)
+            : UIColor(resource: .popcornGray2)
+        signUpSecondView.signUpButton.configuration = config
     }
 }
 
