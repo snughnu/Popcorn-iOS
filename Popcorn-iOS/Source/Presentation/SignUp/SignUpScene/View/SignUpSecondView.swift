@@ -31,6 +31,55 @@ class SignUpSecondView: UIView {
         textAlignment: .center
     )
 
+    // TODO: 열거형사용으로 리팩토링
+    lazy var firstLineInterestStackView: UIStackView = {
+        let interests = ["패션", "뷰티", "음식", "캐릭터"]
+        let buttons = interests.map { title in
+            SignUpInterestButton(title: title)
+        }
+        let stackView = UIStackView(arrangedSubviews: buttons)
+        stackView.axis = .horizontal
+        stackView.spacing = 13
+        stackView.distribution = .fillProportionally
+        return stackView
+    }()
+    
+    lazy var secondLineInterestStackView: UIStackView = {
+        let interests = ["드라마/영화", "라이프 스타일", "예술"]
+        let buttons = interests.map { title in
+            SignUpInterestButton(title: title)
+        }
+        let stackView = UIStackView(arrangedSubviews: buttons)
+        stackView.axis = .horizontal
+        stackView.spacing = 13
+        stackView.distribution = .fillProportionally
+        return stackView
+    }()
+    
+    lazy var thirdLineInterestStackView: UIStackView = {
+        let interests = ["IT", "스포츠", "셀럽", "반려동물"]
+        let buttons = interests.map { title in
+            SignUpInterestButton(title: title)
+        }
+        let stackView = UIStackView(arrangedSubviews: buttons)
+        stackView.axis = .horizontal
+        stackView.spacing = 13
+        stackView.distribution = .fillProportionally
+        return stackView
+    }()
+    
+    lazy var interestStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            firstLineInterestStackView,
+            secondLineInterestStackView,
+            thirdLineInterestStackView
+        ])
+        stackView.axis = .vertical
+        stackView.spacing = 13
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
+
     var signUpButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
@@ -40,7 +89,7 @@ class SignUpSecondView: UIView {
             "가입하기",
             attributes: AttributeContainer([
                 .font: UIFont(name: RobotoFontName.robotoSemiBold, size: 15)!,
-                .foregroundColor: UIColor.white
+                .foregroundColor: UIColor(.white)
             ])
         )
         button.configuration = config
@@ -74,6 +123,7 @@ extension SignUpSecondView {
             profileImageView,
             selectProfileImageButton,
             nickNameTextField,
+            interestStackView,
             signUpButton
         ].forEach {
             addSubview($0)
@@ -101,6 +151,10 @@ extension SignUpSecondView {
             nickNameTextField.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             nickNameTextField.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 33),
             nickNameTextField.heightAnchor.constraint(equalToConstant: 50),
+
+            interestStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 26),
+            interestStackView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            interestStackView.topAnchor.constraint(equalTo: nickNameTextField.bottomAnchor, constant: 28),
 
             signUpButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
             signUpButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
