@@ -8,6 +8,7 @@
 import UIKit
 
 class SignUpSecondView: UIView {
+
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -32,51 +33,22 @@ class SignUpSecondView: UIView {
     )
 
     // TODO: 열거형사용으로 리팩토링
-    lazy var firstLineInterestStackView: UIStackView = {
-        let interests = ["패션", "뷰티", "음식", "캐릭터"]
-        let buttons = interests.map { title in
-            SignUpInterestButton(title: title)
-        }
-        let stackView = UIStackView(arrangedSubviews: buttons)
-        stackView.axis = .horizontal
-        stackView.spacing = 13
-        stackView.distribution = .fillProportionally
-        return stackView
-    }()
+    private let interestTitles: [[String]] = [
+        ["패션", "뷰티", "음식", "캐릭터"],
+        ["드라마/영화", "라이프 스타일", "예술"],
+        ["IT", "스포츠", "셀럽", "반려동물"]
+    ]
 
-    lazy var secondLineInterestStackView: UIStackView = {
-        let interests = ["드라마/영화", "라이프 스타일", "예술"]
-        let buttons = interests.map { title in
-            SignUpInterestButton(title: title)
-        }
-        let stackView = UIStackView(arrangedSubviews: buttons)
-        stackView.axis = .horizontal
-        stackView.spacing = 13
-        stackView.distribution = .fillProportionally
-        return stackView
-    }()
-
-    lazy var thirdLineInterestStackView: UIStackView = {
-        let interests = ["IT", "스포츠", "셀럽", "반려동물"]
-        let buttons = interests.map { title in
-            SignUpInterestButton(title: title)
-        }
-        let stackView = UIStackView(arrangedSubviews: buttons)
-        stackView.axis = .horizontal
-        stackView.spacing = 13
-        stackView.distribution = .fillProportionally
-        return stackView
-    }()
-
-    lazy var interestStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
-            firstLineInterestStackView,
-            secondLineInterestStackView,
-            thirdLineInterestStackView
-        ])
+    private lazy var interestStackView: UIStackView = {
+        let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 13
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fillProportionally
+        stackView.alignment = .center
+        interestTitles.forEach { titles in
+            let lineStackView = createLineStackView(with: titles)
+            stackView.addArrangedSubview(lineStackView)
+        }
         return stackView
     }()
 
@@ -251,5 +223,17 @@ extension SignUpSecondView {
     override func layoutSubviews() {
         super.layoutSubviews()
         profileImageView.layer.cornerRadius = profileImageView.bounds.width / 2
+    }
+}
+
+// MARK: - 관심사 버튼들 설정
+extension SignUpSecondView {
+    private func createLineStackView(with titles: [String]) -> UIStackView {
+        let buttons = titles.map { SignUpInterestButton(title: $0) }
+        let stackView = UIStackView(arrangedSubviews: buttons)
+        stackView.axis = .horizontal
+        stackView.spacing = 13
+        stackView.distribution = .fillProportionally
+        return stackView
     }
 }
