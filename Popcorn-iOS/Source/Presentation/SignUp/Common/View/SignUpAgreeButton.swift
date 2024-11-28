@@ -8,8 +8,6 @@
 import UIKit
 
 final class SignUpAgreeButton: UIButton {
-    var onStateChange: ((Bool) -> Void)?
-
     init(
         title: String,
         color: UIColor = UIColor(resource: .popcornGray1),
