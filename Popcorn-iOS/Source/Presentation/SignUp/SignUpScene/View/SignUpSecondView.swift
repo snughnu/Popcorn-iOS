@@ -134,6 +134,11 @@ extension SignUpSecondView {
     func configureInitialSetting() {
         backgroundColor = .white
     }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        profileImageView.layer.cornerRadius = profileImageView.bounds.width / 2
+    }
 }
 
 // MARK: - Configure Layout
@@ -199,14 +204,6 @@ extension SignUpSecondView {
             signUpButton.topAnchor.constraint(equalTo: individualAgreeStackView.bottomAnchor, constant: 47),
             signUpButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -84)
         ])
-    }
-}
-
-// MARK: - Profile Image 원형 설정
-extension SignUpSecondView {
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        profileImageView.layer.cornerRadius = profileImageView.bounds.width / 2
     }
 }
 
