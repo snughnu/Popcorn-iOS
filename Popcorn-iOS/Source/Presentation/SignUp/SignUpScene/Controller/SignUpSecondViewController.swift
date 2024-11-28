@@ -74,7 +74,7 @@ extension SignUpSecondViewController {
 
 // MARK: - Image Picker Delegate Protocol
 extension SignUpSecondViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    @objc func selectProfileImageButtonTapped() {
+    func selectProfileImageButtonTapped() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
@@ -97,7 +97,7 @@ extension SignUpSecondViewController: UIImagePickerControllerDelegate, UINavigat
 
 // MARK: - Agree Buttons Action selector 함수
 extension SignUpSecondViewController {
-    @objc func allAgreeButtonTapped() {
+    func allAgreeButtonTapped() {
         let isAllSelected = signUpSecondView.allAgreeButton.isSelected
         let newState = !isAllSelected
         signUpSecondView.allAgreeButton.isSelected = newState
@@ -108,7 +108,7 @@ extension SignUpSecondViewController {
         updateSignUpButtonState()
     }
 
-    @objc func firstAgreeButtonTapped() {
+    func firstAgreeButtonTapped() {
         signUpSecondView.firstAgreeButton.isSelected.toggle()
         updateAllAgreeButtonState()
 
@@ -116,7 +116,7 @@ extension SignUpSecondViewController {
         updateSignUpButtonState()
     }
 
-    @objc func secondAgreeButtonTapped() {
+    func secondAgreeButtonTapped() {
         signUpSecondView.secondAgreeButton.isSelected.toggle()
         updateAllAgreeButtonState()
 
@@ -160,7 +160,7 @@ extension SignUpSecondViewController {
 
 // MARK: - SignUp Button selector 함수
 extension SignUpSecondViewController {
-    @objc func signUpButtonTapped() {
+    func signUpButtonTapped() {
         // TODO: 서버와 통신
         let loginViewController = LoginViewController()
         self.navigationController?.setViewControllers([loginViewController], animated: true)
