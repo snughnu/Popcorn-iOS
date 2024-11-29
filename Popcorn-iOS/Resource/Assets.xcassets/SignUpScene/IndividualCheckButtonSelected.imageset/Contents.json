@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "check1.png",
+      "filename" : "iconamoon_check-light1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "check2.png",
+      "filename" : "iconamoon_check-light2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "check3.png",
+      "filename" : "iconamoon_check-light3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
