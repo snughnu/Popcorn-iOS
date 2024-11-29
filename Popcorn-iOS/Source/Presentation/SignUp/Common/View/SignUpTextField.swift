@@ -11,7 +11,8 @@ final class SignUpTextField: UITextField {
     private let insets: UIEdgeInsets = .init(top: 17, left: 20, bottom: 15, right: 20)
 
     init(
-        keyboardType: UIKeyboardType, isSecureTextEntry: Bool = false,
+        keyboardType: UIKeyboardType,
+        isSecureTextEntry: Bool = false,
         placeholder: String = "",
         textAlignment: NSTextAlignment = .left
     ) {
@@ -52,7 +53,6 @@ extension SignUpTextField {
         spellCheckingType = .no
         clearsOnBeginEditing = false
         font = UIFont(name: RobotoFontName.robotoMedium, size: 15)
-        textAlignment = .left
         clipsToBounds = true
         layer.cornerRadius = 10
         layer.borderColor = UIColor(resource: .popcornGray2).cgColor

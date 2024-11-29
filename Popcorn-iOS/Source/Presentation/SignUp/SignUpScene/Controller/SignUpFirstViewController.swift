@@ -26,31 +26,20 @@ class SignUpFirstViewController: UIViewController {
 // MARK: - Setup NavigationBar
 extension SignUpFirstViewController {
     private func setupNavigationBar() {
-        navigationItem.hidesBackButton = true
-        let backButton = UIButton(type: .custom)
-        backButton.setImage(UIImage(resource: .naviBackButton), for: .normal)
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-
         let titleLabel = UILabel()
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.11
         titleLabel.text = "회원가입"
         titleLabel.font = UIFont(name: RobotoFontName.robotoSemiBold, size: 21)
         titleLabel.textColor = .black
         titleLabel.textAlignment = .center
-
-        view.addSubview(backButton)
-        view.addSubview(titleLabel)
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
-            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-
-            titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 157),
-            titleLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 23)
-        ])
+        navigationItem.titleView = titleLabel
+        navigationItem.hidesBackButton = true
+        let backButton = UIButton(type: .custom)
+        backButton.setImage(UIImage(resource: .naviBackButton), for: .normal)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        let leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        spacer.width = 20
+        navigationItem.leftBarButtonItems = [spacer, leftBarButtonItem]
     }
 
     @objc private func backButtonTapped() {
@@ -201,12 +190,16 @@ extension SignUpFirstViewController {
             self.nextButtonTapped()
         }, for: .touchUpInside)
     }
+}
 
+// MARK: - selector 함수
+extension SignUpFirstViewController {
     @objc func requestAuthButtonTapped() {
         // TODO: 서버와 통신
     }
 
     @objc func nextButtonTapped() {
-        // TODO: SignUpSecondViewController 연결
+        let signUpSecondViewController = SignUpSecondViewController()
+        self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
     }
 }
