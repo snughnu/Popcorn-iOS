@@ -127,17 +127,17 @@ class SignUpSecondView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        profileImageView.layer.cornerRadius = profileImageView.bounds.width / 2
+    }
 }
 
 // MARK: - Configure InitialSetting
 extension SignUpSecondView {
     func configureInitialSetting() {
         backgroundColor = .white
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        profileImageView.layer.cornerRadius = profileImageView.bounds.width / 2
     }
 }
 
