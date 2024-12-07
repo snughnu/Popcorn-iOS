@@ -29,7 +29,7 @@
 
 ## 기술 스택
 **UIKit, MVVM-CleanArchitecture, Combine**  
-[기술 스택 선정 이유]()
+[기술 스택 선정 이유](https://github.com/GDSC-Popcorn/Popcorn-iOS/wiki/iOS-기술-스택-소개-및-선정-이유)
 
 ## 주요 기능  
 
