@@ -228,7 +228,10 @@ extension MainSceneViewController {
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(140), heightDimension: .estimated(178))
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(140/393),
+            heightDimension: .estimated(178)
+        )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
