@@ -91,7 +91,7 @@ extension MainSceneViewController: UICollectionViewDataSource {
         switch section {
         case 0:
             return mainViewModel.numbersOfPopup(of: .userPick)
-        case 1..<(1 + numberOfInterest):
+        case 1...numberOfInterest:
             return mainViewModel.numbersOfPopup(of: .userInterest, at: section - 1)
         case (1 + numberOfInterest):
             let count = mainViewModel.numbersOfPopup(of: .closingSoon)
@@ -192,10 +192,10 @@ extension MainSceneViewController: UICollectionViewDataSource {
         switch indexPath.section {
         case 0:
             header.configureContents(headerTitle: "찜 목록")
-        case 1..<(1 + mainViewModel.numbersOfInterest()):
+        case 1...mainViewModel.numbersOfInterest():
             let headerTitle = mainViewModel.provideUserInterestTitle(sectionOfInterest: indexPath.section - 1)
             header.configureContents(headerTitle: headerTitle)
-        case 1 + mainViewModel.numbersOfInterest():
+        case (1 + mainViewModel.numbersOfInterest()):
             header.configureContents(headerTitle: "지금 놓치면 안 될 팝업스토어", shouldHiddenShowButton: true)
         default:
             break
@@ -211,7 +211,9 @@ extension MainSceneViewController {
             guard let self else { return nil }
 
             switch sectionIndex {
-            case 0..<self.mainViewModel.numbersOfInterest() + 1:
+            case 0:
+                return generateHorizontalLayout(isPickSection: true)
+            case 1...self.mainViewModel.numbersOfInterest():
                 return generateHorizontalLayout()
             case self.mainViewModel.numbersOfInterest() + 1:
                 return generateVerticalGridLayout()
@@ -221,7 +223,7 @@ extension MainSceneViewController {
         }
     }
 
-    private func generateHorizontalLayout() -> NSCollectionLayoutSection {
+    private func generateHorizontalLayout(isPickSection: Bool = false) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .estimated(178)
@@ -229,7 +231,7 @@ extension MainSceneViewController {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(140/393),
+            widthDimension: isPickSection ? .fractionalWidth(140/393) : .fractionalWidth(160/393),
             heightDimension: .estimated(178)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
