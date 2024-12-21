@@ -15,6 +15,13 @@ final class MainSceneViewController: UIViewController {
         collectionViewLayout: generateCollectionViewLayout()
     )
 
+    private let mainTextLogoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage.logoText
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+
     init() {
         todayRecommendedCarouselView = MainCarouselView(viewModel: mainViewModel)
         super.init(nibName: nil, bundle: nil)
@@ -285,7 +292,7 @@ extension MainSceneViewController {
 // MARK: - Configure UI
 extension MainSceneViewController {
     private func configureSubviews() {
-        [todayRecommendedCarouselView, mainCollectionView].forEach {
+        [mainTextLogoImageView, todayRecommendedCarouselView, mainCollectionView].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -293,11 +300,22 @@ extension MainSceneViewController {
 
     private func configureLayout() {
         let safeArea = view.safeAreaLayoutGuide
+
         NSLayoutConstraint.activate([
-            todayRecommendedCarouselView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            mainTextLogoImageView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 5),
+            mainTextLogoImageView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            mainTextLogoImageView.heightAnchor.constraint(equalToConstant: 35),
+
+            todayRecommendedCarouselView.topAnchor.constraint(
+                equalTo: mainTextLogoImageView.bottomAnchor,
+                constant: 17
+            ),
             todayRecommendedCarouselView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             todayRecommendedCarouselView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            todayRecommendedCarouselView.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.37),
+            todayRecommendedCarouselView.heightAnchor.constraint(
+                equalTo: todayRecommendedCarouselView.widthAnchor,
+                multiplier: 317/393
+            ),
 
             mainCollectionView.topAnchor.constraint(equalTo: todayRecommendedCarouselView.bottomAnchor, constant: 20),
             mainCollectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
