@@ -27,6 +27,25 @@ final class LoginView: UIView {
         isSecureTextEntry: true
     )
 
+    let passwordEyeButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.plain()
+        config.image = UIImage(resource: .loginPasswordEyeButton)
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        button.configuration = config
+        return button
+    }()
+
+    let checkIDPWLabel: UILabel = {
+        let label = UILabel()
+        label.text = "아이디 또는 비밀번호를 다시 확인하세요."
+        label.textColor = UIColor(resource: .popcornGray1)
+        let screenHeight = UIScreen.main.bounds.height
+        let fontSize = screenHeight * 10/852
+        label.font = UIFont(name: RobotoFontName.robotoMedium, size: fontSize)
+        return label
+    }()
+ 
     let loginButton: UIButton = {
         let button = UIButton()
         button.applyPopcornFont(text: "로그인", fontName: RobotoFontName.robotoSemiBold, fontSize: 15)
@@ -198,7 +217,9 @@ extension LoginView {
         [
             popcornImageView,
             idPasswordStackView,
+            checkIDPWLabel,
             loginButton,
+            passwordEyeButton,
             findSignUpStackView,
             separateStackView,
             socialLoginStackView
@@ -217,6 +238,13 @@ extension LoginView {
             idPasswordStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
             idPasswordStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
             idPasswordStackView.topAnchor.constraint(equalTo: popcornImageView.bottomAnchor, constant: 56),
+
+            passwordEyeButton.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor, constant: -20),
+            passwordEyeButton.centerYAnchor.constraint(equalTo: passwordTextField.centerYAnchor),
+
+            checkIDPWLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 46),
+            checkIDPWLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            checkIDPWLabel.topAnchor.constraint(equalTo: idPasswordStackView.bottomAnchor, constant: 12),
 
             loginButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
             loginButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),

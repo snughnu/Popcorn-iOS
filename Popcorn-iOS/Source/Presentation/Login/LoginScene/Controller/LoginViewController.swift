@@ -21,6 +21,7 @@ class LoginViewController: UIViewController {
     }
 
     func setupAddTarget() {
+        loginView.passwordEyeButton.addTarget(self, action: #selector(passwordEyeButtonTapped), for: .touchUpInside)
         loginView.loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         loginView.findButton.addTarget(self, action: #selector(findButtonTapped), for: .touchUpInside)
         loginView.signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
@@ -29,8 +30,12 @@ class LoginViewController: UIViewController {
         loginView.appleButton.addTarget(self, action: #selector(appleButtonTapped), for: .touchUpInside)
     }
 
-    @objc func loginButtonTapped() {
+    @objc func passwordEyeButtonTapped() {
+        loginView.passwordTextField.isSecureTextEntry.toggle()
+    }
 
+    @objc func loginButtonTapped() {
+        loginView.checkIDPWLabel.textColor = .red
     }
 
     @objc func findButtonTapped() {
