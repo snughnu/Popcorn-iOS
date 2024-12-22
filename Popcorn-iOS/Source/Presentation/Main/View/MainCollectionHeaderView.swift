@@ -16,10 +16,11 @@ class MainCollectionHeaderView: UICollectionReusableView {
 
     private let showAllButton: UIButton = {
         var config = UIButton.Configuration.plain()
-        config.baseForegroundColor = UIColor(resource: .popcornDarkBlueGray)
+        config.baseForegroundColor = UIColor(resource: .popcornGray1)
         config.image = UIImage(resource: .mainRightArrow)
         config.imagePlacement = .trailing
-        config.imagePadding = 10
+        config.imagePadding = 3
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
 
         let button = UIButton(configuration: config)
         button.popcornMedium(text: "전체 보기", size: 15)
@@ -70,7 +71,8 @@ extension MainCollectionHeaderView {
     }
 
     private func configureLayout() {
-        headerLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        headerLabel.setContentHuggingPriority(.required, for: .vertical)
+
         NSLayoutConstraint.activate([
             headerLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),

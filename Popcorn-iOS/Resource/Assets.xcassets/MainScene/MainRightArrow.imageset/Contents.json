@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "MainRightArrow1x.png",
+      "filename" : "MainRightArrow@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "MainRightArrow2x.png",
+      "filename" : "MainRightArrow@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "MainRightArrow3x.png",
+      "filename" : "MainRightArrow@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
