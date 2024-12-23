@@ -10,7 +10,7 @@ import UIKit
 final class MainCarouselView: UIView {
     private let viewModel: MainSceneViewModel
 
-    private let pagingImageCollectionView: UICollectionView = {
+    private let carouselCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 0
@@ -49,7 +49,7 @@ final class MainCarouselView: UIView {
         viewModel.todayRecommendedPopupPublisher = { [weak self] in
             guard let self else { return }
             self.imagePageControl.numberOfPages = self.viewModel.numbersOfPopup(of: .todayRecommended)
-            self.pagingImageCollectionView.reloadData()
+            self.carouselCollectionView.reloadData()
         }
     }
 }
@@ -57,10 +57,10 @@ final class MainCarouselView: UIView {
 // MARK: - Configure Initial Setting
 extension MainCarouselView {
     private func configureInitialSetting() {
-        pagingImageCollectionView.dataSource = self
-        pagingImageCollectionView.delegate = self
+        carouselCollectionView.dataSource = self
+        carouselCollectionView.delegate = self
 
-        pagingImageCollectionView.register(
+        carouselCollectionView.register(
             MainCarouselCollectionViewCell.self,
             forCellWithReuseIdentifier: MainCarouselCollectionViewCell.reuseIdentifier
         )
@@ -124,7 +124,7 @@ extension MainCarouselView {
 // MARK: - Configure UI
 extension MainCarouselView {
     private func configureSubviews() {
-        [pagingImageCollectionView, imagePageControl].forEach {
+        [carouselCollectionView, imagePageControl].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -132,13 +132,13 @@ extension MainCarouselView {
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            pagingImageCollectionView.topAnchor.constraint(equalTo: topAnchor),
-            pagingImageCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            pagingImageCollectionView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            pagingImageCollectionView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            carouselCollectionView.topAnchor.constraint(equalTo: topAnchor),
+            carouselCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            carouselCollectionView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            carouselCollectionView.centerYAnchor.constraint(equalTo: centerYAnchor),
 
-            imagePageControl.bottomAnchor.constraint(equalTo: pagingImageCollectionView.bottomAnchor),
-            imagePageControl.centerXAnchor.constraint(equalTo: pagingImageCollectionView.centerXAnchor)
+            imagePageControl.bottomAnchor.constraint(equalTo: carouselCollectionView.bottomAnchor),
+            imagePageControl.centerXAnchor.constraint(equalTo: carouselCollectionView.centerXAnchor)
         ])
     }
 }
