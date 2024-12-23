@@ -67,18 +67,11 @@ class MainSceneViewModel {
         }
     }
 
-    private var currentTodayRecommendPopupPages: Int = 0 {
-        didSet {
-            currentPagePublisher?(currentTodayRecommendPopupPages)
-        }
-    }
-
     // MARK: - Output
     var todayRecommendedPopupPublisher: (() -> Void)?
     var userPickPopupPublisher: (() -> Void)?
     var userInterestPopupPublisher: (() -> Void)?
     var closingSoonPopupPublisher: (() -> Void)?
-    var currentPagePublisher: ((Int) -> Void)?
 
     init() {
     }
@@ -175,10 +168,6 @@ extension MainSceneViewModel {
 
     func provideUserInterestTitle(sectionOfInterest: Int) -> String {
         return userInterestPopup[sectionOfInterest].interestCategory.rawValue
-    }
-
-    func updateCurrentPage(at currentPage: Int) {
-        self.currentTodayRecommendPopupPages = currentPage
     }
 }
 

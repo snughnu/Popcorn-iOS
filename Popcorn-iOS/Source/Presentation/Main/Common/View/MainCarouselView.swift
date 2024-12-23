@@ -51,10 +51,6 @@ final class MainCarouselView: UIView {
             self.imagePageControl.numberOfPages = self.viewModel.numbersOfPopup(of: .todayRecommended)
             self.pagingImageCollectionView.reloadData()
         }
-
-        viewModel.currentPagePublisher = { [weak self] currentPage in
-            self?.imagePageControl.currentPage = currentPage
-        }
     }
 }
 
@@ -119,8 +115,8 @@ extension MainCarouselView {
         let width = scrollView.frame.width
 
         if width != 0 {
-            let currentPosition = Int(scrollView.contentOffset.x / width)
-            viewModel.updateCurrentPage(at: currentPosition)
+            let currentPage = Int(scrollView.contentOffset.x / width)
+            imagePageControl.currentPage = currentPage
         }
     }
 }
