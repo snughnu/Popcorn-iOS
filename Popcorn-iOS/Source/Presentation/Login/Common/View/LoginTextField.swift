@@ -46,7 +46,9 @@ extension LoginTextField {
         autocorrectionType = .no
         spellCheckingType = .no
         clearsOnBeginEditing = false
-        font = UIFont(name: RobotoFontName.robotoMedium, size: 15)
+        let screenHeight = UIScreen.main.bounds.height
+        let fontSize = screenHeight * 15/852
+        font = UIFont(name: RobotoFontName.robotoMedium, size: fontSize)
         textAlignment = .left
         clipsToBounds = true
         layer.cornerRadius = 10
