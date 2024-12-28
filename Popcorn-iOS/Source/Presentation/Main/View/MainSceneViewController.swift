@@ -9,7 +9,7 @@ import UIKit
 
 final class MainSceneViewController: UIViewController {
     private let mainViewModel = MainSceneViewModel()
-    private let todayRecommendedCarouselView: MainCarouselView
+
     private lazy var mainCollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: generateCollectionViewLayout()
@@ -21,15 +21,6 @@ final class MainSceneViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-
-    init() {
-        todayRecommendedCarouselView = MainCarouselView(viewModel: mainViewModel)
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +67,11 @@ extension MainSceneViewController {
         mainCollectionView.register(
             ClosingSoonPopupCell.self,
             forCellWithReuseIdentifier: ClosingSoonPopupCell.reuseIdentifier
+        )
+        mainCollectionView.register(
+            MainCarouselPickHeaderCollectionReusableView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: MainCarouselPickHeaderCollectionReusableView.reuseIdentifier
         )
         mainCollectionView.register(
             MainCollectionHeaderView.self,
@@ -188,26 +184,44 @@ extension MainSceneViewController: UICollectionViewDataSource {
         viewForSupplementaryElementOfKind kind: String,
         at indexPath: IndexPath
     ) -> UICollectionReusableView {
-        guard let header = collectionView.dequeueReusableSupplementaryView(
-            ofKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: MainCollectionHeaderView.reuseIdentifier,
-            for: indexPath
-        ) as? MainCollectionHeaderView else {
-            return UICollectionReusableView()
-        }
-
         switch indexPath.section {
         case 0:
-            header.configureContents(headerTitle: "찜 목록")
+            guard let carouselHeader = collectionView.dequeueReusableSupplementaryView(
+                ofKind: UICollectionView.elementKindSectionHeader,
+                withReuseIdentifier: MainCarouselPickHeaderCollectionReusableView.reuseIdentifier,
+                for: indexPath
+            ) as? MainCarouselPickHeaderCollectionReusableView else {
+                return UICollectionReusableView()
+            }
+
+            carouselHeader.configureContents(headerTitle: "찜 목록", viewModel: mainViewModel)
+            return carouselHeader
         case 1...mainViewModel.numbersOfInterest():
+            guard let header = collectionView.dequeueReusableSupplementaryView(
+                ofKind: UICollectionView.elementKindSectionHeader,
+                withReuseIdentifier: MainCollectionHeaderView.reuseIdentifier,
+                for: indexPath
+            ) as? MainCollectionHeaderView else {
+                return UICollectionReusableView()
+            }
+
             let headerTitle = mainViewModel.provideUserInterestTitle(sectionOfInterest: indexPath.section - 1)
             header.configureContents(headerTitle: headerTitle)
+            return header
         case (1 + mainViewModel.numbersOfInterest()):
+            guard let header = collectionView.dequeueReusableSupplementaryView(
+                ofKind: UICollectionView.elementKindSectionHeader,
+                withReuseIdentifier: MainCollectionHeaderView.reuseIdentifier,
+                for: indexPath
+            ) as? MainCollectionHeaderView else {
+                return UICollectionReusableView()
+            }
+
             header.configureContents(headerTitle: "지금 놓치면 안 될 팝업스토어", shouldHiddenShowButton: true)
+            return header
         default:
-            break
+            return UICollectionReusableView()
         }
-        return header
     }
 }
 
@@ -249,7 +263,14 @@ extension MainSceneViewController {
 
         section.orthogonalScrollingBehavior = .continuous
 
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
+        let headerSize: NSCollectionLayoutSize
+
+        if isPickSection {
+            headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(381))
+        } else {
+            headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
+        }
+
         let headerSupplementary = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
             elementKind: UICollectionView.elementKindSectionHeader,
@@ -292,7 +313,7 @@ extension MainSceneViewController {
 // MARK: - Configure UI
 extension MainSceneViewController {
     private func configureSubviews() {
-        [mainTextLogoImageView, todayRecommendedCarouselView, mainCollectionView].forEach {
+        [mainTextLogoImageView, mainCollectionView].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -306,18 +327,7 @@ extension MainSceneViewController {
             mainTextLogoImageView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
             mainTextLogoImageView.heightAnchor.constraint(equalToConstant: 35),
 
-            todayRecommendedCarouselView.topAnchor.constraint(
-                equalTo: mainTextLogoImageView.bottomAnchor,
-                constant: 17
-            ),
-            todayRecommendedCarouselView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            todayRecommendedCarouselView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            todayRecommendedCarouselView.heightAnchor.constraint(
-                equalTo: todayRecommendedCarouselView.widthAnchor,
-                multiplier: 317/393
-            ),
-
-            mainCollectionView.topAnchor.constraint(equalTo: todayRecommendedCarouselView.bottomAnchor, constant: 20),
+            mainCollectionView.topAnchor.constraint(equalTo: mainTextLogoImageView.bottomAnchor, constant: 17),
             mainCollectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             mainCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             mainCollectionView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)

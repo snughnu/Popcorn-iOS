@@ -8,7 +8,7 @@
 import UIKit
 
 final class MainCarouselView: UIView {
-    private let viewModel: MainSceneViewModel
+    private var viewModel: MainSceneViewModel?
 
     private let carouselCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -32,13 +32,16 @@ final class MainCarouselView: UIView {
         return pageControl
     }()
 
-    init(viewModel: MainSceneViewModel) {
+    init(viewModel: MainSceneViewModel?) {
         self.viewModel = viewModel
         super.init(frame: .zero)
         configureInitialSetting()
         configureSubviews()
         configureLayout()
-        bind(to: viewModel)
+
+        if let viewModel {
+            bind(to: viewModel)
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -48,9 +51,15 @@ final class MainCarouselView: UIView {
     private func bind(to viewModel: MainSceneViewModel) {
         viewModel.todayRecommendedPopupPublisher = { [weak self] in
             guard let self else { return }
-            self.imagePageControl.numberOfPages = self.viewModel.numbersOfPopup(of: .todayRecommended)
+            self.imagePageControl.numberOfPages = viewModel.numbersOfPopup(of: .todayRecommended)
             self.carouselCollectionView.reloadData()
         }
+    }
+
+    func updateViewModel(viewModel: MainSceneViewModel) {
+        self.viewModel = viewModel
+        bind(to: viewModel)
+        viewModel.todayRecommendedPopupPublisher?()
     }
 }
 
@@ -73,7 +82,7 @@ extension MainCarouselView: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        return viewModel.numbersOfPopup(of: .todayRecommended)
+        return viewModel?.numbersOfPopup(of: .todayRecommended) ?? 0
     }
 
     func collectionView(
@@ -87,7 +96,7 @@ extension MainCarouselView: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        if let popupData = viewModel.providePopupPreviewData(of: .todayRecommended, at: indexPath.row) {
+        if let popupData = viewModel?.providePopupPreviewData(of: .todayRecommended, at: indexPath.row) {
             cell.configureContents(image: popupData.popupImage)
         }
 
@@ -136,6 +145,10 @@ extension MainCarouselView {
             carouselCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             carouselCollectionView.centerXAnchor.constraint(equalTo: centerXAnchor),
             carouselCollectionView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            carouselCollectionView.heightAnchor.constraint(
+                equalTo: widthAnchor,
+                multiplier: 317/393
+            ),
 
             imagePageControl.bottomAnchor.constraint(equalTo: carouselCollectionView.bottomAnchor),
             imagePageControl.centerXAnchor.constraint(equalTo: carouselCollectionView.centerXAnchor)
