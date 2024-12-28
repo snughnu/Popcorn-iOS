@@ -308,10 +308,10 @@ extension LoginView {
             entireSV.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             entireSV.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 81),
 
-            popcornImageView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 87/852),
+            popcornImageView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 87/759),
             popcornImageView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 140/393),
 
-            idTextField.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 50/852),
+            idTextField.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 50/759),
             idTextField.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 330/393),
 
             pwTextField.centerXAnchor.constraint(equalTo: idTextField.centerXAnchor),
@@ -320,10 +320,10 @@ extension LoginView {
 
             pwEyeButton.trailingAnchor.constraint(equalTo: pwTextField.trailingAnchor, constant: -20),
             pwEyeButton.centerYAnchor.constraint(equalTo: pwTextField.centerYAnchor),
-            pwEyeButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 24/852),
+            pwEyeButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 24/759),
             pwEyeButton.widthAnchor.constraint(equalTo: pwEyeButton.heightAnchor),
 
-            checkIdPwLabel.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 13/852),
+            checkIdPwLabel.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 13/759),
 
             loginButton.centerXAnchor.constraint(equalTo: idTextField.centerXAnchor),
             loginButton.heightAnchor.constraint(equalTo: idTextField.heightAnchor, multiplier: 53/50),
@@ -334,16 +334,16 @@ extension LoginView {
             findSignUpSeparateView.widthAnchor.constraint(equalToConstant: 1),
             findSignUpSeparateView.heightAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.heightAnchor,
-                multiplier: 11/852
+                multiplier: 11/759
             ),
 
             leftSeparateView.heightAnchor.constraint(equalToConstant: 1),
             rightSeparateView.heightAnchor.constraint(equalToConstant: 1),
-            socialLoginLabel.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 13/852),
+            socialLoginLabel.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 13/759),
 
             socialLoginSeparateSV.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 341/393),
 
-            socialLoginButtonSV.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 40/852)
+            socialLoginButtonSV.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 40/759)
         ])
     }
 }
