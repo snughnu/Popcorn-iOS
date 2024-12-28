@@ -247,13 +247,13 @@ extension MainSceneViewController {
     private func generateHorizontalLayout(isPickSection: Bool = false) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(178)
+            heightDimension: isPickSection ? .estimated(160) : .estimated(180)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
         let groupSize = NSCollectionLayoutSize(
             widthDimension: isPickSection ? .fractionalWidth(140/393) : .fractionalWidth(160/393),
-            heightDimension: .estimated(178)
+            heightDimension: isPickSection ? .estimated(160) : .estimated(180)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
@@ -266,7 +266,9 @@ extension MainSceneViewController {
         let headerSize: NSCollectionLayoutSize
 
         if isPickSection {
-            headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(381))
+            headerSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalWidth(391/393))
         } else {
             headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
         }
