@@ -9,29 +9,47 @@ import UIKit
 
 class SignUpFirstView: UIView {
     let nameField = SignUpFieldStackView(
-        labelText: "이름"
+        labelText: "*이름을 입력해주세요.",
+        placeholder: "이름",
+        keyboardType: .default
     )
 
     let idField = SignUpFieldStackView(
-        labelText: "아이디"
+        labelText: "*아이디를 입력해주세요.",
+        placeholder: "아이디"
     )
 
+    let duplicateCheckButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = UIColor(resource: .popcornOrange)
+        config.background.cornerRadius = 10
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 13/852
+        config.attributedTitle = AttributedString(
+            "중복확인",
+            attributes: AttributeContainer([
+                .font: UIFont(name: RobotoFontName.robotoSemiBold, size: size)!,
+                .foregroundColor: UIColor.white
+            ])
+        )
+        button.configuration = config
+        return button
+    }()
+
     let passwordField = SignUpFieldStackView(
-        labelText: "비밀번호",
-        isSecureTextEntry: true
+        labelText: "*비밀번호를 입력해주세요.",
+        placeholder: "비밀번호"
     )
 
     let confirmPasswordField = SignUpFieldStackView(
-        labelText: "비밀번호 확인",
-        isSecureTextEntry: true
+        labelText: "*비밀번호 확인을 입력해주세요.",
+        placeholder: "비밀번호 확인"
     )
 
-    let emailLabel = SignUpLabel(
-        text: "이메일"
-    )
-
-    let emailTextField = SignUpTextField(
-        keyboardType: .emailAddress
+    let emailField = SignUpFieldStackView(
+        labelText: "*이메일을 입력해주세요.",
+        placeholder: "이메일"
     )
 
     let requestAuthButton: UIButton = {
@@ -39,42 +57,17 @@ class SignUpFirstView: UIView {
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = UIColor(resource: .popcornOrange)
         config.background.cornerRadius = 10
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 13/852
         config.attributedTitle = AttributedString(
-            "인증요청",
+            "인증",
             attributes: AttributeContainer([
-                .font: UIFont(name: RobotoFontName.robotoSemiBold, size: 13)!,
-                .foregroundColor: UIColor.white,
-                .paragraphStyle: {
-                    let paragraphStyle = NSMutableParagraphStyle()
-                    paragraphStyle.lineHeightMultiple = 1.04
-                    return paragraphStyle
-                }()
+                .font: UIFont(name: RobotoFontName.robotoSemiBold, size: size)!,
+                .foregroundColor: UIColor.white
             ])
         )
         button.configuration = config
         return button
-    }()
-
-    lazy var emailTextFieldRequestAuthButtonStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
-            emailTextField,
-            requestAuthButton
-        ])
-        stackView.axis = .horizontal
-        stackView.spacing = 9.7
-        stackView.distribution = .fill
-        return stackView
-    }()
-
-    lazy var emailFieldStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
-            emailLabel,
-            emailTextFieldRequestAuthButtonStackView
-        ])
-        stackView.axis = .vertical
-        stackView.spacing = 5
-        stackView.distribution = .fillProportionally
-        return stackView
     }()
 
     let authNumberTextField = SignUpTextField(
@@ -82,45 +75,78 @@ class SignUpFirstView: UIView {
         placeholder: "인증번호를 입력하세요"
     )
 
-    lazy var authFieldStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
-            emailFieldStackView,
-            authNumberTextField
-        ])
-        stackView.axis = .vertical
-        stackView.spacing = 20
-        stackView.distribution = .fillProportionally
-        return stackView
-    }()
-
-    lazy var signUpstackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
-            nameField,
-            idField,
-            passwordField,
-            confirmPasswordField,
-            authFieldStackView
-        ])
-        stackView.axis = .vertical
-        stackView.spacing = 10
-        stackView.distribution = .fill
-        return stackView
-    }()
-
     var nextButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = UIColor(resource: .popcornOrange)
         config.background.cornerRadius = 10
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 15/852
         config.attributedTitle = AttributedString(
             "다음",
             attributes: AttributeContainer([
-                .font: UIFont(name: RobotoFontName.robotoSemiBold, size: 15)!,
+                .font: UIFont(name: RobotoFontName.robotoSemiBold, size: size)!,
                 .foregroundColor: UIColor.white
             ])
         )
         button.configuration = config
         return button
+    }()
+
+    // MARK: - stackView
+    lazy var idSV: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            idField,
+            duplicateCheckButton
+        ])
+        stackView.axis = .horizontal
+        stackView.spacing = 10
+        stackView.alignment = .top
+        stackView.distribution = .fill
+        return stackView
+    }()
+
+    lazy var emailSV: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            emailField,
+            requestAuthButton
+        ])
+        stackView.axis = .horizontal
+        stackView.spacing = 10
+        stackView.alignment = .top
+        stackView.distribution = .fillProportionally
+        return stackView
+    }()
+
+    lazy var fieldSV: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            nameField,
+            idSV,
+            passwordField,
+            confirmPasswordField,
+            emailSV,
+            authNumberTextField
+        ])
+        stackView.axis = .vertical
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 13/852
+        stackView.spacing = size
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        return stackView
+    }()
+
+    lazy var entireSV: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            fieldSV,
+            nextButton
+        ])
+        stackView.axis = .vertical
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 65/852
+        stackView.spacing = size
+        stackView.distribution = .fill
+        return stackView
     }()
 
     // MARK: - Initializer
@@ -147,8 +173,7 @@ extension SignUpFirstView {
 extension SignUpFirstView {
     private func configureSubviews() {
         [
-            signUpstackView,
-            nextButton
+            entireSV
         ].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -157,21 +182,27 @@ extension SignUpFirstView {
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            emailLabel.leadingAnchor.constraint(equalTo: passwordField.leadingAnchor, constant: 20),
+            entireSV.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
+            entireSV.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
+            entireSV.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -84),
 
-            emailTextField.widthAnchor.constraint(equalTo: requestAuthButton.widthAnchor, multiplier: 230 / 90),
+            duplicateCheckButton.centerYAnchor.constraint(equalTo: idField.textFieldReference.centerYAnchor),
+            duplicateCheckButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 90/393),
+            duplicateCheckButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 50/759),
 
-            emailTextFieldRequestAuthButtonStackView.leadingAnchor.constraint(equalTo: passwordField.leadingAnchor),
-            emailTextFieldRequestAuthButtonStackView.trailingAnchor.constraint(equalTo: passwordField.trailingAnchor),
+            requestAuthButton.centerYAnchor.constraint(equalTo: emailField.textFieldReference.centerYAnchor),
+            requestAuthButton.centerXAnchor.constraint(equalTo: duplicateCheckButton.centerXAnchor),
+            requestAuthButton.heightAnchor.constraint(equalTo: emailField.textFieldReference.heightAnchor),
+            requestAuthButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 90/393),
 
-            signUpstackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
-            signUpstackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            signUpstackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 45),
+            nameField.textFieldReference.heightAnchor.constraint(equalTo: duplicateCheckButton.heightAnchor),
+            idField.textFieldReference.heightAnchor.constraint(equalTo: duplicateCheckButton.heightAnchor),
+            passwordField.textFieldReference.heightAnchor.constraint(equalTo: duplicateCheckButton.heightAnchor),
+            confirmPasswordField.textFieldReference.heightAnchor.constraint(equalTo: duplicateCheckButton.heightAnchor),
+            emailField.textFieldReference.heightAnchor.constraint(equalTo: duplicateCheckButton.heightAnchor),
+            authNumberTextField.heightAnchor.constraint(equalTo: duplicateCheckButton.heightAnchor),
 
-            nextButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
-            nextButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            nextButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -84),
-            nextButton.heightAnchor.constraint(equalToConstant: 55)
+            nextButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 56/759)
         ])
     }
 }

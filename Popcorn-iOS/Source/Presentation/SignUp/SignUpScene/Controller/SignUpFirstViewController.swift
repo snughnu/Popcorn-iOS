@@ -28,7 +28,9 @@ extension SignUpFirstViewController {
     private func setupNavigationBar() {
         let titleLabel = UILabel()
         titleLabel.text = "회원가입"
-        titleLabel.font = UIFont(name: RobotoFontName.robotoSemiBold, size: 21)
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 21/852
+        titleLabel.font = UIFont(name: RobotoFontName.robotoSemiBold, size: size)
         titleLabel.textColor = .black
         titleLabel.textAlignment = .center
         navigationItem.titleView = titleLabel
@@ -55,7 +57,7 @@ extension SignUpFirstViewController: UITextFieldDelegate {
             signUpFirstView.idField.textFieldReference,
             signUpFirstView.passwordField.textFieldReference,
             signUpFirstView.confirmPasswordField.textFieldReference,
-            signUpFirstView.emailTextField,
+            signUpFirstView.emailField.textFieldReference,
             signUpFirstView.authNumberTextField
         ].forEach {
             $0.delegate = self
@@ -75,7 +77,7 @@ extension SignUpFirstViewController: UITextFieldDelegate {
         if textField == signUpFirstView.confirmPasswordField.textFieldReference {
             textField.backgroundColor = UIColor(resource: .popcornGray3)
         }
-        if textField == signUpFirstView.emailTextField {
+        if textField == signUpFirstView.emailField {
             textField.backgroundColor = UIColor(resource: .popcornGray3)
         }
         if textField == signUpFirstView.authNumberTextField {
@@ -96,7 +98,7 @@ extension SignUpFirstViewController: UITextFieldDelegate {
         if textField == signUpFirstView.confirmPasswordField.textFieldReference {
             textField.backgroundColor = UIColor(resource: .popcornGray4)
         }
-        if textField == signUpFirstView.emailTextField {
+        if textField == signUpFirstView.emailField {
             textField.backgroundColor = UIColor(resource: .popcornGray4)
         }
         if textField == signUpFirstView.authNumberTextField {
@@ -126,14 +128,13 @@ extension SignUpFirstViewController: UITextFieldDelegate {
         if textField == signUpFirstView.confirmPasswordField.textFieldReference {
             guard let confirmPwText = signUpFirstView.confirmPasswordField.textFieldReference.text,
                   !confirmPwText.isEmpty else { return false }
-            signUpFirstView.emailTextField.becomeFirstResponder()
+            signUpFirstView.emailField.becomeFirstResponder()
             return true
         }
-        if textField == signUpFirstView.emailTextField {
-            guard let emailText = signUpFirstView.emailTextField.text,
+        if textField == signUpFirstView.emailField.textFieldReference {
+            guard let emailText = signUpFirstView.emailField.textFieldReference.text,
                   !emailText.isEmpty else { return false }
-            signUpFirstView.emailTextField.resignFirstResponder()
-            self.requestAuthButtonTapped()
+            signUpFirstView.emailField.becomeFirstResponder()
             return true
         }
         return false
