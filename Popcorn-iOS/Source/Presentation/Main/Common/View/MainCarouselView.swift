@@ -8,7 +8,7 @@
 import UIKit
 
 final class MainCarouselView: UIView {
-    private var viewModel: MainSceneViewModel?
+    private var viewModel: MainCarouselViewModelProtocol?
 
     private let carouselCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -49,7 +49,7 @@ final class MainCarouselView: UIView {
     }
 
     private func bind(to viewModel: MainSceneViewModel) {
-        viewModel.todayRecommendedPopupPublisher = { [weak self] in
+        viewModel.carouselImagePublisher = { [weak self] in
             guard let self else { return }
             self.imagePageControl.numberOfPages = viewModel.numbersOfPopup(of: .todayRecommended)
             self.carouselCollectionView.reloadData()
@@ -59,7 +59,7 @@ final class MainCarouselView: UIView {
     func updateViewModel(viewModel: MainSceneViewModel) {
         self.viewModel = viewModel
         bind(to: viewModel)
-        viewModel.todayRecommendedPopupPublisher?()
+        viewModel.carouselImagePublisher?()
     }
 }
 
@@ -82,7 +82,7 @@ extension MainCarouselView: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        return viewModel?.numbersOfPopup(of: .todayRecommended) ?? 0
+        return viewModel?.numbersOfCarouselImage() ?? 0
     }
 
     func collectionView(
@@ -96,7 +96,7 @@ extension MainCarouselView: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        if let popupData = viewModel?.providePopupPreviewData(of: .todayRecommended, at: indexPath.row) {
+        if let popupData = viewModel?.provideCarouselImage(at: indexPath.row) {
             cell.configureContents(image: popupData.popupImage)
         }
 

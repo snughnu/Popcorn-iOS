@@ -22,6 +22,7 @@
 		56537BB62CE0F5290092A292 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56537BAE2CE0F5290092A292 /* SceneDelegate.swift */; };
 		56537BB72CE0F5290092A292 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56537BAF2CE0F5290092A292 /* ViewController.swift */; };
 		565C415C2D2028DD0016003A /* MainCollectionTitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565C415B2D2028DD0016003A /* MainCollectionTitleHeaderView.swift */; };
+		565C415F2D2032160016003A /* MainCarouselViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */; };
 		56AA6C0C2CE373A7001952C2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 56AA6C0B2CE373A7001952C2 /* .swiftlint.yml */; };
 		56C5DDBA2CE79AC90090D3A2 /* MainCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C5DDB92CE799780090D3A2 /* MainCarouselView.swift */; };
 		56C5DDBC2CE875990090D3A2 /* MainCarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C5DDBB2CE875990090D3A2 /* MainCarouselCollectionViewCell.swift */; };
@@ -80,6 +81,7 @@
 		56537BAE2CE0F5290092A292 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		56537BAF2CE0F5290092A292 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		565C415B2D2028DD0016003A /* MainCollectionTitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionTitleHeaderView.swift; sourceTree = "<group>"; };
+		565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselViewModelProtocol.swift; sourceTree = "<group>"; };
 		56AA6C0B2CE373A7001952C2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		56C5DDB92CE799780090D3A2 /* MainCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselView.swift; sourceTree = "<group>"; };
 		56C5DDBB2CE875990090D3A2 /* MainCarouselCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 		56CD3A712CEB83CF00BAC02D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */,
 				56CD3A702CEB83CF00BAC02D /* MainSceneViewModel.swift */,
 			);
 			path = ViewModel;
@@ -579,6 +582,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				565C415F2D2032160016003A /* MainCarouselViewModelProtocol.swift in Sources */,
 				56018CA42CECC41000AC8ED5 /* Date+.swift in Sources */,
 				56CD3A7B2CEB858100BAC02D /* PickOrInterestCell.swift in Sources */,
 				BC9BF2012CECC52000AEE534 /* LoginViewController.swift in Sources */,
