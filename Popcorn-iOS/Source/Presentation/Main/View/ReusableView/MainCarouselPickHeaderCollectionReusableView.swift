@@ -45,7 +45,7 @@ extension MainCarouselPickHeaderCollectionReusableView {
             carouselView.topAnchor.constraint(equalTo: topAnchor),
             carouselView.leadingAnchor.constraint(equalTo: leadingAnchor),
             carouselView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            
+
             titleHeader.topAnchor.constraint(equalTo: carouselView.bottomAnchor, constant: 31),
             titleHeader.leadingAnchor.constraint(equalTo: leadingAnchor),
             titleHeader.trailingAnchor.constraint(equalTo: trailingAnchor),
