@@ -9,14 +9,21 @@ import UIKit
 
 final class MainSceneViewController: UIViewController {
     private let mainViewModel = MainSceneViewModel()
-    private let mainCellPagingImageView: MainCellPagingImageView
+    private let todayRecommendedCarouselView: MainCarouselView
     private lazy var mainCollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: generateCollectionViewLayout()
     )
 
+    private let mainTextLogoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage.logoText
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+
     init() {
-        mainCellPagingImageView = MainCellPagingImageView(mainCellPagingViewModel: mainViewModel)
+        todayRecommendedCarouselView = MainCarouselView(viewModel: mainViewModel)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -91,7 +98,7 @@ extension MainSceneViewController: UICollectionViewDataSource {
         switch section {
         case 0:
             return mainViewModel.numbersOfPopup(of: .userPick)
-        case 1..<(1 + numberOfInterest):
+        case 1...numberOfInterest:
             return mainViewModel.numbersOfPopup(of: .userInterest, at: section - 1)
         case (1 + numberOfInterest):
             let count = mainViewModel.numbersOfPopup(of: .closingSoon)
@@ -192,10 +199,10 @@ extension MainSceneViewController: UICollectionViewDataSource {
         switch indexPath.section {
         case 0:
             header.configureContents(headerTitle: "찜 목록")
-        case 1..<(1 + mainViewModel.numbersOfInterest()):
+        case 1...mainViewModel.numbersOfInterest():
             let headerTitle = mainViewModel.provideUserInterestTitle(sectionOfInterest: indexPath.section - 1)
             header.configureContents(headerTitle: headerTitle)
-        case 1 + mainViewModel.numbersOfInterest():
+        case (1 + mainViewModel.numbersOfInterest()):
             header.configureContents(headerTitle: "지금 놓치면 안 될 팝업스토어", shouldHiddenShowButton: true)
         default:
             break
@@ -211,7 +218,9 @@ extension MainSceneViewController {
             guard let self else { return nil }
 
             switch sectionIndex {
-            case 0..<self.mainViewModel.numbersOfInterest() + 1:
+            case 0:
+                return generateHorizontalLayout(isPickSection: true)
+            case 1...self.mainViewModel.numbersOfInterest():
                 return generateHorizontalLayout()
             case self.mainViewModel.numbersOfInterest() + 1:
                 return generateVerticalGridLayout()
@@ -221,14 +230,17 @@ extension MainSceneViewController {
         }
     }
 
-    private func generateHorizontalLayout() -> NSCollectionLayoutSection {
+    private func generateHorizontalLayout(isPickSection: Bool = false) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .estimated(178)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(140), heightDimension: .estimated(178))
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: isPickSection ? .fractionalWidth(140/393) : .fractionalWidth(160/393),
+            heightDimension: .estimated(178)
+        )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
@@ -280,7 +292,7 @@ extension MainSceneViewController {
 // MARK: - Configure UI
 extension MainSceneViewController {
     private func configureSubviews() {
-        [mainCellPagingImageView, mainCollectionView].forEach {
+        [mainTextLogoImageView, todayRecommendedCarouselView, mainCollectionView].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -288,13 +300,24 @@ extension MainSceneViewController {
 
     private func configureLayout() {
         let safeArea = view.safeAreaLayoutGuide
-        NSLayoutConstraint.activate([
-            mainCellPagingImageView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            mainCellPagingImageView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            mainCellPagingImageView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            mainCellPagingImageView.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.37),
 
-            mainCollectionView.topAnchor.constraint(equalTo: mainCellPagingImageView.bottomAnchor, constant: 20),
+        NSLayoutConstraint.activate([
+            mainTextLogoImageView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 5),
+            mainTextLogoImageView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            mainTextLogoImageView.heightAnchor.constraint(equalToConstant: 35),
+
+            todayRecommendedCarouselView.topAnchor.constraint(
+                equalTo: mainTextLogoImageView.bottomAnchor,
+                constant: 17
+            ),
+            todayRecommendedCarouselView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            todayRecommendedCarouselView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            todayRecommendedCarouselView.heightAnchor.constraint(
+                equalTo: todayRecommendedCarouselView.widthAnchor,
+                multiplier: 317/393
+            ),
+
+            mainCollectionView.topAnchor.constraint(equalTo: todayRecommendedCarouselView.bottomAnchor, constant: 20),
             mainCollectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             mainCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             mainCollectionView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)
