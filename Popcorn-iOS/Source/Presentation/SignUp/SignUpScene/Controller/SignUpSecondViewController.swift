@@ -9,6 +9,7 @@ import UIKit
 
 class SignUpSecondViewController: UIViewController {
     private let signUpSecondView = SignUpSecondView()
+    private let screenHeight = UIScreen.main.bounds.height
 
     override func loadView() {
         view = signUpSecondView
@@ -28,7 +29,6 @@ extension SignUpSecondViewController {
     private func setupNavigationBar() {
         let titleLabel = UILabel()
         titleLabel.text = "회원가입"
-        let screenHeight = UIScreen.main.bounds.height
         let size = screenHeight * 21/852
         titleLabel.font = UIFont(name: RobotoFontName.robotoSemiBold, size: size)
         titleLabel.textColor = .black
