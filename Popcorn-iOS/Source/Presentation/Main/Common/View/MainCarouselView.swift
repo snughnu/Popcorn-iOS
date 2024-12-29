@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MainCellPagingImageView: UIView {
+final class MainCarouselView: UIView {
     private let viewModel: MainSceneViewModel
 
     private let pagingImageCollectionView: UICollectionView = {
@@ -32,8 +32,8 @@ final class MainCellPagingImageView: UIView {
         return pageControl
     }()
 
-    init(mainCellPagingViewModel: MainSceneViewModel) {
-        viewModel = mainCellPagingViewModel
+    init(viewModel: MainSceneViewModel) {
+        self.viewModel = viewModel
         super.init(frame: .zero)
         configureInitialSetting()
         configureSubviews()
@@ -59,20 +59,20 @@ final class MainCellPagingImageView: UIView {
 }
 
 // MARK: - Configure Initial Setting
-extension MainCellPagingImageView {
+extension MainCarouselView {
     private func configureInitialSetting() {
         pagingImageCollectionView.dataSource = self
         pagingImageCollectionView.delegate = self
 
         pagingImageCollectionView.register(
-            MainCellPagingCollectionViewCell.self,
-            forCellWithReuseIdentifier: MainCellPagingCollectionViewCell.reuseIdentifier
+            MainCarouselCollectionViewCell.self,
+            forCellWithReuseIdentifier: MainCarouselCollectionViewCell.reuseIdentifier
         )
     }
 }
 
 // MARK: - Configure CollectionView DataSource
-extension MainCellPagingImageView: UICollectionViewDataSource {
+extension MainCarouselView: UICollectionViewDataSource {
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
@@ -85,9 +85,9 @@ extension MainCellPagingImageView: UICollectionViewDataSource {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: MainCellPagingCollectionViewCell.reuseIdentifier,
+            withReuseIdentifier: MainCarouselCollectionViewCell.reuseIdentifier,
             for: indexPath
-        ) as? MainCellPagingCollectionViewCell else {
+        ) as? MainCarouselCollectionViewCell else {
             return UICollectionViewCell()
         }
 
@@ -100,7 +100,7 @@ extension MainCellPagingImageView: UICollectionViewDataSource {
 }
 
 // MARK: - Configure UICollectionViewDelegateFlowLayout
-extension MainCellPagingImageView: UICollectionViewDelegateFlowLayout {
+extension MainCarouselView: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -114,7 +114,7 @@ extension MainCellPagingImageView: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: - Configure ScrollView Delegate
-extension MainCellPagingImageView {
+extension MainCarouselView {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let width = scrollView.frame.width
 
@@ -126,7 +126,7 @@ extension MainCellPagingImageView {
 }
 
 // MARK: - Configure UI
-extension MainCellPagingImageView {
+extension MainCarouselView {
     private func configureSubviews() {
         [pagingImageCollectionView, imagePageControl].forEach {
             addSubview($0)
