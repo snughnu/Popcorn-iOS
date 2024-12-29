@@ -83,6 +83,8 @@ final class MainDetailViewController: UIViewController {
 
     private var segmentedUnderlineLeadingConstraint: NSLayoutConstraint!
 
+    private let popupDetailInfoView = PopupDetailInfoView()
+
     // MARK: - StackView
     private let popupTitlePriodStackView: UIStackView = {
         let stackView = UIStackView()
@@ -185,7 +187,8 @@ extension MainDetailViewController {
             hashTagStackView,
             segmentedControl,
             segmentedGrayUnderLineView,
-            segmentedUnderLineView
+            segmentedUnderLineView,
+            popupDetailInfoView
         ].forEach {
             detailContentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -201,13 +204,14 @@ extension MainDetailViewController {
         NSLayoutConstraint.activate([
             detailScrollView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             detailScrollView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            detailScrollView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             detailScrollView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
             detailScrollView.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor),
 
             detailContentView.topAnchor.constraint(equalTo: detailScrollView.contentLayoutGuide.topAnchor),
             detailContentView.leadingAnchor.constraint(equalTo: detailScrollView.contentLayoutGuide.leadingAnchor),
+            detailContentView.bottomAnchor.constraint(equalTo: detailScrollView.contentLayoutGuide.bottomAnchor),
             detailContentView.centerXAnchor.constraint(equalTo: detailScrollView.contentLayoutGuide.centerXAnchor),
-            detailContentView.centerYAnchor.constraint(equalTo: detailScrollView.contentLayoutGuide.centerYAnchor),
             detailContentView.widthAnchor.constraint(equalTo: detailScrollView.widthAnchor),
 
             detailCarouselView.topAnchor.constraint(equalTo: detailContentView.topAnchor),
@@ -246,7 +250,11 @@ extension MainDetailViewController {
             ),
 
             segmentedUnderlineLeadingConstraint,
-            segmentedUnderLineView.bottomAnchor.constraint(equalTo: detailContentView.bottomAnchor)
+
+            popupDetailInfoView.topAnchor.constraint(equalTo: segmentedGrayUnderLineView.bottomAnchor),
+            popupDetailInfoView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor),
+            popupDetailInfoView.centerXAnchor.constraint(equalTo: detailContentView.centerXAnchor),
+            popupDetailInfoView.bottomAnchor.constraint(equalTo: detailContentView.bottomAnchor)
         ])
     }
 }
