@@ -43,7 +43,7 @@ class SignUpFirstView: UIView {
     )
 
     let confirmPasswordField = SignUpFieldStackView(
-        labelText: "*비밀번호 확인을 입력해주세요.",
+        labelText: "*비밀번호 확인란을 입력해주세요.",
         placeholder: "비밀번호 확인"
     )
 
@@ -94,7 +94,7 @@ class SignUpFirstView: UIView {
     }()
 
     // MARK: - StackView
-    lazy var idSV: UIStackView = {
+    lazy var idStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             idField,
             duplicateCheckButton
@@ -106,7 +106,7 @@ class SignUpFirstView: UIView {
         return stackView
     }()
 
-    lazy var emailSV: UIStackView = {
+    lazy var emailStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             emailField,
             requestAuthButton
@@ -118,13 +118,13 @@ class SignUpFirstView: UIView {
         return stackView
     }()
 
-    lazy var fieldSV: UIStackView = {
+    lazy var fieldStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             nameField,
-            idSV,
+            idStackView,
             passwordField,
             confirmPasswordField,
-            emailSV,
+            emailStackView,
             authNumberTextField
         ])
         stackView.axis = .vertical
@@ -136,9 +136,9 @@ class SignUpFirstView: UIView {
         return stackView
     }()
 
-    lazy var entireSV: UIStackView = {
+    lazy var entireStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            fieldSV,
+            fieldStackView,
             nextButton
         ])
         stackView.axis = .vertical
@@ -173,7 +173,7 @@ extension SignUpFirstView {
 extension SignUpFirstView {
     private func configureSubviews() {
         [
-            entireSV
+            entireStackView
         ].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -182,9 +182,9 @@ extension SignUpFirstView {
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            entireSV.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
-            entireSV.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            entireSV.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -84),
+            entireStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
+            entireStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
+            entireStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -84),
 
             duplicateCheckButton.centerYAnchor.constraint(equalTo: idField.textFieldReference.centerYAnchor),
             duplicateCheckButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 90/393),

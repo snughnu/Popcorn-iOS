@@ -104,7 +104,7 @@ class SignUpSecondView: UIView {
     }()
 
     // MARK: - StackView
-    private lazy var interestSV: UIStackView = {
+    private lazy var interestStackView: UIStackView = {
         let stackView = UIStackView()
         let screenHeight = UIScreen.main.bounds.height
         let size = screenHeight * 13/852
@@ -119,10 +119,10 @@ class SignUpSecondView: UIView {
         return stackView
     }()
 
-    lazy var nickNameInterestSV: UIStackView = {
+    lazy var nickNameInterestStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             nickNameTextField,
-            interestSV
+            interestStackView
         ])
         stackView.axis = .vertical
         let screenHeight = UIScreen.main.bounds.height
@@ -133,7 +133,7 @@ class SignUpSecondView: UIView {
         return stackView
     }()
 
-    lazy var individualAgreeSV: UIStackView = {
+    lazy var individualAgreeStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             firstAgreeButton,
             secondAgreeButton
@@ -147,10 +147,10 @@ class SignUpSecondView: UIView {
         return stackView
     }()
 
-    lazy var agreeSV: UIStackView = {
+    lazy var agreeStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             allAgreeButton,
-            individualAgreeSV
+            individualAgreeStackView
         ])
         stackView.axis = .vertical
         let screenHeight = UIScreen.main.bounds.height
@@ -161,10 +161,10 @@ class SignUpSecondView: UIView {
         return stackView
     }()
 
-    lazy var userChoiceSV: UIStackView = {
+    lazy var userChoiceStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            nickNameInterestSV,
-            agreeSV
+            nickNameInterestStackView,
+            agreeStackView
         ])
         stackView.axis = .vertical
         let screenHeight = UIScreen.main.bounds.height
@@ -175,9 +175,9 @@ class SignUpSecondView: UIView {
         return stackView
     }()
 
-    lazy var entireSV: UIStackView = {
+    lazy var entireStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            userChoiceSV,
+            userChoiceStackView,
             signUpButton
         ])
         stackView.axis = .vertical
@@ -218,7 +218,7 @@ extension SignUpSecondView {
 extension SignUpSecondView {
     private func configureSubviews() {
         [
-            entireSV,
+            entireStackView,
             profileImageView,
             selectProfileImageButton,
             firstArrowButton,
@@ -231,9 +231,9 @@ extension SignUpSecondView {
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            entireSV.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
-            entireSV.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            entireSV.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -84),
+            entireStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
+            entireStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
+            entireStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -84),
 
             profileImageView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             profileImageView.bottomAnchor.constraint(equalTo: nickNameTextField.topAnchor, constant: -33),
@@ -248,14 +248,14 @@ extension SignUpSecondView {
             ),
             selectProfileImageButton.heightAnchor.constraint(equalTo: selectProfileImageButton.widthAnchor),
 
-            nickNameTextField.widthAnchor.constraint(equalTo: entireSV.widthAnchor),
+            nickNameTextField.widthAnchor.constraint(equalTo: entireStackView.widthAnchor),
             nickNameTextField.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 50/759),
 
-            interestSV.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 128/759),
-            interestSV.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 341/393),
+            interestStackView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 128/759),
+            interestStackView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 341/393),
 
-            agreeSV.widthAnchor.constraint(equalTo: entireSV.widthAnchor),
-            agreeSV.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 104/759),
+            agreeStackView.widthAnchor.constraint(equalTo: entireStackView.widthAnchor),
+            agreeStackView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 104/759),
 
             firstArrowButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
             firstArrowButton.centerYAnchor.constraint(equalTo: firstAgreeButton.centerYAnchor),
