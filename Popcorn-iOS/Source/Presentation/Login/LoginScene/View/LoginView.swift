@@ -141,7 +141,7 @@ final class LoginView: UIView {
     }()
 
     // MARK: - StackView
-    lazy var idPwSV: UIStackView = {
+    lazy var idPwStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             idTextField,
             pwTextField
@@ -155,7 +155,7 @@ final class LoginView: UIView {
         return stackView
     }()
 
-    lazy var findSignUpSV: UIStackView = {
+    lazy var findSignUpStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             findButton,
             findSignUpSeparateView,
@@ -170,9 +170,9 @@ final class LoginView: UIView {
         return stackView
     }()
 
-    lazy var loginContentSV: UIStackView = {
+    lazy var loginContentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            idPwSV,
+            idPwStackView,
             checkIdPwLabel,
             loginButton
         ])
@@ -185,10 +185,10 @@ final class LoginView: UIView {
         return stackView
     }()
 
-    lazy var loginFindSignUpContentSV: UIStackView = {
+    lazy var loginFindSignUpContentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            loginContentSV,
-            findSignUpSV
+            loginContentStackView,
+            findSignUpStackView
         ])
         stackView.axis = .vertical
         let screenHeight = UIScreen.main.bounds.height
@@ -199,7 +199,7 @@ final class LoginView: UIView {
         return stackView
     }()
 
-    lazy var socialLoginSeparateSV: UIStackView = {
+    lazy var socialLoginSeparateStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             leftSeparateView,
             socialLoginLabel,
@@ -214,7 +214,7 @@ final class LoginView: UIView {
         return stackView
     }()
 
-    lazy var socialLoginButtonSV: UIStackView = {
+    lazy var socialLoginButtonStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             kakaoButton,
             googleButton,
@@ -229,10 +229,10 @@ final class LoginView: UIView {
         return stackView
     }()
 
-    lazy var socialLoginSV: UIStackView = {
+    lazy var socialLoginStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            socialLoginSeparateSV,
-            socialLoginButtonSV
+            socialLoginSeparateStackView,
+            socialLoginButtonStackView
         ])
         stackView.axis = .vertical
         let screenHeight = UIScreen.main.bounds.height
@@ -243,11 +243,11 @@ final class LoginView: UIView {
         return stackView
     }()
 
-    lazy var entireSV: UIStackView = {
+    lazy var entireStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             popcornImageView,
-            loginFindSignUpContentSV,
-            socialLoginSV
+            loginFindSignUpContentStackView,
+            socialLoginStackView
         ])
         stackView.axis = .vertical
         let screenHeight = UIScreen.main.bounds.height
@@ -295,7 +295,7 @@ extension LoginView {
 extension LoginView {
     private func configureSubviews() {
         [
-            entireSV,
+            entireStackView,
             pwEyeButton
         ].forEach {
             addSubview($0)
@@ -305,8 +305,8 @@ extension LoginView {
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            entireSV.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            entireSV.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 81),
+            entireStackView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            entireStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 81),
 
             popcornImageView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 87/759),
             popcornImageView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 140/393),
@@ -329,7 +329,7 @@ extension LoginView {
             loginButton.heightAnchor.constraint(equalTo: idTextField.heightAnchor, multiplier: 53/50),
             loginButton.widthAnchor.constraint(equalTo: idTextField.widthAnchor),
 
-            findSignUpSV.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 218/393),
+            findSignUpStackView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 218/393),
 
             findSignUpSeparateView.widthAnchor.constraint(equalToConstant: 1),
             findSignUpSeparateView.heightAnchor.constraint(
@@ -341,9 +341,9 @@ extension LoginView {
             rightSeparateView.heightAnchor.constraint(equalToConstant: 1),
             socialLoginLabel.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 13/759),
 
-            socialLoginSeparateSV.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 341/393),
+            socialLoginSeparateStackView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 341/393),
 
-            socialLoginButtonSV.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 40/759)
+            socialLoginSeparateStackView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 40/759)
         ])
     }
 }
