@@ -67,7 +67,7 @@ class SignUpSecondView: UIView {
         title: "위치기반 서비스 약관 동의(필수)"
     )
 
-    var firstArrowButton: UIButton = {
+    private let firstArrowButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = UIColor(.clear)
@@ -77,7 +77,7 @@ class SignUpSecondView: UIView {
         return button
     }()
 
-    var secondArrowButton: UIButton = {
+    private let secondArrowButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = UIColor(.clear)
@@ -119,7 +119,7 @@ class SignUpSecondView: UIView {
         return stackView
     }()
 
-    lazy var nickNameInterestStackView: UIStackView = {
+    private lazy var nickNameInterestStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             nickNameTextField,
             interestStackView
@@ -133,7 +133,7 @@ class SignUpSecondView: UIView {
         return stackView
     }()
 
-    lazy var individualAgreeStackView: UIStackView = {
+    private lazy var individualAgreeStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             firstAgreeButton,
             secondAgreeButton
@@ -147,7 +147,7 @@ class SignUpSecondView: UIView {
         return stackView
     }()
 
-    lazy var agreeStackView: UIStackView = {
+    private lazy var agreeStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             allAgreeButton,
             individualAgreeStackView
@@ -161,7 +161,7 @@ class SignUpSecondView: UIView {
         return stackView
     }()
 
-    lazy var userChoiceStackView: UIStackView = {
+    private lazy var userChoiceStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             nickNameInterestStackView,
             agreeStackView
@@ -175,7 +175,7 @@ class SignUpSecondView: UIView {
         return stackView
     }()
 
-    lazy var entireStackView: UIStackView = {
+    private lazy var entireStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             userChoiceStackView,
             signUpButton
@@ -209,7 +209,7 @@ class SignUpSecondView: UIView {
 
 // MARK: - Configure InitialSetting
 extension SignUpSecondView {
-    func configureInitialSetting() {
+    private func configureInitialSetting() {
         backgroundColor = .white
     }
 }

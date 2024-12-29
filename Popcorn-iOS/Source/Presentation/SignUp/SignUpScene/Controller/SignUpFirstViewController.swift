@@ -147,7 +147,7 @@ extension SignUpFirstViewController {
         view.endEditing(true)
     }
 
-    func setUpKeyboard() {
+    private func setUpKeyboard() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow),
                                                name: UIResponder.keyboardWillShowNotification,
@@ -182,7 +182,7 @@ extension SignUpFirstViewController {
 
 // MARK: - Setup AddActions
 extension SignUpFirstViewController {
-    func setupAddActions() {
+    private func setupAddActions() {
         signUpFirstView.requestAuthButton.addAction(UIAction { _ in
             self.requestAuthButtonTapped()
         }, for: .touchUpInside)
@@ -195,11 +195,11 @@ extension SignUpFirstViewController {
 
 // MARK: - selector 함수
 extension SignUpFirstViewController {
-    @objc func requestAuthButtonTapped() {
+    @objc private func requestAuthButtonTapped() {
         // TODO: 서버와 통신
     }
 
-    @objc func nextButtonTapped() {
+    @objc private func nextButtonTapped() {
         let signUpSecondViewController = SignUpSecondViewController()
         self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
     }

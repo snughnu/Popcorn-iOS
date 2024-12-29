@@ -19,7 +19,7 @@ class SignUpFirstView: UIView {
         placeholder: "아이디"
     )
 
-    let duplicateCheckButton: UIButton = {
+    private let duplicateCheckButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = UIColor(resource: .popcornOrange)
@@ -75,7 +75,7 @@ class SignUpFirstView: UIView {
         placeholder: "인증번호를 입력하세요"
     )
 
-    var nextButton: UIButton = {
+    let nextButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = UIColor(resource: .popcornOrange)
@@ -94,7 +94,7 @@ class SignUpFirstView: UIView {
     }()
 
     // MARK: - StackView
-    lazy var idStackView: UIStackView = {
+    private lazy var idStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             idField,
             duplicateCheckButton
@@ -106,7 +106,7 @@ class SignUpFirstView: UIView {
         return stackView
     }()
 
-    lazy var emailStackView: UIStackView = {
+    private lazy var emailStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             emailField,
             requestAuthButton
@@ -118,7 +118,7 @@ class SignUpFirstView: UIView {
         return stackView
     }()
 
-    lazy var fieldStackView: UIStackView = {
+    private lazy var fieldStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             nameField,
             idStackView,
@@ -136,7 +136,7 @@ class SignUpFirstView: UIView {
         return stackView
     }()
 
-    lazy var entireStackView: UIStackView = {
+    private lazy var entireStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             fieldStackView,
             nextButton
@@ -164,7 +164,7 @@ class SignUpFirstView: UIView {
 
 // MARK: - Configure InitialSetting
 extension SignUpFirstView {
-    func configureInitialSetting() {
+    private func configureInitialSetting() {
         backgroundColor = .white
     }
 }
