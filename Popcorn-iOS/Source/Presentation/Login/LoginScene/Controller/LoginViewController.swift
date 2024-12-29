@@ -20,7 +20,7 @@ class LoginViewController: UIViewController {
         setupAddTarget()
     }
 
-    func setupAddTarget() {
+    private func setupAddTarget() {
         loginView.pwEyeButton.addTarget(self, action: #selector(passwordEyeButtonTapped), for: .touchUpInside)
         loginView.loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         loginView.findButton.addTarget(self, action: #selector(findButtonTapped), for: .touchUpInside)
@@ -30,32 +30,32 @@ class LoginViewController: UIViewController {
         loginView.appleButton.addTarget(self, action: #selector(appleButtonTapped), for: .touchUpInside)
     }
 
-    @objc func passwordEyeButtonTapped() {
+    @objc private func passwordEyeButtonTapped() {
         loginView.pwTextField.isSecureTextEntry.toggle()
     }
 
-    @objc func loginButtonTapped() {
+    @objc private func loginButtonTapped() {
         loginView.checkIdPwLabel.textColor = .red
     }
 
-    @objc func findButtonTapped() {
+    @objc private func findButtonTapped() {
 
     }
 
-    @objc func signUpButtonTapped() {
+    @objc private func signUpButtonTapped() {
         let signUpFirstViewController = SignUpFirstViewController()
         self.navigationController?.pushViewController(signUpFirstViewController, animated: true)
     }
 
-    @objc func kakaoButtonTapped() {
+    @objc private func kakaoButtonTapped() {
 
     }
 
-    @objc func googleButtonTapped() {
+    @objc private func googleButtonTapped() {
 
     }
 
-    @objc func appleButtonTapped() {
+    @objc private func appleButtonTapped() {
 
     }
 }

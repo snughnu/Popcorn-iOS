@@ -141,7 +141,7 @@ final class LoginView: UIView {
     }()
 
     // MARK: - StackView
-    lazy var idPwStackView: UIStackView = {
+    private lazy var idPwStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             idTextField,
             pwTextField
@@ -155,7 +155,7 @@ final class LoginView: UIView {
         return stackView
     }()
 
-    lazy var findSignUpStackView: UIStackView = {
+    private lazy var findSignUpStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             findButton,
             findSignUpSeparateView,
@@ -170,7 +170,7 @@ final class LoginView: UIView {
         return stackView
     }()
 
-    lazy var loginContentStackView: UIStackView = {
+    private lazy var loginContentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             idPwStackView,
             checkIdPwLabel,
@@ -185,7 +185,7 @@ final class LoginView: UIView {
         return stackView
     }()
 
-    lazy var loginFindSignUpContentStackView: UIStackView = {
+    private lazy var loginFindSignUpContentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             loginContentStackView,
             findSignUpStackView
@@ -199,7 +199,7 @@ final class LoginView: UIView {
         return stackView
     }()
 
-    lazy var socialLoginSeparateStackView: UIStackView = {
+    private lazy var socialLoginSeparateStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             leftSeparateView,
             socialLoginLabel,
@@ -214,7 +214,7 @@ final class LoginView: UIView {
         return stackView
     }()
 
-    lazy var socialLoginButtonStackView: UIStackView = {
+    private lazy var socialLoginButtonStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             kakaoButton,
             googleButton,
@@ -229,7 +229,7 @@ final class LoginView: UIView {
         return stackView
     }()
 
-    lazy var socialLoginStackView: UIStackView = {
+    private lazy var socialLoginStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             socialLoginSeparateStackView,
             socialLoginButtonStackView
@@ -243,7 +243,7 @@ final class LoginView: UIView {
         return stackView
     }()
 
-    lazy var entireStackView: UIStackView = {
+    private lazy var entireStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             popcornImageView,
             loginFindSignUpContentStackView,
@@ -341,9 +341,14 @@ extension LoginView {
             rightSeparateView.heightAnchor.constraint(equalToConstant: 1),
             socialLoginLabel.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 13/759),
 
-            socialLoginSeparateStackView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 341/393),
-
-            socialLoginSeparateStackView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 40/759)
+            socialLoginSeparateStackView.widthAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.widthAnchor,
+                multiplier: 341/393
+            ),
+            socialLoginSeparateStackView.heightAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.heightAnchor,
+                multiplier: 40/759
+            )
         ])
     }
 }
