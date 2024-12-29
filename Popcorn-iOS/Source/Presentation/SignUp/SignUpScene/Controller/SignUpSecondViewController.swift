@@ -28,7 +28,9 @@ extension SignUpSecondViewController {
     private func setupNavigationBar() {
         let titleLabel = UILabel()
         titleLabel.text = "회원가입"
-        titleLabel.font = UIFont(name: RobotoFontName.robotoSemiBold, size: 21)
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 21/852
+        titleLabel.font = UIFont(name: RobotoFontName.robotoSemiBold, size: size)
         titleLabel.textColor = .black
         titleLabel.textAlignment = .center
         navigationItem.titleView = titleLabel

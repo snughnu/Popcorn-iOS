@@ -93,7 +93,7 @@ class SignUpFirstView: UIView {
         return button
     }()
 
-    // MARK: - stackView
+    // MARK: - StackView
     lazy var idSV: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             idField,
