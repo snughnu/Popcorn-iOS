@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MainCellPagingCollectionViewCell: UICollectionViewCell {
+final class MainCarouselCollectionViewCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(resource: .popupPreviewPlaceHolder)
@@ -27,14 +27,14 @@ final class MainCellPagingCollectionViewCell: UICollectionViewCell {
 }
 
 // MARK: - Public Interface
-extension MainCellPagingCollectionViewCell {
+extension MainCarouselCollectionViewCell {
     func configureContents(image: UIImage) {
         imageView.image = image
     }
 }
 
 // MARK: - Configure UI
-extension MainCellPagingCollectionViewCell {
+extension MainCarouselCollectionViewCell {
     private func configureSubviews() {
         [imageView].forEach {
             contentView.addSubview($0)
