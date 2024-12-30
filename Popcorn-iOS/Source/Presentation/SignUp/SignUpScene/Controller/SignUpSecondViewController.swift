@@ -9,6 +9,7 @@ import UIKit
 
 class SignUpSecondViewController: UIViewController {
     private let signUpSecondView = SignUpSecondView()
+    private let screenHeight = UIScreen.main.bounds.height
 
     override func loadView() {
         view = signUpSecondView
@@ -28,7 +29,8 @@ extension SignUpSecondViewController {
     private func setupNavigationBar() {
         let titleLabel = UILabel()
         titleLabel.text = "회원가입"
-        titleLabel.font = UIFont(name: RobotoFontName.robotoSemiBold, size: 21)
+        let size = screenHeight * 21/852
+        titleLabel.font = UIFont(name: RobotoFontName.robotoSemiBold, size: size)
         titleLabel.textColor = .black
         titleLabel.textAlignment = .center
         navigationItem.titleView = titleLabel
@@ -49,7 +51,7 @@ extension SignUpSecondViewController {
 
 // MARK: - Setup AddActions
 extension SignUpSecondViewController {
-    func setupAddActions() {
+    private func setupAddActions() {
         signUpSecondView.selectProfileImageButton.addAction(UIAction { _ in
             self.selectProfileImageButtonTapped()
         }, for: .touchUpInside)
@@ -74,7 +76,7 @@ extension SignUpSecondViewController {
 
 // MARK: - Image Picker Delegate Protocol
 extension SignUpSecondViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func selectProfileImageButtonTapped() {
+    private func selectProfileImageButtonTapped() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
@@ -97,7 +99,7 @@ extension SignUpSecondViewController: UIImagePickerControllerDelegate, UINavigat
 
 // MARK: - Agree Buttons Action selector 함수
 extension SignUpSecondViewController {
-    func allAgreeButtonTapped() {
+    private func allAgreeButtonTapped() {
         let isAllSelected = signUpSecondView.allAgreeButton.isSelected
         let newState = !isAllSelected
         signUpSecondView.allAgreeButton.isSelected = newState
@@ -108,7 +110,7 @@ extension SignUpSecondViewController {
         updateSignUpButtonState()
     }
 
-    func firstAgreeButtonTapped() {
+    private func firstAgreeButtonTapped() {
         signUpSecondView.firstAgreeButton.isSelected.toggle()
         updateAllAgreeButtonState()
 
@@ -116,7 +118,7 @@ extension SignUpSecondViewController {
         updateSignUpButtonState()
     }
 
-    func secondAgreeButtonTapped() {
+    private func secondAgreeButtonTapped() {
         signUpSecondView.secondAgreeButton.isSelected.toggle()
         updateAllAgreeButtonState()
 
@@ -160,7 +162,7 @@ extension SignUpSecondViewController {
 
 // MARK: - SignUp Button selector 함수
 extension SignUpSecondViewController {
-    func signUpButtonTapped() {
+    private func signUpButtonTapped() {
         // TODO: 서버와 통신
         let loginViewController = LoginViewController()
         self.navigationController?.setViewControllers([loginViewController], animated: true)

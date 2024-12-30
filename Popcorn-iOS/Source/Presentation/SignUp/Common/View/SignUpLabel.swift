@@ -22,8 +22,10 @@ final class SignUpLabel: UILabel {
 // MARK: - Configure Label
 extension SignUpLabel {
     private func configureLabel() {
-        font = UIFont(name: RobotoFontName.robotoMedium, size: 15)
-        textColor = UIColor(resource: .popcornDarkBlueGray)
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 10/852
+        font = UIFont(name: RobotoFontName.robotoMedium, size: size)
+        textColor = UIColor(.white)
         textAlignment = .left
     }
 }

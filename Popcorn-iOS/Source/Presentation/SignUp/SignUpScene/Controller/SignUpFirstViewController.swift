@@ -9,6 +9,7 @@ import UIKit
 
 class SignUpFirstViewController: UIViewController {
     private let signUpFirstView = SignUpFirstView()
+    private let screenHeight = UIScreen.main.bounds.height
 
     override func loadView() {
         view = signUpFirstView
@@ -28,7 +29,8 @@ extension SignUpFirstViewController {
     private func setupNavigationBar() {
         let titleLabel = UILabel()
         titleLabel.text = "회원가입"
-        titleLabel.font = UIFont(name: RobotoFontName.robotoSemiBold, size: 21)
+        let size = screenHeight * 21/852
+        titleLabel.font = UIFont(name: RobotoFontName.robotoSemiBold, size: size)
         titleLabel.textColor = .black
         titleLabel.textAlignment = .center
         navigationItem.titleView = titleLabel
@@ -55,7 +57,7 @@ extension SignUpFirstViewController: UITextFieldDelegate {
             signUpFirstView.idField.textFieldReference,
             signUpFirstView.passwordField.textFieldReference,
             signUpFirstView.confirmPasswordField.textFieldReference,
-            signUpFirstView.emailTextField,
+            signUpFirstView.emailField.textFieldReference,
             signUpFirstView.authNumberTextField
         ].forEach {
             $0.delegate = self
@@ -75,7 +77,7 @@ extension SignUpFirstViewController: UITextFieldDelegate {
         if textField == signUpFirstView.confirmPasswordField.textFieldReference {
             textField.backgroundColor = UIColor(resource: .popcornGray3)
         }
-        if textField == signUpFirstView.emailTextField {
+        if textField == signUpFirstView.emailField {
             textField.backgroundColor = UIColor(resource: .popcornGray3)
         }
         if textField == signUpFirstView.authNumberTextField {
@@ -96,7 +98,7 @@ extension SignUpFirstViewController: UITextFieldDelegate {
         if textField == signUpFirstView.confirmPasswordField.textFieldReference {
             textField.backgroundColor = UIColor(resource: .popcornGray4)
         }
-        if textField == signUpFirstView.emailTextField {
+        if textField == signUpFirstView.emailField {
             textField.backgroundColor = UIColor(resource: .popcornGray4)
         }
         if textField == signUpFirstView.authNumberTextField {
@@ -126,14 +128,13 @@ extension SignUpFirstViewController: UITextFieldDelegate {
         if textField == signUpFirstView.confirmPasswordField.textFieldReference {
             guard let confirmPwText = signUpFirstView.confirmPasswordField.textFieldReference.text,
                   !confirmPwText.isEmpty else { return false }
-            signUpFirstView.emailTextField.becomeFirstResponder()
+            signUpFirstView.emailField.becomeFirstResponder()
             return true
         }
-        if textField == signUpFirstView.emailTextField {
-            guard let emailText = signUpFirstView.emailTextField.text,
+        if textField == signUpFirstView.emailField.textFieldReference {
+            guard let emailText = signUpFirstView.emailField.textFieldReference.text,
                   !emailText.isEmpty else { return false }
-            signUpFirstView.emailTextField.resignFirstResponder()
-            self.requestAuthButtonTapped()
+            signUpFirstView.emailField.becomeFirstResponder()
             return true
         }
         return false
@@ -146,7 +147,7 @@ extension SignUpFirstViewController {
         view.endEditing(true)
     }
 
-    func setUpKeyboard() {
+    private func setUpKeyboard() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow),
                                                name: UIResponder.keyboardWillShowNotification,
@@ -181,7 +182,7 @@ extension SignUpFirstViewController {
 
 // MARK: - Setup AddActions
 extension SignUpFirstViewController {
-    func setupAddActions() {
+    private func setupAddActions() {
         signUpFirstView.requestAuthButton.addAction(UIAction { _ in
             self.requestAuthButtonTapped()
         }, for: .touchUpInside)
@@ -194,11 +195,11 @@ extension SignUpFirstViewController {
 
 // MARK: - selector 함수
 extension SignUpFirstViewController {
-    @objc func requestAuthButtonTapped() {
+    @objc private func requestAuthButtonTapped() {
         // TODO: 서버와 통신
     }
 
-    @objc func nextButtonTapped() {
+    @objc private func nextButtonTapped() {
         let signUpSecondViewController = SignUpSecondViewController()
         self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
     }

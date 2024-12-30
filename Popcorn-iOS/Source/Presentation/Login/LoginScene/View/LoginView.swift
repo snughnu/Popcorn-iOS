@@ -12,7 +12,6 @@ final class LoginView: UIView {
         let imageView = UIImageView()
         imageView.image = UIImage(resource: .logo)
         imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
         return imageView
     }()
 
@@ -21,39 +20,55 @@ final class LoginView: UIView {
         keyboardType: .emailAddress
     )
 
-    let passwordTextField = LoginTextField(
+    let pwTextField = LoginTextField(
         placeholder: "비밀번호",
         keyboardType: .default,
         isSecureTextEntry: true
     )
 
-    let loginButton: UIButton = {
+    let pwEyeButton: UIButton = {
         let button = UIButton()
-        button.applyPopcornFont(text: "로그인", fontName: RobotoFontName.robotoSemiBold, fontSize: 15)
+        var config = UIButton.Configuration.plain()
+        config.image = UIImage(resource: .loginPasswordEyeButton)
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        button.configuration = config
+        return button
+    }()
+
+    let checkIdPwLabel: UILabel = {
+        let label = UILabel()
+        let text = "아이디 또는 비밀번호를 다시 확인하세요."
+        label.textColor = UIColor(.white)
+        let screenHeight = UIScreen.main.bounds.height
+        let fontSize = screenHeight * 10/852
+        label.font = UIFont(name: RobotoFontName.robotoMedium, size: fontSize)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.firstLineHeadIndent = 14
+        let attributedText = NSAttributedString(string: text, attributes: [
+            .paragraphStyle: paragraphStyle
+        ])
+        label.attributedText = attributedText
+        return label
+    }()
+
+    lazy var loginButton: UIButton = {
+        let button = UIButton()
+        let screenHeight = UIScreen.main.bounds.height
+        let fontSize = screenHeight * 15/852
+        button.applyPopcornFont(text: "로그인", fontName: RobotoFontName.robotoSemiBold, fontSize: fontSize)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(resource: .popcornGray2)
         button.layer.cornerRadius = 10
-        button.contentVerticalAlignment = .center
         button.isEnabled = false
         return button
     }()
 
-    lazy var idPasswordStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
-            idTextField,
-            passwordTextField
-        ])
-        stackView.axis = .vertical
-        stackView.spacing = 20
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        return stackView
-    }()
-
-    let findButton: UIButton = {
+    lazy var findButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.black, for: .normal)
-        button.applyPopcornFont(text: "아이디 / 비밀번호 찾기", fontName: RobotoFontName.robotoMedium, fontSize: 15)
+        let screenHeight = UIScreen.main.bounds.height
+        let fontSize = screenHeight * 15/852
+        button.applyPopcornFont(text: "아이디 / 비밀번호 찾기", fontName: RobotoFontName.robotoMedium, fontSize: fontSize)
         button.backgroundColor = .clear
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.numberOfLines = 1
@@ -66,27 +81,16 @@ final class LoginView: UIView {
         return view
     }()
 
-    let signUpButton: UIButton = {
+    lazy var signUpButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.black, for: .normal)
-        button.applyPopcornFont(text: "회원가입", fontName: RobotoFontName.robotoMedium, fontSize: 15)
+        let screenHeight = UIScreen.main.bounds.height
+        let fontSize = screenHeight * 15/852
+        button.applyPopcornFont(text: "회원가입", fontName: RobotoFontName.robotoMedium, fontSize: fontSize)
         button.backgroundColor = .clear
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.numberOfLines = 1
         return button
-    }()
-
-    lazy var findSignUpStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
-            findButton,
-            findSignUpSeparateView,
-            signUpButton
-        ])
-        stackView.axis = .horizontal
-        stackView.spacing = 5
-        stackView.alignment = .center
-        stackView.distribution = .equalSpacing
-        return stackView
     }()
 
     private let leftSeparateView: UIView = {
@@ -95,11 +99,11 @@ final class LoginView: UIView {
         return view
     }()
 
-    private let socialLoginLabel: UILabel = {
+    private lazy var socialLoginLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .lightGray
-        label.popcornMedium(text: "SNS 계정으로 로그인", size: 12)
+        label.popcornMedium(text: "SNS 계정으로 로그인", size: 11)
         return label
     }()
 
@@ -109,53 +113,148 @@ final class LoginView: UIView {
         return view
     }()
 
-    lazy var separateStackView: UIStackView = {
+    let kakaoButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.plain()
+        config.image = UIImage(resource: .loginKakao)
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        button.configuration = config
+        return button
+    }()
+
+    let googleButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.plain()
+        config.image = UIImage(resource: .loginGoogle)
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        button.configuration = config
+        return button
+    }()
+
+    let appleButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.plain()
+        config.image = UIImage(resource: .loginApple)
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        button.configuration = config
+        return button
+    }()
+
+    // MARK: - StackView
+    private lazy var idPwStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            idTextField,
+            pwTextField
+        ])
+        stackView.axis = .vertical
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 20/852
+        stackView.spacing = size
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
+
+    private lazy var findSignUpStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            findButton,
+            findSignUpSeparateView,
+            signUpButton
+        ])
+        stackView.axis = .horizontal
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 5/852
+        stackView.spacing = size
+        stackView.alignment = .fill
+        stackView.distribution = .equalSpacing
+        return stackView
+    }()
+
+    private lazy var loginContentStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            idPwStackView,
+            checkIdPwLabel,
+            loginButton
+        ])
+        stackView.axis = .vertical
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 12/852
+        stackView.spacing = size
+        stackView.alignment = .fill
+        stackView.distribution = .equalSpacing
+        return stackView
+    }()
+
+    private lazy var loginFindSignUpContentStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            loginContentStackView,
+            findSignUpStackView
+        ])
+        stackView.axis = .vertical
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 18/852
+        stackView.spacing = size
+        stackView.alignment = .center
+        stackView.distribution = .equalSpacing
+        return stackView
+    }()
+
+    private lazy var socialLoginSeparateStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             leftSeparateView,
             socialLoginLabel,
             rightSeparateView
         ])
         stackView.axis = .horizontal
-        stackView.spacing = 10
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 10/852
+        stackView.spacing = size
         stackView.alignment = .center
         stackView.distribution = .fillEqually
         return stackView
     }()
 
-    let kakaoButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("카카오", for: UIControl.State.normal)
-        button.setTitleColor(.lightGray, for: UIControl.State.normal)
-        button.backgroundColor = .clear
-        return button
-    }()
-
-    let googleButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("구글", for: UIControl.State.normal)
-        button.setTitleColor(.lightGray, for: UIControl.State.normal)
-        button.backgroundColor = .clear
-        return button
-    }()
-
-    let appleButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("애플", for: UIControl.State.normal)
-        button.setTitleColor(.lightGray, for: UIControl.State.normal)
-        button.backgroundColor = .clear
-        return button
-    }()
-
-    lazy var socialLoginStackView: UIStackView = {
+    private lazy var socialLoginButtonStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             kakaoButton,
             googleButton,
             appleButton
         ])
         stackView.axis = .horizontal
-        stackView.spacing = 5
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 20/852
+        stackView.spacing = size
         stackView.alignment = .center
         stackView.distribution = .fillEqually
+        return stackView
+    }()
+
+    private lazy var socialLoginStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            socialLoginSeparateStackView,
+            socialLoginButtonStackView
+        ])
+        stackView.axis = .vertical
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 26/852
+        stackView.spacing = size
+        stackView.alignment = .center
+        stackView.distribution = .fillProportionally
+        return stackView
+    }()
+
+    private lazy var entireStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            popcornImageView,
+            loginFindSignUpContentStackView,
+            socialLoginStackView
+        ])
+        stackView.axis = .vertical
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 58/852
+        stackView.spacing = size
+        stackView.alignment = .center
+        stackView.distribution = .fillProportionally
         return stackView
     }()
 
@@ -184,7 +283,7 @@ extension LoginView {
 extension LoginView {
     func configureTextFields() {
         idTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
-        passwordTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
+        pwTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -196,12 +295,8 @@ extension LoginView {
 extension LoginView {
     private func configureSubviews() {
         [
-            popcornImageView,
-            idPasswordStackView,
-            loginButton,
-            findSignUpStackView,
-            separateStackView,
-            socialLoginStackView
+            entireStackView,
+            pwEyeButton
         ].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -210,37 +305,50 @@ extension LoginView {
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            popcornImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 126),
-            popcornImageView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            popcornImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 81),
+            entireStackView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            entireStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 81),
 
-            idPasswordStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
-            idPasswordStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            idPasswordStackView.topAnchor.constraint(equalTo: popcornImageView.bottomAnchor, constant: 56),
+            popcornImageView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 87/759),
+            popcornImageView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 140/393),
 
-            loginButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
-            loginButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            loginButton.topAnchor.constraint(equalTo: idPasswordStackView.bottomAnchor, constant: 27),
-            loginButton.heightAnchor.constraint(equalTo: idTextField.heightAnchor, constant: 3),
+            idTextField.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 50/759),
+            idTextField.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 330/393),
+
+            pwTextField.centerXAnchor.constraint(equalTo: idTextField.centerXAnchor),
+            pwTextField.heightAnchor.constraint(equalTo: idTextField.heightAnchor),
+            pwTextField.widthAnchor.constraint(equalTo: idTextField.widthAnchor),
+
+            pwEyeButton.trailingAnchor.constraint(equalTo: pwTextField.trailingAnchor, constant: -20),
+            pwEyeButton.centerYAnchor.constraint(equalTo: pwTextField.centerYAnchor),
+            pwEyeButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 24/759),
+            pwEyeButton.widthAnchor.constraint(equalTo: pwEyeButton.heightAnchor),
+
+            checkIdPwLabel.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 13/759),
+
+            loginButton.centerXAnchor.constraint(equalTo: idTextField.centerXAnchor),
+            loginButton.heightAnchor.constraint(equalTo: idTextField.heightAnchor, multiplier: 53/50),
+            loginButton.widthAnchor.constraint(equalTo: idTextField.widthAnchor),
+
+            findSignUpStackView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 218/393),
 
             findSignUpSeparateView.widthAnchor.constraint(equalToConstant: 1),
-            findSignUpSeparateView.heightAnchor.constraint(equalToConstant: 11),
-
-            findSignUpStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 95),
-            findSignUpStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -95),
-            findSignUpStackView.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 28),
+            findSignUpSeparateView.heightAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.heightAnchor,
+                multiplier: 11/759
+            ),
 
             leftSeparateView.heightAnchor.constraint(equalToConstant: 1),
-
-            separateStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 26),
-            separateStackView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            separateStackView.topAnchor.constraint(equalTo: findSignUpStackView.bottomAnchor, constant: 60),
-
             rightSeparateView.heightAnchor.constraint(equalToConstant: 1),
+            socialLoginLabel.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 13/759),
 
-            socialLoginStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 116),
-            socialLoginStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -116),
-            socialLoginStackView.topAnchor.constraint(equalTo: separateStackView.bottomAnchor, constant: 26)
+            socialLoginSeparateStackView.widthAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.widthAnchor,
+                multiplier: 341/393
+            ),
+            socialLoginSeparateStackView.heightAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.heightAnchor,
+                multiplier: 40/759
+            )
         ])
     }
 }
@@ -256,7 +364,7 @@ extension LoginView {
         }
         guard
             let id = idTextField.text, !id.isEmpty,
-            let password = passwordTextField.text, !password.isEmpty else {
+            let password = pwTextField.text, !password.isEmpty else {
             loginButton.backgroundColor = UIColor(resource: .popcornGray2)
             loginButton.isEnabled = false
             return

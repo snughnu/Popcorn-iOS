@@ -8,7 +8,7 @@
 import UIKit
 
 final class LoginTextField: UITextField {
-    private let insets: UIEdgeInsets = .init(top: 17, left: 20, bottom: 15, right: 20)
+    private let insets: UIEdgeInsets = .init(top: 0, left: 20, bottom: 0, right: 20)
 
     init(placeholder: String, keyboardType: UIKeyboardType, isSecureTextEntry: Bool = false) {
         super.init(frame: .zero)
@@ -46,7 +46,9 @@ extension LoginTextField {
         autocorrectionType = .no
         spellCheckingType = .no
         clearsOnBeginEditing = false
-        font = UIFont(name: RobotoFontName.robotoMedium, size: 15)
+        let screenHeight = UIScreen.main.bounds.height
+        let fontSize = screenHeight * 15/852
+        font = UIFont(name: RobotoFontName.robotoMedium, size: fontSize)
         textAlignment = .left
         clipsToBounds = true
         layer.cornerRadius = 10
