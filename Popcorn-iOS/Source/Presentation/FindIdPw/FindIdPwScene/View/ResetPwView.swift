@@ -1,13 +1,13 @@
 //
-//  SignUpSecondView.swift
+//  ResetPwView.swift
 //  Popcorn-iOS
 //
-//  Created by 김성훈 on 11/26/24.
+//  Created by 김성훈 on 12/30/24.
 //
 
 import UIKit
 
-class SignUpSecondView: UIView {
+class ResetPwView: UIView {
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -31,71 +31,67 @@ class SignUpSecondView: UIView {
         textAlignment: .center
     )
 
+    let pwTextField = FindIdPwTextField(
+        keyboardType: .emailAddress,
+        placeholder: "비밀번호"
+    )
+
+    let changePwButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = UIColor(resource: .popcornOrange)
+        config.background.cornerRadius = 10
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 13/852
+        config.attributedTitle = AttributedString(
+            "변경",
+            attributes: AttributeContainer([
+                .font: UIFont(name: RobotoFontName.robotoSemiBold, size: size)!,
+                .foregroundColor: UIColor.white
+            ])
+        )
+        button.configuration = config
+        return button
+    }()
+
+    let emailTextField = FindIdPwTextField(
+        keyboardType: .emailAddress,
+        placeholder: "이메일"
+    )
+    
+    let changeEmailButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = UIColor(resource: .popcornOrange)
+        config.background.cornerRadius = 10
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 13/852
+        config.attributedTitle = AttributedString(
+            "변경",
+            attributes: AttributeContainer([
+                .font: UIFont(name: RobotoFontName.robotoSemiBold, size: size)!,
+                .foregroundColor: UIColor.white
+            ])
+        )
+        button.configuration = config
+        return button
+    }()
+
     private let interestTitles: [[String]] = [
         ["패션", "뷰티", "음식", "캐릭터"],
         ["드라마/영화", "라이프 스타일", "예술"],
         ["IT", "스포츠", "셀럽", "반려동물"]
     ]
 
-    let allAgreeButton: UIButton = {
-        let button = UIButton()
-        let screenHeight = UIScreen.main.bounds.height
-        let fontSize = screenHeight * 18/852
-        var config = UIButton.Configuration.plain()
-        config.baseBackgroundColor = .clear
-        config.image = UIImage(resource: .checkButton)
-        config.imagePlacement = .leading
-        config.imagePadding = 10
-        config.attributedTitle = AttributedString(
-            "전체동의",
-            attributes: AttributeContainer([
-                .font: UIFont(name: RobotoFontName.robotoSemiBold, size: fontSize)!,
-                .foregroundColor: UIColor(.black)
-            ])
-        )
-        config.titleAlignment = .leading
-        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0)
-        button.configuration = config
-        return button
-    }()
-
-    let firstAgreeButton = SignUpAgreeButton(
-        title: "마케팅 정보 앱 푸시 알림 수신 동의(선택)"
-    )
-
-    let secondAgreeButton = SignUpAgreeButton(
-        title: "위치기반 서비스 약관 동의(필수)"
-    )
-
-    private let firstArrowButton: UIButton = {
+    var completeButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor(.clear)
-        config.image = UIImage(resource: .signUpRightArrow)
-        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-        button.configuration = config
-        return button
-    }()
-
-    private let secondArrowButton: UIButton = {
-        let button = UIButton()
-        var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor(.clear)
-        config.image = UIImage(resource: .signUpRightArrow)
-        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-        button.configuration = config
-        return button
-    }()
-
-    var signUpButton: UIButton = {
-        let button = UIButton()
-        var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor(resource: .popcornGray2)
+        config.baseBackgroundColor = UIColor(resource: .popcornOrange)
         config.background.cornerRadius = 10
         let screenHeight = UIScreen.main.bounds.height
         let size = screenHeight * 15/852
         config.attributedTitle = AttributedString(
-            "가입하기",
+            "완료",
             attributes: AttributeContainer([
                 .font: UIFont(name: RobotoFontName.robotoSemiBold, size: size)!,
                 .foregroundColor: UIColor(.white)
@@ -135,42 +131,51 @@ class SignUpSecondView: UIView {
         return stackView
     }()
 
-    private lazy var individualAgreeStackView: UIStackView = {
+    private lazy var pwStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            firstAgreeButton,
-            secondAgreeButton
+            pwTextField,
+            changePwButton
         ])
-        stackView.axis = .vertical
-        let screenHeight = UIScreen.main.bounds.height
-        let size = screenHeight * 10/852
-        stackView.spacing = size
-        stackView.alignment = .leading
-        stackView.distribution = .equalSpacing
+        stackView.axis = .horizontal
+        stackView.spacing = 10
+        stackView.alignment = .fill
+        stackView.distribution = .fill
         return stackView
     }()
 
-    private lazy var agreeStackView: UIStackView = {
+    private lazy var emailStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            allAgreeButton,
-            individualAgreeStackView
+            emailTextField,
+            changeEmailButton
+        ])
+        stackView.axis = .horizontal
+        stackView.spacing = 10
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        return stackView
+    }()
+
+    private lazy var changeStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            pwStackView,
+            emailStackView
         ])
         stackView.axis = .vertical
         let screenHeight = UIScreen.main.bounds.height
-        let size = screenHeight * 15/852
+        let size = screenHeight * 20/852
         stackView.spacing = size
-        stackView.alignment = .leading
-        stackView.distribution = .equalSpacing
+        stackView.distribution = .fillEqually
         return stackView
     }()
 
     private lazy var userChoiceStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             nickNameInterestStackView,
-            agreeStackView
+            changeStackView
         ])
         stackView.axis = .vertical
         let screenHeight = UIScreen.main.bounds.height
-        let size = screenHeight * 32/852
+        let size = screenHeight * 27/852
         stackView.spacing = size
         stackView.alignment = .center
         stackView.distribution = .fillProportionally
@@ -180,11 +185,11 @@ class SignUpSecondView: UIView {
     private lazy var entireStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             userChoiceStackView,
-            signUpButton
+            completeButton
         ])
         stackView.axis = .vertical
         let screenHeight = UIScreen.main.bounds.height
-        let size = screenHeight * 47/852
+        let size = screenHeight * 37/852
         stackView.spacing = size
         stackView.alignment = .fill
         stackView.distribution = .fill
@@ -210,21 +215,19 @@ class SignUpSecondView: UIView {
 }
 
 // MARK: - Configure InitialSetting
-extension SignUpSecondView {
+extension ResetPwView {
     private func configureInitialSetting() {
         backgroundColor = .white
     }
 }
 
 // MARK: - Configure Layout
-extension SignUpSecondView {
+extension ResetPwView {
     private func configureSubviews() {
         [
             entireStackView,
             profileImageView,
             selectProfileImageButton,
-            firstArrowButton,
-            secondArrowButton
         ].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -256,23 +259,21 @@ extension SignUpSecondView {
             interestStackView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 128/759),
             interestStackView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 341/393),
 
-            agreeStackView.widthAnchor.constraint(equalTo: entireStackView.widthAnchor),
-            agreeStackView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 104/759),
+            changeStackView.widthAnchor.constraint(equalTo: nickNameTextField.widthAnchor),
 
-            firstArrowButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            firstArrowButton.centerYAnchor.constraint(equalTo: firstAgreeButton.centerYAnchor),
+            changePwButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 90/393),
+            changePwButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 50/759),
 
-            secondArrowButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            secondArrowButton.centerYAnchor.constraint(equalTo: secondAgreeButton.centerYAnchor),
+            changeEmailButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 90/393),
 
-            signUpButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 56/759),
-            signUpButton.widthAnchor.constraint(equalTo: nickNameTextField.widthAnchor)
+            completeButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 56/759),
+            completeButton.widthAnchor.constraint(equalTo: nickNameTextField.widthAnchor)
         ])
     }
 }
 
 // MARK: - 관심사 버튼들 설정
-extension SignUpSecondView {
+extension ResetPwView {
     private func createLineStackView(with titles: [String]) -> UIStackView {
         let buttons = titles.map { SignUpInterestButton(title: $0) }
         let stackView = UIStackView(arrangedSubviews: buttons)

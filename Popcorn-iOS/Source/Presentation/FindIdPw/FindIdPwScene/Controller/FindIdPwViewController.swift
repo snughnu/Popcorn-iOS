@@ -106,8 +106,8 @@ extension FindIdPwViewController: UITextFieldDelegate {
 // MARK: - Setup AddActions
 extension FindIdPwViewController {
     private func setupAddActions() {
-        findIdPwView.duplicateCheckButton.addAction(UIAction { _ in
-            self.duplicateCheckButtonTapped()
+        findIdPwView.requestAuthButton.addAction(UIAction { _ in
+            self.requestAuthButtonTapped()
         }, for: .touchUpInside)
 
         findIdPwView.idButton.addAction(UIAction { _ in
@@ -122,7 +122,7 @@ extension FindIdPwViewController {
 
 // MARK: - selector 함수
 extension FindIdPwViewController {
-    @objc private func duplicateCheckButtonTapped() {
+    @objc private func requestAuthButtonTapped() {
         // TODO: 서버와 통신
     }
 
@@ -132,7 +132,7 @@ extension FindIdPwViewController {
     }
 
     @objc private func pwButtonTapped() {
-//        let signUpSecondViewController = SignUpSecondViewController()
-//        self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
+        let resetPwViewController = ResetPwViewController()
+        self.navigationController?.pushViewController(resetPwViewController, animated: true)
     }
 }
