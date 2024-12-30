@@ -12,7 +12,7 @@ final class MainDetailViewController: UIViewController {
     private let detailScrollView = UIScrollView()
     private let detailContentView = UIView()
     private let detailCarouselView: MainCarouselView
-
+    
     private let popupTitleLabel: UILabel = {
         let label = UILabel()
         label.popcornSemiBold(text: "팝업 제목", size: 24)

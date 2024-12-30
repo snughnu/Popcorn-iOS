@@ -23,6 +23,7 @@
 		56537BB72CE0F5290092A292 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56537BAF2CE0F5290092A292 /* ViewController.swift */; };
 		565C415C2D2028DD0016003A /* MainCollectionTitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565C415B2D2028DD0016003A /* MainCollectionTitleHeaderView.swift */; };
 		565C415F2D2032160016003A /* MainCarouselViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */; };
+		56A061282D21697E00BC92A8 /* PopupDetailInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A061272D21697E00BC92A8 /* PopupDetailInfoView.swift */; };
 		56AA6C0C2CE373A7001952C2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 56AA6C0B2CE373A7001952C2 /* .swiftlint.yml */; };
 		56C5DDBA2CE79AC90090D3A2 /* MainCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C5DDB92CE799780090D3A2 /* MainCarouselView.swift */; };
 		56C5DDBC2CE875990090D3A2 /* MainCarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C5DDBB2CE875990090D3A2 /* MainCarouselCollectionViewCell.swift */; };
@@ -33,7 +34,6 @@
 		56CD3A722CEB83CF00BAC02D /* MainSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CD3A702CEB83CF00BAC02D /* MainSceneViewModel.swift */; };
 		56CD3A7B2CEB858100BAC02D /* PickOrInterestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CD3A7A2CEB858100BAC02D /* PickOrInterestCell.swift */; };
 		56CD3A7D2CEC31B000BAC02D /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CD3A7C2CEC314E00BAC02D /* UIView+.swift */; };
-		56EFDDD72D21360300497BBC /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EFDDD62D21360300497BBC /* TestViewController.swift */; };
 		BC2D11622CEC5DF60030F4E0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2D11612CEC5DF60030F4E0 /* LoginView.swift */; };
 		BC7420F82CE2395600BEED0A /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7420F72CE2391400BEED0A /* HttpMethod.swift */; };
 		BC7420FA2CE23A9500BEED0A /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7420F92CE23A8A00BEED0A /* Requestable.swift */; };
@@ -83,6 +83,7 @@
 		56537BAF2CE0F5290092A292 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		565C415B2D2028DD0016003A /* MainCollectionTitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionTitleHeaderView.swift; sourceTree = "<group>"; };
 		565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselViewModelProtocol.swift; sourceTree = "<group>"; };
+		56A061272D21697E00BC92A8 /* PopupDetailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetailInfoView.swift; sourceTree = "<group>"; };
 		56AA6C0B2CE373A7001952C2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		56C5DDB92CE799780090D3A2 /* MainCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselView.swift; sourceTree = "<group>"; };
 		56C5DDBB2CE875990090D3A2 /* MainCarouselCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -93,7 +94,6 @@
 		56CD3A702CEB83CF00BAC02D /* MainSceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneViewModel.swift; sourceTree = "<group>"; };
 		56CD3A7A2CEB858100BAC02D /* PickOrInterestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickOrInterestCell.swift; sourceTree = "<group>"; };
 		56CD3A7C2CEC314E00BAC02D /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
-		56EFDDD62D21360300497BBC /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		BC2D11612CEC5DF60030F4E0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BC7420F72CE2391400BEED0A /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		BC7420F92CE23A8A00BEED0A /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
@@ -145,6 +145,23 @@
 				5601592B2CF3172B00872662 /* RobotoFlex-VariableFont.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		563482F72D223F90001646B5 /* PopupDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				563482F92D223FFE001646B5 /* ReusableView */,
+				56A061272D21697E00BC92A8 /* PopupDetailInfoView.swift */,
+				56C98C702CF488960001CFD4 /* MainDetailViewController.swift */,
+			);
+			path = PopupDetailView;
+			sourceTree = "<group>";
+		};
+		563482F92D223FFE001646B5 /* ReusableView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ReusableView;
 			sourceTree = "<group>";
 		};
 		56537B6A2CE0F5100092A292 = {
@@ -216,7 +233,6 @@
 				5649A58F2CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift */,
 				56381C292D193CEE00F4F715 /* MainCarouselPickHeaderCollectionReusableView.swift */,
 				565C415B2D2028DD0016003A /* MainCollectionTitleHeaderView.swift */,
-				56EFDDD62D21360300497BBC /* TestViewController.swift */,
 			);
 			path = ReusableView;
 			sourceTree = "<group>";
@@ -235,7 +251,8 @@
 			isa = PBXGroup;
 			children = (
 				56C5DDC62CE99AC80090D3A2 /* Common */,
-				56CD3A732CEB84D500BAC02D /* View */,
+				56CD3A732CEB84D500BAC02D /* MainSceneView */,
+				563482F72D223F90001646B5 /* PopupDetailView */,
 				56CD3A712CEB83CF00BAC02D /* ViewModel */,
 			);
 			path = Main;
@@ -302,14 +319,13 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		56CD3A732CEB84D500BAC02D /* View */ = {
+		56CD3A732CEB84D500BAC02D /* MainSceneView */ = {
 			isa = PBXGroup;
 			children = (
 				565C415D2D202BA40016003A /* ReusableView */,
 				56018CA12CECB1C400AC8ED5 /* MainSceneViewController.swift */,
-				56C98C702CF488960001CFD4 /* MainDetailViewController.swift */,
 			);
-			path = View;
+			path = MainSceneView;
 			sourceTree = "<group>";
 		};
 		56CD3A7E2CEC606600BAC02D /* Extensions */ = {
@@ -595,7 +611,6 @@
 				BC90A0BC2CF4CF53003488F0 /* SignUpSecondViewController.swift in Sources */,
 				56C5DDBA2CE79AC90090D3A2 /* MainCarouselView.swift in Sources */,
 				BC7420FE2CE23FD700BEED0A /* NetworkError.swift in Sources */,
-				56EFDDD72D21360300497BBC /* TestViewController.swift in Sources */,
 				BCE6E6032CF323570036BAF6 /* SignUpFirstViewController.swift in Sources */,
 				BCE6E5FC2CF321080036BAF6 /* SignUpFieldStackView.swift in Sources */,
 				BC8113722CF5ECC800F82331 /* SignUpSecondView.swift in Sources */,
@@ -620,6 +635,7 @@
 				560159302CF319A700872662 /* UILabel+.swift in Sources */,
 				5649A5902CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift in Sources */,
 				BCC45D1A2CEB9A980045DC57 /* LoginTextField.swift in Sources */,
+				56A061282D21697E00BC92A8 /* PopupDetailInfoView.swift in Sources */,
 				56C98C712CF488960001CFD4 /* MainDetailViewController.swift in Sources */,
 				BC2D11622CEC5DF60030F4E0 /* LoginView.swift in Sources */,
 				56537BB62CE0F5290092A292 /* SceneDelegate.swift in Sources */,
