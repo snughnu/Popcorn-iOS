@@ -9,8 +9,6 @@ import UIKit
 
 final class MainDetailViewController: UIViewController {
 //    private let detailViewModel = MainSceneViewModel()
-    private let detailScrollView = UIScrollView()
-    private let detailContentView = UIView()
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -34,32 +32,10 @@ extension MainDetailViewController {
 // MARK: - Configure UI
 extension MainDetailViewController {
     private func configureSubviews() {
-        [detailScrollView].forEach {
-            view.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
 
-        [detailContentView].forEach {
-            detailScrollView.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
     }
 
     private func configureLayout() {
-        let safeArea = view.safeAreaLayoutGuide
 
-        NSLayoutConstraint.activate([
-            detailScrollView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            detailScrollView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            detailScrollView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-            detailScrollView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            detailScrollView.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor),
-
-            detailContentView.topAnchor.constraint(equalTo: detailScrollView.contentLayoutGuide.topAnchor),
-            detailContentView.leadingAnchor.constraint(equalTo: detailScrollView.contentLayoutGuide.leadingAnchor),
-            detailContentView.bottomAnchor.constraint(equalTo: detailScrollView.contentLayoutGuide.bottomAnchor),
-            detailContentView.centerXAnchor.constraint(equalTo: detailScrollView.contentLayoutGuide.centerXAnchor),
-            detailContentView.widthAnchor.constraint(equalTo: detailScrollView.widthAnchor),
-        ])
     }
 }
