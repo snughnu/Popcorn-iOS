@@ -8,15 +8,9 @@
 import UIKit
 
 final class MainDetailViewController: UIViewController {
-    private let detailViewModel = MainSceneViewModel()
+//    private let detailViewModel = MainSceneViewModel()
     private let detailScrollView = UIScrollView()
     private let detailContentView = UIView()
-    private let detailCarouselView: MainCarouselView
-
-    init() {
-        detailCarouselView = MainCarouselView(viewModel: detailViewModel)
-        super.init(nibName: nil, bundle: nil)
-    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -27,7 +21,6 @@ final class MainDetailViewController: UIViewController {
         configureInitialSetting()
         configureSubviews()
         configureLayout()
-        detailViewModel.fetchPopupImages()
     }
 }
 
@@ -50,11 +43,6 @@ extension MainDetailViewController {
             detailScrollView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-
-        [detailCarouselView].forEach {
-            detailContentView.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
     }
 
     private func configureLayout() {
@@ -72,10 +60,6 @@ extension MainDetailViewController {
             detailContentView.bottomAnchor.constraint(equalTo: detailScrollView.contentLayoutGuide.bottomAnchor),
             detailContentView.centerXAnchor.constraint(equalTo: detailScrollView.contentLayoutGuide.centerXAnchor),
             detailContentView.widthAnchor.constraint(equalTo: detailScrollView.widthAnchor),
-
-            detailCarouselView.topAnchor.constraint(equalTo: detailContentView.topAnchor),
-            detailCarouselView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor),
-            detailCarouselView.centerXAnchor.constraint(equalTo: detailContentView.centerXAnchor),
         ])
     }
 }
