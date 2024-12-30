@@ -127,8 +127,8 @@ extension FindIdPwViewController {
     }
 
     @objc private func idButtonTapped() {
-//        let signUpSecondViewController = SignUpSecondViewController()
-//        self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
+        let findIdViewController = FindIdViewController()
+        self.navigationController?.pushViewController(findIdViewController, animated: true)
     }
 
     @objc private func pwButtonTapped() {
