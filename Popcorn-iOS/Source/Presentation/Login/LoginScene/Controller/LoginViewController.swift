@@ -39,7 +39,8 @@ class LoginViewController: UIViewController {
     }
 
     @objc private func findButtonTapped() {
-
+        let findIdPwViewController = FindIdPwViewController()
+        self.navigationController?.pushViewController(findIdPwViewController, animated: true)
     }
 
     @objc private func signUpButtonTapped() {
