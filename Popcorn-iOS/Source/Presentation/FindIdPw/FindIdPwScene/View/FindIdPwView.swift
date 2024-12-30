@@ -18,7 +18,7 @@ class FindIdPwView: UIView {
         placeholder: "이메일"
     )
 
-    let duplicateCheckButton: UIButton = {
+    let requestAuthButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = UIColor(resource: .popcornOrange)
@@ -81,7 +81,7 @@ class FindIdPwView: UIView {
     private lazy var emailStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             emailTextField,
-            duplicateCheckButton
+            requestAuthButton
         ])
         stackView.axis = .horizontal
         stackView.spacing = 10
@@ -155,7 +155,7 @@ extension FindIdPwView {
             entireStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 146),
             entireStackView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 226/759),
 
-            duplicateCheckButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 90/393),
+            requestAuthButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 90/393),
 
             idPwStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
             idPwStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),

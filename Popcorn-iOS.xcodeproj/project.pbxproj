@@ -52,6 +52,8 @@
 		BCE8FA342D2272F600A7B8E2 /* FindIdPwViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE8FA332D2272F600A7B8E2 /* FindIdPwViewController.swift */; };
 		BCE8FA362D227CE000A7B8E2 /* FindIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE8FA352D227CE000A7B8E2 /* FindIdView.swift */; };
 		BCE8FA382D227CF100A7B8E2 /* FindIdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE8FA372D227CF100A7B8E2 /* FindIdViewController.swift */; };
+		BCE8FA542D228C4900A7B8E2 /* ResetPwView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE8FA532D228C4900A7B8E2 /* ResetPwView.swift */; };
+		BCE8FA562D228C5400A7B8E2 /* ResetPwViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE8FA552D228C5400A7B8E2 /* ResetPwViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +115,8 @@
 		BCE8FA332D2272F600A7B8E2 /* FindIdPwViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdPwViewController.swift; sourceTree = "<group>"; };
 		BCE8FA352D227CE000A7B8E2 /* FindIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdView.swift; sourceTree = "<group>"; };
 		BCE8FA372D227CF100A7B8E2 /* FindIdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdViewController.swift; sourceTree = "<group>"; };
+		BCE8FA532D228C4900A7B8E2 /* ResetPwView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPwView.swift; sourceTree = "<group>"; };
+		BCE8FA552D228C5400A7B8E2 /* ResetPwViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPwViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -479,6 +483,7 @@
 			children = (
 				BCE8FA312D2272EB00A7B8E2 /* FindIdPwView.swift */,
 				BCE8FA352D227CE000A7B8E2 /* FindIdView.swift */,
+				BCE8FA532D228C4900A7B8E2 /* ResetPwView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -488,6 +493,7 @@
 			children = (
 				BCE8FA332D2272F600A7B8E2 /* FindIdPwViewController.swift */,
 				BCE8FA372D227CF100A7B8E2 /* FindIdViewController.swift */,
+				BCE8FA552D228C5400A7B8E2 /* ResetPwViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -651,6 +657,7 @@
 				56C5DDBC2CE875990090D3A2 /* MainCarouselCollectionViewCell.swift in Sources */,
 				5601592E2CF3175E00872662 /* RobotoFontName.swift in Sources */,
 				BCE6E60A2CF378DF0036BAF6 /* SignUpLabel.swift in Sources */,
+				BCE8FA542D228C4900A7B8E2 /* ResetPwView.swift in Sources */,
 				56C5DDBF2CE87C0E0090D3A2 /* Reusable.swift in Sources */,
 				56CD3A722CEB83CF00BAC02D /* MainSceneViewModel.swift in Sources */,
 				BC90A0522CF4A6EA003488F0 /* UIResponder+.swift in Sources */,
@@ -663,6 +670,7 @@
 				560159302CF319A700872662 /* UILabel+.swift in Sources */,
 				5649A5902CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift in Sources */,
 				BCC45D1A2CEB9A980045DC57 /* LoginTextField.swift in Sources */,
+				BCE8FA562D228C5400A7B8E2 /* ResetPwViewController.swift in Sources */,
 				56C98C712CF488960001CFD4 /* MainDetailViewController.swift in Sources */,
 				BC2D11622CEC5DF60030F4E0 /* LoginView.swift in Sources */,
 				BCE8FA362D227CE000A7B8E2 /* FindIdView.swift in Sources */,
