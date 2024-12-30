@@ -15,6 +15,9 @@
 		56018CA22CECB1C400AC8ED5 /* MainSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56018CA12CECB1C400AC8ED5 /* MainSceneViewController.swift */; };
 		56018CA42CECC41000AC8ED5 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56018CA32CECC3FA00AC8ED5 /* Date+.swift */; };
 		563482FE2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563482FD2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift */; };
+		563483002D2248DB001646B5 /* PopupInfoDescriptionCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563482FF2D2248DB001646B5 /* PopupInfoDescriptionCollectionReusableView.swift */; };
+		563483032D224CF2001646B5 /* CarouselCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563483022D224CF2001646B5 /* CarouselCollectionReusableView.swift */; };
+		563483052D2274CB001646B5 /* PopupDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563483042D22747B001646B5 /* PopupDetail.swift */; };
 		56381C2A2D193CEE00F4F715 /* MainCarouselPickHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56381C292D193CEE00F4F715 /* MainCarouselPickHeaderCollectionReusableView.swift */; };
 		5649A5902CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5649A58F2CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift */; };
 		56537BB12CE0F5290092A292 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56537BA82CE0F5290092A292 /* Assets.xcassets */; };
@@ -24,7 +27,7 @@
 		56537BB72CE0F5290092A292 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56537BAF2CE0F5290092A292 /* ViewController.swift */; };
 		565C415C2D2028DD0016003A /* MainCollectionTitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565C415B2D2028DD0016003A /* MainCollectionTitleHeaderView.swift */; };
 		565C415F2D2032160016003A /* MainCarouselViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */; };
-		56A061282D21697E00BC92A8 /* PopupDetailInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A061272D21697E00BC92A8 /* PopupDetailInfoView.swift */; };
+		56A061282D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A061272D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift */; };
 		56AA6C0C2CE373A7001952C2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 56AA6C0B2CE373A7001952C2 /* .swiftlint.yml */; };
 		56C5DDBA2CE79AC90090D3A2 /* MainCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C5DDB92CE799780090D3A2 /* MainCarouselView.swift */; };
 		56C5DDBC2CE875990090D3A2 /* MainCarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C5DDBB2CE875990090D3A2 /* MainCarouselCollectionViewCell.swift */; };
@@ -73,6 +76,9 @@
 		56018CA12CECB1C400AC8ED5 /* MainSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneViewController.swift; sourceTree = "<group>"; };
 		56018CA32CECC3FA00AC8ED5 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		563482FD2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTitleCollectionViewCell.swift; sourceTree = "<group>"; };
+		563482FF2D2248DB001646B5 /* PopupInfoDescriptionCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupInfoDescriptionCollectionReusableView.swift; sourceTree = "<group>"; };
+		563483022D224CF2001646B5 /* CarouselCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCollectionReusableView.swift; sourceTree = "<group>"; };
+		563483042D22747B001646B5 /* PopupDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetail.swift; sourceTree = "<group>"; };
 		56381C292D193CEE00F4F715 /* MainCarouselPickHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselPickHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		5649A58F2CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosingSoonPopupCell.swift; sourceTree = "<group>"; };
 		56537B732CE0F5100092A292 /* Popcorn-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Popcorn-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,7 +91,7 @@
 		56537BAF2CE0F5290092A292 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		565C415B2D2028DD0016003A /* MainCollectionTitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionTitleHeaderView.swift; sourceTree = "<group>"; };
 		565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselViewModelProtocol.swift; sourceTree = "<group>"; };
-		56A061272D21697E00BC92A8 /* PopupDetailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetailInfoView.swift; sourceTree = "<group>"; };
+		56A061272D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetailInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		56AA6C0B2CE373A7001952C2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		56C5DDB92CE799780090D3A2 /* MainCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselView.swift; sourceTree = "<group>"; };
 		56C5DDBB2CE875990090D3A2 /* MainCarouselCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -153,7 +159,6 @@
 			isa = PBXGroup;
 			children = (
 				563482F92D223FFE001646B5 /* ReusableView */,
-				56A061272D21697E00BC92A8 /* PopupDetailInfoView.swift */,
 				56C98C702CF488960001CFD4 /* MainDetailViewController.swift */,
 			);
 			path = PopupDetailView;
@@ -163,6 +168,9 @@
 			isa = PBXGroup;
 			children = (
 				563482FD2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift */,
+				563482FF2D2248DB001646B5 /* PopupInfoDescriptionCollectionReusableView.swift */,
+				56A061272D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift */,
+				563483022D224CF2001646B5 /* CarouselCollectionReusableView.swift */,
 			);
 			path = ReusableView;
 			sourceTree = "<group>";
@@ -307,6 +315,7 @@
 		56C5DDD32CE9C1B00090D3A2 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				563483042D22747B001646B5 /* PopupDetail.swift */,
 				56C5DDD42CE9C1B60090D3A2 /* PopupPreview.swift */,
 				56C5DDD82CE9C2700090D3A2 /* UserInterestPopup.swift */,
 			);
@@ -616,6 +625,7 @@
 				BC7420FE2CE23FD700BEED0A /* NetworkError.swift in Sources */,
 				BCE6E6032CF323570036BAF6 /* SignUpFirstViewController.swift in Sources */,
 				BCE6E5FC2CF321080036BAF6 /* SignUpFieldStackView.swift in Sources */,
+				563483002D2248DB001646B5 /* PopupInfoDescriptionCollectionReusableView.swift in Sources */,
 				BC8113722CF5ECC800F82331 /* SignUpSecondView.swift in Sources */,
 				56C5DDD52CE9C1E40090D3A2 /* PopupPreview.swift in Sources */,
 				56018CA22CECB1C400AC8ED5 /* MainSceneViewController.swift in Sources */,
@@ -630,16 +640,18 @@
 				56C5DDBF2CE87C0E0090D3A2 /* Reusable.swift in Sources */,
 				56CD3A722CEB83CF00BAC02D /* MainSceneViewModel.swift in Sources */,
 				BC90A0522CF4A6EA003488F0 /* UIResponder+.swift in Sources */,
+				563483052D2274CB001646B5 /* PopupDetail.swift in Sources */,
 				BC7420FC2CE23B9600BEED0A /* Request.swift in Sources */,
 				BC7420F82CE2395600BEED0A /* HttpMethod.swift in Sources */,
 				563482FE2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift in Sources */,
+				563483032D224CF2001646B5 /* CarouselCollectionReusableView.swift in Sources */,
 				56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */,
 				56018C9B2CEC9AE000AC8ED5 /* MainCollectionHeaderView.swift in Sources */,
 				56CD3A7D2CEC31B000BAC02D /* UIView+.swift in Sources */,
 				560159302CF319A700872662 /* UILabel+.swift in Sources */,
 				5649A5902CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift in Sources */,
 				BCC45D1A2CEB9A980045DC57 /* LoginTextField.swift in Sources */,
-				56A061282D21697E00BC92A8 /* PopupDetailInfoView.swift in Sources */,
+				56A061282D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift in Sources */,
 				56C98C712CF488960001CFD4 /* MainDetailViewController.swift in Sources */,
 				BC2D11622CEC5DF60030F4E0 /* LoginView.swift in Sources */,
 				56537BB62CE0F5290092A292 /* SceneDelegate.swift in Sources */,
