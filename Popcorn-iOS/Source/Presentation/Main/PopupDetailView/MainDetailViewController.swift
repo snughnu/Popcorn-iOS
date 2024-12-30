@@ -12,32 +12,6 @@ final class MainDetailViewController: UIViewController {
     private let detailScrollView = UIScrollView()
     private let detailContentView = UIView()
     private let detailCarouselView: MainCarouselView
-    
-    private let popupTitleLabel: UILabel = {
-        let label = UILabel()
-        label.popcornSemiBold(text: "팝업 제목", size: 24)
-        label.numberOfLines = 0
-        return label
-    }()
-
-    private let popupPeriodLabel: UILabel = {
-        let label = UILabel()
-        label.popcornMedium(text: "00.00.00~00.00.00", size: 15)
-        return label
-    }()
-
-    private let shareButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.setImage(UIImage(resource: .shareButton), for: .normal)
-        return button
-    }()
-
-    private let pickButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.setImage(UIImage(resource: .pickButton), for: .normal)
-        button.setImage(UIImage(resource: .pickButtonSelected), for: .selected)
-        return button
-    }()
 
     private let segmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl()
@@ -85,34 +59,6 @@ final class MainDetailViewController: UIViewController {
 
     private let popupDetailInfoView = PopupDetailInfoView()
 
-    // MARK: - StackView
-    private let popupTitlePriodStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 7
-        stackView.alignment = .leading
-        return stackView
-    }()
-
-    private let sharePickButtonStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 18
-        stackView.alignment = .center
-        return stackView
-    }()
-
-    private let hashTagStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.distribution = .fillEqually
-        stackView.spacing = 5
-        return stackView
-    }()
-
     init() {
         detailCarouselView = MainCarouselView(viewModel: detailViewModel)
         super.init(nibName: nil, bundle: nil)
@@ -128,7 +74,6 @@ final class MainDetailViewController: UIViewController {
         configureSubviews()
         configureLayout()
         configureActions()
-        addTagsToHashtagStackView(tags: ["핑구", "캐릭터", "펭귄", "D-5", "굿즈", "이벤트", "여의도", "더현대서울"])
         detailViewModel.fetchPopupImages()
     }
 }
@@ -172,19 +117,8 @@ extension MainDetailViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
 
-        [popupTitleLabel, popupPeriodLabel].forEach {
-            popupTitlePriodStackView.addArrangedSubview($0)
-        }
-
-        [shareButton, pickButton].forEach {
-            sharePickButtonStackView.addArrangedSubview($0)
-        }
-
         [
             detailCarouselView,
-            popupTitlePriodStackView,
-            sharePickButtonStackView,
-            hashTagStackView,
             segmentedControl,
             segmentedGrayUnderLineView,
             segmentedUnderLineView,
@@ -218,24 +152,7 @@ extension MainDetailViewController {
             detailCarouselView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor),
             detailCarouselView.centerXAnchor.constraint(equalTo: detailContentView.centerXAnchor),
 
-            popupTitlePriodStackView.topAnchor.constraint(equalTo: detailCarouselView.bottomAnchor, constant: 25),
-            popupTitlePriodStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 27),
-
-            sharePickButtonStackView.topAnchor.constraint(equalTo: detailCarouselView.bottomAnchor, constant: 29),
-            sharePickButtonStackView.leadingAnchor.constraint(
-                greaterThanOrEqualTo: popupTitlePriodStackView.trailingAnchor,
-                constant: 10
-            ),
-            sharePickButtonStackView.trailingAnchor.constraint(
-                equalTo: detailContentView.trailingAnchor,
-                constant: -37
-            ),
-
-            hashTagStackView.topAnchor.constraint(equalTo: popupTitlePriodStackView.bottomAnchor, constant: 18),
-            hashTagStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 27),
-            hashTagStackView.centerXAnchor.constraint(equalTo: detailContentView.centerXAnchor),
-
-            segmentedControl.topAnchor.constraint(equalTo: hashTagStackView.bottomAnchor, constant: 13),
+            segmentedControl.topAnchor.constraint(equalTo: detailCarouselView.bottomAnchor, constant: 13),
             segmentedControl.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor),
             segmentedControl.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor),
             segmentedControl.heightAnchor.constraint(equalToConstant: 40),
@@ -255,67 +172,6 @@ extension MainDetailViewController {
             popupDetailInfoView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor),
             popupDetailInfoView.centerXAnchor.constraint(equalTo: detailContentView.centerXAnchor),
             popupDetailInfoView.bottomAnchor.constraint(equalTo: detailContentView.bottomAnchor)
-        ])
-    }
-}
-
-// MARK: - Configure HashTagStackView
-extension MainDetailViewController {
-    private func addTagsToHashtagStackView(tags: [String]) {
-        var currentHorizontalStackView = createHorizontalStackView()
-        hashTagStackView.addArrangedSubview(currentHorizontalStackView)
-
-        var currentRowWidth: CGFloat = 0
-        let stackViewLeftSpacing: CGFloat = 27
-        let tagInterSpacing: CGFloat = 10
-        let tagHorizontalInset: CGFloat = 10
-        let maxWidth = view.bounds.width - (stackViewLeftSpacing * 2)
-
-        for tag in tags {
-            let tagLabel = createTagLabel(text: tag, tagHorizontalInset: tagHorizontalInset)
-            let tagWidth = tagLabel.intrinsicContentSize.width + (tagInterSpacing * 2)
-
-            if currentRowWidth + tagWidth > maxWidth {
-                currentHorizontalStackView = createHorizontalStackView()
-                hashTagStackView.addArrangedSubview(currentHorizontalStackView)
-                currentRowWidth = 0
-            }
-
-            currentHorizontalStackView.addArrangedSubview(tagLabel)
-            currentRowWidth += tagWidth + tagInterSpacing
-        }
-    }
-
-    private func createHorizontalStackView() -> UIStackView {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        stackView.alignment = .center
-        stackView.distribution = .fillProportionally
-        return stackView
-    }
-
-    private func createTagLabel(text: String, tagHorizontalInset: CGFloat) -> UILabel {
-        let label: UILabel = {
-            let label = UILabel()
-            label.popcornMedium(text: text, size: 13)
-            label.textAlignment = .center
-            label.backgroundColor = UIColor(resource: .popcornGray4)
-            label.cornerRadius(radius: 15)
-            return label
-        }()
-        let font = UIFont(name: RobotoFontName.robotoMedium, size: 13) ?? UIFont.systemFont(ofSize: 13)
-        let labelWidth = text.size(withAttributes: [.font: font]).width + (tagHorizontalInset * 2)
-        configureTagLabelLayout(label, labelWidth: labelWidth)
-
-        return label
-    }
-
-    private func configureTagLabelLayout(_ label: UILabel, labelWidth: CGFloat) {
-        label.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            label.heightAnchor.constraint(equalToConstant: 30),
-            label.widthAnchor.constraint(equalToConstant: labelWidth)
         ])
     }
 }
