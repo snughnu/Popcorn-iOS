@@ -45,17 +45,20 @@ final class SignUpInterestButton: UIButton {
 // MARK: - Configure SignUp Interest Button UI
 extension SignUpInterestButton {
     private func configureButtonUI(with title: String) {
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 15/852
+
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = UIColor(resource: .popcornLightGrayOpacity1)
         config.attributedTitle = AttributedString(
             title,
             attributes: AttributeContainer([
-                .font: UIFont(name: RobotoFontName.robotoMedium, size: 15)!,
+                .font: UIFont(name: RobotoFontName.robotoMedium, size: size)!,
                 .foregroundColor: UIColor(resource: .popcornDarkGrayOpacity3)
             ])
         )
         config.cornerStyle = .capsule
-        config.contentInsets = NSDirectionalEdgeInsets(top: 7, leading: 14, bottom: 7, trailing: 14)
+//        config.contentInsets = NSDirectionalEdgeInsets(top: 7, leading: 14, bottom: 7, trailing: 14)
         self.configuration = config
     }
 

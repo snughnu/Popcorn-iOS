@@ -8,7 +8,7 @@
 import UIKit
 
 final class SignUpTextField: UITextField {
-    private let insets: UIEdgeInsets = .init(top: 17, left: 20, bottom: 15, right: 20)
+    private let insets: UIEdgeInsets = .init(top: 0, left: 20, bottom: 0, right: 20)
 
     init(
         keyboardType: UIKeyboardType,
@@ -52,7 +52,9 @@ extension SignUpTextField {
         autocorrectionType = .no
         spellCheckingType = .no
         clearsOnBeginEditing = false
-        font = UIFont(name: RobotoFontName.robotoMedium, size: 15)
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 15/852
+        font = UIFont(name: RobotoFontName.robotoMedium, size: size)
         clipsToBounds = true
         layer.cornerRadius = 10
         layer.borderColor = UIColor(resource: .popcornGray2).cgColor

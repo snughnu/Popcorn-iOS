@@ -16,14 +16,18 @@ final class SignUpFieldStackView: UIStackView {
 
     init(
         labelText: String,
-        keyboardType: UIKeyboardType = .default,
+        placeholder: String,
+        keyboardType: UIKeyboardType = .emailAddress,
         isSecureTextEntry: Bool = false
     ) {
         signUpLabel = SignUpLabel(text: labelText)
-        signUpTextField = SignUpTextField(keyboardType: keyboardType, isSecureTextEntry: isSecureTextEntry)
+        signUpTextField = SignUpTextField(
+            keyboardType: keyboardType,
+            isSecureTextEntry: isSecureTextEntry,
+            placeholder: placeholder
+        )
         super.init(frame: .zero)
-        axis = .vertical
-        spacing = 5
+        configureSV()
         configureLayout()
     }
 
@@ -32,19 +36,30 @@ final class SignUpFieldStackView: UIStackView {
     }
 }
 
-// MARK: - stackView 안의 label과 textField 오토레이아웃
+// MARK: - configure SignUpFieldStackView
+extension SignUpFieldStackView {
+    private func configureSV() {
+        axis = .vertical
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 12/852
+        spacing = size
+        alignment = .fill
+        distribution = .fill
+    }
+}
+
+// MARK: - configure AutoLayout
 extension SignUpFieldStackView {
     private func configureLayout() {
-        addArrangedSubview(signUpLabel)
         addArrangedSubview(signUpTextField)
+        addArrangedSubview(signUpLabel)
 
-        signUpLabel.translatesAutoresizingMaskIntoConstraints = false
         signUpTextField.translatesAutoresizingMaskIntoConstraints = false
+        signUpLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            signUpLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-
             signUpTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            signUpTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+
+            signUpLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10)
         ])
     }
 }

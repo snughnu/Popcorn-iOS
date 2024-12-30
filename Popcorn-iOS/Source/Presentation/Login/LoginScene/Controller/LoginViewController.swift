@@ -20,7 +20,8 @@ class LoginViewController: UIViewController {
         setupAddTarget()
     }
 
-    func setupAddTarget() {
+    private func setupAddTarget() {
+        loginView.pwEyeButton.addTarget(self, action: #selector(passwordEyeButtonTapped), for: .touchUpInside)
         loginView.loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         loginView.findButton.addTarget(self, action: #selector(findButtonTapped), for: .touchUpInside)
         loginView.signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
@@ -29,28 +30,32 @@ class LoginViewController: UIViewController {
         loginView.appleButton.addTarget(self, action: #selector(appleButtonTapped), for: .touchUpInside)
     }
 
-    @objc func loginButtonTapped() {
+    @objc private func passwordEyeButtonTapped() {
+        loginView.pwTextField.isSecureTextEntry.toggle()
+    }
+
+    @objc private func loginButtonTapped() {
+        loginView.checkIdPwLabel.textColor = .red
+    }
+
+    @objc private func findButtonTapped() {
 
     }
 
-    @objc func findButtonTapped() {
-
-    }
-
-    @objc func signUpButtonTapped() {
+    @objc private func signUpButtonTapped() {
         let signUpFirstViewController = SignUpFirstViewController()
         self.navigationController?.pushViewController(signUpFirstViewController, animated: true)
     }
 
-    @objc func kakaoButtonTapped() {
+    @objc private func kakaoButtonTapped() {
 
     }
 
-    @objc func googleButtonTapped() {
+    @objc private func googleButtonTapped() {
 
     }
 
-    @objc func appleButtonTapped() {
+    @objc private func appleButtonTapped() {
 
     }
 }
@@ -59,15 +64,15 @@ class LoginViewController: UIViewController {
 extension LoginViewController: UITextFieldDelegate {
     private func setupTextField() {
         loginView.idTextField.delegate = self
-        loginView.passwordTextField.delegate = self
+        loginView.pwTextField.delegate = self
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == loginView.idTextField {
             loginView.idTextField.backgroundColor = UIColor(resource: .popcornGray3)
         }
-        if textField == loginView.passwordTextField {
-            loginView.passwordTextField.backgroundColor = UIColor(resource: .popcornGray3)
+        if textField == loginView.pwTextField {
+            loginView.pwTextField.backgroundColor = UIColor(resource: .popcornGray3)
         }
     }
 
@@ -75,21 +80,21 @@ extension LoginViewController: UITextFieldDelegate {
         if textField == loginView.idTextField {
             loginView.idTextField.backgroundColor = UIColor(resource: .popcornGray4)
         }
-        if textField == loginView.passwordTextField {
-            loginView.passwordTextField.backgroundColor = UIColor(resource: .popcornGray4)
+        if textField == loginView.pwTextField {
+            loginView.pwTextField.backgroundColor = UIColor(resource: .popcornGray4)
         }
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == loginView.idTextField {
             guard let idText = loginView.idTextField.text, !idText.isEmpty else { return false }
-            loginView.passwordTextField.becomeFirstResponder()
+            loginView.pwTextField.becomeFirstResponder()
             return true
         }
-        if textField == loginView.passwordTextField {
+        if textField == loginView.pwTextField {
             guard let idText = loginView.idTextField.text, !idText.isEmpty,
-                  let passwordText = loginView.passwordTextField.text, !passwordText.isEmpty else { return false }
-            loginView.passwordTextField.resignFirstResponder()
+                  let passwordText = loginView.pwTextField.text, !passwordText.isEmpty else { return false }
+            loginView.pwTextField.resignFirstResponder()
             loginView.loginButton.sendActions(for: .touchUpInside)
             return true
         }

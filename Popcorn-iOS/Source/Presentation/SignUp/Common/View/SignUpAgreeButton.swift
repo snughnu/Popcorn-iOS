@@ -12,16 +12,14 @@ final class SignUpAgreeButton: UIButton {
         title: String,
         color: UIColor = UIColor(resource: .popcornGray1),
         image: UIImage = UIImage(resource: .individualCheckButton),
-        fontName: String = RobotoFontName.robotoMedium,
-        fontSize: CGFloat = 13
+        fontName: String = RobotoFontName.robotoMedium
     ) {
         super.init(frame: .zero)
         setupButton(
             title: title,
             color: color,
             image: image,
-            fontName: fontName,
-            fontSize: fontSize
+            fontName: fontName
         )
     }
 
@@ -37,9 +35,11 @@ extension SignUpAgreeButton {
         color: UIColor = UIColor(resource: .popcornGray1),
         image: UIImage = UIImage(resource: .individualCheckButton),
         selectedImage: UIImage = UIImage(resource: .individualCheckButtonSelected),
-        fontName: String = RobotoFontName.robotoMedium,
-        fontSize: CGFloat = 13
+        fontName: String = RobotoFontName.robotoMedium
     ) {
+        let screenHeight = UIScreen.main.bounds.height
+        let fontSize = screenHeight * 13/852
+
         var config = UIButton.Configuration.plain()
         config.baseBackgroundColor = .clear
         config.image = image
