@@ -1,5 +1,5 @@
 //
-//  PopupDetailInfoView.swift
+//  PopupDetailInfoCollectionViewCell.swift
 //  Popcorn-iOS
 //
 //  Created by 제민우 on 12/29/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PopupDetailInfoView: UIView {
+final class PopupDetailInfoCollectionViewCell: UICollectionViewCell {
     private let locationImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(resource: .location)
@@ -173,7 +173,7 @@ final class PopupDetailInfoView: UIView {
 }
 
 // MARK: - Configure UI
-extension PopupDetailInfoView {
+extension PopupDetailInfoCollectionViewCell {
     private func configureSubviews() {
         [locationImageView, officialLinkImageView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false

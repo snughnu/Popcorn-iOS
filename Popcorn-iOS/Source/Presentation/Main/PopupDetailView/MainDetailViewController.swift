@@ -13,8 +13,6 @@ final class MainDetailViewController: UIViewController {
     private let detailContentView = UIView()
     private let detailCarouselView: MainCarouselView
 
-    private let popupDetailInfoView = PopupDetailInfoView()
-
     init() {
         detailCarouselView = MainCarouselView(viewModel: detailViewModel)
         super.init(nibName: nil, bundle: nil)
@@ -53,10 +51,7 @@ extension MainDetailViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
 
-        [
-            detailCarouselView,
-            popupDetailInfoView
-        ].forEach {
+        [detailCarouselView].forEach {
             detailContentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -81,11 +76,6 @@ extension MainDetailViewController {
             detailCarouselView.topAnchor.constraint(equalTo: detailContentView.topAnchor),
             detailCarouselView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor),
             detailCarouselView.centerXAnchor.constraint(equalTo: detailContentView.centerXAnchor),
-
-            popupDetailInfoView.topAnchor.constraint(equalTo: detailCarouselView.bottomAnchor),
-            popupDetailInfoView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor),
-            popupDetailInfoView.centerXAnchor.constraint(equalTo: detailContentView.centerXAnchor),
-            popupDetailInfoView.bottomAnchor.constraint(equalTo: detailContentView.bottomAnchor)
         ])
     }
 }
