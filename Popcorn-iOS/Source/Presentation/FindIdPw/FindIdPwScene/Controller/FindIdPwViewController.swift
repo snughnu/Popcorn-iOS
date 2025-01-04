@@ -118,20 +118,17 @@ extension FindIdPwViewController {
             self.pwButtonTapped()
         }, for: .touchUpInside)
     }
-}
-
-// MARK: - selector 함수
-extension FindIdPwViewController {
-    @objc private func requestAuthButtonTapped() {
+    
+    private func requestAuthButtonTapped() {
         // TODO: 서버와 통신
     }
 
-    @objc private func idButtonTapped() {
+    private func idButtonTapped() {
         let findIdViewController = CompleteFindIdViewController()
         self.navigationController?.pushViewController(findIdViewController, animated: true)
     }
 
-    @objc private func pwButtonTapped() {
+    private func pwButtonTapped() {
         let resetPwViewController = ResetPwViewController()
         self.navigationController?.pushViewController(resetPwViewController, animated: true)
     }
