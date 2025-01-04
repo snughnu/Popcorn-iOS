@@ -65,8 +65,8 @@ extension ResetPwViewController {
     }
     private func completeButtonTapped() {
         // TODO: 서버와 통신
-        let loginViewController = LoginViewController()
-        self.navigationController?.setViewControllers([loginViewController], animated: true)
+        let completeResetPwViewController = CompleteResetPwViewController()
+        self.navigationController?.pushViewController(completeResetPwViewController, animated: true)
     }
 
     private func passwordEyeButtonTapped() {
