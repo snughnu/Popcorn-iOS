@@ -59,7 +59,6 @@ class FindIdView: UIView {
         return stackView
     }()
 
-
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
