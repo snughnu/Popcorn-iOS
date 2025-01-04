@@ -20,7 +20,6 @@ class ResetPwViewController: UIViewController {
         setupNavigationBar()
         setupAddActions()
         setupTextField()
-        setUpKeyboard()
     }
 }
 
@@ -52,45 +51,30 @@ extension ResetPwViewController {
 // MARK: - Setup AddActions
 extension ResetPwViewController {
     private func setupAddActions() {
-        resetPwView.selectProfileImageButton.addAction(UIAction { _ in
-            self.selectProfileImageButtonTapped()
-        }, for: .touchUpInside)
-
         resetPwView.completeButton.addAction(UIAction { _ in
             self.completeButtonTapped()
         }, for: .touchUpInside)
-    }
-}
 
-// MARK: - Image Picker Delegate Protocol
-extension ResetPwViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    private func selectProfileImageButtonTapped() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.allowsEditing = true
-        present(imagePicker, animated: true, completion: nil)
-    }
+        resetPwView.pwEyeButton.addAction(UIAction { _ in
+            self.passwordEyeButtonTapped()
+        }, for: .touchUpInside)
 
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        if let selectedImage = info[.editedImage] as? UIImage {
-            resetPwView.profileImageView.image = selectedImage
-        }
-        picker.dismiss(animated: true, completion: nil)
+        resetPwView.checkPwEyeButton.addAction(UIAction { _ in
+            self.checkPwEyeButtonTapped()
+        }, for: .touchUpInside)
     }
-
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
-    }
-}
-
-// MARK: - SignUp Button selector 함수
-extension ResetPwViewController {
     private func completeButtonTapped() {
         // TODO: 서버와 통신
         let loginViewController = LoginViewController()
         self.navigationController?.setViewControllers([loginViewController], animated: true)
+    }
+
+    private func passwordEyeButtonTapped() {
+            resetPwView.pwTextField.isSecureTextEntry.toggle()
+    }
+
+    private func checkPwEyeButtonTapped() {
+            resetPwView.checkPwTextField.isSecureTextEntry.toggle()
     }
 }
 
@@ -98,9 +82,8 @@ extension ResetPwViewController {
 extension ResetPwViewController: UITextFieldDelegate {
     private func setupTextField() {
         [
-            resetPwView.nickNameTextField,
             resetPwView.pwTextField,
-            resetPwView.emailTextField
+            resetPwView.checkPwTextField
         ].forEach {
             $0.delegate = self
         }
@@ -111,61 +94,36 @@ extension ResetPwViewController: UITextFieldDelegate {
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == resetPwView.nickNameTextField {
-            textField.backgroundColor = UIColor(resource: .popcornGray3)
-        }
         if textField == resetPwView.pwTextField {
             textField.backgroundColor = UIColor(resource: .popcornGray3)
         }
-        if textField == resetPwView.emailTextField {
+        if textField == resetPwView.checkPwTextField {
             textField.backgroundColor = UIColor(resource: .popcornGray3)
         }
     }
 
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-        if textField == resetPwView.nickNameTextField {
-            textField.backgroundColor = UIColor(resource: .popcornGray4)
-        }
         if textField == resetPwView.pwTextField {
             textField.backgroundColor = UIColor(resource: .popcornGray4)
         }
-        if textField == resetPwView.emailTextField {
+        if textField == resetPwView.checkPwTextField {
             textField.backgroundColor = UIColor(resource: .popcornGray4)
         }
     }
-}
 
-// MARK: - Setup Keyboard
-extension ResetPwViewController {
-    private func setUpKeyboard() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillShow),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillHide),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
-    }
-
-    @objc func keyboardWillShow(_ sender: Notification) {
-        guard let keyboardFrame = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-              let currentTextField = UIResponder.currentResponder as? UITextField else { return }
-
-        let keyboardTopY = keyboardFrame.cgRectValue.origin.y
-        let convertedTextFieldFrame = view.convert(currentTextField.frame, from: currentTextField.superview)
-        let textFieldBottomY = convertedTextFieldFrame.origin.y + convertedTextFieldFrame.size.height
-
-        if textFieldBottomY > keyboardTopY {
-            let textFieldTopY = convertedTextFieldFrame.origin.y
-            let newFrame = textFieldTopY - keyboardTopY/1.6
-            view.frame.origin.y = -newFrame
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == resetPwView.pwTextField {
+            guard let pwText = resetPwView.pwTextField.text, !pwText.isEmpty else { return false }
+            resetPwView.checkPwTextField.becomeFirstResponder()
+            return true
         }
-    }
-
-    @objc func keyboardWillHide(_ sender: Notification) {
-        if view.frame.origin.y != 0 {
-            view.frame.origin.y = 0
+        if textField == resetPwView.checkPwTextField {
+            guard let pwText = resetPwView.pwTextField.text, !pwText.isEmpty,
+                  let checkPwText = resetPwView.checkPwTextField.text, !checkPwText.isEmpty else { return false }
+            resetPwView.checkPwTextField.resignFirstResponder()
+            resetPwView.completeButton.sendActions(for: .touchUpInside)
+            return true
         }
+       return false
     }
 }

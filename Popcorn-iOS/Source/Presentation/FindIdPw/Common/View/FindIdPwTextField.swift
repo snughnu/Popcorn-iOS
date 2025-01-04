@@ -48,6 +48,7 @@ extension FindIdPwTextField {
         autocorrectionType = .no
         spellCheckingType = .no
         clearsOnBeginEditing = false
+        isSecureTextEntry = true
         let screenHeight = UIScreen.main.bounds.height
         let size = screenHeight * 15/852
         font = UIFont(name: RobotoFontName.robotoMedium, size: size)
