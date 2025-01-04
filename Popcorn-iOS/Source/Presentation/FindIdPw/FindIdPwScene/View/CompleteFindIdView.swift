@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FindIdView: UIView {
+class CompleteFindIdView: UIView {
     let checkImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(resource: .checkButtonSelected)
@@ -73,14 +73,14 @@ class FindIdView: UIView {
 }
 
 // MARK: - Configure InitialSetting
-extension FindIdView {
+extension CompleteFindIdView {
     private func configureInitialSetting() {
         backgroundColor = .white
     }
 }
 
 // MARK: - Configure Layout
-extension FindIdView {
+extension CompleteFindIdView {
     private func configureSubviews() {
         [
             mainStackView,

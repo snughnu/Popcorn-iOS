@@ -7,12 +7,12 @@
 
 import UIKit
 
-class FindIdViewController: UIViewController {
-    private let findIdView = FindIdView()
+class CompleteFindIdViewController: UIViewController {
+    private let completeFindIdView = CompleteFindIdView()
     private let screenHeight = UIScreen.main.bounds.height
 
     override func loadView() {
-        view = findIdView
+        view = completeFindIdView
     }
 
     override func viewDidLoad() {
@@ -23,7 +23,7 @@ class FindIdViewController: UIViewController {
 }
 
 // MARK: - Setup NavigationBar
-extension FindIdViewController {
+extension CompleteFindIdViewController {
     private func setupNavigationBar() {
         let titleLabel = UILabel()
         titleLabel.text = "아이디/비밀번호 찾기"
@@ -48,16 +48,16 @@ extension FindIdViewController {
 }
 
 // MARK: - Setup AddActions
-extension FindIdViewController {
+extension CompleteFindIdViewController {
     private func setupAddActions() {
-        findIdView.completeButton.addAction(UIAction { _ in
+        completeFindIdView.completeButton.addAction(UIAction { _ in
             self.completeButtonTapped()
         }, for: .touchUpInside)
     }
 }
 
 // MARK: - selector 함수
-extension FindIdViewController {
+extension CompleteFindIdViewController {
     @objc private func completeButtonTapped() {
         let loginViewController = LoginViewController()
         self.navigationController?.setViewControllers([loginViewController], animated: true)

@@ -127,7 +127,7 @@ extension FindIdPwViewController {
     }
 
     @objc private func idButtonTapped() {
-        let findIdViewController = FindIdViewController()
+        let findIdViewController = CompleteFindIdViewController()
         self.navigationController?.pushViewController(findIdViewController, animated: true)
     }
 
