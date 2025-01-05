@@ -29,6 +29,8 @@
 		565C415C2D2028DD0016003A /* MainCollectionTitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565C415B2D2028DD0016003A /* MainCollectionTitleHeaderView.swift */; };
 		565C415F2D2032160016003A /* MainCarouselViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */; };
 		56A061282D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A061272D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift */; };
+		56A0C8472D2A744C005E6C51 /* ReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A0C8462D2A744C005E6C51 /* ReviewCollectionViewCell.swift */; };
+		56A0C8492D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A0C8482D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift */; };
 		56AA6C0C2CE373A7001952C2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 56AA6C0B2CE373A7001952C2 /* .swiftlint.yml */; };
 		56B6D3722D2A5DA600FFB733 /* ReviewSortButtonHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B6D3712D2A5DA600FFB733 /* ReviewSortButtonHeaderView.swift */; };
 		56C5DDBA2CE79AC90090D3A2 /* MainCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C5DDB92CE799780090D3A2 /* MainCarouselView.swift */; };
@@ -97,6 +99,8 @@
 		565C415B2D2028DD0016003A /* MainCollectionTitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionTitleHeaderView.swift; sourceTree = "<group>"; };
 		565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselViewModelProtocol.swift; sourceTree = "<group>"; };
 		56A061272D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetailInfoCollectionViewCell.swift; sourceTree = "<group>"; };
+		56A0C8462D2A744C005E6C51 /* ReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionViewCell.swift; sourceTree = "<group>"; };
+		56A0C8482D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		56AA6C0B2CE373A7001952C2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		56B6D3712D2A5DA600FFB733 /* ReviewSortButtonHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSortButtonHeaderView.swift; sourceTree = "<group>"; };
 		56C5DDB92CE799780090D3A2 /* MainCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselView.swift; sourceTree = "<group>"; };
@@ -177,12 +181,14 @@
 		563482F92D223FFE001646B5 /* ReusableView */ = {
 			isa = PBXGroup;
 			children = (
+				56A0C8482D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift */,
 				56D68A352D2409DB00EA1404 /* PopupRatingCollectionViewCell.swift */,
 				563482FD2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift */,
 				56A061272D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift */,
 				563482FF2D2248DB001646B5 /* PopupInfoDescriptionCollectionReusableView.swift */,
 				563483022D224CF2001646B5 /* CarouselCollectionReusableView.swift */,
 				56B6D3712D2A5DA600FFB733 /* ReviewSortButtonHeaderView.swift */,
+				56A0C8462D2A744C005E6C51 /* ReviewCollectionViewCell.swift */,
 			);
 			path = ReusableView;
 			sourceTree = "<group>";
@@ -632,7 +638,9 @@
 				BCE6E6002CF321AE0036BAF6 /* SignUpFirstView.swift in Sources */,
 				BC7420FA2CE23A9500BEED0A /* Requestable.swift in Sources */,
 				56381C2A2D193CEE00F4F715 /* MainCarouselPickHeaderCollectionReusableView.swift in Sources */,
+				56A0C8472D2A744C005E6C51 /* ReviewCollectionViewCell.swift in Sources */,
 				BC90A0BC2CF4CF53003488F0 /* SignUpSecondViewController.swift in Sources */,
+				56A0C8492D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift in Sources */,
 				56C5DDBA2CE79AC90090D3A2 /* MainCarouselView.swift in Sources */,
 				BC7420FE2CE23FD700BEED0A /* NetworkError.swift in Sources */,
 				56D68A342D23FBB700EA1404 /* RatingDistributionView.swift in Sources */,
