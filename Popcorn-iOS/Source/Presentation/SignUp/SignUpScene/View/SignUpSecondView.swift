@@ -92,10 +92,12 @@ class SignUpSecondView: UIView {
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = UIColor(resource: .popcornGray2)
         config.background.cornerRadius = 10
+        let screenHeight = UIScreen.main.bounds.height
+        let size = screenHeight * 15/852
         config.attributedTitle = AttributedString(
             "가입하기",
             attributes: AttributeContainer([
-                .font: UIFont(name: RobotoFontName.robotoSemiBold, size: 15)!,
+                .font: UIFont(name: RobotoFontName.robotoSemiBold, size: size)!,
                 .foregroundColor: UIColor(.white)
             ])
         )
