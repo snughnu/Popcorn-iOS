@@ -23,7 +23,7 @@ struct PopupDetail {
     let officialLink: String
     let businessHours: String
     let introduce: String
-    
+
     var isUserPick: Bool
 }
 
@@ -40,5 +40,3 @@ struct PopupReview {
     let images: [Data]
     let content: String
 }
-
-
