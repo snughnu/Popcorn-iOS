@@ -14,7 +14,7 @@ protocol StarRatingViewDelegate: AnyObject {
 final class StarRatingView: UIView {
     private var currentRating: Float = 0 {
         didSet {
-            setNeedsLayout()
+            updateStarImages()
         }
     }
     weak var delegate: StarRatingViewDelegate?
