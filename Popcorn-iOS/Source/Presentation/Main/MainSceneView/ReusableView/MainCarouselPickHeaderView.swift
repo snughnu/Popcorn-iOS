@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MainCarouselPickHeaderCollectionReusableView: UICollectionReusableView {
+final class MainCarouselPickHeaderView: UICollectionReusableView {
     private let carouselView = MainCarouselView(viewModel: nil)
     private let titleHeader = MainCollectionTitleHeaderView()
 
@@ -23,8 +23,8 @@ final class MainCarouselPickHeaderCollectionReusableView: UICollectionReusableVi
 }
 
 // MARK: - Public Interface
-extension MainCarouselPickHeaderCollectionReusableView {
-    func configureContents(headerTitle: String, viewModel: MainSceneViewModel) {
+extension MainCarouselPickHeaderView {
+    func configureContents(headerTitle: String, viewModel: MainCarouselViewModelProtocol) {
         titleHeader.configureContents(headerTitle: headerTitle)
         carouselView.updateViewModel(viewModel: viewModel)
         layoutSubviews()
@@ -32,7 +32,7 @@ extension MainCarouselPickHeaderCollectionReusableView {
 }
 
 // MARK: - Configure UI
-extension MainCarouselPickHeaderCollectionReusableView {
+extension MainCarouselPickHeaderView {
     private func configureSubviews() {
         [carouselView, titleHeader].forEach {
             addSubview($0)

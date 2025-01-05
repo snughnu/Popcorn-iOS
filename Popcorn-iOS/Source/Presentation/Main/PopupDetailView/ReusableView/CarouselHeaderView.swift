@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CarouselCollectionReusableView: UICollectionReusableView {
+final class CarouselHeaderView: UICollectionReusableView {
     private let detailViewModel = MainSceneViewModel()
     private let detailCarouselView: MainCarouselView
 
@@ -25,7 +25,7 @@ final class CarouselCollectionReusableView: UICollectionReusableView {
 }
 
 // MARK: - Configure UI
-extension CarouselCollectionReusableView {
+extension CarouselHeaderView {
     private func configureSubviews() {
         [detailCarouselView].forEach {
             addSubview($0)
