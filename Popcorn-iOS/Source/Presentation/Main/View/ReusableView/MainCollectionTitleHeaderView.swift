@@ -1,13 +1,13 @@
 //
-//  MainCollectionHeaderView.swift
+//  MainCollectionTitleHeaderView.swift
 //  Popcorn-iOS
 //
-//  Created by 제민우 on 11/19/24.
+//  Created by 제민우 on 12/28/24.
 //
 
 import UIKit
 
-class MainCollectionHeaderView: UICollectionReusableView {
+final class MainCollectionTitleHeaderView: UIView {
     private let headerLabel: UILabel = {
         let label = UILabel()
         label.popcornSemiBold(text: "제목", size: 21)
@@ -47,7 +47,7 @@ class MainCollectionHeaderView: UICollectionReusableView {
 }
 
 // MARK: - Public Interface
-extension MainCollectionHeaderView {
+extension MainCollectionTitleHeaderView {
     func configureContents(headerTitle: String, shouldHiddenShowButton: Bool = false) {
         headerLabel.text = headerTitle
         showAllButton.isHidden = shouldHiddenShowButton
@@ -55,7 +55,7 @@ extension MainCollectionHeaderView {
 }
 
 // MARK: - Configure UI
-extension MainCollectionHeaderView {
+extension MainCollectionTitleHeaderView {
     private func configureUI() {
         bottomBorder.backgroundColor = UIColor(resource: .popcornGray2).cgColor
         bottomBorder.frame = CGRect(x: 0, y: bounds.height - 1, width: bounds.width, height: 1)
