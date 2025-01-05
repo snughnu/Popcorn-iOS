@@ -42,10 +42,12 @@ struct PopupPreviewData {
     }
 }
 
-class MainSceneViewModel {
-    private var todayRecommendedPopup: [PopupPreview] = [] {
+class MainSceneViewModel: MainCarouselViewModelProtocol {
+    // 프로토콜 멤버의 접근제어는 모두 동일한데, 구현체에서 얘를 private으로 설정하니 프로토콜에서 정의된 접근제어자와 일치하지 않는다는 에러 발생..
+    // 그래서 internal로 냅뒀습니다..
+    var carouselPopupImage: [PopupPreview] = [] {
         didSet {
-            todayRecommendedPopupPublisher?()
+            carouselImagePublisher?()
         }
     }
 
@@ -67,18 +69,11 @@ class MainSceneViewModel {
         }
     }
 
-    private var currentTodayRecommendPopupPages: Int = 0 {
-        didSet {
-            currentPagePublisher?(currentTodayRecommendPopupPages)
-        }
-    }
-
     // MARK: - Output
-    var todayRecommendedPopupPublisher: (() -> Void)?
+    var carouselImagePublisher: (() -> Void)?
     var userPickPopupPublisher: (() -> Void)?
     var userInterestPopupPublisher: (() -> Void)?
     var closingSoonPopupPublisher: (() -> Void)?
-    var currentPagePublisher: ((Int) -> Void)?
 
     init() {
     }
@@ -136,7 +131,7 @@ extension MainSceneViewModel {
     func numbersOfPopup(of category: MainCategory, at index: Int = 0) -> Int {
         switch category {
         case .todayRecommended:
-            return todayRecommendedPopup.count
+            return carouselPopupImage.count
         case .userPick:
             return userPickPopup.count
         case .userInterest:
@@ -159,7 +154,7 @@ extension MainSceneViewModel {
 
         switch category {
         case .todayRecommended:
-            popupData = todayRecommendedPopup[index]
+            popupData = carouselPopupImage[index]
             return preparePopupPreview(of: .todayRecommended, popupData: popupData)
         case .userPick:
             popupData = userPickPopup[index]
@@ -176,9 +171,16 @@ extension MainSceneViewModel {
     func provideUserInterestTitle(sectionOfInterest: Int) -> String {
         return userInterestPopup[sectionOfInterest].interestCategory.rawValue
     }
+}
 
-    func updateCurrentPage(at currentPage: Int) {
-        self.currentTodayRecommendPopupPages = currentPage
+// MARK: - Implement MainCarouselDataSource
+extension MainSceneViewModel {
+    func numbersOfCarouselImage() -> Int {
+        return numbersOfPopup(of: .todayRecommended)
+    }
+
+    func provideCarouselImage(at index: Int) -> PopupPreviewData? {
+        providePopupPreviewData(of: .todayRecommended, at: index)
     }
 }
 
@@ -236,7 +238,7 @@ extension MainSceneViewModel {
             )
 
             for _ in 0..<5 {
-                todayRecommendedPopup.append(popupPreview)
+                carouselPopupImage.append(popupPreview)
                 userPickPopup.append(popupPreview)
             }
             closingSoonPopup.append(closingSoonPreview)
