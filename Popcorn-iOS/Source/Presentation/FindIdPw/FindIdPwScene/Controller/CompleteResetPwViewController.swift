@@ -57,6 +57,6 @@ extension CompleteResetPwViewController {
 
     private func goToLoginViewButtonTapped() {
         let loginViewController = LoginViewController()
-        self.navigationController?.setViewControllers([loginViewController], animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }
