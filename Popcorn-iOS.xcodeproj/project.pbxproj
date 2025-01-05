@@ -15,10 +15,10 @@
 		56018CA22CECB1C400AC8ED5 /* MainSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56018CA12CECB1C400AC8ED5 /* MainSceneViewController.swift */; };
 		56018CA42CECC41000AC8ED5 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56018CA32CECC3FA00AC8ED5 /* Date+.swift */; };
 		563482FE2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563482FD2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift */; };
-		563483002D2248DB001646B5 /* PopupInfoDescriptionCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563482FF2D2248DB001646B5 /* PopupInfoDescriptionCollectionReusableView.swift */; };
-		563483032D224CF2001646B5 /* CarouselCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563483022D224CF2001646B5 /* CarouselCollectionReusableView.swift */; };
+		563483002D2248DB001646B5 /* PopupInfoReviewSegmentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563482FF2D2248DB001646B5 /* PopupInfoReviewSegmentHeaderView.swift */; };
+		563483032D224CF2001646B5 /* CarouselHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563483022D224CF2001646B5 /* CarouselHeaderView.swift */; };
 		563483052D2274CB001646B5 /* PopupDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563483042D22747B001646B5 /* PopupDetail.swift */; };
-		56381C2A2D193CEE00F4F715 /* MainCarouselPickHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56381C292D193CEE00F4F715 /* MainCarouselPickHeaderCollectionReusableView.swift */; };
+		56381C2A2D193CEE00F4F715 /* MainCarouselPickHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56381C292D193CEE00F4F715 /* MainCarouselPickHeaderView.swift */; };
 		564524E22D240BBA00B05355 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564524E12D240BBA00B05355 /* StarRatingView.swift */; };
 		5649A5902CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5649A58F2CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift */; };
 		56537BB12CE0F5290092A292 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56537BA82CE0F5290092A292 /* Assets.xcassets */; };
@@ -82,10 +82,10 @@
 		56018CA12CECB1C400AC8ED5 /* MainSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneViewController.swift; sourceTree = "<group>"; };
 		56018CA32CECC3FA00AC8ED5 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		563482FD2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTitleCollectionViewCell.swift; sourceTree = "<group>"; };
-		563482FF2D2248DB001646B5 /* PopupInfoDescriptionCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupInfoDescriptionCollectionReusableView.swift; sourceTree = "<group>"; };
-		563483022D224CF2001646B5 /* CarouselCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCollectionReusableView.swift; sourceTree = "<group>"; };
+		563482FF2D2248DB001646B5 /* PopupInfoReviewSegmentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupInfoReviewSegmentHeaderView.swift; sourceTree = "<group>"; };
+		563483022D224CF2001646B5 /* CarouselHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselHeaderView.swift; sourceTree = "<group>"; };
 		563483042D22747B001646B5 /* PopupDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetail.swift; sourceTree = "<group>"; };
-		56381C292D193CEE00F4F715 /* MainCarouselPickHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselPickHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		56381C292D193CEE00F4F715 /* MainCarouselPickHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselPickHeaderView.swift; sourceTree = "<group>"; };
 		564524E12D240BBA00B05355 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		5649A58F2CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosingSoonPopupCell.swift; sourceTree = "<group>"; };
 		56537B732CE0F5100092A292 /* Popcorn-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Popcorn-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,14 +181,14 @@
 		563482F92D223FFE001646B5 /* ReusableView */ = {
 			isa = PBXGroup;
 			children = (
-				56A0C8482D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift */,
-				56D68A352D2409DB00EA1404 /* PopupRatingCollectionViewCell.swift */,
 				563482FD2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift */,
 				56A061272D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift */,
-				563482FF2D2248DB001646B5 /* PopupInfoDescriptionCollectionReusableView.swift */,
-				563483022D224CF2001646B5 /* CarouselCollectionReusableView.swift */,
-				56B6D3712D2A5DA600FFB733 /* ReviewSortButtonHeaderView.swift */,
+				56D68A352D2409DB00EA1404 /* PopupRatingCollectionViewCell.swift */,
 				56A0C8462D2A744C005E6C51 /* ReviewCollectionViewCell.swift */,
+				563483022D224CF2001646B5 /* CarouselHeaderView.swift */,
+				563482FF2D2248DB001646B5 /* PopupInfoReviewSegmentHeaderView.swift */,
+				56B6D3712D2A5DA600FFB733 /* ReviewSortButtonHeaderView.swift */,
+				56A0C8482D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift */,
 			);
 			path = ReusableView;
 			sourceTree = "<group>";
@@ -260,7 +260,7 @@
 				56018C9A2CEC9ACF00AC8ED5 /* MainCollectionHeaderView.swift */,
 				56CD3A7A2CEB858100BAC02D /* PickOrInterestCell.swift */,
 				5649A58F2CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift */,
-				56381C292D193CEE00F4F715 /* MainCarouselPickHeaderCollectionReusableView.swift */,
+				56381C292D193CEE00F4F715 /* MainCarouselPickHeaderView.swift */,
 				565C415B2D2028DD0016003A /* MainCollectionTitleHeaderView.swift */,
 			);
 			path = ReusableView;
@@ -637,7 +637,7 @@
 				BC9BF2012CECC52000AEE534 /* LoginViewController.swift in Sources */,
 				BCE6E6002CF321AE0036BAF6 /* SignUpFirstView.swift in Sources */,
 				BC7420FA2CE23A9500BEED0A /* Requestable.swift in Sources */,
-				56381C2A2D193CEE00F4F715 /* MainCarouselPickHeaderCollectionReusableView.swift in Sources */,
+				56381C2A2D193CEE00F4F715 /* MainCarouselPickHeaderView.swift in Sources */,
 				56A0C8472D2A744C005E6C51 /* ReviewCollectionViewCell.swift in Sources */,
 				BC90A0BC2CF4CF53003488F0 /* SignUpSecondViewController.swift in Sources */,
 				56A0C8492D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift in Sources */,
@@ -646,7 +646,7 @@
 				56D68A342D23FBB700EA1404 /* RatingDistributionView.swift in Sources */,
 				BCE6E6032CF323570036BAF6 /* SignUpFirstViewController.swift in Sources */,
 				BCE6E5FC2CF321080036BAF6 /* SignUpFieldStackView.swift in Sources */,
-				563483002D2248DB001646B5 /* PopupInfoDescriptionCollectionReusableView.swift in Sources */,
+				563483002D2248DB001646B5 /* PopupInfoReviewSegmentHeaderView.swift in Sources */,
 				BC8113722CF5ECC800F82331 /* SignUpSecondView.swift in Sources */,
 				56C5DDD52CE9C1E40090D3A2 /* PopupPreview.swift in Sources */,
 				56018CA22CECB1C400AC8ED5 /* MainSceneViewController.swift in Sources */,
@@ -668,7 +668,7 @@
 				BC7420F82CE2395600BEED0A /* HttpMethod.swift in Sources */,
 				56B6D3722D2A5DA600FFB733 /* ReviewSortButtonHeaderView.swift in Sources */,
 				563482FE2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift in Sources */,
-				563483032D224CF2001646B5 /* CarouselCollectionReusableView.swift in Sources */,
+				563483032D224CF2001646B5 /* CarouselHeaderView.swift in Sources */,
 				56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */,
 				56018C9B2CEC9AE000AC8ED5 /* MainCollectionHeaderView.swift in Sources */,
 				56CD3A7D2CEC31B000BAC02D /* UIView+.swift in Sources */,

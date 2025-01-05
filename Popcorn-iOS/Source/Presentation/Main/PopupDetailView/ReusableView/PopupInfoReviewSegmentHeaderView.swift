@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PopupInfoDescriptionCollectionReusableView: UICollectionReusableView {
+final class PopupInfoReviewSegmentHeaderView: UICollectionReusableView {
     private let segmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl()
         segmentedControl.insertSegment(withTitle: "정보", at: 0, animated: true)
@@ -65,7 +65,7 @@ final class PopupInfoDescriptionCollectionReusableView: UICollectionReusableView
 }
 
 // MARK: - Configure Action
-extension PopupInfoDescriptionCollectionReusableView {
+extension PopupInfoReviewSegmentHeaderView {
     private func configureActions() {
         segmentedControl.addTarget(self, action: #selector(changeSegmentedLinePosition), for: .valueChanged)
     }
@@ -84,7 +84,7 @@ extension PopupInfoDescriptionCollectionReusableView {
 }
 
 // MARK: - Configure UI
-extension PopupInfoDescriptionCollectionReusableView {
+extension PopupInfoReviewSegmentHeaderView {
     private func configureSubviews() {
         [segmentedControl, segmentedGrayUnderLineView, segmentedUnderLineView].forEach {
             addSubview($0)
