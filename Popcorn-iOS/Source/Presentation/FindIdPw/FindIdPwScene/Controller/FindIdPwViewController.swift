@@ -118,7 +118,7 @@ extension FindIdPwViewController {
             self.pwButtonTapped()
         }, for: .touchUpInside)
     }
-    
+
     private func requestAuthButtonTapped() {
         // TODO: 서버와 통신
     }
