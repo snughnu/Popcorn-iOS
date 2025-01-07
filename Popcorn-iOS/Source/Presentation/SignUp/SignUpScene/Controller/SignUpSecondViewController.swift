@@ -74,26 +74,16 @@ extension SignUpSecondViewController {
     }
 }
 
-// MARK: - Image Picker Delegate Protocol
-extension SignUpSecondViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+// MARK: - Profile Image Button Tapped
+extension SignUpSecondViewController {
     private func selectProfileImageButtonTapped() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.allowsEditing = true
-        present(imagePicker, animated: true, completion: nil)
-    }
-
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        if let selectedImage = info[.editedImage] as? UIImage {
-            signUpSecondView.profileImageView.image = selectedImage
+        let profilePickerVC = ProfileImagePickerViewController()
+        profilePickerVC.selectedImageHandler = { [weak self] selectedImage, selectedColor in
+            guard let self = self else { return }
+            self.signUpSecondView.profileImageView.image = selectedImage
+            self.signUpSecondView.profileImageView.backgroundColor = selectedColor
         }
-        picker.dismiss(animated: true, completion: nil)
-    }
-
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
+        present(profilePickerVC, animated: true, completion: nil)
     }
 }
 
