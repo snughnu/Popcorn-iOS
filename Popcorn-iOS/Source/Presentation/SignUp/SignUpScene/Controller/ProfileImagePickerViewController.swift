@@ -18,20 +18,12 @@ class ProfileImagePickerViewController: UIViewController {
         }
     }
 
-    private let images: [UIImage] = [
-        UIImage(resource: .popcornProfile1),
-        UIImage(resource: .popcornProfile2),
-        UIImage(resource: .popcornProfile3),
-        UIImage(resource: .popcornProfile4),
-        UIImage(resource: .popcornProfile5)
-    ]
-
-    private let colors: [UIColor] = [
-        UIColor(resource: .popcornProfile1),
-        UIColor(resource: .popcornProfile2),
-        UIColor(resource: .popcornProfile3),
-        UIColor(resource: .popcornProfile4),
-        UIColor(resource: .popcornProfile5)
+    private let imageColors: [ImageColor] = [
+        ImageColor(image: UIImage(resource: .popcornProfile1), color: UIColor(resource: .popcornProfile1)),
+        ImageColor(image: UIImage(resource: .popcornProfile2), color: UIColor(resource: .popcornProfile2)),
+        ImageColor(image: UIImage(resource: .popcornProfile3), color: UIColor(resource: .popcornProfile3)),
+        ImageColor(image: UIImage(resource: .popcornProfile4), color: UIColor(resource: .popcornProfile4)),
+        ImageColor(image: UIImage(resource: .popcornProfile5), color: UIColor(resource: .popcornProfile5))
     ]
 
     override func loadView() {
@@ -79,11 +71,11 @@ extension ProfileImagePickerViewController {
 
     private func completeButtonTapped() {
         guard let selectedIndex = selectedImageIndex else { return }
-        let selectedImage = images[selectedIndex]
-        let selectedColor = colors[selectedIndex]
-        selectedImageHandler?(selectedImage, selectedColor)
+        let selectedImageColor = imageColors[selectedIndex]
+        selectedImageHandler?(selectedImageColor.image, selectedImageColor.color)
         dismiss(animated: true)
     }
+
 }
 
 // MARK: - UICollectionView DataSource & Delegate
@@ -112,15 +104,13 @@ extension ProfileImagePickerViewController: UICollectionViewDataSource, UICollec
         }
 
         let globalIndex = (indexPath.section == 0) ? indexPath.item : 3 + indexPath.item
-
-        let image = images[globalIndex]
-        let color = colors[globalIndex]
+        let imageColor = imageColors[globalIndex] // 모델에서 데이터 가져오기
 
         let isSelected = selectedImageIndex == globalIndex
-
-        cell.configureContents(image: image, color: color, isSelected: isSelected)
+        cell.configureContents(image: imageColor.image, color: imageColor.color, isSelected: isSelected)
         return cell
     }
+
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let globalIndex = (indexPath.section == 0) ? indexPath.item : 3 + indexPath.item
