@@ -44,7 +44,7 @@ class ProfileImagePickerView: UIView {
     let completeButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor(resource: .popcornOrange)
+        config.background.backgroundColor = UIColor(resource: .popcornGray2)
         config.background.cornerRadius = 10
         let screenHeight = UIScreen.main.bounds.height
         let size = screenHeight * 15 / 852
@@ -56,6 +56,7 @@ class ProfileImagePickerView: UIView {
             ])
         )
         button.configuration = config
+        button.isEnabled = false
         return button
     }()
 

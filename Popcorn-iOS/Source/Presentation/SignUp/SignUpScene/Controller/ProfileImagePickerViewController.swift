@@ -124,7 +124,20 @@ extension ProfileImagePickerViewController: UICollectionViewDataSource, UICollec
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let globalIndex = (indexPath.section == 0) ? indexPath.item : 3 + indexPath.item
-        selectedImageIndex = globalIndex
+
+        if selectedImageIndex == globalIndex {
+            selectedImageIndex = nil
+        } else {
+            selectedImageIndex = globalIndex
+        }
+
+        let isButtonEnabled = selectedImageIndex != nil
+        profileImagePickerView.completeButton.isEnabled = isButtonEnabled
+        var config = profileImagePickerView.completeButton.configuration
+        config?.background.backgroundColor = isButtonEnabled
+            ? UIColor(resource: .popcornOrange)
+            : UIColor(resource: .popcornGray2)
+        profileImagePickerView.completeButton.configuration = config
 
         collectionView.reloadData()
     }
