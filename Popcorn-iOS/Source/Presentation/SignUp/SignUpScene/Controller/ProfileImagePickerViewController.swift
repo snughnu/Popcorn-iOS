@@ -104,13 +104,12 @@ extension ProfileImagePickerViewController: UICollectionViewDataSource, UICollec
         }
 
         let globalIndex = (indexPath.section == 0) ? indexPath.item : 3 + indexPath.item
-        let imageColor = imageColors[globalIndex] // 모델에서 데이터 가져오기
+        let imageColor = imageColors[globalIndex]
 
         let isSelected = selectedImageIndex == globalIndex
         cell.configureContents(image: imageColor.image, color: imageColor.color, isSelected: isSelected)
         return cell
     }
-
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let globalIndex = (indexPath.section == 0) ? indexPath.item : 3 + indexPath.item
@@ -128,8 +127,6 @@ extension ProfileImagePickerViewController: UICollectionViewDataSource, UICollec
             ? UIColor(resource: .popcornOrange)
             : UIColor(resource: .popcornGray2)
         profileImagePickerView.completeButton.configuration = config
-
-        collectionView.reloadData()
     }
 }
 
