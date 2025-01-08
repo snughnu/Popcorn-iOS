@@ -118,21 +118,13 @@ extension ProfileImagePickerViewController: UICollectionViewDataSource, UICollec
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let globalIndex = (indexPath.section == 0) ? indexPath.item : 3 + indexPath.item
-
-        let previousIndex = selectedImageIndex
-
-        if selectedImageIndex == globalIndex {
-            selectedImageIndex = nil
-        } else {
-            selectedImageIndex = globalIndex
-        }
-
-        if let previousIndex = previousIndex {
+        if let previousIndex = selectedImageIndex {
             let previousIndexPath = IndexPath(
                 item: (previousIndex < 3) ? previousIndex : previousIndex - 3,
                 section: (previousIndex < 3) ? 0 : 1
             )
+            collectionView.deselectItem(at: previousIndexPath, animated: false)
+
             if let previousCell = collectionView.cellForItem(at: previousIndexPath) as? ProfileImageCell {
                 let previousImage = images[previousIndex]
                 let previousColor = colors[previousIndex]
@@ -140,18 +132,32 @@ extension ProfileImagePickerViewController: UICollectionViewDataSource, UICollec
             }
         }
 
-        if let currentIndex = selectedImageIndex {
-            let currentIndexPath = IndexPath(
-                item: (currentIndex < 3) ? currentIndex : currentIndex - 3,
-                section: (currentIndex < 3) ? 0 : 1
-            )
-            if let currentCell = collectionView.cellForItem(at: currentIndexPath) as? ProfileImageCell {
-                let currentImage = images[currentIndex]
-                let currentColor = colors[currentIndex]
-                currentCell.configureContents(image: currentImage, color: currentColor, isSelected: true)
-            }
+        let globalIndex = (indexPath.section == 0) ? indexPath.item : 3 + indexPath.item
+        selectedImageIndex = globalIndex
+
+        if let cell = collectionView.cellForItem(at: indexPath) as? ProfileImageCell {
+            let image = images[globalIndex]
+            let color = colors[globalIndex]
+            cell.configureContents(image: image, color: color, isSelected: true)
         }
 
+        updateCompleteButtonState()
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let globalIndex = (indexPath.section == 0) ? indexPath.item : 3 + indexPath.item
+        selectedImageIndex = nil
+
+        if let cell = collectionView.cellForItem(at: indexPath) as? ProfileImageCell {
+            let image = images[globalIndex]
+            let color = colors[globalIndex]
+            cell.configureContents(image: image, color: color, isSelected: false)
+        }
+
+        updateCompleteButtonState()
+    }
+
+    private func updateCompleteButtonState() {
         let isButtonEnabled = selectedImageIndex != nil
         profileImagePickerView.completeButton.isEnabled = isButtonEnabled
         var config = profileImagePickerView.completeButton.configuration
