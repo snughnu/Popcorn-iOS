@@ -14,12 +14,20 @@ class ProfileImagePickerViewController: UIViewController {
 
     private var selectedImageIndex: Int?
 
-    private let imageColors: [ImageColor] = [
-        ImageColor(image: UIImage(resource: .popcornProfile1), color: UIColor(resource: .popcornProfile1)),
-        ImageColor(image: UIImage(resource: .popcornProfile2), color: UIColor(resource: .popcornProfile2)),
-        ImageColor(image: UIImage(resource: .popcornProfile3), color: UIColor(resource: .popcornProfile3)),
-        ImageColor(image: UIImage(resource: .popcornProfile4), color: UIColor(resource: .popcornProfile4)),
-        ImageColor(image: UIImage(resource: .popcornProfile5), color: UIColor(resource: .popcornProfile5))
+    private let images: [UIImage] = [
+        UIImage(resource: .popcornProfile1),
+        UIImage(resource: .popcornProfile2),
+        UIImage(resource: .popcornProfile3),
+        UIImage(resource: .popcornProfile4),
+        UIImage(resource: .popcornProfile5)
+    ]
+
+    private let colors: [UIColor] = [
+        UIColor(resource: .popcornProfile1),
+        UIColor(resource: .popcornProfile2),
+        UIColor(resource: .popcornProfile3),
+        UIColor(resource: .popcornProfile4),
+        UIColor(resource: .popcornProfile5)
     ]
 
     override func loadView() {
@@ -67,8 +75,9 @@ extension ProfileImagePickerViewController {
 
     private func completeButtonTapped() {
         guard let selectedIndex = selectedImageIndex else { return }
-        let selectedImageColor = imageColors[selectedIndex]
-        selectedImageHandler?(selectedImageColor.image, selectedImageColor.color)
+        let selectedImage = images[selectedIndex]
+        let selectedColor = colors[selectedIndex]
+        selectedImageHandler?(selectedImage, selectedColor)
         dismiss(animated: true)
     }
 
@@ -100,10 +109,11 @@ extension ProfileImagePickerViewController: UICollectionViewDataSource, UICollec
         }
 
         let globalIndex = (indexPath.section == 0) ? indexPath.item : 3 + indexPath.item
-        let imageColor = imageColors[globalIndex]
+        let image = images[globalIndex]
+        let color = colors[globalIndex]
 
         let isSelected = selectedImageIndex == globalIndex
-        cell.configureContents(image: imageColor.image, color: imageColor.color, isSelected: isSelected)
+        cell.configureContents(image: image, color: color, isSelected: isSelected)
         return cell
     }
 
@@ -124,8 +134,9 @@ extension ProfileImagePickerViewController: UICollectionViewDataSource, UICollec
                 section: (previousIndex < 3) ? 0 : 1
             )
             if let previousCell = collectionView.cellForItem(at: previousIndexPath) as? ProfileImageCell {
-                let imageColor = imageColors[previousIndex]
-                previousCell.configureContents(image: imageColor.image, color: imageColor.color, isSelected: false)
+                let previousImage = images[previousIndex]
+                let previousColor = colors[previousIndex]
+                previousCell.configureContents(image: previousImage, color: previousColor, isSelected: false)
             }
         }
 
@@ -135,8 +146,9 @@ extension ProfileImagePickerViewController: UICollectionViewDataSource, UICollec
                 section: (currentIndex < 3) ? 0 : 1
             )
             if let currentCell = collectionView.cellForItem(at: currentIndexPath) as? ProfileImageCell {
-                let imageColor = imageColors[currentIndex]
-                currentCell.configureContents(image: imageColor.image, color: imageColor.color, isSelected: true)
+                let currentImage = images[currentIndex]
+                let currentColor = colors[currentIndex]
+                currentCell.configureContents(image: currentImage, color: currentColor, isSelected: true)
             }
         }
 
