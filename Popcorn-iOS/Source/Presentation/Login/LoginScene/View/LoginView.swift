@@ -229,25 +229,11 @@ final class LoginView: UIView {
         return stackView
     }()
 
-    private lazy var socialLoginStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
-            socialLoginSeparateStackView,
-            socialLoginButtonStackView
-        ])
-        stackView.axis = .vertical
-        let screenHeight = UIScreen.main.bounds.height
-        let size = screenHeight * 26/852
-        stackView.spacing = size
-        stackView.alignment = .center
-        stackView.distribution = .fillProportionally
-        return stackView
-    }()
-
     private lazy var entireStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             popcornImageView,
             loginFindSignUpContentStackView,
-            socialLoginStackView
+            socialLoginSeparateStackView
         ])
         stackView.axis = .vertical
         let screenHeight = UIScreen.main.bounds.height
@@ -296,7 +282,8 @@ extension LoginView {
     private func configureSubviews() {
         [
             entireStackView,
-            pwEyeButton
+            pwEyeButton,
+            socialLoginButtonStackView
         ].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -348,6 +335,19 @@ extension LoginView {
             socialLoginSeparateStackView.heightAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.heightAnchor,
                 multiplier: 40/759
+            ),
+
+            socialLoginButtonStackView.leadingAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.leadingAnchor,
+                constant: 116
+            ),
+            socialLoginButtonStackView.trailingAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.trailingAnchor,
+                constant: -116
+            ),
+            socialLoginButtonStackView.topAnchor.constraint(
+                equalTo: socialLoginSeparateStackView.bottomAnchor,
+                constant: 26
             )
         ])
     }
