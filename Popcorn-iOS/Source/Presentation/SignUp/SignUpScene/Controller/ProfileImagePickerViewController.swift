@@ -12,11 +12,7 @@ class ProfileImagePickerViewController: UIViewController {
     private let profileImagePickerView = ProfileImagePickerView()
     private let cellSize = (UIScreen.main.bounds.width - (29 * 2 + 18 * 2)) / 3
 
-    private var selectedImageIndex: Int? {
-        didSet {
-            profileImagePickerView.collectionView.reloadData()
-        }
-    }
+    private var selectedImageIndex: Int?
 
     private let imageColors: [ImageColor] = [
         ImageColor(image: UIImage(resource: .popcornProfile1), color: UIColor(resource: .popcornProfile1)),
@@ -114,10 +110,34 @@ extension ProfileImagePickerViewController: UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let globalIndex = (indexPath.section == 0) ? indexPath.item : 3 + indexPath.item
 
+        let previousIndex = selectedImageIndex
+
         if selectedImageIndex == globalIndex {
             selectedImageIndex = nil
         } else {
             selectedImageIndex = globalIndex
+        }
+
+        if let previousIndex = previousIndex {
+            let previousIndexPath = IndexPath(
+                item: (previousIndex < 3) ? previousIndex : previousIndex - 3,
+                section: (previousIndex < 3) ? 0 : 1
+            )
+            if let previousCell = collectionView.cellForItem(at: previousIndexPath) as? ProfileImageCell {
+                let imageColor = imageColors[previousIndex]
+                previousCell.configureContents(image: imageColor.image, color: imageColor.color, isSelected: false)
+            }
+        }
+
+        if let currentIndex = selectedImageIndex {
+            let currentIndexPath = IndexPath(
+                item: (currentIndex < 3) ? currentIndex : currentIndex - 3,
+                section: (currentIndex < 3) ? 0 : 1
+            )
+            if let currentCell = collectionView.cellForItem(at: currentIndexPath) as? ProfileImageCell {
+                let imageColor = imageColors[currentIndex]
+                currentCell.configureContents(image: imageColor.image, color: imageColor.color, isSelected: true)
+            }
         }
 
         let isButtonEnabled = selectedImageIndex != nil
