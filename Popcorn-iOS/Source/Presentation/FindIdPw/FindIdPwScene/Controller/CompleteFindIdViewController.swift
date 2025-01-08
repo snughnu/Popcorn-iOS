@@ -59,7 +59,6 @@ extension CompleteFindIdViewController {
 // MARK: - selector 함수
 extension CompleteFindIdViewController {
     @objc private func completeButtonTapped() {
-        let loginViewController = LoginViewController()
-        self.navigationController?.setViewControllers([loginViewController], animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }
