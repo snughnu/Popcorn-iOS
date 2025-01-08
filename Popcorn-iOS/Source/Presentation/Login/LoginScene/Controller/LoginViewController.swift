@@ -5,6 +5,7 @@
 //  Created by 김성훈 on 11/19/24.
 //
 
+import KakaoSDKUser
 import UIKit
 
 class LoginViewController: UIViewController {
@@ -16,8 +17,8 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTextField()
         setupAddTarget()
+        setupTextField()
     }
 
     private func setupAddTarget() {
@@ -49,7 +50,11 @@ class LoginViewController: UIViewController {
     }
 
     @objc private func kakaoButtonTapped() {
-
+        if UserApi.isKakaoTalkLoginAvailable() {
+            loginWithApp()
+        } else {
+            loginWithWeb()
+        }
     }
 
     @objc private func googleButtonTapped() {
@@ -57,6 +62,52 @@ class LoginViewController: UIViewController {
     }
 
     @objc private func appleButtonTapped() {
+
+    }
+}
+
+// MARK: - Kakao Social Login SubFunction
+extension LoginViewController {
+    func loginWithApp() {
+        UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
+            if let error = error {
+                print(error)
+            } else {
+                self.fetchUserInfo()
+                self.sendTokenToServer()
+            }
+        }
+    }
+
+    func loginWithWeb() {
+        UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
+            if let error = error {
+                print(error)
+            } else {
+                self.fetchUserInfo()
+                self.sendTokenToServer()
+            }
+        }
+    }
+
+    private func fetchUserInfo() {
+        UserApi.shared.me { [weak self] (user, error) in
+            if let error = error {
+                print(error)
+            } else {
+                guard let nickname = user?.kakaoAccount?.profile?.nickname else { return }
+                self?.presentToSignUpSecondViewController(with: nickname)
+            }
+        }
+    }
+
+    func presentToSignUpSecondViewController(with nickname: String) {
+        let signUpSecondViewController = SignUpSecondViewController()
+        signUpSecondViewController.signUpSecondView.nickNameTextField.text = nickname
+        self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
+    }
+    
+    private func sendTokenToServer() {
 
     }
 }

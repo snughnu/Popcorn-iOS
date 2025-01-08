@@ -5,8 +5,8 @@
 //  Created by 제민우 on 11/10/24.
 //
 
-import UIKit
 import KakaoSDKCommon
+import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

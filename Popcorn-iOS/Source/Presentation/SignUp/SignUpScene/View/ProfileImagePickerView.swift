@@ -39,6 +39,7 @@ class ProfileImagePickerView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(ProfileImageCell.self, forCellWithReuseIdentifier: ProfileImageCell.reuseIdentifier)
         collectionView.allowsMultipleSelection = true
+        collectionView.backgroundColor = .white
         return collectionView
     }()
 
