@@ -1,3 +1,12 @@
+//
+//  PopupDetailViewModel.swift
+//  Popcorn-iOS
+//
+//  Created by 제민우 on 1/5/25.
+//
+
+import UIKit
+
 final class PopupDetailViewModel: MainCarouselViewModelProtocol {
     var carouselPopupImage: [UIImage] = [] {
         didSet {
