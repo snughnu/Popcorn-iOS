@@ -35,7 +35,7 @@ final class PopupTitleCollectionViewCell: UICollectionViewCell {
     }()
 
     // MARK: - StackView
-    private lazy var popupTitlePriodStackView: UIStackView = {
+    private lazy var popupTitlePeriodStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [popupTitleLabel, popupPeriodLabel])
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
@@ -86,7 +86,7 @@ extension PopupTitleCollectionViewCell {
 // MARK: - Configure UI
 extension PopupTitleCollectionViewCell {
     private func configureSubviews() {
-        [popupTitlePriodStackView, sharePickButtonStackView, hashTagStackView].forEach {
+        [popupTitlePeriodStackView, sharePickButtonStackView, hashTagStackView].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -94,12 +94,15 @@ extension PopupTitleCollectionViewCell {
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            popupTitlePriodStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 25),
-            popupTitlePriodStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 27),
+            popupTitlePeriodStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 25),
+            popupTitlePeriodStackView.leadingAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.leadingAnchor,
+                constant: 27
+            ),
 
             sharePickButtonStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 29),
             sharePickButtonStackView.leadingAnchor.constraint(
-                greaterThanOrEqualTo: popupTitlePriodStackView.trailingAnchor,
+                greaterThanOrEqualTo: popupTitlePeriodStackView.trailingAnchor,
                 constant: 10
             ),
             sharePickButtonStackView.trailingAnchor.constraint(
@@ -107,10 +110,10 @@ extension PopupTitleCollectionViewCell {
                 constant: -37
             ),
 
-            hashTagStackView.topAnchor.constraint(equalTo: popupTitlePriodStackView.bottomAnchor, constant: 18),
-            hashTagStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 27),
-            hashTagStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 13),
-            hashTagStackView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor)
+            hashTagStackView.topAnchor.constraint(equalTo: popupTitlePeriodStackView.bottomAnchor, constant: 18),
+            hashTagStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 27),
+            hashTagStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -13),
+            hashTagStackView.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
 }
