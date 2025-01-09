@@ -145,10 +145,6 @@ extension MainCarouselView {
             carouselCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             carouselCollectionView.centerXAnchor.constraint(equalTo: centerXAnchor),
             carouselCollectionView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            carouselCollectionView.heightAnchor.constraint(
-                equalTo: widthAnchor,
-                multiplier: 317/393
-            ),
 
             imagePageControl.bottomAnchor.constraint(equalTo: carouselCollectionView.bottomAnchor),
             imagePageControl.centerXAnchor.constraint(equalTo: carouselCollectionView.centerXAnchor)

@@ -57,6 +57,7 @@ final class PopupDetailInfoCollectionViewCell: UICollectionViewCell {
     private let popupIntroduceLabel: UILabel = {
         let label = UILabel()
         label.popcornMedium(text: "팝콘 팝업스토어입니다.", size: 15)
+        label.numberOfLines = 0
         return label
     }()
 

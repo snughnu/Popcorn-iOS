@@ -45,6 +45,7 @@ extension MainCarouselPickHeaderView {
             carouselView.topAnchor.constraint(equalTo: topAnchor),
             carouselView.leadingAnchor.constraint(equalTo: leadingAnchor),
             carouselView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            carouselView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 317/393),
 
             titleHeader.topAnchor.constraint(equalTo: carouselView.bottomAnchor, constant: 31),
             titleHeader.leadingAnchor.constraint(equalTo: leadingAnchor),
