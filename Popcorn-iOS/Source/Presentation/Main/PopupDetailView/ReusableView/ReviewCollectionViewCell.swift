@@ -8,8 +8,10 @@
 import UIKit
 
 final class ReviewCollectionViewCell: UICollectionViewCell {
-    private var reviewImages = [UIImage]() {
+    private lazy var reviewImages = [UIImage]() {
         didSet {
+            reviewImagesHeightConstraint.constant = reviewImages.isEmpty ? 0 : 60
+
             reviewImagesCollectionView.reloadData()
         }
     }
@@ -90,6 +92,8 @@ final class ReviewCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
 
+    private var reviewImagesHeightConstraint: NSLayoutConstraint!
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureInitialSetting()
@@ -103,8 +107,6 @@ final class ReviewCollectionViewCell: UICollectionViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        layoutIfNeeded()
-        print("profileImageView frame: \(profileImageView.frame)")
         profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
     }
 }
@@ -174,6 +176,8 @@ extension ReviewCollectionViewCell {
     }
 
     private func configureLayout() {
+        reviewImagesHeightConstraint = reviewImagesCollectionView.heightAnchor.constraint(equalToConstant: 0)
+
         NSLayoutConstraint.activate([
             reviewHeaderStackView.topAnchor.constraint(equalTo: topAnchor, constant: 31),
             reviewHeaderStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
@@ -186,7 +190,7 @@ extension ReviewCollectionViewCell {
             reviewImagesCollectionView.topAnchor.constraint(equalTo: reviewHeaderStackView.bottomAnchor, constant: 15),
             reviewImagesCollectionView.leadingAnchor.constraint(equalTo: reviewHeaderStackView.leadingAnchor),
             reviewImagesCollectionView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            reviewImagesCollectionView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 60/343),
+            reviewImagesHeightConstraint,
 
             reviewLabel.topAnchor.constraint(equalTo: reviewImagesCollectionView.bottomAnchor, constant: 12),
             reviewLabel.leadingAnchor.constraint(equalTo: reviewHeaderStackView.leadingAnchor),
