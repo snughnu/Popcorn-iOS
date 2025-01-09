@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol PopupInfoReviewSegmentHeaderViewDelegate: AnyObject {
+    func didChangdSegment(to index: Int)
+}
+
 final class PopupInfoReviewSegmentHeaderView: UICollectionReusableView {
     private let segmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl()
@@ -52,6 +56,8 @@ final class PopupInfoReviewSegmentHeaderView: UICollectionReusableView {
 
     private var segmentedUnderlineLeadingConstraint: NSLayoutConstraint!
 
+    weak var delegate: PopupInfoReviewSegmentHeaderViewDelegate?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureSubviews()
@@ -80,6 +86,8 @@ extension PopupInfoReviewSegmentHeaderView {
         UIView.animate(withDuration: 0.2) {
             self.layoutIfNeeded()
         }
+
+        delegate?.didChangdSegment(to: segmentedControl.selectedSegmentIndex)
     }
 }
 
