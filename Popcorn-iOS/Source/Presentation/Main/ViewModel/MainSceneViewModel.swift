@@ -8,7 +8,6 @@
 import UIKit
 
 enum MainCategory {
-    case todayRecommended
     case userPick
     case userInterest
     case closingSoon
@@ -42,10 +41,10 @@ struct PopupPreviewData {
     }
 }
 
-class MainSceneViewModel: MainCarouselViewModelProtocol {
-    // 프로토콜 멤버의 접근제어는 모두 동일한데, 구현체에서 얘를 private으로 설정하니 프로토콜에서 정의된 접근제어자와 일치하지 않는다는 에러 발생..
-    // 그래서 internal로 냅뒀습니다..
-    var carouselPopupImage: [PopupPreview] = [] {
+final class MainSceneViewModel: MainCarouselViewModelProtocol {
+        // 프로토콜 멤버의 접근제어는 모두 동일한데, 구현체에서 얘를 private으로 설정하니 프로토콜에서 정의된 접근제어자와 일치하지 않는다는 에러 발생..
+        // 그래서 internal로 냅뒀습니다..
+    var carouselPopupImage: [UIImage] = [] {
         didSet {
             carouselImagePublisher?()
         }
@@ -83,10 +82,7 @@ class MainSceneViewModel: MainCarouselViewModelProtocol {
         popupData: PopupPreview
     ) -> PopupPreviewData? {
         if let popupImage = UIImage(data: popupData.popupImage) {
-            if category == .todayRecommended {
-                return PopupPreviewData(popupImage: popupImage)
-            }
-            else if category == .userInterest || category == .userPick {
+            if category == .userInterest || category == .userPick {
                 let dDay = calculateDDay(from: popupData.popupEndDate)
                 return PopupPreviewData(
                     popupImage: popupImage,
@@ -130,8 +126,6 @@ extension MainSceneViewModel {
 extension MainSceneViewModel {
     func numbersOfPopup(of category: MainCategory, at index: Int = 0) -> Int {
         switch category {
-        case .todayRecommended:
-            return carouselPopupImage.count
         case .userPick:
             return userPickPopup.count
         case .userInterest:
@@ -153,9 +147,6 @@ extension MainSceneViewModel {
         let popupData: PopupPreview
 
         switch category {
-        case .todayRecommended:
-            popupData = carouselPopupImage[index]
-            return preparePopupPreview(of: .todayRecommended, popupData: popupData)
         case .userPick:
             popupData = userPickPopup[index]
             return preparePopupPreview(of: .userPick, popupData: popupData)
@@ -176,11 +167,11 @@ extension MainSceneViewModel {
 // MARK: - Implement MainCarouselDataSource
 extension MainSceneViewModel {
     func numbersOfCarouselImage() -> Int {
-        return numbersOfPopup(of: .todayRecommended)
+        return carouselPopupImage.count
     }
 
-    func provideCarouselImage(at index: Int) -> PopupPreviewData? {
-        providePopupPreviewData(of: .todayRecommended, at: index)
+    func provideCarouselImage() -> [UIImage] {
+        return carouselPopupImage
     }
 }
 
@@ -238,7 +229,7 @@ extension MainSceneViewModel {
             )
 
             for _ in 0..<5 {
-                carouselPopupImage.append(popupPreview)
+                carouselPopupImage.append(UIImage(resource: .carousel))
                 userPickPopup.append(popupPreview)
             }
             closingSoonPopup.append(closingSoonPreview)

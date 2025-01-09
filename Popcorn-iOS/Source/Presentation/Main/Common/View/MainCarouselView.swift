@@ -32,7 +32,7 @@ final class MainCarouselView: UIView {
         return pageControl
     }()
 
-    init(viewModel: MainSceneViewModel?) {
+    init(viewModel: MainCarouselViewModelProtocol?) {
         self.viewModel = viewModel
         super.init(frame: .zero)
         configureInitialSetting()
@@ -48,15 +48,15 @@ final class MainCarouselView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func bind(to viewModel: MainSceneViewModel) {
+    private func bind(to viewModel: MainCarouselViewModelProtocol) {
         viewModel.carouselImagePublisher = { [weak self] in
             guard let self else { return }
-            self.imagePageControl.numberOfPages = viewModel.numbersOfPopup(of: .todayRecommended)
+            self.imagePageControl.numberOfPages = viewModel.numbersOfCarouselImage()
             self.carouselCollectionView.reloadData()
         }
     }
 
-    func updateViewModel(viewModel: MainSceneViewModel) {
+    func updateViewModel(viewModel: MainCarouselViewModelProtocol) {
         self.viewModel = viewModel
         bind(to: viewModel)
         viewModel.carouselImagePublisher?()
@@ -96,8 +96,8 @@ extension MainCarouselView: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        if let popupData = viewModel?.provideCarouselImage(at: indexPath.row) {
-            cell.configureContents(image: popupData.popupImage)
+        if let carouselImages = viewModel?.provideCarouselImage() {
+            cell.configureContents(image: carouselImages[indexPath.item])
         }
 
         return cell
@@ -145,10 +145,6 @@ extension MainCarouselView {
             carouselCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             carouselCollectionView.centerXAnchor.constraint(equalTo: centerXAnchor),
             carouselCollectionView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            carouselCollectionView.heightAnchor.constraint(
-                equalTo: widthAnchor,
-                multiplier: 317/393
-            ),
 
             imagePageControl.bottomAnchor.constraint(equalTo: carouselCollectionView.bottomAnchor),
             imagePageControl.centerXAnchor.constraint(equalTo: carouselCollectionView.centerXAnchor)

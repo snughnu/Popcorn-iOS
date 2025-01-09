@@ -5,12 +5,14 @@
 //  Created by 제민우 on 12/28/24.
 //
 
-protocol MainCarouselViewModelProtocol {
-    var carouselPopupImage: [PopupPreview] { get set }
+import UIKit
+
+protocol MainCarouselViewModelProtocol: AnyObject {
+    var carouselPopupImage: [UIImage] { get set }
 
     var carouselImagePublisher: (() -> Void)? { get set }
 
     func numbersOfCarouselImage() -> Int
 
-    func provideCarouselImage(at index: Int) -> PopupPreviewData?
+    func provideCarouselImage() -> [UIImage]
 }
