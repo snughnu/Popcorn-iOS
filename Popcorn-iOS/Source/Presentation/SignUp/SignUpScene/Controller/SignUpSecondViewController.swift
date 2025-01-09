@@ -8,7 +8,7 @@
 import UIKit
 
 class SignUpSecondViewController: UIViewController {
-    private let signUpSecondView = SignUpSecondView()
+    let signUpSecondView = SignUpSecondView()
     private let screenHeight = UIScreen.main.bounds.height
 
     override func loadView() {
