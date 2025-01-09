@@ -68,12 +68,18 @@ final class PopupTitleCollectionViewCell: UICollectionViewCell {
         configureLayout()
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        addTagsToHashtagStackView(tags: ["핑구", "캐릭터", "펭귄", "D-5", "굿즈", "이벤트", "여의도", "더현대서울"])    }
-
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - Public Interface
+extension PopupTitleCollectionViewCell {
+    func configureContents(title: String, period: String, isUserPick: Bool, hashTags: [String]) {
+        popupTitleLabel.text = title
+        popupPeriodLabel.text = period
+        pickButton.isSelected = isUserPick
+        addTagsToHashtagStackView(tags: hashTags)
     }
 }
 
@@ -112,6 +118,7 @@ extension PopupTitleCollectionViewCell {
 // MARK: - Configure PopupTitleCollectionViewCell
 extension PopupTitleCollectionViewCell {
     private func addTagsToHashtagStackView(tags: [String]) {
+        hashTagStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         var currentHorizontalStackView = createHorizontalStackView()
         hashTagStackView.addArrangedSubview(currentHorizontalStackView)
 
