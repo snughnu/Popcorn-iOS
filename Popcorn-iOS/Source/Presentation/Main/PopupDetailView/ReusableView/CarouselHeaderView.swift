@@ -8,19 +8,23 @@
 import UIKit
 
 final class CarouselHeaderView: UICollectionReusableView {
-    private let detailViewModel = MainSceneViewModel()
-    private let detailCarouselView: MainCarouselView
+    private let detailCarouselView = MainCarouselView(viewModel: nil)
 
     override init(frame: CGRect) {
-        detailCarouselView = MainCarouselView(viewModel: detailViewModel)
         super.init(frame: frame)
         configureSubviews()
         configureLayout()
-        detailViewModel.fetchPopupImages()
-    }
+}
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - Public Interface
+extension CarouselHeaderView {
+    func configureContents(viewModel: PopupDetailViewModel) {
+        detailCarouselView.updateViewModel(viewModel: viewModel)
     }
 }
 

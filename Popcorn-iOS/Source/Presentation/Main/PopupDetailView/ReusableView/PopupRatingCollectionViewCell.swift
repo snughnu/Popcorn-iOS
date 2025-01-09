@@ -80,17 +80,16 @@ final class PopupRatingCollectionViewCell: UICollectionViewCell {
 
 // MARK: - Public Interface
 extension PopupRatingCollectionViewCell {
-    func configureContents(totalRating: Float, ratingDistribution: [Int]) {
+    func configureContents(totalRatingCount: Int, averageRating: Float, ratingDistribution: [Int: Int]) {
         let ratingLevelViews = [
             ratingLevel1View, ratingLevel2View, ratingLevel3View, ratingLevel4View, ratingLevel5View
         ]
-        let totalRatingCount = ratingDistribution.reduce(0, +)
 
-        ratingLabel.text = String(totalRating)
-        starRatingView.configureRating(at: totalRating)
+        ratingLabel.text = String(averageRating)
+        starRatingView.configureRating(at: averageRating)
 
         (0..<5).forEach { ratingLevelViews[$0].configureContents(
-            ratingCount: ratingDistribution[$0],
+            ratingCount: ratingDistribution[$0, default: 0],
             totalRatingCount: totalRatingCount
         )}
     }
@@ -103,7 +102,7 @@ extension PopupRatingCollectionViewCell {
             backgroundGrayView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-        
+
         [backgroundGrayView, writeReviewButton].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false

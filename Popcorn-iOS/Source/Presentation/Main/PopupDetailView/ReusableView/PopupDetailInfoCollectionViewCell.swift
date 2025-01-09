@@ -172,6 +172,16 @@ final class PopupDetailInfoCollectionViewCell: UICollectionViewCell {
     }
 }
 
+// MARK: - Public Interface
+extension PopupDetailInfoCollectionViewCell {
+    func configureContents(address: String, officialLink: String, businessHourInfo: String, popupIntroduce: String) {
+        locationLabel.text = address
+        officialLinkLabel.text = officialLink
+        businessHourInfoLabel.text = businessHourInfo
+        popupIntroduceLabel.text = popupIntroduce
+    }
+}
+
 // MARK: - Configure UI
 extension PopupDetailInfoCollectionViewCell {
     private func configureSubviews() {
