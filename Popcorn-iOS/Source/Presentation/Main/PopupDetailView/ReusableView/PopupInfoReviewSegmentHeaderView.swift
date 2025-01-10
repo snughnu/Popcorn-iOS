@@ -8,7 +8,7 @@
 import UIKit
 
 protocol PopupInfoReviewSegmentHeaderViewDelegate: AnyObject {
-    func didChangdSegment(to index: Int)
+    func didChangedSegment(to index: Int)
 }
 
 final class PopupInfoReviewSegmentHeaderView: UICollectionReusableView {
@@ -87,7 +87,7 @@ extension PopupInfoReviewSegmentHeaderView {
             self.layoutIfNeeded()
         }
 
-        delegate?.didChangdSegment(to: segmentedControl.selectedSegmentIndex)
+        delegate?.didChangedSegment(to: segmentedControl.selectedSegmentIndex)
     }
 }
 
