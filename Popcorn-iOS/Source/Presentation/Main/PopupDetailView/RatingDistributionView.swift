@@ -58,7 +58,7 @@ extension RatingDistributionView {
         ratingCountLabel.text = String(ratingCount)
     }
 
-    func higlightMaximumDistribution(text: ReviewDistribution) {
+    func highlightMaximumDistribution(text: ReviewDistribution) {
         titleLabel.popcornMedium(text: text.rawValue, size: 11)
         titleLabel.textColor = UIColor.black
     }
