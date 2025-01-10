@@ -64,7 +64,11 @@ final class ReviewSortButtonHeaderView: UICollectionReusableView {
         return stackView
     }()
 
-    private let bottomBorder = CALayer()
+    private let bottomBorder: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(resource: .popcornGray2)
+        return view
+    }()
 
     private let buttonConfigurationHandler: UIButton.ConfigurationUpdateHandler = { button in
         var config = button.configuration
@@ -78,17 +82,11 @@ final class ReviewSortButtonHeaderView: UICollectionReusableView {
         super.init(frame: frame)
         configureSubviews()
         configureLayout()
-        configureUI()
         configureButtons()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        configureUI()
     }
 }
 
@@ -111,15 +109,8 @@ extension ReviewSortButtonHeaderView {
 
 // MARK: - Configure UI
 extension ReviewSortButtonHeaderView {
-    private func configureUI() {
-        bottomBorder.backgroundColor = UIColor(resource: .popcornGray2).cgColor
-        bottomBorder.frame = CGRect(x: 0, y: bounds.height - 1, width: bounds.width, height: 1)
-
-        layer.addSublayer(bottomBorder)
-    }
-
     private func configureSubviews() {
-        [separatorView, buttonStackView].forEach {
+        [separatorView, buttonStackView, bottomBorder].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -133,7 +124,12 @@ extension ReviewSortButtonHeaderView {
 
             buttonStackView.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 22),
             buttonStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
-            buttonStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25)
+            buttonStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
+
+            bottomBorder.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 1),
+            bottomBorder.leadingAnchor.constraint(equalTo: leadingAnchor),
+            bottomBorder.trailingAnchor.constraint(equalTo: trailingAnchor),
+            bottomBorder.heightAnchor.constraint(equalToConstant: 1)
         ])
     }
 }
