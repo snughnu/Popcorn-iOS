@@ -61,7 +61,7 @@ final class PopupRatingCollectionViewCell: UICollectionViewCell {
             ratingLevel5View, ratingLevel4View, ratingLevel3View, ratingLevel2View, ratingLevel1View
         ])
         stackView.axis = .vertical
-        stackView.spacing = 12
+        stackView.spacing = 5
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
         return stackView
