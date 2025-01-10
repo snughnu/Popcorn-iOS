@@ -80,7 +80,12 @@ final class PopupRatingCollectionViewCell: UICollectionViewCell {
 
 // MARK: - Public Interface
 extension PopupRatingCollectionViewCell {
-    func configureContents(totalRatingCount: Int, averageRating: Float, ratingDistribution: [Int: Int]) {
+    func configureContents(
+        totalRatingCount: Int,
+        averageRating: Float,
+        ratingDistribution: [Int: Int],
+        maximumIndex: Int
+    ) {
         let ratingLevelViews = [
             ratingLevel1View, ratingLevel2View, ratingLevel3View, ratingLevel4View, ratingLevel5View
         ]
@@ -92,6 +97,8 @@ extension PopupRatingCollectionViewCell {
             ratingCount: ratingDistribution[$0, default: 0],
             totalRatingCount: totalRatingCount
         )}
+
+        ratingLevelViews[maximumIndex].highlightMaximumDistribution()
     }
 }
 
