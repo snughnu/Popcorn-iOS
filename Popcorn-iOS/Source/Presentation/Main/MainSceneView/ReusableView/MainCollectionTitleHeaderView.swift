@@ -27,22 +27,20 @@ final class MainCollectionTitleHeaderView: UIView {
         return button
     }()
 
-    private let bottomBorder = CALayer()
+    private let bottomBorder: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(resource: .popcornGray2)
+        return view
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureSubviews()
         configureLayout()
-        configureUI()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        configureUI()
     }
 }
 
@@ -56,15 +54,8 @@ extension MainCollectionTitleHeaderView {
 
 // MARK: - Configure UI
 extension MainCollectionTitleHeaderView {
-    private func configureUI() {
-        bottomBorder.backgroundColor = UIColor(resource: .popcornGray2).cgColor
-        bottomBorder.frame = CGRect(x: 0, y: bounds.height - 1, width: bounds.width, height: 1)
-
-        layer.addSublayer(bottomBorder)
-    }
-
     private func configureSubviews() {
-        [headerLabel, showAllButton].forEach {
+        [headerLabel, showAllButton, bottomBorder].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -78,7 +69,12 @@ extension MainCollectionTitleHeaderView {
             headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
 
             showAllButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            showAllButton.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor)
+            showAllButton.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor),
+
+            bottomBorder.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -1),
+            bottomBorder.leadingAnchor.constraint(equalTo: leadingAnchor),
+            bottomBorder.trailingAnchor.constraint(equalTo: trailingAnchor),
+            bottomBorder.heightAnchor.constraint(equalToConstant: 1)
         ])
     }
 }
