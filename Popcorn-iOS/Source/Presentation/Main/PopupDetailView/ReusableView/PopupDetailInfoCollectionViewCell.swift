@@ -197,9 +197,6 @@ extension PopupDetailInfoCollectionViewCell {
     }
 
     private func configureLayout() {
-        let reservationStartChatButtonStackViewTopConstraint = reservationStartChatButtonStackView.topAnchor
-            .constraint(equalTo: popupInfoStackView.bottomAnchor, constant: 30)
-        reservationStartChatButtonStackViewTopConstraint.priority = .defaultLow
         NSLayoutConstraint.activate([
             locationImageView.widthAnchor.constraint(equalToConstant: 14),
             locationImageView.heightAnchor.constraint(equalTo: locationImageView.widthAnchor),
