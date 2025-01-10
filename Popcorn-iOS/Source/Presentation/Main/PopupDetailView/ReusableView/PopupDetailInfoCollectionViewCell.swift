@@ -17,7 +17,7 @@ final class PopupDetailInfoCollectionViewCell: UICollectionViewCell {
 
     private let locationLabel: UILabel = {
         let label = UILabel()
-        label.popcornMedium(text: "주소", size: 15)
+        label.popcornMedium(text: "서울 서초구구 신반보로 176 신세계백화점 강남점 1층 오픈 스테이지 ", size: 15)
         label.numberOfLines = 0
         return label
     }()
@@ -29,11 +29,21 @@ final class PopupDetailInfoCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
 
-    private let officialLinkLabel: UILabel = {
-        let label = UILabel()
-        label.popcornMedium(text: "공식 사이트 주소", size: 15)
-        label.numberOfLines = 0
-        return label
+    private let officialLinkLabel: UITextView = {
+        let textView = UITextView()
+        textView.text = "www.naver.com"
+        textView.font = UIFont(name: RobotoFontName.robotoMedium, size: 15)
+        textView.textContainer.maximumNumberOfLines = 1
+        textView.textContainer.lineBreakMode = .byTruncatingTail
+        textView.linkTextAttributes = [
+            .foregroundColor: UIColor(red: 0, green: 81/255, blue: 255/255, alpha: 1),
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+
+        textView.isEditable = false
+        textView.isScrollEnabled = false
+        textView.dataDetectorTypes = .link
+        return textView
     }()
 
     private let businessHourTitleLabel: UILabel = {
@@ -117,7 +127,7 @@ final class PopupDetailInfoCollectionViewCell: UICollectionViewCell {
         stackView.axis = .vertical
         stackView.spacing = 4
         stackView.alignment = .leading
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fillProportionally
         return stackView
     }()
 
