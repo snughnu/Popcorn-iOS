@@ -19,7 +19,7 @@ class SignUpFirstView: UIView {
         placeholder: "아이디"
     )
 
-    private let duplicateCheckButton: UIButton = {
+    let duplicateCheckButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = UIColor(resource: .popcornOrange)

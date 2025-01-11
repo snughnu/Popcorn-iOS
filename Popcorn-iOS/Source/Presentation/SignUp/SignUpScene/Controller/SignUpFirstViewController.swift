@@ -183,6 +183,10 @@ extension SignUpFirstViewController {
 // MARK: - Setup AddActions
 extension SignUpFirstViewController {
     private func setupAddActions() {
+        signUpFirstView.duplicateCheckButton.addAction(UIAction { _ in
+            self.duplicateCheckButtonTapped()
+        }, for: .touchUpInside)
+
         signUpFirstView.requestAuthButton.addAction(UIAction { _ in
             self.requestAuthButtonTapped()
         }, for: .touchUpInside)
@@ -195,12 +199,56 @@ extension SignUpFirstViewController {
 
 // MARK: - selector 함수
 extension SignUpFirstViewController {
-    @objc private func requestAuthButtonTapped() {
+    private func duplicateCheckButtonTapped() {
+        if let idText = signUpFirstView.idField.textFieldReference.text, !idText.isEmpty {
+            if idText.isEmpty {
+                signUpFirstView.idField.labelReference.textColor = UIColor(.red)
+                signUpFirstView.idField.labelReference.text = "*6~12자의 영문과 숫자의 조합으로 입력해주세요."
+            } else if !isValidId(idText) {
+                signUpFirstView.idField.labelReference.textColor = UIColor(.red)
+                signUpFirstView.idField.labelReference.text = "*6~12자의 영문과 숫자의 조합으로 입력해주세요."
+            } else {
+                checkIdDuplication { [weak self] isDuplicate in
+                    DispatchQueue.main.async {
+                        if isDuplicate {
+                            self?.signUpFirstView.idField.labelReference.textColor = UIColor(.red)
+                            self?.signUpFirstView.idField.labelReference.text = "*중복된 아이디입니다."
+                        } else {
+                            self?.signUpFirstView.idField.labelReference.textColor = UIColor(.blue)
+                            self?.signUpFirstView.idField.labelReference.text = "*사용 가능한 아이디입니다."
+                        }
+                    }
+                }
+            }
+        } else {
+            signUpFirstView.idField.labelReference.textColor = UIColor(.red)
+            signUpFirstView.idField.labelReference.text = "*6~12자의 영문과 숫자의 조합으로 입력해주세요."
+        }
+    }
+
+    private func requestAuthButtonTapped() {
+        if signUpFirstView.emailField.textFieldReference.text?.isEmpty ?? true {
+            signUpFirstView.emailField.labelReference.textColor = UIColor(.red)
+        }
         // TODO: 서버와 통신
     }
 
-    @objc private func nextButtonTapped() {
+    private func nextButtonTapped() {
         let signUpSecondViewController = SignUpSecondViewController()
         self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
+    }
+}
+
+// MARK: - 서브함수 - 정규식
+extension SignUpFirstViewController {
+    private func isValidId(_ id: String) -> Bool {
+        let idRegex = "^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,12}$"
+        let idTest = NSPredicate(format: "SELF MATCHES %@", idRegex)
+        return idTest.evaluate(with: id)
+    }
+
+    private func checkIdDuplication(completion: @escaping (Bool) -> Void) {
+        // TODO: 서버와 통신: 아이디 중복 여부를 확인하는 로직
+        completion(false)
     }
 }
