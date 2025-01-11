@@ -201,10 +201,7 @@ extension SignUpFirstViewController {
 extension SignUpFirstViewController {
     private func duplicateCheckButtonTapped() {
         if let idText = signUpFirstView.idField.textFieldReference.text, !idText.isEmpty {
-            if idText.isEmpty {
-                signUpFirstView.idField.labelReference.textColor = UIColor(.red)
-                signUpFirstView.idField.labelReference.text = "*6~12자의 영문과 숫자의 조합으로 입력해주세요."
-            } else if !isValidId(idText) {
+            if !isValidId(idText) {
                 signUpFirstView.idField.labelReference.textColor = UIColor(.red)
                 signUpFirstView.idField.labelReference.text = "*6~12자의 영문과 숫자의 조합으로 입력해주세요."
             } else {
@@ -227,10 +224,28 @@ extension SignUpFirstViewController {
     }
 
     private func requestAuthButtonTapped() {
-        if signUpFirstView.emailField.textFieldReference.text?.isEmpty ?? true {
+        if let emailText = signUpFirstView.emailField.textFieldReference.text, !emailText.isEmpty {
+            if !isValidEmail(emailText) {
+                signUpFirstView.emailField.labelReference.textColor = UIColor(.red)
+                signUpFirstView.emailField.labelReference.text = "*이메일을 올바르게 입력해주세요."
+            } else {
+                signUpFirstView.emailField.labelReference.text = ""
+                requestEmailVerification(for: emailText) { [weak self] success in
+                        DispatchQueue.main.async {
+                            if success {
+                                self?.signUpFirstView.emailField.labelReference.textColor = UIColor(.blue)
+                                self?.signUpFirstView.emailField.labelReference.text = "*인증번호가 발송되었습니다."
+                            } else {
+                                self?.signUpFirstView.emailField.labelReference.textColor = UIColor(.red)
+                                self?.signUpFirstView.emailField.labelReference.text = "*인증번호 발송에 실패했습니다. 다시 시도해주세요."
+                            }
+                        }
+                    }
+            }
+        } else {
             signUpFirstView.emailField.labelReference.textColor = UIColor(.red)
+            signUpFirstView.emailField.labelReference.text = "*이메일을 입력해주세요."
         }
-        // TODO: 서버와 통신
     }
 
     private func nextButtonTapped() {
@@ -250,5 +265,16 @@ extension SignUpFirstViewController {
     private func checkIdDuplication(completion: @escaping (Bool) -> Void) {
         // TODO: 서버와 통신: 아이디 중복 여부를 확인하는 로직
         completion(false)
+    }
+
+    private func requestEmailVerification(for email: String, completion: @escaping (Bool) -> Void) {
+        // TODO: 서버와 통신: email 변수를 서버에 전달, 성공/실패 결과를 completion으로 반환
+        completion(false)
+    }
+
+    private func isValidEmail(_ email: String) -> Bool {
+        let emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        return emailTest.evaluate(with: email)
     }
 }
