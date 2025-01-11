@@ -69,9 +69,9 @@ extension MainSceneViewController {
             forCellWithReuseIdentifier: ClosingSoonPopupCell.reuseIdentifier
         )
         mainCollectionView.register(
-            MainCarouselPickHeaderCollectionReusableView.self,
+            MainCarouselPickHeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: MainCarouselPickHeaderCollectionReusableView.reuseIdentifier
+            withReuseIdentifier: MainCarouselPickHeaderView.reuseIdentifier
         )
         mainCollectionView.register(
             MainCollectionHeaderView.self,
@@ -188,9 +188,9 @@ extension MainSceneViewController: UICollectionViewDataSource {
         case 0:
             guard let carouselHeader = collectionView.dequeueReusableSupplementaryView(
                 ofKind: UICollectionView.elementKindSectionHeader,
-                withReuseIdentifier: MainCarouselPickHeaderCollectionReusableView.reuseIdentifier,
+                withReuseIdentifier: MainCarouselPickHeaderView.reuseIdentifier,
                 for: indexPath
-            ) as? MainCarouselPickHeaderCollectionReusableView else {
+            ) as? MainCarouselPickHeaderView else {
                 return UICollectionReusableView()
             }
 
