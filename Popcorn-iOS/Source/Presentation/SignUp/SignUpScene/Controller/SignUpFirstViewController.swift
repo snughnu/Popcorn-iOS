@@ -242,16 +242,16 @@ extension SignUpFirstViewController {
             } else {
                 signUpFirstView.emailField.labelReference.text = ""
                 requestEmailVerification(for: emailText) { [weak self] success in
-                        DispatchQueue.main.async {
-                            if success {
-                                self?.signUpFirstView.emailField.labelReference.textColor = UIColor(.blue)
-                                self?.signUpFirstView.emailField.labelReference.text = "*인증번호가 발송되었습니다."
-                            } else {
-                                self?.signUpFirstView.emailField.labelReference.textColor = UIColor(.red)
-                                self?.signUpFirstView.emailField.labelReference.text = "*인증번호 발송에 실패했습니다. 다시 시도해주세요."
-                            }
+                    DispatchQueue.main.async {
+                        if success {
+                            self?.signUpFirstView.emailField.labelReference.textColor = UIColor(.blue)
+                            self?.signUpFirstView.emailField.labelReference.text = "*인증번호가 발송되었습니다."
+                        } else {
+                            self?.signUpFirstView.emailField.labelReference.textColor = UIColor(.red)
+                            self?.signUpFirstView.emailField.labelReference.text = "*인증번호 발송에 실패했습니다. 다시 시도해주세요."
                         }
                     }
+                }
             }
         } else {
             signUpFirstView.emailField.labelReference.textColor = UIColor(.red)
