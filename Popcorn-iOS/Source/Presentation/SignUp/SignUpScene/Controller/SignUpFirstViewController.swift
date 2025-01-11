@@ -58,7 +58,7 @@ extension SignUpFirstViewController: UITextFieldDelegate {
             signUpFirstView.passwordField.textFieldReference,
             signUpFirstView.confirmPasswordField.textFieldReference,
             signUpFirstView.emailField.textFieldReference,
-            signUpFirstView.authNumberTextField
+            signUpFirstView.authNumberField.textFieldReference
         ].forEach {
             $0.delegate = self
             $0.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
@@ -88,10 +88,10 @@ extension SignUpFirstViewController: UITextFieldDelegate {
         if textField == signUpFirstView.confirmPasswordField.textFieldReference {
             textField.backgroundColor = UIColor(resource: .popcornGray3)
         }
-        if textField == signUpFirstView.emailField {
+        if textField == signUpFirstView.emailField.textFieldReference {
             textField.backgroundColor = UIColor(resource: .popcornGray3)
         }
-        if textField == signUpFirstView.authNumberTextField {
+        if textField == signUpFirstView.authNumberField.textFieldReference {
             textField.backgroundColor = UIColor(resource: .popcornGray3)
         }
     }
@@ -109,10 +109,10 @@ extension SignUpFirstViewController: UITextFieldDelegate {
         if textField == signUpFirstView.confirmPasswordField.textFieldReference {
             textField.backgroundColor = UIColor(resource: .popcornGray4)
         }
-        if textField == signUpFirstView.emailField {
+        if textField == signUpFirstView.emailField.textFieldReference {
             textField.backgroundColor = UIColor(resource: .popcornGray4)
         }
-        if textField == signUpFirstView.authNumberTextField {
+        if textField == signUpFirstView.authNumberField.textFieldReference {
             textField.backgroundColor = UIColor(resource: .popcornGray4)
         }
     }
@@ -139,13 +139,13 @@ extension SignUpFirstViewController: UITextFieldDelegate {
         if textField == signUpFirstView.confirmPasswordField.textFieldReference {
             guard let confirmPwText = signUpFirstView.confirmPasswordField.textFieldReference.text,
                   !confirmPwText.isEmpty else { return false }
-            signUpFirstView.emailField.becomeFirstResponder()
+            signUpFirstView.emailField.textFieldReference.becomeFirstResponder()
             return true
         }
         if textField == signUpFirstView.emailField.textFieldReference {
             guard let emailText = signUpFirstView.emailField.textFieldReference.text,
                   !emailText.isEmpty else { return false }
-            signUpFirstView.emailField.becomeFirstResponder()
+            signUpFirstView.authNumberField.textFieldReference.becomeFirstResponder()
             return true
         }
         return false
@@ -260,9 +260,30 @@ extension SignUpFirstViewController {
     }
 
     private func nextButtonTapped() {
-        let signUpSecondViewController = SignUpSecondViewController()
-        self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
+        let isNameValid = signUpFirstView.nameField.labelReference.textColor == UIColor(.blue)
+        let isIdValid = signUpFirstView.idField.labelReference.textColor == UIColor(.blue)
+        let isPasswordValid = signUpFirstView.passwordField.labelReference.textColor == UIColor(.blue)
+        let isConfirmPasswordValid = signUpFirstView.confirmPasswordField.labelReference.textColor == UIColor(.blue)
+        let isEmailValid = signUpFirstView.emailField.labelReference.textColor == UIColor(.blue)
+
+        if isNameValid, isIdValid, isPasswordValid, isConfirmPasswordValid, isEmailValid {
+            validateAuthNumberField { [weak self] isAuthValid in
+                DispatchQueue.main.async {
+                    if isAuthValid {
+                        self?.updateAuthNumberLabel(isValid: true, message: " ")
+                        let signUpSecondViewController = SignUpSecondViewController()
+                        self?.navigationController?.pushViewController(signUpSecondViewController, animated: true)
+                    } else {
+                        self?.updateAuthNumberLabel(isValid: false, message: "*인증번호를 다시 입력해주세요.")
+                    }
+                }
+            }
+        } else {
+            signUpFirstView.authNumberField.labelReference.textColor = UIColor(.red)
+            signUpFirstView.authNumberField.labelReference.text = "*개인정보를 먼저 입력해주세요."
+        }
     }
+
 }
 
 // MARK: - 서브함수 - 정규식
@@ -273,6 +294,7 @@ extension SignUpFirstViewController {
                 signUpFirstView.nameField.labelReference.textColor = UIColor(.red)
                 signUpFirstView.nameField.labelReference.text = "*이름을 올바르게 입력해주세요."
             } else {
+                signUpFirstView.nameField.labelReference.textColor = UIColor(.blue)
                 signUpFirstView.nameField.labelReference.text = " "
             }
         } else {
@@ -294,7 +316,7 @@ extension SignUpFirstViewController {
     }
 
     private func checkIdDuplication(completion: @escaping (Bool) -> Void) {
-        // TODO: 서버와 통신: 아이디 중복 여부를 확인하는 로직
+        // TODO: 서버와 통신: 아이디 중복 여부를 확인하는 로직, 중복이 true
         completion(false)
     }
 
@@ -337,12 +359,34 @@ extension SignUpFirstViewController {
 
     private func requestEmailVerification(for email: String, completion: @escaping (Bool) -> Void) {
         // TODO: 서버와 통신: email 변수를 서버에 전달, 성공/실패 결과를 completion으로 반환
-        completion(false)
+        completion(true)
     }
 
     private func isValidEmail(_ email: String) -> Bool {
         let emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
         let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         return emailTest.evaluate(with: email)
+    }
+
+    private func validateAuthNumberField(completion: @escaping (Bool) -> Void) {
+        guard let authNumberText = signUpFirstView.authNumberField.textFieldReference.text,
+              !authNumberText.isEmpty else {
+            completion(false)
+            return
+        }
+
+        verifyAuthNumber(authCode: authNumberText) { isValid in
+            completion(isValid)
+        }
+    }
+
+    private func verifyAuthNumber(authCode: String, completion: @escaping (Bool) -> Void) {
+        // TODO: 서버와 통신하여 인증번호 확인
+        completion(true)
+    }
+
+    private func updateAuthNumberLabel(isValid: Bool, message: String) {
+        signUpFirstView.authNumberField.labelReference.textColor = isValid ? UIColor(.blue) : UIColor(.red)
+        signUpFirstView.authNumberField.labelReference.text = message
     }
 }

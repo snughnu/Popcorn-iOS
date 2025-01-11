@@ -72,9 +72,10 @@ class SignUpFirstView: UIView {
         return button
     }()
 
-    let authNumberTextField = SignUpTextField(
-        keyboardType: .numberPad,
-        placeholder: "인증번호를 입력하세요"
+    let authNumberField = SignUpFieldStackView(
+        labelText: "*인증번호를 입력해주세요",
+        placeholder: "인증번호",
+        keyboardType: .numberPad
     )
 
     let nextButton: UIButton = {
@@ -127,7 +128,7 @@ class SignUpFirstView: UIView {
             passwordField,
             confirmPasswordField,
             emailStackView,
-            authNumberTextField
+            authNumberField
         ])
         stackView.axis = .vertical
         let screenHeight = UIScreen.main.bounds.height
@@ -202,7 +203,7 @@ extension SignUpFirstView {
             passwordField.textFieldReference.heightAnchor.constraint(equalTo: duplicateCheckButton.heightAnchor),
             confirmPasswordField.textFieldReference.heightAnchor.constraint(equalTo: duplicateCheckButton.heightAnchor),
             emailField.textFieldReference.heightAnchor.constraint(equalTo: duplicateCheckButton.heightAnchor),
-            authNumberTextField.heightAnchor.constraint(equalTo: duplicateCheckButton.heightAnchor),
+            authNumberField.textFieldReference.heightAnchor.constraint(equalTo: duplicateCheckButton.heightAnchor),
 
             nextButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 56/759)
         ])
