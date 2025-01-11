@@ -13,7 +13,6 @@ final class ReviewSortButtonHeaderView: UICollectionReusableView {
     private let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(resource: .popcornGray4)
-        view.heightAnchor.constraint(equalToConstant: 9).isActive = true
         return view
     }()
 
@@ -121,6 +120,7 @@ extension ReviewSortButtonHeaderView {
             separatorView.topAnchor.constraint(equalTo: topAnchor),
             separatorView.leadingAnchor.constraint(equalTo: leadingAnchor),
             separatorView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            separatorView.heightAnchor.constraint(equalToConstant: 9),
 
             buttonStackView.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 22),
             buttonStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),

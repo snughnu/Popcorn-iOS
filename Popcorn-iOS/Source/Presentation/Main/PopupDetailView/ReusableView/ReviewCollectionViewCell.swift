@@ -47,7 +47,6 @@ final class ReviewCollectionViewCell: UICollectionViewCell {
     private let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(resource: .popcornGray2)
-        view.widthAnchor.constraint(equalToConstant: 1).isActive = true
         return view
     }()
 
@@ -186,6 +185,7 @@ extension ReviewCollectionViewCell {
             profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor),
 
             separatorView.heightAnchor.constraint(equalTo: starRatingReviewDateStackView.heightAnchor, constant: -3),
+            separatorView.widthAnchor.constraint(equalToConstant: 1),
 
             reviewImagesCollectionView.topAnchor.constraint(equalTo: reviewHeaderStackView.bottomAnchor, constant: 15),
             reviewImagesCollectionView.leadingAnchor.constraint(equalTo: reviewHeaderStackView.leadingAnchor),

@@ -41,16 +41,12 @@ final class PopupInfoReviewSegmentHeaderView: UICollectionReusableView {
     private let segmentedUnderLineView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.heightAnchor.constraint(equalToConstant: 3).isActive = true
         return view
     }()
 
     private let segmentedGrayUnderLineView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(resource: .popcornGray2)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.heightAnchor.constraint(equalToConstant: 3).isActive = true
         return view
     }()
 
@@ -114,11 +110,13 @@ extension PopupInfoReviewSegmentHeaderView {
             segmentedGrayUnderLineView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
             segmentedGrayUnderLineView.leadingAnchor.constraint(equalTo: segmentedControl.leadingAnchor),
             segmentedGrayUnderLineView.trailingAnchor.constraint(equalTo: segmentedControl.trailingAnchor),
+            segmentedGrayUnderLineView.heightAnchor.constraint(equalToConstant: 3),
 
             segmentedUnderLineView.topAnchor.constraint(equalTo: segmentedGrayUnderLineView.topAnchor),
             segmentedUnderLineView.widthAnchor.constraint(
                 equalTo: segmentedGrayUnderLineView.widthAnchor, multiplier: 0.5
             ),
+            segmentedUnderLineView.heightAnchor.constraint(equalToConstant: 3),
 
             segmentedUnderlineLeadingConstraint
         ])

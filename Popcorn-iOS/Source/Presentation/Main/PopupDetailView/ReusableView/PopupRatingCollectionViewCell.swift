@@ -26,7 +26,6 @@ final class PopupRatingCollectionViewCell: UICollectionViewCell {
     private let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(resource: .popcornGray2)
-        view.widthAnchor.constraint(equalToConstant: 1).isActive = true
         return view
     }()
 
@@ -132,6 +131,7 @@ extension PopupRatingCollectionViewCell {
             separatorView.leadingAnchor.constraint(equalTo: starRatingStackView.trailingAnchor, constant: 20),
             separatorView.centerYAnchor.constraint(equalTo: backgroundGrayView.centerYAnchor),
             separatorView.heightAnchor.constraint(equalTo: backgroundGrayView.heightAnchor, multiplier: 94/170),
+            separatorView.widthAnchor.constraint(equalToConstant: 1),
 
             ratingDistributionStackView.leadingAnchor.constraint(equalTo: separatorView.trailingAnchor, constant: 20),
             ratingDistributionStackView.centerYAnchor.constraint(equalTo: backgroundGrayView.centerYAnchor),
