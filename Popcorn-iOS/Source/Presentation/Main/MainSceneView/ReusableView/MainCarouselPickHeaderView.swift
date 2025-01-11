@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MainCarouselPickHeaderCollectionReusableView: UICollectionReusableView {
+final class MainCarouselPickHeaderView: UICollectionReusableView {
     private let carouselView = MainCarouselView(viewModel: nil)
     private let titleHeader = MainCollectionTitleHeaderView()
 
@@ -23,8 +23,8 @@ final class MainCarouselPickHeaderCollectionReusableView: UICollectionReusableVi
 }
 
 // MARK: - Public Interface
-extension MainCarouselPickHeaderCollectionReusableView {
-    func configureContents(headerTitle: String, viewModel: MainSceneViewModel) {
+extension MainCarouselPickHeaderView {
+    func configureContents(headerTitle: String, viewModel: MainCarouselViewModelProtocol) {
         titleHeader.configureContents(headerTitle: headerTitle)
         carouselView.updateViewModel(viewModel: viewModel)
         layoutSubviews()
@@ -32,7 +32,7 @@ extension MainCarouselPickHeaderCollectionReusableView {
 }
 
 // MARK: - Configure UI
-extension MainCarouselPickHeaderCollectionReusableView {
+extension MainCarouselPickHeaderView {
     private func configureSubviews() {
         [carouselView, titleHeader].forEach {
             addSubview($0)
@@ -45,6 +45,7 @@ extension MainCarouselPickHeaderCollectionReusableView {
             carouselView.topAnchor.constraint(equalTo: topAnchor),
             carouselView.leadingAnchor.constraint(equalTo: leadingAnchor),
             carouselView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            carouselView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 317/393),
 
             titleHeader.topAnchor.constraint(equalTo: carouselView.bottomAnchor, constant: 31),
             titleHeader.leadingAnchor.constraint(equalTo: leadingAnchor),
