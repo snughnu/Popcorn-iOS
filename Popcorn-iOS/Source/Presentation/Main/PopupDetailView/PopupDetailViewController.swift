@@ -1,5 +1,5 @@
 //
-//  MainDetailViewController.swift
+//  PopupDetailViewController.swift
 //  Popcorn-iOS
 //
 //  Created by 제민우 on 11/25/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MainDetailViewController: UIViewController {
+final class PopupDetailViewController: UIViewController {
     private let viewModel = PopupDetailViewModel()
 
     private lazy var collectionView = UICollectionView(
@@ -66,7 +66,7 @@ final class MainDetailViewController: UIViewController {
 }
 
 // MARK: - Configure Initial Setting
-extension MainDetailViewController {
+extension PopupDetailViewController {
     private func configureInitialSetting() {
         view.backgroundColor = .white
         configureCollectionView()
@@ -111,7 +111,7 @@ extension MainDetailViewController {
 }
 
 // MARK: - Implement CollectionView DataSource
-extension MainDetailViewController: UICollectionViewDataSource {
+extension PopupDetailViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return segmentIndex == 0 ? 2 : 3
     }
@@ -256,7 +256,7 @@ extension MainDetailViewController: UICollectionViewDataSource {
 }
 
 // MARK: - Configure CollectionView Compositional Layout
-extension MainDetailViewController {
+extension PopupDetailViewController {
     private func generateCollectionViewLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { [weak self] sectionIndex, _ in
             guard let self else { return nil }
@@ -389,7 +389,7 @@ extension MainDetailViewController {
 }
 
 // MARK: - Implement PopupInfoReviewSegmentHeaderView Delegate
-extension MainDetailViewController: PopupInfoReviewSegmentHeaderViewDelegate {
+extension PopupDetailViewController: PopupInfoReviewSegmentHeaderViewDelegate {
     func didChangedSegment(to index: Int) {
         segmentIndex = index
         collectionView.reloadData()
@@ -397,7 +397,7 @@ extension MainDetailViewController: PopupInfoReviewSegmentHeaderViewDelegate {
 }
 
 // MARK: - Configure UI
-extension MainDetailViewController {
+extension PopupDetailViewController {
     private func configureSubviews() {
         [collectionView].forEach {
             view.addSubview($0)
@@ -417,7 +417,7 @@ extension MainDetailViewController {
 }
 
 // MARK: - Mocking
-extension MainDetailViewController {
+extension PopupDetailViewController {
     private func mockingData() {
         viewModel.generateMockData()
     }
