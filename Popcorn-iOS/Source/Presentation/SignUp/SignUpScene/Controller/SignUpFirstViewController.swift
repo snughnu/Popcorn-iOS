@@ -68,6 +68,8 @@ extension SignUpFirstViewController: UITextFieldDelegate {
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
         if textField == signUpFirstView.passwordField.textFieldReference {
             validatePasswordField()
+        } else if textField == signUpFirstView.confirmPasswordField.textFieldReference {
+            validateConfirmPasswordField()
         }
     }
 
@@ -292,6 +294,22 @@ extension SignUpFirstViewController {
         } else {
             signUpFirstView.passwordField.labelReference.textColor = UIColor(.red)
             signUpFirstView.passwordField.labelReference.text = "*비밀번호를 입력해주세요."
+        }
+    }
+
+    private func validateConfirmPasswordField() {
+        guard let passwordText = signUpFirstView.passwordField.textFieldReference.text,
+              let confirmPasswordText = signUpFirstView.confirmPasswordField.textFieldReference.text else { return }
+
+        if confirmPasswordText.isEmpty {
+            signUpFirstView.confirmPasswordField.labelReference.textColor = UIColor(.red)
+            signUpFirstView.confirmPasswordField.labelReference.text = "*비밀번호 확인을 입력해주세요."
+        } else if confirmPasswordText != passwordText {
+            signUpFirstView.confirmPasswordField.labelReference.textColor = UIColor(.red)
+            signUpFirstView.confirmPasswordField.labelReference.text = "*비밀번호가 일치하지 않습니다."
+        } else {
+            signUpFirstView.confirmPasswordField.labelReference.textColor = UIColor(.blue)
+            signUpFirstView.confirmPasswordField.labelReference.text = "*비밀번호가 일치합니다."
         }
     }
 
