@@ -270,11 +270,13 @@ extension SignUpFirstViewController {
             validateAuthNumberField { [weak self] isAuthValid in
                 DispatchQueue.main.async {
                     if isAuthValid {
-                        self?.updateAuthNumberLabel(isValid: true, message: " ")
+                        self?.signUpFirstView.authNumberField.labelReference.textColor = UIColor(.blue)
+                        self?.signUpFirstView.authNumberField.labelReference.text = " "
                         let signUpSecondViewController = SignUpSecondViewController()
                         self?.navigationController?.pushViewController(signUpSecondViewController, animated: true)
                     } else {
-                        self?.updateAuthNumberLabel(isValid: false, message: "*인증번호를 다시 입력해주세요.")
+                        self?.signUpFirstView.authNumberField.labelReference.textColor = UIColor(.red)
+                        self?.signUpFirstView.authNumberField.labelReference.text = "*인증번호를 다시 입력해주세요."
                     }
                 }
             }
@@ -283,10 +285,9 @@ extension SignUpFirstViewController {
             signUpFirstView.authNumberField.labelReference.text = "*개인정보를 먼저 입력해주세요."
         }
     }
-
 }
 
-// MARK: - 서브함수 - 정규식
+// MARK: - 서브함수 - Validate
 extension SignUpFirstViewController {
     private func validateNameField() {
         if let nameText = signUpFirstView.nameField.textFieldReference.text, !nameText.isEmpty {
@@ -301,29 +302,6 @@ extension SignUpFirstViewController {
             signUpFirstView.nameField.labelReference.textColor = UIColor(.red)
             signUpFirstView.nameField.labelReference.text = "*이름을 입력해주세요."
         }
-    }
-
-    private func isValidName(_ name: String) -> Bool {
-        let nameRegex = "^[가-힣a-zA-Z]{2,10}$"
-        let nameTest = NSPredicate(format: "SELF MATCHES %@", nameRegex)
-        return nameTest.evaluate(with: name)
-    }
-
-    private func isValidId(_ id: String) -> Bool {
-        let idRegex = "^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,12}$"
-        let idTest = NSPredicate(format: "SELF MATCHES %@", idRegex)
-        return idTest.evaluate(with: id)
-    }
-
-    private func checkIdDuplication(completion: @escaping (Bool) -> Void) {
-        // TODO: 서버와 통신: 아이디 중복 여부를 확인하는 로직, 중복이 true
-        completion(false)
-    }
-
-    private func isValidPassword(_ password: String) -> Bool {
-        let passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]{8,16}$"
-        let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
-        return passwordTest.evaluate(with: password)
     }
 
     private func validatePasswordField() {
@@ -357,17 +335,6 @@ extension SignUpFirstViewController {
         }
     }
 
-    private func requestEmailVerification(for email: String, completion: @escaping (Bool) -> Void) {
-        // TODO: 서버와 통신: email 변수를 서버에 전달, 성공/실패 결과를 completion으로 반환
-        completion(true)
-    }
-
-    private func isValidEmail(_ email: String) -> Bool {
-        let emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
-        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegex)
-        return emailTest.evaluate(with: email)
-    }
-
     private func validateAuthNumberField(completion: @escaping (Bool) -> Void) {
         guard let authNumberText = signUpFirstView.authNumberField.textFieldReference.text,
               !authNumberText.isEmpty else {
@@ -379,14 +346,49 @@ extension SignUpFirstViewController {
             completion(isValid)
         }
     }
+}
+
+// MARK: - 서버와 통신: 중복확인버튼, 이메일-인증번호요청버튼, 인증번호확인-다음버튼
+extension SignUpFirstViewController {
+    private func checkIdDuplication(completion: @escaping (Bool) -> Void) {
+        // TODO: 서버와 통신: 아이디 중복 여부를 확인하는 로직, 중복이 true
+        completion(false)
+    }
+
+    private func requestEmailVerification(for email: String, completion: @escaping (Bool) -> Void) {
+        // TODO: 서버와 통신: email 변수를 서버에 전달, 성공/실패 결과를 completion으로 반환
+        completion(true)
+    }
 
     private func verifyAuthNumber(authCode: String, completion: @escaping (Bool) -> Void) {
         // TODO: 서버와 통신하여 인증번호 확인
         completion(true)
     }
+}
 
-    private func updateAuthNumberLabel(isValid: Bool, message: String) {
-        signUpFirstView.authNumberField.labelReference.textColor = isValid ? UIColor(.blue) : UIColor(.red)
-        signUpFirstView.authNumberField.labelReference.text = message
+// MARK: - 서브함수 - 정규식
+extension SignUpFirstViewController {
+    private func isValidName(_ name: String) -> Bool {
+        let nameRegex = "^[가-힣a-zA-Z]{2,10}$"
+        let nameTest = NSPredicate(format: "SELF MATCHES %@", nameRegex)
+        return nameTest.evaluate(with: name)
+    }
+
+    private func isValidId(_ id: String) -> Bool {
+        let idRegex = "^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,12}$"
+        let idTest = NSPredicate(format: "SELF MATCHES %@", idRegex)
+        return idTest.evaluate(with: id)
+    }
+
+    private func isValidPassword(_ password: String) -> Bool {
+        let passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]{8,16}$"
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
+        return passwordTest.evaluate(with: password)
+    }
+
+    private func isValidEmail(_ email: String) -> Bool {
+        let emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        return emailTest.evaluate(with: email)
     }
 }
