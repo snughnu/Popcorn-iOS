@@ -61,6 +61,13 @@ extension SignUpFirstViewController: UITextFieldDelegate {
             signUpFirstView.authNumberTextField
         ].forEach {
             $0.delegate = self
+            $0.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
+        }
+    }
+
+    @objc private func textFieldEditingChanged(_ textField: UITextField) {
+        if textField == signUpFirstView.passwordField.textFieldReference {
+            validatePasswordField()
         }
     }
 
@@ -265,6 +272,27 @@ extension SignUpFirstViewController {
     private func checkIdDuplication(completion: @escaping (Bool) -> Void) {
         // TODO: 서버와 통신: 아이디 중복 여부를 확인하는 로직
         completion(false)
+    }
+
+    private func isValidPassword(_ password: String) -> Bool {
+        let passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]{8,16}$"
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
+        return passwordTest.evaluate(with: password)
+    }
+
+    private func validatePasswordField() {
+        if let passwordText = signUpFirstView.passwordField.textFieldReference.text, !passwordText.isEmpty {
+            if !isValidPassword(passwordText) {
+                signUpFirstView.passwordField.labelReference.textColor = UIColor(.red)
+                signUpFirstView.passwordField.labelReference.text = "*8~16자, 영문, 숫자, 특수문자를 조합해주세요."
+            } else {
+                signUpFirstView.passwordField.labelReference.textColor = UIColor(.blue)
+                signUpFirstView.passwordField.labelReference.text = "*사용 가능한 비밀번호입니다."
+            }
+        } else {
+            signUpFirstView.passwordField.labelReference.textColor = UIColor(.red)
+            signUpFirstView.passwordField.labelReference.text = "*비밀번호를 입력해주세요."
+        }
     }
 
     private func requestEmailVerification(for email: String, completion: @escaping (Bool) -> Void) {

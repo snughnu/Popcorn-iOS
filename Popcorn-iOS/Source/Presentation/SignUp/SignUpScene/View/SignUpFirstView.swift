@@ -39,12 +39,14 @@ class SignUpFirstView: UIView {
 
     let passwordField = SignUpFieldStackView(
         labelText: "*비밀번호를 입력해주세요.",
-        placeholder: "비밀번호"
+        placeholder: "비밀번호",
+        isSecureTextEntry: true
     )
 
     let confirmPasswordField = SignUpFieldStackView(
         labelText: "*비밀번호 확인란을 입력해주세요.",
-        placeholder: "비밀번호 확인"
+        placeholder: "비밀번호 확인",
+        isSecureTextEntry: true
     )
 
     let emailField = SignUpFieldStackView(
