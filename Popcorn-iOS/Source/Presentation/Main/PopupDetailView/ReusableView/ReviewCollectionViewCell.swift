@@ -63,6 +63,12 @@ final class ReviewCollectionViewCell: UICollectionViewCell {
         return label
     }()
 
+    private let bottomBorder: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(resource: .popcornGray3)
+        return view
+    }()
+
     // MARK: - StackView
     private lazy var starRatingReviewDateStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [starRatingView, separatorView, reviewDateLabel])
@@ -168,7 +174,7 @@ extension ReviewCollectionViewCell: UICollectionViewDataSource {
 // MARK: - Configure UI
 extension ReviewCollectionViewCell {
     private func configureSubviews() {
-        [reviewHeaderStackView, reviewImagesCollectionView, reviewLabel].forEach {
+        [reviewHeaderStackView, reviewImagesCollectionView, reviewLabel, bottomBorder].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -195,7 +201,12 @@ extension ReviewCollectionViewCell {
             reviewLabel.topAnchor.constraint(equalTo: reviewImagesCollectionView.bottomAnchor, constant: 12),
             reviewLabel.leadingAnchor.constraint(equalTo: reviewHeaderStackView.leadingAnchor),
             reviewLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -25),
-            reviewLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            reviewLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+
+            bottomBorder.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 1),
+            bottomBorder.leadingAnchor.constraint(equalTo: leadingAnchor),
+            bottomBorder.trailingAnchor.constraint(equalTo: trailingAnchor),
+            bottomBorder.heightAnchor.constraint(equalToConstant: 1)
         ])
     }
 }
