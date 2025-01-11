@@ -66,7 +66,9 @@ extension SignUpFirstViewController: UITextFieldDelegate {
     }
 
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
-        if textField == signUpFirstView.passwordField.textFieldReference {
+        if textField == signUpFirstView.nameField.textFieldReference {
+            validateNameField()
+        } else if textField == signUpFirstView.passwordField.textFieldReference {
             validatePasswordField()
         } else if textField == signUpFirstView.confirmPasswordField.textFieldReference {
             validateConfirmPasswordField()
@@ -265,6 +267,26 @@ extension SignUpFirstViewController {
 
 // MARK: - 서브함수 - 정규식
 extension SignUpFirstViewController {
+    private func validateNameField() {
+        if let nameText = signUpFirstView.nameField.textFieldReference.text, !nameText.isEmpty {
+            if !isValidName(nameText) {
+                signUpFirstView.nameField.labelReference.textColor = UIColor(.red)
+                signUpFirstView.nameField.labelReference.text = "*이름을 올바르게 입력해주세요."
+            } else {
+                signUpFirstView.nameField.labelReference.text = " "
+            }
+        } else {
+            signUpFirstView.nameField.labelReference.textColor = UIColor(.red)
+            signUpFirstView.nameField.labelReference.text = "*이름을 입력해주세요."
+        }
+    }
+
+    private func isValidName(_ name: String) -> Bool {
+        let nameRegex = "^[가-힣a-zA-Z]{2,10}$"
+        let nameTest = NSPredicate(format: "SELF MATCHES %@", nameRegex)
+        return nameTest.evaluate(with: name)
+    }
+
     private func isValidId(_ id: String) -> Bool {
         let idRegex = "^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,12}$"
         let idTest = NSPredicate(format: "SELF MATCHES %@", idRegex)
