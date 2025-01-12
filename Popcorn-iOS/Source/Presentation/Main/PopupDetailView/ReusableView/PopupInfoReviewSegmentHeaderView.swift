@@ -102,9 +102,9 @@ extension PopupInfoReviewSegmentHeaderView {
         )
 
         NSLayoutConstraint.activate([
-            segmentedControl.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            segmentedControl.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            segmentedControl.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            segmentedControl.topAnchor.constraint(equalTo: topAnchor),
+            segmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor),
+            segmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor),
             segmentedControl.heightAnchor.constraint(equalToConstant: 40),
 
             segmentedGrayUnderLineView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
