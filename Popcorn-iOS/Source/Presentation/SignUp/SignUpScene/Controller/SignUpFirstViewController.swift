@@ -11,6 +11,12 @@ class SignUpFirstViewController: UIViewController {
     private let signUpFirstView = SignUpFirstView()
     private let screenHeight = UIScreen.main.bounds.height
 
+    private var isNameValid = false
+    private var isIdValid = false
+    private var isPasswordValid = false
+    private var isConfirmPasswordValid = false
+    private var isEmailValid = false
+
     override func loadView() {
         view = signUpFirstView
     }
@@ -215,15 +221,18 @@ extension SignUpFirstViewController {
             if !isValidId(idText) {
                 signUpFirstView.idField.labelReference.textColor = UIColor(.red)
                 signUpFirstView.idField.labelReference.text = "*6~12자의 영문과 숫자의 조합으로 입력해주세요."
+                isIdValid = false
             } else {
                 checkIdDuplication { [weak self] isDuplicate in
                     DispatchQueue.main.async {
                         if isDuplicate {
                             self?.signUpFirstView.idField.labelReference.textColor = UIColor(.red)
                             self?.signUpFirstView.idField.labelReference.text = "*중복된 아이디입니다."
+                            self?.isIdValid = false
                         } else {
                             self?.signUpFirstView.idField.labelReference.textColor = UIColor(.blue)
                             self?.signUpFirstView.idField.labelReference.text = "*사용 가능한 아이디입니다."
+                            self?.isIdValid = true
                         }
                     }
                 }
@@ -231,6 +240,7 @@ extension SignUpFirstViewController {
         } else {
             signUpFirstView.idField.labelReference.textColor = UIColor(.red)
             signUpFirstView.idField.labelReference.text = "*6~12자의 영문과 숫자의 조합으로 입력해주세요."
+            isIdValid = false
         }
     }
 
@@ -239,6 +249,7 @@ extension SignUpFirstViewController {
             if !isValidEmail(emailText) {
                 signUpFirstView.emailField.labelReference.textColor = UIColor(.red)
                 signUpFirstView.emailField.labelReference.text = "*이메일을 올바르게 입력해주세요."
+                isEmailValid = false
             } else {
                 signUpFirstView.emailField.labelReference.text = ""
                 requestEmailVerification(for: emailText) { [weak self] success in
@@ -246,9 +257,11 @@ extension SignUpFirstViewController {
                         if success {
                             self?.signUpFirstView.emailField.labelReference.textColor = UIColor(.blue)
                             self?.signUpFirstView.emailField.labelReference.text = "*인증번호가 발송되었습니다."
+                            self?.isEmailValid = true
                         } else {
                             self?.signUpFirstView.emailField.labelReference.textColor = UIColor(.red)
                             self?.signUpFirstView.emailField.labelReference.text = "*인증번호 발송에 실패했습니다. 다시 시도해주세요."
+                            self?.isEmailValid = false
                         }
                     }
                 }
@@ -256,16 +269,11 @@ extension SignUpFirstViewController {
         } else {
             signUpFirstView.emailField.labelReference.textColor = UIColor(.red)
             signUpFirstView.emailField.labelReference.text = "*이메일을 입력해주세요."
+            isEmailValid = false
         }
     }
 
     private func nextButtonTapped() {
-        let isNameValid = signUpFirstView.nameField.labelReference.textColor == UIColor(.blue)
-        let isIdValid = signUpFirstView.idField.labelReference.textColor == UIColor(.blue)
-        let isPasswordValid = signUpFirstView.passwordField.labelReference.textColor == UIColor(.blue)
-        let isConfirmPasswordValid = signUpFirstView.confirmPasswordField.labelReference.textColor == UIColor(.blue)
-        let isEmailValid = signUpFirstView.emailField.labelReference.textColor == UIColor(.blue)
-
         if isNameValid, isIdValid, isPasswordValid, isConfirmPasswordValid, isEmailValid {
             validateAuthNumberField { [weak self] isAuthValid in
                 DispatchQueue.main.async {
@@ -294,13 +302,16 @@ extension SignUpFirstViewController {
             if !isValidName(nameText) {
                 signUpFirstView.nameField.labelReference.textColor = UIColor(.red)
                 signUpFirstView.nameField.labelReference.text = "*이름을 올바르게 입력해주세요."
+                isNameValid = false
             } else {
                 signUpFirstView.nameField.labelReference.textColor = UIColor(.blue)
                 signUpFirstView.nameField.labelReference.text = " "
+                isNameValid = true
             }
         } else {
             signUpFirstView.nameField.labelReference.textColor = UIColor(.red)
             signUpFirstView.nameField.labelReference.text = "*이름을 입력해주세요."
+            isNameValid = false
         }
     }
 
@@ -309,29 +320,38 @@ extension SignUpFirstViewController {
             if !isValidPassword(passwordText) {
                 signUpFirstView.passwordField.labelReference.textColor = UIColor(.red)
                 signUpFirstView.passwordField.labelReference.text = "*8~16자, 영문, 숫자, 특수문자를 조합해주세요."
+                isPasswordValid = false
             } else {
                 signUpFirstView.passwordField.labelReference.textColor = UIColor(.blue)
                 signUpFirstView.passwordField.labelReference.text = "*사용 가능한 비밀번호입니다."
+                isPasswordValid = true
             }
         } else {
             signUpFirstView.passwordField.labelReference.textColor = UIColor(.red)
             signUpFirstView.passwordField.labelReference.text = "*비밀번호를 입력해주세요."
+            isPasswordValid = false
         }
     }
 
     private func validateConfirmPasswordField() {
         guard let passwordText = signUpFirstView.passwordField.textFieldReference.text,
-              let confirmPasswordText = signUpFirstView.confirmPasswordField.textFieldReference.text else { return }
+              let confirmPasswordText = signUpFirstView.confirmPasswordField.textFieldReference.text else {
+            isConfirmPasswordValid = false
+            return
+        }
 
         if confirmPasswordText.isEmpty {
             signUpFirstView.confirmPasswordField.labelReference.textColor = UIColor(.red)
             signUpFirstView.confirmPasswordField.labelReference.text = "*비밀번호 확인을 입력해주세요."
+            isConfirmPasswordValid = false
         } else if confirmPasswordText != passwordText {
             signUpFirstView.confirmPasswordField.labelReference.textColor = UIColor(.red)
             signUpFirstView.confirmPasswordField.labelReference.text = "*비밀번호가 일치하지 않습니다."
+            isConfirmPasswordValid = false
         } else {
             signUpFirstView.confirmPasswordField.labelReference.textColor = UIColor(.blue)
             signUpFirstView.confirmPasswordField.labelReference.text = "*비밀번호가 일치합니다."
+            isConfirmPasswordValid = true
         }
     }
 
