@@ -13,6 +13,9 @@ final class SignUpFieldStackView: UIStackView {
     var textFieldReference: SignUpTextField {
         return signUpTextField
     }
+    var labelReference: SignUpLabel {
+        return signUpLabel
+    }
 
     init(
         labelText: String,

@@ -106,7 +106,7 @@ extension LoginViewController {
         signUpSecondViewController.signUpSecondView.nickNameTextField.text = nickname
         self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
     }
-    
+
     private func sendTokenToServer() {
 
     }
