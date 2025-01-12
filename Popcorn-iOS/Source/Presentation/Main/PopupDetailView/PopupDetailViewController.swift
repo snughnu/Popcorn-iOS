@@ -193,6 +193,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
 
+            cell.delegate = self
             let data = viewModel.provideReviewData(at: indexPath.item)
 
             cell.configureContents(
@@ -385,6 +386,18 @@ extension PopupDetailViewController {
         section.supplementaryContentInsetsReference = .none
 
         return section
+    }
+}
+
+// MARK: - Implement ReviewCollectionViewCellDelegate Delegate
+extension PopupDetailViewController: ReviewCollectionViewCellDelegate {
+    func didTapReviewImages(images: [UIImage], selecetedIndex: Int) {
+        let fullScreenImageViewController = FullScreenReviewImageViewController(
+            reviewImages: images,
+            selectedIndex: selecetedIndex
+        )
+        fullScreenImageViewController.modalPresentationStyle = .fullScreen
+        present(fullScreenImageViewController, animated: true)
     }
 }
 
