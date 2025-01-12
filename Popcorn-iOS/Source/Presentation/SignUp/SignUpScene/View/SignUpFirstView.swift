@@ -19,7 +19,7 @@ class SignUpFirstView: UIView {
         placeholder: "아이디"
     )
 
-    private let duplicateCheckButton: UIButton = {
+    let duplicateCheckButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = UIColor(resource: .popcornOrange)
@@ -39,12 +39,14 @@ class SignUpFirstView: UIView {
 
     let passwordField = SignUpFieldStackView(
         labelText: "*비밀번호를 입력해주세요.",
-        placeholder: "비밀번호"
+        placeholder: "비밀번호",
+        isSecureTextEntry: true
     )
 
     let confirmPasswordField = SignUpFieldStackView(
         labelText: "*비밀번호 확인란을 입력해주세요.",
-        placeholder: "비밀번호 확인"
+        placeholder: "비밀번호 확인",
+        isSecureTextEntry: true
     )
 
     let emailField = SignUpFieldStackView(
@@ -70,9 +72,10 @@ class SignUpFirstView: UIView {
         return button
     }()
 
-    let authNumberTextField = SignUpTextField(
-        keyboardType: .numberPad,
-        placeholder: "인증번호를 입력하세요"
+    let authNumberField = SignUpFieldStackView(
+        labelText: "*인증번호를 입력해주세요",
+        placeholder: "인증번호",
+        keyboardType: .numberPad
     )
 
     let nextButton: UIButton = {
@@ -125,7 +128,7 @@ class SignUpFirstView: UIView {
             passwordField,
             confirmPasswordField,
             emailStackView,
-            authNumberTextField
+            authNumberField
         ])
         stackView.axis = .vertical
         let screenHeight = UIScreen.main.bounds.height
@@ -200,7 +203,7 @@ extension SignUpFirstView {
             passwordField.textFieldReference.heightAnchor.constraint(equalTo: duplicateCheckButton.heightAnchor),
             confirmPasswordField.textFieldReference.heightAnchor.constraint(equalTo: duplicateCheckButton.heightAnchor),
             emailField.textFieldReference.heightAnchor.constraint(equalTo: duplicateCheckButton.heightAnchor),
-            authNumberTextField.heightAnchor.constraint(equalTo: duplicateCheckButton.heightAnchor),
+            authNumberField.textFieldReference.heightAnchor.constraint(equalTo: duplicateCheckButton.heightAnchor),
 
             nextButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 56/759)
         ])
