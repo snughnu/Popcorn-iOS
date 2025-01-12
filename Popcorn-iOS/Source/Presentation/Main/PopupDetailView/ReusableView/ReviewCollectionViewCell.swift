@@ -16,6 +16,8 @@ final class ReviewCollectionViewCell: UICollectionViewCell {
         }
     }
 
+    weak var delegate: ReviewCollectionViewCellDelegate?
+
     private let reviewImagesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -120,6 +122,7 @@ final class ReviewCollectionViewCell: UICollectionViewCell {
 extension ReviewCollectionViewCell {
     private func configureInitialSetting() {
         reviewImagesCollectionView.dataSource = self
+        reviewImagesCollectionView.delegate = self
 
         reviewImagesCollectionView.register(
             ReviewImageCollectionViewCell.self,
@@ -168,6 +171,13 @@ extension ReviewCollectionViewCell: UICollectionViewDataSource {
         cell.configureContents(image: reviewImage)
 
         return cell
+    }
+}
+
+// MARK: - Implement UICollectionView Delegate
+extension ReviewCollectionViewCell: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.didTapReviewImages(images: reviewImages, selecetedIndex: indexPath.item)
     }
 }
 
