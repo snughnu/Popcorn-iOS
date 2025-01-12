@@ -94,19 +94,19 @@ extension PopupTitleCollectionViewCell {
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            popupTitlePeriodStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 25),
+            popupTitlePeriodStackView.topAnchor.constraint(equalTo: topAnchor, constant: 25),
             popupTitlePeriodStackView.leadingAnchor.constraint(
-                equalTo: safeAreaLayoutGuide.leadingAnchor,
+                equalTo: leadingAnchor,
                 constant: 27
             ),
 
-            sharePickButtonStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 29),
+            sharePickButtonStackView.topAnchor.constraint(equalTo: topAnchor, constant: 29),
             sharePickButtonStackView.leadingAnchor.constraint(
                 greaterThanOrEqualTo: popupTitlePeriodStackView.trailingAnchor,
                 constant: 10
             ),
             sharePickButtonStackView.trailingAnchor.constraint(
-                equalTo: safeAreaLayoutGuide.trailingAnchor,
+                equalTo: trailingAnchor,
                 constant: -37
             ),
 
