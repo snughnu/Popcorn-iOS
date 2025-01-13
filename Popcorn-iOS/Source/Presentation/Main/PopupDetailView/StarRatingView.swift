@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol StarRatingViewDelegate: AnyObject {
-    func starRatingView(_ view: StarRatingView, didChangeRating rating: CGFloat)
-}
-
 final class StarRatingView: UIView {
     private var currentRating: Float = 0 {
         didSet {
@@ -66,7 +62,7 @@ extension StarRatingView {
         if newRating != currentRating {
             currentRating = newRating
             updateStarImages()
-            delegate?.starRatingView(self, didChangeRating: CGFloat(newRating))
+            delegate?.didChangeRating(to: Float(newRating))
         }
     }
 
@@ -77,7 +73,7 @@ extension StarRatingView {
         if newRating != currentRating {
             currentRating = Float(newRating)
             updateStarImages()
-            delegate?.starRatingView(self, didChangeRating: CGFloat(newRating))
+            delegate?.didChangeRating(to: Float(newRating))
         }
     }
 
