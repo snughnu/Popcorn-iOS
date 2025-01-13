@@ -96,7 +96,7 @@ final class WriteReviewViewController: UIViewController {
         return collectionView
     }()
 
-    private let reviewCompleteButton = PopcornOrangeButton(text: "리뷰 등록하기")
+    private let reviewCompleteButton = PopcornOrangeButton(text: "리뷰 등록하기", isEnabled: false)
 
     // MARK: - Stack View
     private lazy var popupTitlePeriodStackView: UIStackView = {

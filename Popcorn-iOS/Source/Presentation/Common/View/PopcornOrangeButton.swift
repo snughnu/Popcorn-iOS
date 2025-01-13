@@ -8,9 +8,10 @@
 import UIKit
 
 final class PopcornOrangeButton: UIButton {
-    init(text: String) {
+    init(text: String, isEnabled: Bool) {
         super.init(frame: .zero)
-        configureButton(text: text)
+        configureInitialSetting(isEnabled: isEnabled)
+        configureButtonUI(text: text)
     }
 
     required init?(coder: NSCoder) {
@@ -20,9 +21,16 @@ final class PopcornOrangeButton: UIButton {
 
 // MARK: - Configure Initial Setting
 extension PopcornOrangeButton {
-    private func configureButton(text: String) {
+    private func configureInitialSetting(isEnabled: Bool) {
+        self.isEnabled = isEnabled
+    }
+
+    private func configureButtonUI(text: String) {
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor(resource: .popcornOrange)
+        config.baseBackgroundColor = isEnabled == true
+        ? UIColor(resource: .popcornOrange)
+        : UIColor(resource: .popcornGray2)
+
         config.background.cornerRadius = 10
         config.attributedTitle = AttributedString(
             text,
