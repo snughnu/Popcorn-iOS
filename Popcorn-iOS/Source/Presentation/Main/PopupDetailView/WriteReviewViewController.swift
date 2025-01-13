@@ -124,6 +124,7 @@ final class WriteReviewViewController: UIViewController {
         configureInitialSetting()
         configureSubviews()
         configureLayout()
+        configureAction()
     }
 }
 
@@ -161,15 +162,47 @@ extension WriteReviewViewController {
     }
 }
 
+// MARK: - Configure Action
+extension WriteReviewViewController {
+    private func configureAction() {
+        reviewCompleteButton.addAction(UIAction { [weak self] _ in
+            guard let self else { return }
+            self.didTapReviewCompleteButton()
+        }, for: .touchUpInside)
+    }
+
+    private func didTapReviewCompleteButton() {
+        self.navigationController?.popViewController(animated: true)
+    }
+}
+
+// MARK: - Validate Review Complete
+extension WriteReviewViewController {
+    private func validateReviewCompletion() {
+        let isRatingValid = userRating != 0
+        let isTextValid = (reviewTextView.text != reviewTextViewPlaceHolderText) && (reviewTextView.text.count > 10)
+
+        reviewCompleteButton.isEnabled = isRatingValid && isTextValid
+        reviewCompleteButton.configuration?.baseBackgroundColor = isRatingValid && isTextValid
+        ? UIColor(resource: .popcornOrange)
+        : UIColor(resource: .popcornGray2)
+    }
+}
+
 // MARK: - Implement StarRatingView Delegate
 extension WriteReviewViewController: StarRatingViewDelegate {
     func didChangeRating(to rating: Float) {
         userRating = rating
+        validateReviewCompletion()
     }
 }
 
 // MARK: - Implement UITextView Delegate
 extension WriteReviewViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        validateReviewCompletion()
+    }
+
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == reviewTextViewPlaceHolderText {
             textView.text = nil
