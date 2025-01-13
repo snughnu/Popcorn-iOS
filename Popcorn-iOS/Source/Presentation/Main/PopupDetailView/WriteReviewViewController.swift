@@ -107,6 +107,17 @@ final class WriteReviewViewController: UIViewController {
         return stackView
     }()
 
+    init(image: UIImage, title: String, period: String) {
+        super.init(nibName: nil, bundle: nil)
+        popupMainImageView.image = image
+        popupTitleLabel.text = title
+        popupPeriodLabel.text = period
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureInitialSetting()
