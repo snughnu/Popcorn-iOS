@@ -14,7 +14,8 @@ final class WriteReviewViewController: UIViewController {
     private let popupMainImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(resource: .imagePlaceHolder)
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
 
