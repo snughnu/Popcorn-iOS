@@ -120,8 +120,10 @@ extension WriteReviewViewController {
     private func configureInitialSetting() {
         view.backgroundColor = .white
 
+        configureGestureRecognizer()
         configureCollectionView()
         reviewTextView.delegate = self
+        userStatisfactionRatingView.delegate = self
     }
 
     private func configureCollectionView() {
@@ -132,6 +134,25 @@ extension WriteReviewViewController {
             UploadImageCollectionViewCell.self,
             forCellWithReuseIdentifier: UploadImageCollectionViewCell.reuseIdentifier
         )
+    }
+
+    private func configureGestureRecognizer() {
+        let panGesture = UIPanGestureRecognizer(
+            target: userStatisfactionRatingView,
+            action: #selector(userStatisfactionRatingView.handlePanGesture(_:))
+        )
+        let tapGesture = UITapGestureRecognizer(
+            target: userStatisfactionRatingView,
+            action: #selector(userStatisfactionRatingView.handleTapGesture(_:))
+        )
+        [panGesture, tapGesture].forEach { userStatisfactionRatingView.addGestureRecognizer($0) }
+    }
+}
+
+// MARK: - Implement StarRatingView Delegate
+extension WriteReviewViewController: StarRatingViewDelegate {
+    func didChangeRating(to rating: Float) {
+        userRating = rating
     }
 }
 
