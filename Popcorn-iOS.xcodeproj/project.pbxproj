@@ -50,6 +50,7 @@
 		56EAA92B2D34EA5A007265D3 /* UploadImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EAA92A2D34EA5A007265D3 /* UploadImageCollectionViewCell.swift */; };
 		56EAA92F2D34EB08007265D3 /* StarRatingViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EAA92E2D34EB06007265D3 /* StarRatingViewDelegate.swift */; };
 		56EAA9332D34EB9C007265D3 /* PopcornOrangeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EAA9322D34EB9C007265D3 /* PopcornOrangeButton.swift */; };
+		56EAA9352D34EC2B007265D3 /* WriteReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EAA9342D34EC2B007265D3 /* WriteReviewViewController.swift */; };
 		BC29A50E2D2EA5DF0059A5C5 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A50D2D2EA5DE0059A5C5 /* KakaoSDKAuth */; };
 		BC29A5102D2EA5DF0059A5C5 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A50F2D2EA5DF0059A5C5 /* KakaoSDKCommon */; };
 		BC29A5122D2EA5DF0059A5C5 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A5112D2EA5DF0059A5C5 /* KakaoSDKUser */; };
@@ -142,6 +143,7 @@
 		56EAA92A2D34EA5A007265D3 /* UploadImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		56EAA92E2D34EB06007265D3 /* StarRatingViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingViewDelegate.swift; sourceTree = "<group>"; };
 		56EAA9322D34EB9C007265D3 /* PopcornOrangeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopcornOrangeButton.swift; sourceTree = "<group>"; };
+		56EAA9342D34EC2B007265D3 /* WriteReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewController.swift; sourceTree = "<group>"; };
 		BC2D11612CEC5DF60030F4E0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BC3201AA2D2CFC6900B73A14 /* ProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCell.swift; sourceTree = "<group>"; };
 		BC3201AD2D2D66DA00B73A14 /* ProfileImageColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageColor.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				562447062D33975B000E94A0 /* FullScreenReviewImageViewController.swift */,
 				56D68A332D23FBB700EA1404 /* RatingDistributionView.swift */,
 				564524E12D240BBA00B05355 /* StarRatingView.swift */,
+				56EAA9342D34EC2B007265D3 /* WriteReviewViewController.swift */,
 			);
 			path = PopupDetailView;
 			sourceTree = "<group>";
@@ -796,6 +799,7 @@
 				BCE8FA2D2D2271F900A7B8E2 /* FindIdPwTextField.swift in Sources */,
 				BCD2DFFD2D298D10000ED875 /* CompleteResetPwViewController.swift in Sources */,
 				BCE6E6002CF321AE0036BAF6 /* SignUpFirstView.swift in Sources */,
+				56EAA9352D34EC2B007265D3 /* WriteReviewViewController.swift in Sources */,
 				BC7420FA2CE23A9500BEED0A /* Requestable.swift in Sources */,
 				56381C2A2D193CEE00F4F715 /* MainCarouselPickHeaderView.swift in Sources */,
 				56A0C8472D2A744C005E6C51 /* ReviewCollectionViewCell.swift in Sources */,
@@ -908,7 +912,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Popcorna.Popcorn-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "Popcora.Popcorn-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -937,7 +941,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Popcorna.Popcorn-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "Popcora.Popcorn-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
