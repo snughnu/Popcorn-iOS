@@ -82,7 +82,7 @@
 		BCE8FA562D228C5400A7B8E2 /* ResetPwViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE8FA552D228C5400A7B8E2 /* ResetPwViewController.swift */; };
 		BCF6ED342D33D5420038CCAE /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED332D33D5420038CCAE /* LoginManager.swift */; };
 		BCF6ED392D33DF530038CCAE /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED382D33DF530038CCAE /* LoginResponse.swift */; };
-		BCF6ED492D3426A60038CCAE /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED482D3426A60038CCAE /* TokenManager.swift */; };
+		BCF6ED492D3426A60038CCAE /* TokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED482D3426A60038CCAE /* TokenRepository.swift */; };
 		BCF6ED502D37CBEB0038CCAE /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED4F2D37CBEB0038CCAE /* KeychainManager.swift */; };
 		BCF6ED552D37CCE30038CCAE /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED542D37CCE30038CCAE /* Token.swift */; };
 /* End PBXBuildFile section */
@@ -173,7 +173,7 @@
 		BCE8FA552D228C5400A7B8E2 /* ResetPwViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPwViewController.swift; sourceTree = "<group>"; };
 		BCF6ED332D33D5420038CCAE /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		BCF6ED382D33DF530038CCAE /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
-		BCF6ED482D3426A60038CCAE /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
+		BCF6ED482D3426A60038CCAE /* TokenRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRepository.swift; sourceTree = "<group>"; };
 		BCF6ED4F2D37CBEB0038CCAE /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		BCF6ED542D37CCE30038CCAE /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -662,7 +662,7 @@
 		BCF6ED532D37CC800038CCAE /* Token */ = {
 			isa = PBXGroup;
 			children = (
-				BCF6ED482D3426A60038CCAE /* TokenManager.swift */,
+				BCF6ED482D3426A60038CCAE /* TokenRepository.swift */,
 				BCF6ED542D37CCE30038CCAE /* Token.swift */,
 			);
 			path = Token;
@@ -877,7 +877,7 @@
 				BCE8FA362D227CE000A7B8E2 /* CompleteFindIdView.swift in Sources */,
 				56537BB62CE0F5290092A292 /* SceneDelegate.swift in Sources */,
 				56537BB72CE0F5290092A292 /* ViewController.swift in Sources */,
-				BCF6ED492D3426A60038CCAE /* TokenManager.swift in Sources */,
+				BCF6ED492D3426A60038CCAE /* TokenRepository.swift in Sources */,
 				BC90A0B82CF4CC9A003488F0 /* SignUpInterestButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
