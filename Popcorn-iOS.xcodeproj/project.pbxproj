@@ -86,6 +86,7 @@
 		BCF6ED502D37CBEB0038CCAE /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED4F2D37CBEB0038CCAE /* KeychainManager.swift */; };
 		BCF6ED552D37CCE30038CCAE /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED542D37CCE30038CCAE /* Token.swift */; };
 		BCF6ED572D37D55B0038CCAE /* TokenExpireResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED562D37D55B0038CCAE /* TokenExpireResolver.swift */; };
+		BCF6ED592D37DAA30038CCAE /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED582D37DAA30038CCAE /* DateFormatter+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -178,6 +179,7 @@
 		BCF6ED4F2D37CBEB0038CCAE /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		BCF6ED542D37CCE30038CCAE /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		BCF6ED562D37D55B0038CCAE /* TokenExpireResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenExpireResolver.swift; sourceTree = "<group>"; };
+		BCF6ED582D37DAA30038CCAE /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -437,6 +439,7 @@
 				56018CA32CECC3FA00AC8ED5 /* Date+.swift */,
 				56CD3A7C2CEC314E00BAC02D /* UIView+.swift */,
 				BC90A0512CF4A6EA003488F0 /* UIResponder+.swift */,
+				BCF6ED582D37DAA30038CCAE /* DateFormatter+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -823,6 +826,7 @@
 				BCF6ED502D37CBEB0038CCAE /* KeychainManager.swift in Sources */,
 				BC7420FA2CE23A9500BEED0A /* Requestable.swift in Sources */,
 				56381C2A2D193CEE00F4F715 /* MainCarouselPickHeaderView.swift in Sources */,
+				BCF6ED592D37DAA30038CCAE /* DateFormatter+.swift in Sources */,
 				56A0C8472D2A744C005E6C51 /* ReviewCollectionViewCell.swift in Sources */,
 				BC90A0BC2CF4CF53003488F0 /* SignUpSecondViewController.swift in Sources */,
 				BCE8FA322D2272EB00A7B8E2 /* FindIdPwView.swift in Sources */,

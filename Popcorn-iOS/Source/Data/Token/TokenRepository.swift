@@ -106,8 +106,9 @@ extension TokenRepository {
 
             do {
                 let decoder = JSONDecoder()
-                let reissueResponse = try decoder.decode(Token.self, from: data)
-                completion(.success(reissueResponse))
+                decoder.dateDecodingStrategy = .formatted(DateFormatter.apiDateFormatter)
+                let tokenResponse = try decoder.decode(Token.self, from: data)
+                completion(.success(tokenResponse))
             } catch {
                 completion(.failure(error))
             }
