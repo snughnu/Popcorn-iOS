@@ -11,7 +11,7 @@ final class LoginManager {
     static let shared = LoginManager()
     private init() {}
 
-    func login(username: String, password: String, completion: @escaping (Result<LoginData, Error>) -> Void) {
+    func login(username: String, password: String, completion: @escaping (Result<Token, Error>) -> Void) {
         let url = URL(string: "https://popcorm.store/login")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -43,11 +43,12 @@ final class LoginManager {
 
             do {
                 let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .formatted(DateFormatter.apiDateFormatter)
                 let loginResponse = try decoder.decode(LoginResponse.self, from: data)
                 if loginResponse.status == "success" {
                     completion(.success(loginResponse.data))
                 } else {
-                    completion(.failure(NSError(domain: "LoginFailed", code: -1, userInfo: nil)))
+                    completion(.failure(NSError(domain: "LoginFailed", code: loginResponse.resultCode, userInfo: nil)))
                 }
             } catch {
                 completion(.failure(error))

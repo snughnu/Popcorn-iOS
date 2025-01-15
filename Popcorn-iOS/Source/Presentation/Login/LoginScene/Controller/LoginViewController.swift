@@ -38,31 +38,33 @@ class LoginViewController: UIViewController {
     @objc private func loginButtonTapped() {
         guard let username = loginView.idTextField.text, !username.isEmpty,
               let password = loginView.pwTextField.text, !password.isEmpty else {
-            loginView.checkIdPwLabel.textColor = .red
-            loginView.checkIdPwLabel.text = "아이디 또는 비밀번호를 입력해주세요."
+            updateErrorLabel(message: "아이디 또는 비밀번호를 입력해주세요.")
             return
         }
 
         LoginManager.shared.login(username: username, password: password) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let loginData):
-                    print("Login successful.")
-                    print("Access Token: \(loginData.accessToken)")
-                    print("Access Token Expiry: \(loginData.accessExpiredAt)")
-                    print("Refresh Token: \(loginData.refreshToken)")
-                    print("Refresh Token Expiry: \(loginData.refreshExpiredAt)")
-
-                    let mainSceneViewController = MainSceneViewController()
-                    self?.navigationController?.setViewControllers([mainSceneViewController], animated: true)
-
-                case .failure(let error):
-                    print("Login failed: \(error)")
-                    self?.loginView.checkIdPwLabel.textColor = .red
-                    self?.loginView.checkIdPwLabel.text = "아이디 또는 비밀번호를 다시 확인하세요."
+                case .success(let token):
+                    self?.handleLoginSuccess(token)
+                case .failure:
+                    self?.updateErrorLabel(message: "아이디 또는 비밀번호를 확인해주세요.")
                 }
             }
         }
+    }
+
+    private func updateErrorLabel(message: String) {
+        loginView.checkIdPwLabel.textColor = .red
+        loginView.checkIdPwLabel.text = message
+    }
+
+    private func handleLoginSuccess(_ token: Token) {
+        let tokenRepository = TokenRepository()
+        tokenRepository.saveToken(with: token)
+
+        let mainSceneViewController = MainSceneViewController()
+        navigationController?.setViewControllers([mainSceneViewController], animated: true)
     }
 
     @objc private func findButtonTapped() {
