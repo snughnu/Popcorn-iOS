@@ -82,6 +82,9 @@
 		BCE8FA562D228C5400A7B8E2 /* ResetPwViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE8FA552D228C5400A7B8E2 /* ResetPwViewController.swift */; };
 		BCF6ED342D33D5420038CCAE /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED332D33D5420038CCAE /* LoginManager.swift */; };
 		BCF6ED392D33DF530038CCAE /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED382D33DF530038CCAE /* LoginResponse.swift */; };
+		BCF6ED492D3426A60038CCAE /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED482D3426A60038CCAE /* TokenManager.swift */; };
+		BCF6ED502D37CBEB0038CCAE /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED4F2D37CBEB0038CCAE /* KeychainManager.swift */; };
+		BCF6ED552D37CCE30038CCAE /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED542D37CCE30038CCAE /* Token.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,6 +173,9 @@
 		BCE8FA552D228C5400A7B8E2 /* ResetPwViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPwViewController.swift; sourceTree = "<group>"; };
 		BCF6ED332D33D5420038CCAE /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		BCF6ED382D33DF530038CCAE /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		BCF6ED482D3426A60038CCAE /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
+		BCF6ED4F2D37CBEB0038CCAE /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		BCF6ED542D37CCE30038CCAE /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -283,6 +289,7 @@
 		56537BB82CE0F52B0092A292 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				BCF6ED522D37CC5A0038CCAE /* Data */,
 				56C5DDC92CE9AE1F0090D3A2 /* Domain */,
 				56C5DDBD2CE87BA80090D3A2 /* Util */,
 				56C5DDB72CE797FB0090D3A2 /* Presentation */,
@@ -635,6 +642,32 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		BCF6ED4E2D37CBCD0038CCAE /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				BCF6ED4F2D37CBEB0038CCAE /* KeychainManager.swift */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
+		BCF6ED522D37CC5A0038CCAE /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				BCF6ED532D37CC800038CCAE /* Token */,
+				BCF6ED4E2D37CBCD0038CCAE /* Keychain */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		BCF6ED532D37CC800038CCAE /* Token */ = {
+			isa = PBXGroup;
+			children = (
+				BCF6ED482D3426A60038CCAE /* TokenManager.swift */,
+				BCF6ED542D37CCE30038CCAE /* Token.swift */,
+			);
+			path = Token;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -784,6 +817,7 @@
 				BCE8FA2D2D2271F900A7B8E2 /* FindIdPwTextField.swift in Sources */,
 				BCD2DFFD2D298D10000ED875 /* CompleteResetPwViewController.swift in Sources */,
 				BCE6E6002CF321AE0036BAF6 /* SignUpFirstView.swift in Sources */,
+				BCF6ED502D37CBEB0038CCAE /* KeychainManager.swift in Sources */,
 				BC7420FA2CE23A9500BEED0A /* Requestable.swift in Sources */,
 				56381C2A2D193CEE00F4F715 /* MainCarouselPickHeaderView.swift in Sources */,
 				56A0C8472D2A744C005E6C51 /* ReviewCollectionViewCell.swift in Sources */,
@@ -821,6 +855,7 @@
 				BC90A0522CF4A6EA003488F0 /* UIResponder+.swift in Sources */,
 				563483052D2274CB001646B5 /* PopupInformation.swift in Sources */,
 				BC7420FC2CE23B9600BEED0A /* Request.swift in Sources */,
+				BCF6ED552D37CCE30038CCAE /* Token.swift in Sources */,
 				56D68A362D2409DB00EA1404 /* PopupRatingCollectionViewCell.swift in Sources */,
 				BC7420F82CE2395600BEED0A /* HttpMethod.swift in Sources */,
 				56B6D3722D2A5DA600FFB733 /* ReviewSortButtonHeaderView.swift in Sources */,
@@ -842,6 +877,7 @@
 				BCE8FA362D227CE000A7B8E2 /* CompleteFindIdView.swift in Sources */,
 				56537BB62CE0F5290092A292 /* SceneDelegate.swift in Sources */,
 				56537BB72CE0F5290092A292 /* ViewController.swift in Sources */,
+				BCF6ED492D3426A60038CCAE /* TokenManager.swift in Sources */,
 				BC90A0B82CF4CC9A003488F0 /* SignUpInterestButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
