@@ -19,8 +19,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = ViewController()
-        window?.makeKeyAndVisible()
+
+        let tokenExpireResolver = TokenExpireResolver()
+
+        tokenExpireResolver.handleTokenExpiration { [weak self] isTokenValid in
+            DispatchQueue.main.async {
+                if isTokenValid {
+                    self?.showMainScene()
+                } else {
+                    self?.showLoginScene()
+                }
+            }
+        }
+
+        self.window?.backgroundColor = .systemBackground
+        self.window?.makeKeyAndVisible()
+    }
+
+    private func showMainScene() {
+        let mainSceneViewController = MainSceneViewController()
+        self.window?.rootViewController = UINavigationController(rootViewController: mainSceneViewController)
+    }
+
+    private func showLoginScene() {
+        let loginViewController = LoginViewController()
+        let navigationController = UINavigationController(rootViewController: loginViewController)
+        navigationController.isNavigationBarHidden = true
+        self.window?.rootViewController = navigationController
     }
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {

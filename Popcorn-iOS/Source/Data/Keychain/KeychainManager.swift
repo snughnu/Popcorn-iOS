@@ -11,7 +11,7 @@ final class KeychainManager {
     @discardableResult
     func fetchItem(with query: [String: Any]) -> AnyObject? {
         var item: CFTypeRef?
-        let _ = SecItemCopyMatching(query as CFDictionary, &item)
+        _ = SecItemCopyMatching(query as CFDictionary, &item)
         return item
     }
 

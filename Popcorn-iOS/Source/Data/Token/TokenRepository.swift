@@ -54,8 +54,8 @@ final class TokenRepository {
             return
         }
 
-        let _ = keychainManager.updateItem(with: accessTokenAttributes, as: accessToken)
-        let _ = keychainManager.updateItem(with: refreshTokenAttributes, as: refreshToken)
+        _ = keychainManager.updateItem(with: accessTokenAttributes, as: accessToken)
+        _ = keychainManager.updateItem(with: refreshTokenAttributes, as: refreshToken)
     }
 
     func fetchAccessToken() -> String? {
@@ -107,8 +107,16 @@ extension TokenRepository {
             do {
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .formatted(DateFormatter.apiDateFormatter)
-                let tokenResponse = try decoder.decode(Token.self, from: data)
-                completion(.success(tokenResponse))
+                let loginResponse = try decoder.decode(LoginResponse.self, from: data)
+
+                if loginResponse.status == "success" {
+                    completion(.success(loginResponse.data))
+                } else {
+                    completion(.failure(NSError(domain: "ReissueFailed",
+                                                code: loginResponse.resultCode,
+                                                userInfo: nil
+                                               )))
+                }
             } catch {
                 completion(.failure(error))
             }
