@@ -100,7 +100,14 @@ extension LoginViewController {
         UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
             if let error = error {
                 print(error)
-            } else {
+            } else if let token = oauthToken {
+                let newToken = Token(
+                    accessToken: token.accessToken,
+                    refreshToken: token.refreshToken,
+                    accessExpiredAt: ISO8601DateFormatter().string(from: token.expiredAt),
+                    refreshExpiredAt: ISO8601DateFormatter().string(from: token.refreshTokenExpiredAt)
+                )
+                TokenRepository().saveToken(with: newToken)
                 self.fetchUserInfo()
                 self.sendTokenToServer()
             }
@@ -110,8 +117,15 @@ extension LoginViewController {
     func loginWithWeb() {
         UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
             if let error = error {
-                print(error)
-            } else {
+                print("카카오 계정 로그인 실패: \(error.localizedDescription)")
+            } else if let token = oauthToken {
+                let newToken = Token(
+                    accessToken: token.accessToken,
+                    refreshToken: token.refreshToken,
+                    accessExpiredAt: ISO8601DateFormatter().string(from: token.expiredAt),
+                    refreshExpiredAt: ISO8601DateFormatter().string(from: token.refreshTokenExpiredAt)
+                )
+                TokenRepository().saveToken(with: newToken)
                 self.fetchUserInfo()
                 self.sendTokenToServer()
             }
