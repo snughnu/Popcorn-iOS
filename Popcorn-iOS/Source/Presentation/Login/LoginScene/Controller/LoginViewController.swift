@@ -107,7 +107,7 @@ extension LoginViewController {
                     accessExpiredAt: ISO8601DateFormatter().string(from: token.expiredAt),
                     refreshExpiredAt: ISO8601DateFormatter().string(from: token.refreshTokenExpiredAt)
                 )
-                TokenRepository().saveToken(with: newToken)
+                TokenRepository().saveToken(with: newToken, loginType: "kakao")
                 self.fetchUserInfo()
                 self.sendTokenToServer()
             }
@@ -125,7 +125,7 @@ extension LoginViewController {
                     accessExpiredAt: ISO8601DateFormatter().string(from: token.expiredAt),
                     refreshExpiredAt: ISO8601DateFormatter().string(from: token.refreshTokenExpiredAt)
                 )
-                TokenRepository().saveToken(with: newToken)
+                TokenRepository().saveToken(with: newToken, loginType: "kakao")
                 self.fetchUserInfo()
                 self.sendTokenToServer()
             }
