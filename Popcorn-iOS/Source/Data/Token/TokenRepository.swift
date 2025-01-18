@@ -31,7 +31,7 @@ final class TokenRepository {
         return [kSecValueData as String: data]
     }
 
-    func saveToken(with token: Token) {
+    func saveToken(with token: Token, loginType: String? = nil) {
         guard let accessToken = convertTokenToSecValueData(token: token.accessToken),
               let refreshToken = convertTokenToSecValueData(token: token.refreshToken) else {
             return
@@ -45,6 +45,21 @@ final class TokenRepository {
 
         if accessStatus == errSecDuplicateItem || refreshStatus == errSecDuplicateItem {
             updateToken(with: token)
+        }
+
+        if let loginType = loginType {
+            let loginTypeAttributes: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword,
+                kSecAttrAccount as String: "Popcorn",
+                kSecAttrService as String: "loginType",
+                kSecValueData as String: loginType.data(using: .utf8)!
+            ]
+
+            let loginTypeStatus = keychainManager.addItem(with: loginTypeAttributes)
+            if loginTypeStatus == errSecDuplicateItem {
+                keychainManager.updateItem(with: loginTypeAttributes,
+                                           as: [kSecValueData as String: loginType.data(using: .utf8)!])
+            }
         }
     }
 
@@ -76,6 +91,22 @@ final class TokenRepository {
             return nil
         }
         return token
+    }
+
+    func fetchLoginType() -> String? {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: "Popcorn",
+            kSecAttrService as String: "loginType",
+            kSecMatchLimit as String: kSecMatchLimitOne,
+            kSecReturnData as String: true
+        ]
+        guard let item = keychainManager.fetchItem(with: query),
+              let data = item as? Data,
+              let loginType = String(data: data, encoding: .utf8) else {
+            return nil
+        }
+        return loginType
     }
 
     func deleteTokens() {
