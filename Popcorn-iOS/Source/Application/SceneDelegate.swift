@@ -44,7 +44,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func showLoginScene() {
         let loginViewController = LoginViewController()
         let navigationController = UINavigationController(rootViewController: loginViewController)
-        navigationController.isNavigationBarHidden = true
         self.window?.rootViewController = navigationController
     }
 
