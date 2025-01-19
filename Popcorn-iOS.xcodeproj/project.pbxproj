@@ -52,9 +52,10 @@
 		BC29A5122D2EA5DF0059A5C5 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A5112D2EA5DF0059A5C5 /* KakaoSDKUser */; };
 		BC2D11622CEC5DF60030F4E0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2D11612CEC5DF60030F4E0 /* LoginView.swift */; };
 		BC3201AB2D2CFC6900B73A14 /* ProfileImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3201AA2D2CFC6900B73A14 /* ProfileImageCell.swift */; };
-		BC3201AE2D2D66DA00B73A14 /* ProfileImageColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3201AD2D2D66DA00B73A14 /* ProfileImageColor.swift */; };
 		BC55FE862D2AC8F100E269B6 /* ProfileImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC55FE852D2AC8F100E269B6 /* ProfileImagePickerViewController.swift */; };
 		BC55FE882D2AD51000E269B6 /* ProfileImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC55FE872D2AD51000E269B6 /* ProfileImagePickerView.swift */; };
+		BC58B0D42D3D231B00A8E42F /* SignUpData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC58B0D32D3D231B00A8E42F /* SignUpData.swift */; };
+		BC58B0D62D3D241A00A8E42F /* SignUpDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC58B0D52D3D241A00A8E42F /* SignUpDataManager.swift */; };
 		BC7420F82CE2395600BEED0A /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7420F72CE2391400BEED0A /* HttpMethod.swift */; };
 		BC7420FA2CE23A9500BEED0A /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7420F92CE23A8A00BEED0A /* Requestable.swift */; };
 		BC7420FC2CE23B9600BEED0A /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7420FB2CE23B9200BEED0A /* Request.swift */; };
@@ -145,9 +146,10 @@
 		56D68A352D2409DB00EA1404 /* PopupRatingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupRatingCollectionViewCell.swift; sourceTree = "<group>"; };
 		BC2D11612CEC5DF60030F4E0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BC3201AA2D2CFC6900B73A14 /* ProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCell.swift; sourceTree = "<group>"; };
-		BC3201AD2D2D66DA00B73A14 /* ProfileImageColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageColor.swift; sourceTree = "<group>"; };
 		BC55FE852D2AC8F100E269B6 /* ProfileImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerViewController.swift; sourceTree = "<group>"; };
 		BC55FE872D2AD51000E269B6 /* ProfileImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerView.swift; sourceTree = "<group>"; };
+		BC58B0D32D3D231B00A8E42F /* SignUpData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpData.swift; sourceTree = "<group>"; };
+		BC58B0D52D3D241A00A8E42F /* SignUpDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDataManager.swift; sourceTree = "<group>"; };
 		BC7420F72CE2391400BEED0A /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		BC7420F92CE23A8A00BEED0A /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		BC7420FB2CE23B9200BEED0A /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
@@ -473,7 +475,8 @@
 		BC3201AC2D2D66B000B73A14 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BC3201AD2D2D66DA00B73A14 /* ProfileImageColor.swift */,
+				BC58B0D32D3D231B00A8E42F /* SignUpData.swift */,
+				BC58B0D52D3D241A00A8E42F /* SignUpDataManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -844,12 +847,13 @@
 				56018CA22CECB1C400AC8ED5 /* MainSceneViewController.swift in Sources */,
 				BCE8FA342D2272F600A7B8E2 /* FindIdPwViewController.swift in Sources */,
 				BCE6E5F82CF31F1A0036BAF6 /* SignUpTextField.swift in Sources */,
+				BC58B0D42D3D231B00A8E42F /* SignUpData.swift in Sources */,
 				564524E22D240BBA00B05355 /* StarRatingView.swift in Sources */,
+				BC58B0D62D3D241A00A8E42F /* SignUpDataManager.swift in Sources */,
 				56C5DDD92CE9C2780090D3A2 /* UserInterestPopup.swift in Sources */,
 				BCD2DFFB2D298A5C000ED875 /* CompleteResetPwView.swift in Sources */,
 				560159422CF32F5900872662 /* UIButton+.swift in Sources */,
 				BC8113762CF6221400F82331 /* SignUpAgreeButton.swift in Sources */,
-				BC3201AE2D2D66DA00B73A14 /* ProfileImageColor.swift in Sources */,
 				56C5DDBC2CE875990090D3A2 /* MainCarouselCollectionViewCell.swift in Sources */,
 				5601592E2CF3175E00872662 /* RobotoFontName.swift in Sources */,
 				BCE6E60A2CF378DF0036BAF6 /* SignUpLabel.swift in Sources */,
