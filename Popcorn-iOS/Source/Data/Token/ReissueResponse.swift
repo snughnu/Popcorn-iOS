@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct ReissueResponse: Decodable {
+struct ReissueResponse<T: Decodable>: Decodable {
     let resultCode: Int
     let status: String
-    let data: Token
+    let data: T
 }
