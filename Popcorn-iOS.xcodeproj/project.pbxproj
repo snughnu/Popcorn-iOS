@@ -62,6 +62,7 @@
 		BC7420FE2CE23FD700BEED0A /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7420FD2CE23FCC00BEED0A /* NetworkError.swift */; };
 		BC8113722CF5ECC800F82331 /* SignUpSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8113712CF5ECC800F82331 /* SignUpSecondView.swift */; };
 		BC8113762CF6221400F82331 /* SignUpAgreeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8113752CF6221400F82331 /* SignUpAgreeButton.swift */; };
+		BC81E6D12D3EA543003CBE7D /* ReissueResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC81E6D02D3EA543003CBE7D /* ReissueResponse.swift */; };
 		BC90A0522CF4A6EA003488F0 /* UIResponder+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC90A0512CF4A6EA003488F0 /* UIResponder+.swift */; };
 		BC90A0B82CF4CC9A003488F0 /* SignUpInterestButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC90A0B72CF4CC9A003488F0 /* SignUpInterestButton.swift */; };
 		BC90A0BC2CF4CF53003488F0 /* SignUpSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC90A0BB2CF4CF53003488F0 /* SignUpSecondViewController.swift */; };
@@ -156,6 +157,7 @@
 		BC7420FD2CE23FCC00BEED0A /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		BC8113712CF5ECC800F82331 /* SignUpSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecondView.swift; sourceTree = "<group>"; };
 		BC8113752CF6221400F82331 /* SignUpAgreeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAgreeButton.swift; sourceTree = "<group>"; };
+		BC81E6D02D3EA543003CBE7D /* ReissueResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissueResponse.swift; sourceTree = "<group>"; };
 		BC90A0512CF4A6EA003488F0 /* UIResponder+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+.swift"; sourceTree = "<group>"; };
 		BC90A0B72CF4CC9A003488F0 /* SignUpInterestButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInterestButton.swift; sourceTree = "<group>"; };
 		BC90A0BB2CF4CF53003488F0 /* SignUpSecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecondViewController.swift; sourceTree = "<group>"; };
@@ -673,6 +675,7 @@
 				BCF6ED482D3426A60038CCAE /* TokenRepository.swift */,
 				BCF6ED542D37CCE30038CCAE /* Token.swift */,
 				BCF6ED562D37D55B0038CCAE /* TokenExpireResolver.swift */,
+				BC81E6D02D3EA543003CBE7D /* ReissueResponse.swift */,
 			);
 			path = Token;
 			sourceTree = "<group>";
@@ -885,6 +888,7 @@
 				BCE8FA562D228C5400A7B8E2 /* ResetPwViewController.swift in Sources */,
 				56A061282D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift in Sources */,
 				56C98C712CF488960001CFD4 /* PopupDetailViewController.swift in Sources */,
+				BC81E6D12D3EA543003CBE7D /* ReissueResponse.swift in Sources */,
 				BC2D11622CEC5DF60030F4E0 /* LoginView.swift in Sources */,
 				BCE8FA362D227CE000A7B8E2 /* CompleteFindIdView.swift in Sources */,
 				56537BB62CE0F5290092A292 /* SceneDelegate.swift in Sources */,
