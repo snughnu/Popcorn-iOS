@@ -63,6 +63,7 @@
 		BC8113722CF5ECC800F82331 /* SignUpSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8113712CF5ECC800F82331 /* SignUpSecondView.swift */; };
 		BC8113762CF6221400F82331 /* SignUpAgreeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8113752CF6221400F82331 /* SignUpAgreeButton.swift */; };
 		BC81E6D12D3EA543003CBE7D /* ReissueResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC81E6D02D3EA543003CBE7D /* ReissueResponse.swift */; };
+		BC81E6D32D3EB8C4003CBE7D /* NewToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC81E6D22D3EB8C4003CBE7D /* NewToken.swift */; };
 		BC90A0522CF4A6EA003488F0 /* UIResponder+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC90A0512CF4A6EA003488F0 /* UIResponder+.swift */; };
 		BC90A0B82CF4CC9A003488F0 /* SignUpInterestButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC90A0B72CF4CC9A003488F0 /* SignUpInterestButton.swift */; };
 		BC90A0BC2CF4CF53003488F0 /* SignUpSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC90A0BB2CF4CF53003488F0 /* SignUpSecondViewController.swift */; };
@@ -158,6 +159,7 @@
 		BC8113712CF5ECC800F82331 /* SignUpSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecondView.swift; sourceTree = "<group>"; };
 		BC8113752CF6221400F82331 /* SignUpAgreeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAgreeButton.swift; sourceTree = "<group>"; };
 		BC81E6D02D3EA543003CBE7D /* ReissueResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissueResponse.swift; sourceTree = "<group>"; };
+		BC81E6D22D3EB8C4003CBE7D /* NewToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewToken.swift; sourceTree = "<group>"; };
 		BC90A0512CF4A6EA003488F0 /* UIResponder+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+.swift"; sourceTree = "<group>"; };
 		BC90A0B72CF4CC9A003488F0 /* SignUpInterestButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInterestButton.swift; sourceTree = "<group>"; };
 		BC90A0BB2CF4CF53003488F0 /* SignUpSecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecondViewController.swift; sourceTree = "<group>"; };
@@ -676,6 +678,7 @@
 				BCF6ED542D37CCE30038CCAE /* Token.swift */,
 				BCF6ED562D37D55B0038CCAE /* TokenExpireResolver.swift */,
 				BC81E6D02D3EA543003CBE7D /* ReissueResponse.swift */,
+				BC81E6D22D3EB8C4003CBE7D /* NewToken.swift */,
 			);
 			path = Token;
 			sourceTree = "<group>";
@@ -856,6 +859,7 @@
 				56C5DDD92CE9C2780090D3A2 /* UserInterestPopup.swift in Sources */,
 				BCD2DFFB2D298A5C000ED875 /* CompleteResetPwView.swift in Sources */,
 				560159422CF32F5900872662 /* UIButton+.swift in Sources */,
+				BC81E6D32D3EB8C4003CBE7D /* NewToken.swift in Sources */,
 				BC8113762CF6221400F82331 /* SignUpAgreeButton.swift in Sources */,
 				56C5DDBC2CE875990090D3A2 /* MainCarouselCollectionViewCell.swift in Sources */,
 				5601592E2CF3175E00872662 /* RobotoFontName.swift in Sources */,

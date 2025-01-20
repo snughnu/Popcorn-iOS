@@ -136,12 +136,22 @@ extension TokenRepository {
                 return
             }
 
+            print("응답 상태 코드: \(httpResponse.statusCode)")
+            print("응답 데이터: \(String(data: data, encoding: .utf8) ?? "디코딩 실패")")
+
             do {
                 let decoder = JSONDecoder()
-                let reissueResponse = try decoder.decode(ReissueResponse.self, from: data)
+                let reissueResponse = try decoder.decode(ReissueResponse<NewToken>.self, from: data)
 
                 if httpResponse.statusCode == 200 {
-                    completion(.success(reissueResponse.data))
+                    let newToken = reissueResponse.data
+                    let token = Token(
+                        accessToken: newToken.accessToken,
+                        refreshToken: newToken.refreshToken,
+                        accessExpiredAt: newToken.accessExpiredAt,
+                        refreshExpiredAt: newToken.refreshExpiredAt
+                    )
+                    completion(.success(token))
                 } else {
                     let errorMessage = String(data: data, encoding: .utf8) ?? "알 수 없는 오류"
                     print("토큰 재발급 실패. 상태 코드: \(httpResponse.statusCode), 오류 메시지: \(errorMessage)")
