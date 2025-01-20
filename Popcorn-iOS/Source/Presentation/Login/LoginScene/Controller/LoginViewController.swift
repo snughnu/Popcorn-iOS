@@ -36,7 +36,35 @@ class LoginViewController: UIViewController {
     }
 
     @objc private func loginButtonTapped() {
+        guard let username = loginView.idTextField.text, !username.isEmpty,
+              let password = loginView.pwTextField.text, !password.isEmpty else {
+            updateErrorLabel(message: "아이디 또는 비밀번호를 입력해주세요.")
+            return
+        }
+
+        LoginManager.shared.login(username: username, password: password) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let token):
+                    self?.handleLoginSuccess(token)
+                case .failure:
+                    self?.updateErrorLabel(message: "아이디 또는 비밀번호를 확인해주세요.")
+                }
+            }
+        }
+    }
+
+    private func updateErrorLabel(message: String) {
         loginView.checkIdPwLabel.textColor = .red
+        loginView.checkIdPwLabel.text = message
+    }
+
+    private func handleLoginSuccess(_ token: Token) {
+        let tokenRepository = TokenRepository()
+        tokenRepository.saveToken(with: token)
+
+        let mainSceneViewController = MainSceneViewController()
+        navigationController?.setViewControllers([mainSceneViewController], animated: true)
     }
 
     @objc private func findButtonTapped() {
@@ -72,7 +100,14 @@ extension LoginViewController {
         UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
             if let error = error {
                 print(error)
-            } else {
+            } else if let token = oauthToken {
+                let newToken = Token(
+                    accessToken: token.accessToken,
+                    refreshToken: token.refreshToken,
+                    accessExpiredAt: ISO8601DateFormatter().string(from: token.expiredAt),
+                    refreshExpiredAt: ISO8601DateFormatter().string(from: token.refreshTokenExpiredAt)
+                )
+                TokenRepository().saveToken(with: newToken, loginType: "kakao")
                 self.fetchUserInfo()
                 self.sendTokenToServer()
             }
@@ -82,8 +117,15 @@ extension LoginViewController {
     func loginWithWeb() {
         UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
             if let error = error {
-                print(error)
-            } else {
+                print("카카오 계정 로그인 실패: \(error.localizedDescription)")
+            } else if let token = oauthToken {
+                let newToken = Token(
+                    accessToken: token.accessToken,
+                    refreshToken: token.refreshToken,
+                    accessExpiredAt: ISO8601DateFormatter().string(from: token.expiredAt),
+                    refreshExpiredAt: ISO8601DateFormatter().string(from: token.refreshTokenExpiredAt)
+                )
+                TokenRepository().saveToken(with: newToken, loginType: "kakao")
                 self.fetchUserInfo()
                 self.sendTokenToServer()
             }
