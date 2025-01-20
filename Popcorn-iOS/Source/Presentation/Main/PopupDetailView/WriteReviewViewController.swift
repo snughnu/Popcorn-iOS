@@ -8,8 +8,7 @@
 import UIKit
 
 final class WriteReviewViewController: UIViewController {
-    private let reviewTextViewPlaceHolderText = "팝업스토어 리뷰를 남겨주세요."
-    private var userRating: Float = 0
+    private let viewModel = WriteReviewViewModel()
 
     private let popupMainImageView: UIImageView = {
         let imageView = UIImageView()
@@ -55,7 +54,7 @@ final class WriteReviewViewController: UIViewController {
 
     private lazy var reviewTextView: UITextView = {
         let textView = UITextView()
-        textView.text = reviewTextViewPlaceHolderText
+        textView.text = viewModel.reviewTextViewPlaceHolderText
         textView.textColor = UIColor(resource: .popcornDarkBlueGray)
         textView.font = UIFont(name: RobotoFontName.robotoMedium, size: 15)
         textView.textContainerInset = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
@@ -125,6 +124,23 @@ final class WriteReviewViewController: UIViewController {
         configureSubviews()
         configureLayout()
         configureAction()
+        bind(to: viewModel)
+    }
+
+    func bind(to viewModel: WriteReviewViewModel) {
+        viewModel.isSubmitEnabledPublisher = { [weak self] isSubmitEnable in
+            guard let self else { return }
+
+            self.reviewCompleteButton.isEnabled = isSubmitEnable
+            self.reviewCompleteButton.configuration?.baseBackgroundColor = isSubmitEnable
+            ? UIColor(resource: .popcornOrange)
+            : UIColor(resource: .popcornGray2)
+        }
+
+        viewModel.reviewImagesPublisher = { [weak self] in
+            guard let self else { return }
+            uploadImageCollectionView.reloadData()
+        }
     }
 }
 
@@ -172,39 +188,26 @@ extension WriteReviewViewController {
     }
 
     private func didTapReviewCompleteButton() {
+        viewModel.postReviewData()
         self.navigationController?.popViewController(animated: true)
-    }
-}
-
-// MARK: - Validate Review Complete
-extension WriteReviewViewController {
-    private func validateReviewCompletion() {
-        let isRatingValid = userRating != 0
-        let isTextValid = (reviewTextView.text != reviewTextViewPlaceHolderText) && (reviewTextView.text.count > 10)
-
-        reviewCompleteButton.isEnabled = isRatingValid && isTextValid
-        reviewCompleteButton.configuration?.baseBackgroundColor = isRatingValid && isTextValid
-        ? UIColor(resource: .popcornOrange)
-        : UIColor(resource: .popcornGray2)
     }
 }
 
 // MARK: - Implement StarRatingView Delegate
 extension WriteReviewViewController: StarRatingViewDelegate {
     func didChangeRating(to rating: Float) {
-        userRating = rating
-        validateReviewCompletion()
+        viewModel.updateRating(rating)
     }
 }
 
 // MARK: - Implement UITextView Delegate
 extension WriteReviewViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        validateReviewCompletion()
+        viewModel.updateReviewText(textView.text)
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == reviewTextViewPlaceHolderText {
+        if textView.text == viewModel.reviewTextViewPlaceHolderText {
             textView.text = nil
             textView.textColor = UIColor.black
         }
@@ -212,7 +215,7 @@ extension WriteReviewViewController: UITextViewDelegate {
 
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = reviewTextViewPlaceHolderText
+            textView.text = viewModel.reviewTextViewPlaceHolderText
             textView.textColor = UIColor(resource: .popcornDarkBlueGray)
         }
     }
@@ -238,6 +241,9 @@ extension WriteReviewViewController: UICollectionViewDataSource {
         ) as? UploadImageCollectionViewCell else {
             return UICollectionViewCell()
         }
+
+        let reviewImage = viewModel.provideReviewImages(at: indexPath.item)
+        cell.configureContents(image: reviewImage)
 
         return cell
     }
