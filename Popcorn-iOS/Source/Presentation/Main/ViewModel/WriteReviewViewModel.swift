@@ -25,7 +25,7 @@ final class WriteReviewViewModel {
     private var reviewImages: [UIImage] = [] {
         didSet {
             validateSubmitEnabled()
-            reviewImagesPublisher?()
+            reviewImagesPublisher?(reviewImages.count)
         }
     }
 
@@ -37,7 +37,7 @@ final class WriteReviewViewModel {
 
     // MARK: - Output
     var isSubmitEnabledPublisher: ((_ isSubmitEnabled: Bool) -> Void)?
-    var reviewImagesPublisher: (() -> Void)?
+    var reviewImagesPublisher: ((_ imageCount: Int) -> Void)?
 
     private func validateSubmitEnabled(text: String = "") {
         let isRatingValid = rating > 0 && rating <= 5
@@ -53,6 +53,15 @@ extension WriteReviewViewModel {
     func provideReviewImages(at index: Int) -> UIImage {
         guard index < reviewImages.count else { return UIImage(resource: .uploadImagePlaceholder) }
         return reviewImages[index]
+    }
+
+    func provideReviewImagesCount() -> Int {
+        return reviewImages.count
+    }
+
+    func resetImage(at index: Int) {
+        guard index >= 0 && index < reviewImages.count else { return }
+        reviewImages.remove(at: index)
     }
 }
 
@@ -74,5 +83,6 @@ extension WriteReviewViewModel {
 // MARK: - Network
 extension WriteReviewViewModel {
     func postReviewData() {
+        print(rating, reviewText, reviewImages)
     }
 }

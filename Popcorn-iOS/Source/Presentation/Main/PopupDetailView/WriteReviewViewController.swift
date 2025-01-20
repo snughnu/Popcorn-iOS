@@ -5,6 +5,7 @@
 //  Created by 제민우 on 1/12/25.
 //
 
+import PhotosUI
 import UIKit
 
 final class WriteReviewViewController: UIViewController {
@@ -78,7 +79,7 @@ final class WriteReviewViewController: UIViewController {
         return label
     }()
 
-    private let uploadImageConstraingTitleLabel: UILabel = {
+    private let uploadImageConstraintTitleLabel: UILabel = {
         let label = UILabel()
         label.popcornMedium(text: "0장 / 최대 10장", size: 13)
         label.textColor = UIColor(resource: .popcornDarkBlueGray)
@@ -131,15 +132,20 @@ final class WriteReviewViewController: UIViewController {
         viewModel.isSubmitEnabledPublisher = { [weak self] isSubmitEnable in
             guard let self else { return }
 
-            self.reviewCompleteButton.isEnabled = isSubmitEnable
-            self.reviewCompleteButton.configuration?.baseBackgroundColor = isSubmitEnable
-            ? UIColor(resource: .popcornOrange)
-            : UIColor(resource: .popcornGray2)
+            DispatchQueue.main.async {
+                self.reviewCompleteButton.isEnabled = isSubmitEnable
+                self.reviewCompleteButton.configuration?.baseBackgroundColor = isSubmitEnable
+                ? UIColor(resource: .popcornOrange)
+                : UIColor(resource: .popcornGray2)
+            }
         }
 
-        viewModel.reviewImagesPublisher = { [weak self] in
+        viewModel.reviewImagesPublisher = { [weak self] imageCount in
             guard let self else { return }
-            uploadImageCollectionView.reloadData()
+            DispatchQueue.main.async {
+                self.uploadImageConstraintTitleLabel.text = "\(imageCount)장 / 최대 10장"
+                self.uploadImageCollectionView.reloadData()
+            }
         }
     }
 }
@@ -225,6 +231,52 @@ extension WriteReviewViewController: UITextViewDelegate {
     }
 }
 
+// MARK: - Configure PHPicker
+extension WriteReviewViewController: PHPickerViewControllerDelegate {
+    private func configuerPHPicker(selectionLimit: Int) {
+        var config = PHPickerConfiguration()
+        config.selectionLimit = selectionLimit
+        config.filter = .images
+
+        let phPickerViewController = PHPickerViewController(configuration: config)
+        phPickerViewController.delegate = self
+        self.present(phPickerViewController, animated: true)
+    }
+
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+
+        results.forEach { [weak self] result in
+            guard let self else { return }
+            guard viewModel.provideReviewImagesCount() <= 10 else { return }
+
+            let itemProvider = result.itemProvider
+            if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                        return
+                    }
+
+                    if let image = image as? UIImage {
+                        self.viewModel.addImage(image)
+                    }
+                }
+            }
+        }
+    }
+
+    private func presentResetAlert(for index: Int) {
+        let alert = UIAlertController(title: "이미지 초기화", message: "해당 이미지를 초기화 하시겠습니까?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "초기화", style: .destructive) { [weak self] _ in
+            guard let self else { return }
+            self.viewModel.resetImage(at: index)
+        })
+        present(alert, animated: true)
+    }
+}
+
 // MARK: - Implement UICollectionView DataSource
 extension WriteReviewViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -261,6 +313,17 @@ extension WriteReviewViewController: UICollectionViewDelegateFlowLayout {
 
         return CGSize(width: width, height: height)
     }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let image = viewModel.provideReviewImages(at: indexPath.item)
+
+        if image != UIImage(resource: .uploadImagePlaceholder) {
+            presentResetAlert(for: indexPath.item)
+        } else {
+            let selectionLimit = 10 - viewModel.provideReviewImagesCount()
+            configuerPHPicker(selectionLimit: selectionLimit)
+        }
+    }
 }
 
 // MARK: - Configure UI
@@ -275,7 +338,7 @@ extension WriteReviewViewController {
             reviewConstraintTitleLabel,
             reviewTextView,
             uploadImageTitleLabel,
-            uploadImageConstraingTitleLabel,
+            uploadImageConstraintTitleLabel,
             uploadImageCollectionView,
             reviewCompleteButton
         ].forEach {
@@ -335,11 +398,11 @@ extension WriteReviewViewController {
 
             uploadImageTitleLabel.topAnchor.constraint(equalTo: reviewTextView.bottomAnchor, constant: verticalSpacing),
             uploadImageTitleLabel.leadingAnchor.constraint(equalTo: popupMainImageView.leadingAnchor),
-            uploadImageConstraingTitleLabel.trailingAnchor.constraint(
+            uploadImageConstraintTitleLabel.trailingAnchor.constraint(
                 equalTo: reviewConstraintTitleLabel.trailingAnchor
             ),
 
-            uploadImageConstraingTitleLabel.centerYAnchor.constraint(equalTo: uploadImageTitleLabel.centerYAnchor),
+            uploadImageConstraintTitleLabel.centerYAnchor.constraint(equalTo: uploadImageTitleLabel.centerYAnchor),
 
             uploadImageCollectionView.topAnchor.constraint(equalTo: uploadImageTitleLabel.bottomAnchor, constant: 20),
             uploadImageCollectionView.leadingAnchor.constraint(equalTo: popupMainImageView.leadingAnchor),
