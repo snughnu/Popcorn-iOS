@@ -35,9 +35,7 @@ final class WriteReviewViewModel {
         }
     }
 
-    // MARK: - Output
-    var isSubmitEnabledPublisher: ((_ isSubmitEnabled: Bool) -> Void)?
-    var reviewImagesPublisher: ((_ imageCount: Int) -> Void)?
+    init() { }
 
     private func validateSubmitEnabled(text: String = "") {
         let isRatingValid = rating > 0 && rating <= 5
@@ -46,6 +44,10 @@ final class WriteReviewViewModel {
 
         isSubmitEnabled = isRatingValid && isTextValid && isImageValid
     }
+
+    // MARK: - Output
+    var isSubmitEnabledPublisher: ((_ isSubmitEnabled: Bool) -> Void)?
+    var reviewImagesPublisher: ((_ imageCount: Int) -> Void)?
 }
 
 // MARK: - Public Interface
