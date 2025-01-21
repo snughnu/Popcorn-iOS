@@ -233,7 +233,7 @@ extension WriteReviewViewController: UITextViewDelegate {
 
 // MARK: - Configure PHPicker
 extension WriteReviewViewController: PHPickerViewControllerDelegate {
-    private func configuerPHPicker(selectionLimit: Int) {
+    private func configurePHPicker(selectionLimit: Int) {
         var config = PHPickerConfiguration()
         config.selectionLimit = selectionLimit
         config.filter = .images
@@ -253,8 +253,7 @@ extension WriteReviewViewController: PHPickerViewControllerDelegate {
             let itemProvider = result.itemProvider
             if itemProvider.canLoadObject(ofClass: UIImage.self) {
                 itemProvider.loadObject(ofClass: UIImage.self) { image, error in
-                    if let error = error {
-                        print(error.localizedDescription)
+                    if error != nil {
                         return
                     }
 
@@ -321,7 +320,7 @@ extension WriteReviewViewController: UICollectionViewDelegateFlowLayout {
             presentResetAlert(for: indexPath.item)
         } else {
             let selectionLimit = 10 - viewModel.provideReviewImagesCount()
-            configuerPHPicker(selectionLimit: selectionLimit)
+            configurePHPicker(selectionLimit: selectionLimit)
         }
     }
 }
