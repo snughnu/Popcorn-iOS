@@ -176,6 +176,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
 
+            cell.delegate = self
             let (data, maximumIndex) = viewModel.provideRatingData()
             cell.configureContents(
                 totalRatingCount: data.totalRatingCount,
@@ -389,7 +390,21 @@ extension PopupDetailViewController {
     }
 }
 
-// MARK: - Implement ReviewCollectionViewCellDelegate Delegate
+// MARK: - Implement WriteReviewButton Delegate
+extension PopupDetailViewController: WriteReviewButtonDelegate {
+    func didTapWriteReviewButtonDelegate() {
+        let image = viewModel.provideCarouselImage()[0]
+        let data = viewModel.provideMainInformationData()
+        let writeReviewViewController = WriteReviewViewController(
+            image: image,
+            title: data.popupTitle,
+            period: data.popupPeriod
+        )
+        self.navigationController?.pushViewController(writeReviewViewController, animated: true)
+    }
+}
+
+// MARK: - Implement ReviewCollectionViewCell Delegate
 extension PopupDetailViewController: ReviewCollectionViewCellDelegate {
     func didTapReviewImages(images: [UIImage], selecetedIndex: Int) {
         let fullScreenImageViewController = FullScreenReviewImageViewController(
