@@ -129,14 +129,10 @@ final class WriteReviewViewController: UIViewController {
     }
 
     func bind(to viewModel: WriteReviewViewModel) {
-        viewModel.isSubmitEnabledPublisher = { [weak self] isSubmitEnable in
+        viewModel.reviewTextPublisher = { [weak self] textCount in
             guard let self else { return }
-
             DispatchQueue.main.async {
-                self.reviewCompleteButton.isEnabled = isSubmitEnable
-                self.reviewCompleteButton.configuration?.baseBackgroundColor = isSubmitEnable
-                ? UIColor(resource: .popcornOrange)
-                : UIColor(resource: .popcornGray2)
+                self.reviewConstraintTitleLabel.text = "\(textCount)자 / 최소 10자"
             }
         }
 
@@ -145,6 +141,17 @@ final class WriteReviewViewController: UIViewController {
             DispatchQueue.main.async {
                 self.uploadImageConstraintTitleLabel.text = "\(imageCount)장 / 최대 10장"
                 self.uploadImageCollectionView.reloadData()
+            }
+        }
+
+        viewModel.isSubmitEnabledPublisher = { [weak self] isSubmitEnable in
+            guard let self else { return }
+
+            DispatchQueue.main.async {
+                self.reviewCompleteButton.isEnabled = isSubmitEnable
+                self.reviewCompleteButton.configuration?.baseBackgroundColor = isSubmitEnable
+                ? UIColor(resource: .popcornOrange)
+                : UIColor(resource: .popcornGray2)
             }
         }
     }
