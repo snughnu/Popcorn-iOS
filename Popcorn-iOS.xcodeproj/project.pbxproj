@@ -313,7 +313,6 @@
 				56C5DDC92CE9AE1F0090D3A2 /* Domain */,
 				56C5DDBD2CE87BA80090D3A2 /* Util */,
 				56C5DDB72CE797FB0090D3A2 /* Presentation */,
-				BC7420F12CE22CFE00BEED0A /* Network */,
 				56537BBA2CE0F5370092A292 /* Application */,
 			);
 			path = Source;
@@ -350,6 +349,31 @@
 				565C415B2D2028DD0016003A /* MainCollectionTitleHeaderView.swift */,
 			);
 			path = ReusableView;
+			sourceTree = "<group>";
+		};
+		5660FD352D42165400F9B4D9 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				BC7420F72CE2391400BEED0A /* HttpMethod.swift */,
+				BC7420FD2CE23FCC00BEED0A /* NetworkError.swift */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		5660FD362D42166000F9B4D9 /* Implementation */ = {
+			isa = PBXGroup;
+			children = (
+				BC7420FB2CE23B9200BEED0A /* Request.swift */,
+			);
+			path = Implementation;
+			sourceTree = "<group>";
+		};
+		5660FD372D42166700F9B4D9 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				BC7420F92CE23A8A00BEED0A /* Requestable.swift */,
+			);
+			path = Interface;
 			sourceTree = "<group>";
 		};
 		56C5DDB72CE797FB0090D3A2 /* Presentation */ = {
@@ -515,7 +539,7 @@
 		BC7420F12CE22CFE00BEED0A /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				BC7420FD2CE23FCC00BEED0A /* NetworkError.swift */,
+				5660FD352D42165400F9B4D9 /* NetworkManager */,
 				BC7420F22CE22D0F00BEED0A /* Request */,
 			);
 			path = Network;
@@ -524,9 +548,8 @@
 		BC7420F22CE22D0F00BEED0A /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				BC7420FB2CE23B9200BEED0A /* Request.swift */,
-				BC7420F92CE23A8A00BEED0A /* Requestable.swift */,
-				BC7420F72CE2391400BEED0A /* HttpMethod.swift */,
+				5660FD362D42166000F9B4D9 /* Implementation */,
+				5660FD372D42166700F9B4D9 /* Interface */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -692,6 +715,7 @@
 		BCF6ED522D37CC5A0038CCAE /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				BC7420F12CE22CFE00BEED0A /* Network */,
 				BCF6ED532D37CC800038CCAE /* Token */,
 				BCF6ED4E2D37CBCD0038CCAE /* Keychain */,
 			);
