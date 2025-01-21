@@ -19,6 +19,7 @@ final class WriteReviewViewModel {
     private var reviewText: String = "" {
         didSet {
             validateSubmitEnabled(text: reviewText)
+            reviewTextPublisher?(reviewText.count)
         }
     }
 
@@ -39,15 +40,16 @@ final class WriteReviewViewModel {
 
     private func validateSubmitEnabled(text: String = "") {
         let isRatingValid = rating > 0 && rating <= 5
-        let isTextValid = text != reviewTextViewPlaceHolderText && (reviewText.count > 10)
+        let isTextValid = text != reviewTextViewPlaceHolderText && (reviewText.count >= 10)
         let isImageValid = reviewImages.count <= 10
 
         isSubmitEnabled = isRatingValid && isTextValid && isImageValid
     }
 
     // MARK: - Output
-    var isSubmitEnabledPublisher: ((_ isSubmitEnabled: Bool) -> Void)?
+    var reviewTextPublisher: ((_ textCount: Int) -> Void)?
     var reviewImagesPublisher: ((_ imageCount: Int) -> Void)?
+    var isSubmitEnabledPublisher: ((_ isSubmitEnabled: Bool) -> Void)?
 }
 
 // MARK: - Public Interface
@@ -59,6 +61,10 @@ extension WriteReviewViewModel {
 
     func provideReviewImagesCount() -> Int {
         return reviewImages.count
+    }
+
+    func provideReviewTextCount() -> Int {
+        return reviewText.count
     }
 
     func resetImage(at index: Int) {
