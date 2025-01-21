@@ -23,6 +23,7 @@ final class PopcornOrangeButton: UIButton {
 extension PopcornOrangeButton {
     private func configureInitialSetting(isEnabled: Bool) {
         self.isEnabled = isEnabled
+        self.cornerRadius(radius: 10)
     }
 
     private func configureButtonUI(text: String) {
@@ -30,8 +31,6 @@ extension PopcornOrangeButton {
         config.baseBackgroundColor = isEnabled == true
         ? UIColor(resource: .popcornOrange)
         : UIColor(resource: .popcornGray2)
-
-        config.background.cornerRadius = 10
         config.attributedTitle = AttributedString(
             text,
             attributes: AttributeContainer([
