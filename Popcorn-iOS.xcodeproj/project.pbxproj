@@ -30,6 +30,7 @@
 		56537BB72CE0F5290092A292 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56537BAF2CE0F5290092A292 /* ViewController.swift */; };
 		565C415C2D2028DD0016003A /* MainCollectionTitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565C415B2D2028DD0016003A /* MainCollectionTitleHeaderView.swift */; };
 		565C415F2D2032160016003A /* MainCarouselViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */; };
+		566A0E4F2D3E23AF00B70929 /* WriteReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566A0E4E2D3E23A800B70929 /* WriteReviewViewModel.swift */; };
 		56A061282D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A061272D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift */; };
 		56A0C8472D2A744C005E6C51 /* ReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A0C8462D2A744C005E6C51 /* ReviewCollectionViewCell.swift */; };
 		56A0C8492D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A0C8482D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift */; };
@@ -47,6 +48,11 @@
 		56CD3A7D2CEC31B000BAC02D /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CD3A7C2CEC314E00BAC02D /* UIView+.swift */; };
 		56D68A342D23FBB700EA1404 /* RatingDistributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D68A332D23FBB700EA1404 /* RatingDistributionView.swift */; };
 		56D68A362D2409DB00EA1404 /* PopupRatingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D68A352D2409DB00EA1404 /* PopupRatingCollectionViewCell.swift */; };
+		56EAA92B2D34EA5A007265D3 /* UploadImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EAA92A2D34EA5A007265D3 /* UploadImageCollectionViewCell.swift */; };
+		56EAA92F2D34EB08007265D3 /* StarRatingViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EAA92E2D34EB06007265D3 /* StarRatingViewDelegate.swift */; };
+		56EAA9332D34EB9C007265D3 /* PopcornOrangeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EAA9322D34EB9C007265D3 /* PopcornOrangeButton.swift */; };
+		56EAA9352D34EC2B007265D3 /* WriteReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EAA9342D34EC2B007265D3 /* WriteReviewViewController.swift */; };
+		56EAA9372D34F4AE007265D3 /* WriteReviewButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EAA9362D34F4A6007265D3 /* WriteReviewButtonDelegate.swift */; };
 		BC29A50E2D2EA5DF0059A5C5 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A50D2D2EA5DE0059A5C5 /* KakaoSDKAuth */; };
 		BC29A5102D2EA5DF0059A5C5 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A50F2D2EA5DF0059A5C5 /* KakaoSDKCommon */; };
 		BC29A5122D2EA5DF0059A5C5 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A5112D2EA5DF0059A5C5 /* KakaoSDKUser */; };
@@ -126,6 +132,7 @@
 		56537BAF2CE0F5290092A292 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		565C415B2D2028DD0016003A /* MainCollectionTitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionTitleHeaderView.swift; sourceTree = "<group>"; };
 		565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselViewModelProtocol.swift; sourceTree = "<group>"; };
+		566A0E4E2D3E23A800B70929 /* WriteReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewModel.swift; sourceTree = "<group>"; };
 		56A061272D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetailInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		56A0C8462D2A744C005E6C51 /* ReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		56A0C8482D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewImageCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -143,6 +150,11 @@
 		56CD3A7C2CEC314E00BAC02D /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		56D68A332D23FBB700EA1404 /* RatingDistributionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingDistributionView.swift; sourceTree = "<group>"; };
 		56D68A352D2409DB00EA1404 /* PopupRatingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupRatingCollectionViewCell.swift; sourceTree = "<group>"; };
+		56EAA92A2D34EA5A007265D3 /* UploadImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		56EAA92E2D34EB06007265D3 /* StarRatingViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingViewDelegate.swift; sourceTree = "<group>"; };
+		56EAA9322D34EB9C007265D3 /* PopcornOrangeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopcornOrangeButton.swift; sourceTree = "<group>"; };
+		56EAA9342D34EC2B007265D3 /* WriteReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewController.swift; sourceTree = "<group>"; };
+		56EAA9362D34F4A6007265D3 /* WriteReviewButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewButtonDelegate.swift; sourceTree = "<group>"; };
 		BC2D11612CEC5DF60030F4E0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BC3201AA2D2CFC6900B73A14 /* ProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCell.swift; sourceTree = "<group>"; };
 		BC3201AD2D2D66DA00B73A14 /* ProfileImageColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageColor.swift; sourceTree = "<group>"; };
@@ -230,6 +242,8 @@
 		562447142D33B657000E94A0 /* Delegate */ = {
 			isa = PBXGroup;
 			children = (
+				56EAA9362D34F4A6007265D3 /* WriteReviewButtonDelegate.swift */,
+				56EAA92E2D34EB06007265D3 /* StarRatingViewDelegate.swift */,
 				562447152D33B65A000E94A0 /* ReviewCollectionViewCellDelegate.swift */,
 			);
 			path = Delegate;
@@ -243,6 +257,7 @@
 				562447062D33975B000E94A0 /* FullScreenReviewImageViewController.swift */,
 				56D68A332D23FBB700EA1404 /* RatingDistributionView.swift */,
 				564524E12D240BBA00B05355 /* StarRatingView.swift */,
+				56EAA9342D34EC2B007265D3 /* WriteReviewViewController.swift */,
 			);
 			path = PopupDetailView;
 			sourceTree = "<group>";
@@ -250,6 +265,7 @@
 		563482F92D223FFE001646B5 /* ReusableView */ = {
 			isa = PBXGroup;
 			children = (
+				56EAA92A2D34EA5A007265D3 /* UploadImageCollectionViewCell.swift */,
 				563482FD2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift */,
 				56A061272D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift */,
 				56D68A352D2409DB00EA1404 /* PopupRatingCollectionViewCell.swift */,
@@ -339,6 +355,7 @@
 		56C5DDB72CE797FB0090D3A2 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				56EAA9302D34EB90007265D3 /* Common */,
 				BCE8FA292D2271C800A7B8E2 /* FindIdPw */,
 				BCE6E5F02CF31EBC0036BAF6 /* SignUp */,
 				BCC45D162CEB9A790045DC57 /* Login */,
@@ -415,6 +432,7 @@
 		56CD3A712CEB83CF00BAC02D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				566A0E4E2D3E23A800B70929 /* WriteReviewViewModel.swift */,
 				56A0C8522D2AB2E5005E6C51 /* PopupDetailViewModel.swift */,
 				565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */,
 				56CD3A702CEB83CF00BAC02D /* MainSceneViewModel.swift */,
@@ -442,6 +460,22 @@
 				BCF6ED582D37DAA30038CCAE /* DateFormatter+.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		56EAA9302D34EB90007265D3 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				56EAA9312D34EB93007265D3 /* View */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		56EAA9312D34EB93007265D3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				56EAA9322D34EB9C007265D3 /* PopcornOrangeButton.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		BC2D115E2CEC5DCA0030F4E0 /* LoginScene */ = {
@@ -815,6 +849,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC55FE862D2AC8F100E269B6 /* ProfileImagePickerViewController.swift in Sources */,
+				56EAA92F2D34EB08007265D3 /* StarRatingViewDelegate.swift in Sources */,
 				565C415F2D2032160016003A /* MainCarouselViewModelProtocol.swift in Sources */,
 				56018CA42CECC41000AC8ED5 /* Date+.swift in Sources */,
 				56CD3A7B2CEB858100BAC02D /* PickOrInterestCell.swift in Sources */,
@@ -824,10 +859,12 @@
 				BCD2DFFD2D298D10000ED875 /* CompleteResetPwViewController.swift in Sources */,
 				BCE6E6002CF321AE0036BAF6 /* SignUpFirstView.swift in Sources */,
 				BCF6ED502D37CBEB0038CCAE /* KeychainManager.swift in Sources */,
+				56EAA9352D34EC2B007265D3 /* WriteReviewViewController.swift in Sources */,
 				BC7420FA2CE23A9500BEED0A /* Requestable.swift in Sources */,
 				56381C2A2D193CEE00F4F715 /* MainCarouselPickHeaderView.swift in Sources */,
 				BCF6ED592D37DAA30038CCAE /* DateFormatter+.swift in Sources */,
 				56A0C8472D2A744C005E6C51 /* ReviewCollectionViewCell.swift in Sources */,
+				56EAA9372D34F4AE007265D3 /* WriteReviewButtonDelegate.swift in Sources */,
 				BC90A0BC2CF4CF53003488F0 /* SignUpSecondViewController.swift in Sources */,
 				BCE8FA322D2272EB00A7B8E2 /* FindIdPwView.swift in Sources */,
 				562447072D33975B000E94A0 /* FullScreenReviewImageViewController.swift in Sources */,
@@ -855,6 +892,7 @@
 				BCE6E60A2CF378DF0036BAF6 /* SignUpLabel.swift in Sources */,
 				BCE8FA542D228C4900A7B8E2 /* ResetPwView.swift in Sources */,
 				562447162D33B65D000E94A0 /* ReviewCollectionViewCellDelegate.swift in Sources */,
+				56EAA9332D34EB9C007265D3 /* PopcornOrangeButton.swift in Sources */,
 				565C415C2D2028DD0016003A /* MainCollectionTitleHeaderView.swift in Sources */,
 				56C5DDBF2CE87C0E0090D3A2 /* Reusable.swift in Sources */,
 				56CD3A722CEB83CF00BAC02D /* MainSceneViewModel.swift in Sources */,
@@ -869,6 +907,7 @@
 				563482FE2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift in Sources */,
 				BCF6ED572D37D55B0038CCAE /* TokenExpireResolver.swift in Sources */,
 				563483032D224CF2001646B5 /* CarouselHeaderView.swift in Sources */,
+				566A0E4F2D3E23AF00B70929 /* WriteReviewViewModel.swift in Sources */,
 				56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */,
 				56018C9B2CEC9AE000AC8ED5 /* MainCollectionHeaderView.swift in Sources */,
 				BCE8FA382D227CF100A7B8E2 /* CompleteFindIdViewController.swift in Sources */,
@@ -876,6 +915,7 @@
 				560159302CF319A700872662 /* UILabel+.swift in Sources */,
 				5649A5902CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift in Sources */,
 				BCF6ED342D33D5420038CCAE /* LoginManager.swift in Sources */,
+				56EAA92B2D34EA5A007265D3 /* UploadImageCollectionViewCell.swift in Sources */,
 				BC3201AB2D2CFC6900B73A14 /* ProfileImageCell.swift in Sources */,
 				BCC45D1A2CEB9A980045DC57 /* LoginTextField.swift in Sources */,
 				BCE8FA562D228C5400A7B8E2 /* ResetPwViewController.swift in Sources */,
@@ -940,7 +980,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Popcorna.Popcorn-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "Popcora.Popcorn-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -969,7 +1009,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Popcorna.Popcorn-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "Popcora.Popcorn-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
