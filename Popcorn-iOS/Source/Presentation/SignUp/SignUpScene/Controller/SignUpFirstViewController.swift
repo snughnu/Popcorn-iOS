@@ -217,30 +217,39 @@ extension SignUpFirstViewController {
 // MARK: - selector 함수
 extension SignUpFirstViewController {
     private func duplicateCheckButtonTapped() {
-        if let idText = signUpFirstView.idField.textFieldReference.text, !idText.isEmpty {
-            if !isValidId(idText) {
-                signUpFirstView.idField.labelReference.textColor = UIColor(.red)
-                signUpFirstView.idField.labelReference.text = "*6~12자의 영문과 숫자의 조합으로 입력해주세요."
-                isIdValid = false
-            } else {
-                checkIdDuplication { [weak self] isDuplicate in
-                    DispatchQueue.main.async {
-                        if isDuplicate {
-                            self?.signUpFirstView.idField.labelReference.textColor = UIColor(.red)
-                            self?.signUpFirstView.idField.labelReference.text = "*중복된 아이디입니다."
-                            self?.isIdValid = false
-                        } else {
-                            self?.signUpFirstView.idField.labelReference.textColor = UIColor(.blue)
-                            self?.signUpFirstView.idField.labelReference.text = "*사용 가능한 아이디입니다."
-                            self?.isIdValid = true
-                        }
-                    }
-                }
-            }
-        } else {
+        guard let idText = signUpFirstView.idField.textFieldReference.text, !idText.isEmpty else {
+            signUpFirstView.idField.labelReference.textColor = UIColor(.red)
+            signUpFirstView.idField.labelReference.text = "*아이디를 입력해주세요."
+            isIdValid = false
+            return
+        }
+
+        if !isValidId(idText) {
             signUpFirstView.idField.labelReference.textColor = UIColor(.red)
             signUpFirstView.idField.labelReference.text = "*6~12자의 영문과 숫자의 조합으로 입력해주세요."
             isIdValid = false
+            return
+        }
+
+        SignupDataManager.shared.checkDuplicateId(username: idText) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let isDuplicate):
+                    if isDuplicate {
+                        self?.signUpFirstView.idField.labelReference.textColor = UIColor(.red)
+                        self?.signUpFirstView.idField.labelReference.text = "*중복된 아이디입니다."
+                        self?.isIdValid = false
+                    } else {
+                        self?.signUpFirstView.idField.labelReference.textColor = UIColor(.blue)
+                        self?.signUpFirstView.idField.labelReference.text = "*사용 가능한 아이디입니다."
+                        self?.isIdValid = true
+                    }
+                case .failure(let error):
+                    self?.signUpFirstView.idField.labelReference.textColor = UIColor(.red)
+                    self?.signUpFirstView.idField.labelReference.text = "*아이디 확인 실패"
+                    self?.isIdValid = false
+                }
+            }
         }
     }
 
@@ -275,7 +284,7 @@ extension SignUpFirstViewController {
             validateAuthNumber { [weak self] isValid in
                 DispatchQueue.main.async {
                     if isValid {
-                        self?.saveSignupData()
+                        self?.saveSignUpData()
                         let secondVC = SignUpSecondViewController()
                         self?.navigationController?.pushViewController(secondVC, animated: true)
                     } else {
@@ -369,7 +378,7 @@ extension SignUpFirstViewController {
         }
     }
 
-    private func saveSignupData() {
+    private func saveSignUpData() {
         guard let name = signUpFirstView.nameField.textFieldReference.text,
               let id = signUpFirstView.idField.textFieldReference.text,
               let password = signUpFirstView.passwordField.textFieldReference.text,

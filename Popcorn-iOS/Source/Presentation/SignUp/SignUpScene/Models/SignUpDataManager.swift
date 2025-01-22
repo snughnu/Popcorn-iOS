@@ -11,6 +11,59 @@ final class SignupDataManager {
     static let shared = SignupDataManager()
     private init() {}
 
+    // MARK: - 아이디 중복 확인
+    func checkDuplicateId(username: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+        var components = URLComponents(string: "https://popcorm.store/auth/chkUser")!
+        components.queryItems = [URLQueryItem(name: "username", value: username)]
+
+        guard let url = components.url else {
+            completion(.failure(NSError(domain: "InvalidURL", code: -1, userInfo: nil)))
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("아이디 중복 확인 요청 실패: \(error.localizedDescription)")
+                completion(.failure(error))
+                return
+            }
+
+            guard let httpResponse = response as? HTTPURLResponse, let data = data else {
+                print("아이디 중복 확인 응답 없음 또는 잘못된 응답")
+                completion(.failure(NSError(domain: "InvalidResponse", code: -1, userInfo: nil)))
+                return
+            }
+
+            if httpResponse.statusCode != 200 {
+                let errorMessage = String(data: data, encoding: .utf8) ?? "알 수 없는 오류"
+                print("HTTP 상태 코드: \(httpResponse.statusCode), 오류 메시지: \(errorMessage)")
+                completion(.failure(NSError(domain: "ServerError", code: httpResponse.statusCode, userInfo: nil)))
+                return
+            }
+
+            do {
+                let responseDict = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+                let resultCode = responseDict?["resultCode"] as? Int ?? -1
+                let status = responseDict?["status"] as? String ?? "fail"
+                let message = responseDict?["data"] as? String ?? "Unknown error"
+
+                if resultCode == 200 && status == "success" {
+                    completion(.success(false))
+                } else {
+                    completion(.success(true))
+                }
+            } catch {
+                print("아이디 중복 확인 데이터 처리 실패: \(error.localizedDescription)")
+                completion(.failure(error))
+            }
+        }
+        task.resume()
+    }
+
     // MARK: - 인증 번호 전송
     func sendVerificationCode(email: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         let url = URL(string: "https://popcorm.store/mailsend")!
