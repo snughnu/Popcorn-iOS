@@ -1,5 +1,5 @@
 //
-//  SignUpDataManager.swift
+//  SignUpManager.swift
 //  Popcorn-iOS
 //
 //  Created by 김성훈 on 1/19/25.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class SignupDataManager {
-    static let shared = SignupDataManager()
+final class SignUpManager {
+    static let shared = SignUpManager()
     private init() {}
 
     // MARK: - 아이디 중복 확인
