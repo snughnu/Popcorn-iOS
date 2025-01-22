@@ -231,7 +231,7 @@ extension SignUpFirstViewController {
             return
         }
 
-        SignupDataManager.shared.checkDuplicateId(username: idText) { [weak self] result in
+        SignUpManager.shared.checkDuplicateId(username: idText) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let isDuplicate):
@@ -263,7 +263,7 @@ extension SignUpFirstViewController {
         signUpFirstView.emailField.labelReference.textColor = UIColor(.blue)
         signUpFirstView.emailField.labelReference.text = "전송 중입니다..."
 
-        SignupDataManager.shared.sendVerificationCode(email: emailText) { [weak self] result in
+        SignUpManager.shared.sendVerificationCode(email: emailText) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success:
@@ -306,7 +306,7 @@ extension SignUpFirstViewController {
             completion(false)
             return
         }
-        SignupDataManager.shared.verifyAuthCode(email: signUpFirstView.emailField.textFieldReference.text!,
+        SignUpManager.shared.verifyAuthCode(email: signUpFirstView.emailField.textFieldReference.text!,
                                                 authNum: authNum) { result in
             switch result {
             case .success:
