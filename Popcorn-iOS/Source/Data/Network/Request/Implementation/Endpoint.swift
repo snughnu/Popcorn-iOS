@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class Request: Requestable {
+final class Endpoint: Requestable {
     var baseURL: String
     var httpMethod: HttpMethod
     var path: String
