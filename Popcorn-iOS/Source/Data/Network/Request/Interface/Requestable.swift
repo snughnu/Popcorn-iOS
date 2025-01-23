@@ -8,12 +8,13 @@
 import Foundation
 
 protocol Requestable {
+    associatedtype Response: Decodable
+
     var baseURL: String { get }
     var httpMethod: HttpMethod { get }
     var path: String { get }
     var queryItems: [URLQueryItem] { get }
     var headers: [String: String] { get }
-    var bodyParameters: Encodable { get }
 
     func makeURLRequest() -> URLRequest?
 }
