@@ -22,12 +22,12 @@ enum NetworkError: Error {
             "URL이 올바르지 않습니다."
         case .responseError:
             "응답값이 유효하지 않습니다."
-        case .decodingError(let description):
-            "디코딩 에러: \(description)"
+        case .decodingError(let error):
+            "디코딩 에러: \(error.localizedDescription)"
         case .emptyData:
             "데이터가 없습니다."
-        case .serverError(let code):
-            "서버 에러 \(code.rawValue)"
+        case .serverError(let error):
+            "서버 에러 \(error.rawValue): \(error)"
         case .requestFailed(let message):
             "서버 요청 실패 \(message)"
         case .unknown:
