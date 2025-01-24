@@ -8,19 +8,19 @@
 import Foundation
 
 struct SignUpData: Codable {
-    struct FirstSignUpDto: Codable {
+    struct FirstSignupDto: Codable {
         let name: String
         let username: String
         let password: String
         let email: String
     }
 
-    struct SecondSignUpDto: Codable {
+    struct SecondSignupDto: Codable {
         let nickname: String
         let profileId: Int
         let interests: [String]
     }
 
-    let firstSignUpDto: FirstSignUpDto
-    var secondSignUpDto: SecondSignUpDto?
+    let firstSignupDto: FirstSignupDto
+    var secondSignupDto: SecondSignupDto?
 }

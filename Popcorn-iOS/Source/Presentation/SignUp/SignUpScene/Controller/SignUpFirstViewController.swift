@@ -234,19 +234,13 @@ extension SignUpFirstViewController {
         SignUpManager.shared.checkDuplicateId(username: idText) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let isDuplicate):
-                    if isDuplicate {
-                        self?.signUpFirstView.idField.labelReference.textColor = UIColor(.red)
-                        self?.signUpFirstView.idField.labelReference.text = "*중복된 아이디입니다."
-                        self?.isIdValid = false
-                    } else {
-                        self?.signUpFirstView.idField.labelReference.textColor = UIColor(.blue)
-                        self?.signUpFirstView.idField.labelReference.text = "*사용 가능한 아이디입니다."
-                        self?.isIdValid = true
-                    }
-                case .failure(let error):
+                case .success:
+                    self?.signUpFirstView.idField.labelReference.textColor = UIColor(.blue)
+                    self?.signUpFirstView.idField.labelReference.text = "*사용 가능한 아이디입니다."
+                    self?.isIdValid = true
+                case .failure:
                     self?.signUpFirstView.idField.labelReference.textColor = UIColor(.red)
-                    self?.signUpFirstView.idField.labelReference.text = "*아이디 확인 실패"
+                    self?.signUpFirstView.idField.labelReference.text = "*중복된 아이디입니다."
                     self?.isIdValid = false
                 }
             }
@@ -385,8 +379,8 @@ extension SignUpFirstViewController {
               let email = signUpFirstView.emailField.textFieldReference.text else { return }
 
         let data = SignUpData(
-            firstSignUpDto: SignUpData.FirstSignUpDto(name: name, username: id, password: password, email: email),
-            secondSignUpDto: nil
+            firstSignupDto: SignUpData.FirstSignupDto(name: name, username: id, password: password, email: email),
+            secondSignupDto: nil
         )
 
         do {
