@@ -10,6 +10,7 @@ import UIKit
 class SignUpSecondViewController: UIViewController {
     let signUpSecondView = SignUpSecondView()
     private let screenHeight = UIScreen.main.bounds.height
+    private var selectedProfileId: Int?
 
     override func loadView() {
         view = signUpSecondView
@@ -17,6 +18,7 @@ class SignUpSecondViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        SignUpInterestButton.selectedButtons = []
         setupNavigationBar()
         setupAddActions()
         setupTextField()
@@ -29,8 +31,7 @@ extension SignUpSecondViewController {
     private func setupNavigationBar() {
         let titleLabel = UILabel()
         titleLabel.text = "회원가입"
-        let size = screenHeight * 21/852
-        titleLabel.font = UIFont(name: RobotoFontName.robotoSemiBold, size: size)
+        titleLabel.font = UIFont(name: RobotoFontName.robotoSemiBold, size: screenHeight * 21/852)
         titleLabel.textColor = .black
         titleLabel.textAlignment = .center
         navigationItem.titleView = titleLabel
@@ -45,7 +46,7 @@ extension SignUpSecondViewController {
     }
 
     @objc private func backButtonTapped() {
-       navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -78,16 +79,17 @@ extension SignUpSecondViewController {
 extension SignUpSecondViewController {
     private func selectProfileImageButtonTapped() {
         let profilePickerVC = ProfileImagePickerViewController()
-        profilePickerVC.selectedImageHandler = { [weak self] selectedImage, selectedColor in
+        profilePickerVC.selectedImageHandler = { [weak self] selectedImage, selectedColor, selectedIndex in
             guard let self = self else { return }
             self.signUpSecondView.profileImageView.image = selectedImage
             self.signUpSecondView.profileImageView.backgroundColor = selectedColor
+            self.selectedProfileId = selectedIndex
         }
-        present(profilePickerVC, animated: true, completion: nil)
+        present(profilePickerVC, animated: true)
     }
 }
 
-// MARK: - Agree Buttons Action selector 함수
+// MARK: - Agree Buttons Actions
 extension SignUpSecondViewController {
     private func allAgreeButtonTapped() {
         let isAllSelected = signUpSecondView.allAgreeButton.isSelected
@@ -95,7 +97,6 @@ extension SignUpSecondViewController {
         signUpSecondView.allAgreeButton.isSelected = newState
         signUpSecondView.firstAgreeButton.isSelected = newState
         signUpSecondView.secondAgreeButton.isSelected = newState
-
         updateAgreeButtonImages()
         updateSignUpButtonState()
     }
@@ -103,7 +104,6 @@ extension SignUpSecondViewController {
     private func firstAgreeButtonTapped() {
         signUpSecondView.firstAgreeButton.isSelected.toggle()
         updateAllAgreeButtonState()
-
         updateAgreeButtonImages()
         updateSignUpButtonState()
     }
@@ -111,7 +111,6 @@ extension SignUpSecondViewController {
     private func secondAgreeButtonTapped() {
         signUpSecondView.secondAgreeButton.isSelected.toggle()
         updateAllAgreeButtonState()
-
         updateAgreeButtonImages()
         updateSignUpButtonState()
     }
@@ -150,23 +149,76 @@ extension SignUpSecondViewController {
     }
 }
 
-// MARK: - SignUp Button selector 함수
+// MARK: - SignUp Button Action
 extension SignUpSecondViewController {
-    private func signUpButtonTapped() {
-        // TODO: 서버와 통신
-        let loginViewController = LoginViewController()
-        self.navigationController?.setViewControllers([loginViewController], animated: true)
+    @objc private func signUpButtonTapped() {
+        let keychainManager = KeychainManager()
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: "signupData",
+            kSecMatchLimit as String: kSecMatchLimitOne,
+            kSecReturnData as String: true
+        ]
+
+        guard let jsonData = keychainManager.fetchItem(with: query) else {
+            print("키체인에서 데이터를 불러오지 못했습니다.")
+            return
+        }
+
+        do {
+            var signUpData = try JSONDecoder().decode(SignUpData.self, from: jsonData)
+
+            guard let nickname = signUpSecondView.nickNameTextField.text, !nickname.isEmpty,
+                  let selectedProfileId = selectedProfileId else {
+                print("닉네임이 비어있거나 프로필을 선택하지 않았습니다.")
+                return
+            }
+
+            signUpData.secondSignUpDto = SignUpData.SecondSignUpDto(
+                nickname: nickname,
+                profileId: selectedProfileId,
+                interests: signUpSecondView.selectedInterests.map(convertInterestToEnglish)
+            )
+
+            SignUpManager.shared.submitSignupData(signupData: signUpData) { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success:
+                        print("회원가입 성공")
+                        let loginVC = LoginViewController()
+                        self?.navigationController?.pushViewController(loginVC, animated: true)
+                    case .failure(let error):
+                        print("회원가입 실패: \(error.localizedDescription)")
+                    }
+                }
+            }
+        } catch {
+            print("키체인 데이터 디코딩 실패: \(error)")
+        }
+    }
+
+    private func convertInterestToEnglish(_ interest: String) -> String {
+        let mapping: [String: String] = [
+            "패션": "FASHION",
+            "뷰티": "BEAUTY",
+            "음식": "FOOD",
+            "캐릭터": "CHARACTER",
+            "드라마/영화": "MOVIES",
+            "라이프 스타일": "LIFESTYLE",
+            "예술": "ART",
+            "IT": "IT",
+            "스포츠": "SPORTS",
+            "셀럽": "CELEBRITY",
+            "반려동물": "PETS"
+        ]
+        return mapping[interest] ?? interest
     }
 }
 
 // MARK: - TextField Delegate Protocol
 extension SignUpSecondViewController: UITextFieldDelegate {
     private func setupTextField() {
-        [
-            signUpSecondView.nickNameTextField
-        ].forEach {
-            $0.delegate = self
-        }
+        signUpSecondView.nickNameTextField.delegate = self
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
