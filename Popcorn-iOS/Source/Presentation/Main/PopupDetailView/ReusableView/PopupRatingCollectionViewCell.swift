@@ -8,6 +8,8 @@
 import UIKit
 
 final class PopupRatingCollectionViewCell: UICollectionViewCell {
+    weak var delegate: WriteReviewButtonDelegate?
+
     private let backgroundGrayView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(resource: .popcornGray4)
@@ -70,6 +72,7 @@ final class PopupRatingCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         configureSubviews()
         configureLayout()
+        configureActions()
     }
 
     required init?(coder: NSCoder) {
@@ -98,6 +101,15 @@ extension PopupRatingCollectionViewCell {
         )}
 
         ratingLevelViews[maximumIndex].highlightMaximumDistribution()
+    }
+}
+
+// MARK: - Configure Actions
+extension PopupRatingCollectionViewCell {
+    private func configureActions() {
+        writeReviewButton.addAction(UIAction { _ in
+            self.delegate?.didTapWriteReviewButtonDelegate()
+        }, for: .touchUpInside)
     }
 }
 
