@@ -193,7 +193,7 @@ final class SignUpManager {
                 return
             }
 
-            if httpResponse.statusCode != 200 {
+            if !(200...299).contains(httpResponse.statusCode) {
                 if let data = data, !data.isEmpty {
                     if let errorMessage = String(data: data, encoding: .utf8) {
                         print("회원가입 실패. 상태 코드: \(httpResponse.statusCode), 오류 메시지: \(errorMessage)")
