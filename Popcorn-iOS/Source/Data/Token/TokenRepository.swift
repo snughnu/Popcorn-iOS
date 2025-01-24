@@ -75,8 +75,7 @@ final class TokenRepository {
 
     func fetchAccessToken() -> String? {
         let query = accessTokenAttributes.merging(fetchQuery) { _, new in new }
-        guard let item = keychainManager.fetchItem(with: query),
-              let data = item as? Data,
+        guard let data = keychainManager.fetchItem(with: query),
               let token = String(data: data, encoding: .utf8) else {
             return nil
         }
@@ -85,8 +84,7 @@ final class TokenRepository {
 
     func fetchRefreshToken() -> String? {
         let query = refreshTokenAttributes.merging(fetchQuery) { _, new in new }
-        guard let item = keychainManager.fetchItem(with: query),
-              let data = item as? Data,
+        guard let data = keychainManager.fetchItem(with: query),
               let token = String(data: data, encoding: .utf8) else {
             return nil
         }
@@ -101,8 +99,7 @@ final class TokenRepository {
             kSecMatchLimit as String: kSecMatchLimitOne,
             kSecReturnData as String: true
         ]
-        guard let item = keychainManager.fetchItem(with: query),
-              let data = item as? Data,
+        guard let data = keychainManager.fetchItem(with: query),
               let loginType = String(data: data, encoding: .utf8) else {
             return nil
         }

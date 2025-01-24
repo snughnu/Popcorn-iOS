@@ -393,27 +393,26 @@ extension SignUpFirstViewController {
             let jsonData = try JSONEncoder().encode(data)
             let query: [String: Any] = [
                 kSecClass as String: kSecClassGenericPassword,
-                kSecAttrAccount as String: "signupData",
+                kSecAttrAccount as String: "signupData"
+            ]
+            let attributes: [String: Any] = [
                 kSecValueData as String: jsonData
             ]
 
             let keychainManager = KeychainManager()
-            let status = keychainManager.addItem(with: query)
-
-            if status == errSecDuplicateItem {
-                let updateQuery: [String: Any] = [
-                    kSecClass as String: kSecClassGenericPassword,
-                    kSecAttrAccount as String: "signupData"
-                ]
-                let updateAttributes: [String: Any] = [
-                    kSecValueData as String: jsonData
-                ]
-                keychainManager.updateItem(with: updateQuery, as: updateAttributes)
-                print("키체인 데이터 업데이트 성공")
+            let status = keychainManager.updateItem(with: query, as: attributes)
+            if status == errSecItemNotFound {
+                let addQuery = query.merging(attributes) { _, new in new }
+                let addStatus = keychainManager.addItem(with: addQuery)
+                if addStatus == errSecSuccess {
+                    print("Keychain에 데이터 추가 성공")
+                } else {
+                    print("Keychain에 데이터 추가 실패, 상태 코드: \(addStatus)")
+                }
             } else if status != errSecSuccess {
-                print("키체인에 데이터 저장 실패: \(status)")
+                print("Keychain 업데이트 실패, 상태 코드: \(status)")
             } else {
-                print("키체인에 데이터 저장 성공")
+                print("Keychain에 데이터 업데이트 성공")
             }
         } catch {
             print("데이터 인코딩 실패: \(error)")
