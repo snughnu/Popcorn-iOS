@@ -163,6 +163,18 @@ final class SignUpManager {
         do {
             let jsonData = try JSONEncoder().encode(signupData)
             request.httpBody = jsonData
+
+            print("전송하려는 URL: \(request.url?.absoluteString ?? "URL 없음")")
+            print("전송하려는 HTTP Method: \(request.httpMethod ?? "HTTP Method 없음")")
+            print("전송하려는 헤더:")
+            if let headers = request.allHTTPHeaderFields {
+                headers.forEach { key, value in
+                    print("\(key): \(value)")
+                }
+            }
+            if let jsonString = String(data: jsonData, encoding: .utf8) {
+                print("전송하려는 JSON 데이터: \(jsonString)")
+            }
         } catch {
             completion(.failure(error))
             return
@@ -175,18 +187,25 @@ final class SignUpManager {
                 return
             }
 
-            guard let httpResponse = response as? HTTPURLResponse, let data = data else {
+            guard let httpResponse = response as? HTTPURLResponse else {
                 print("회원가입 응답 없음 또는 잘못된 응답")
                 completion(.failure(NSError(domain: "InvalidResponse", code: -1, userInfo: nil)))
                 return
             }
 
             if httpResponse.statusCode != 200 {
-                let errorMessage = String(data: data, encoding: .utf8) ?? "알 수 없는 오류"
-                print("회원가입 실패. 상태 코드: \(httpResponse.statusCode), 오류 메시지: \(errorMessage)")
+                if let data = data, !data.isEmpty {
+                    if let errorMessage = String(data: data, encoding: .utf8) {
+                        print("회원가입 실패. 상태 코드: \(httpResponse.statusCode), 오류 메시지: \(errorMessage)")
+                    } else {
+                        print("회원가입 실패. 상태 코드: \(httpResponse.statusCode), 오류 메시지: 응답 데이터를 텍스트로 변환할 수 없습니다.")
+                    }
+                } else {
+                    print("회원가입 실패. 상태 코드: \(httpResponse.statusCode), 오류 메시지: 응답 데이터가 비어 있습니다.")
+                }
                 completion(.failure(NSError(domain: "ServerError",
                                             code: httpResponse.statusCode,
-                                            userInfo: [NSLocalizedDescriptionKey: errorMessage])))
+                                            userInfo: [NSLocalizedDescriptionKey: "회원가입 실패"])))
                 return
             }
 
@@ -194,4 +213,5 @@ final class SignUpManager {
         }
         task.resume()
     }
+
 }
