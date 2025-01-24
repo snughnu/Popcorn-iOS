@@ -9,9 +9,9 @@ import Foundation
 
 struct SignUpData: Codable {
     struct FirstSignUpDto: Codable {
+        let name: String
         let username: String
         let password: String
-        let name: String
         let email: String
     }
 
