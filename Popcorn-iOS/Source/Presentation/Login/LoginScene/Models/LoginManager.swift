@@ -46,27 +46,14 @@ final class LoginManager {
                 let decoder = JSONDecoder()
                 let loginResponse = try decoder.decode(LoginResponse.self, from: data)
 
-                if httpResponse.statusCode == 200 {
-                    if case let .token(token) = loginResponse.data {
-                        completion(.success(token))
-                    } else {
-                        print("로그인 성공 응답에서 토큰 정보가 올바르지 않음")
-                        completion(.failure(NSError(domain: "InvalidTokenData",
-                                                    code: -1,
-                                                    userInfo: [NSLocalizedDescriptionKey: "Unexpected token data"])))
-                    }
+                if (200...299).contains(httpResponse.statusCode) {
+                    completion(.success(loginResponse.data))
                 } else {
-                    if case let .errorMessage(errorMessage) = loginResponse.data {
-                        print("로그인 실패. 상태 코드: \(httpResponse.statusCode), 오류 메시지: \(errorMessage)")
-                        completion(.failure(NSError(domain: "LoginFailed",
-                                                    code: httpResponse.statusCode,
-                                                    userInfo: [NSLocalizedDescriptionKey: errorMessage])))
-                    } else {
-                        print("로그인 실패. 상태 코드: \(httpResponse.statusCode), 오류 메시지를 디코딩할 수 없음")
-                        completion(.failure(NSError(domain: "UnknownError",
-                                                    code: httpResponse.statusCode,
-                                                    userInfo: nil)))
-                    }
+                    let errorMessage = "로그인 실패. 상태 코드: \(httpResponse.statusCode)"
+                    print(errorMessage)
+                    completion(.failure(NSError(domain: "LoginFailed",
+                                                code: httpResponse.statusCode,
+                                                userInfo: [NSLocalizedDescriptionKey: errorMessage])))
                 }
             } catch {
                 print("로그인 데이터 처리 실패: \(error.localizedDescription)")
