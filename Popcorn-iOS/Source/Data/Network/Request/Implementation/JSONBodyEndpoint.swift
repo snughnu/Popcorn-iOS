@@ -10,12 +10,12 @@ import Foundation
 struct JSONBodyEndpoint<R: Decodable>: Requestable {
     typealias Response = R
 
-    var baseURL: String
-    var httpMethod: HttpMethod
-    var path: String
-    var queryItems: [URLQueryItem]
-    var headers: [String: String]
-    var body: Encodable
+    let baseURL: String
+    let httpMethod: HttpMethod
+    let path: String
+    let queryItems: [URLQueryItem]
+    let headers: [String: String]
+    let body: Encodable
 
     init(
         baseURL: String = APIConstant.baseURL,
