@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class Endpoint<T: Decodable>: Requestable {
-    typealias Response = T
+final class Endpoint<R: Decodable>: Requestable {
+    typealias Response = R
 
     let baseURL: String
     let httpMethod: HttpMethod
