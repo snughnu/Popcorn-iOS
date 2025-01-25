@@ -9,24 +9,15 @@ import UIKit
 
 final class SignUpInterestButton: UIButton {
     private static let maxSelectableButton = 3
-    private static var selectedButtons: [SignUpInterestButton] = []
+    static var selectedButtons: [SignUpInterestButton] = []
+
+    static var selectedTitles: [String] {
+        selectedButtons.compactMap { $0.currentTitle }
+    }
 
     override var isSelected: Bool {
         didSet {
-            if isSelected {
-                if !Self.selectedButtons.contains(self) {
-                    Self.selectedButtons.append(self)
-                }
-                if Self.selectedButtons.count > Self.maxSelectableButton {
-                    let buttonToDeselect = Self.selectedButtons.removeFirst()
-                    buttonToDeselect.isSelected = false
-                }
-            } else {
-                if let index = Self.selectedButtons.firstIndex(of: self) {
-                    Self.selectedButtons.remove(at: index)
-                }
-            }
-            setNeedsUpdateConfiguration()
+            updateSelectionState()
         }
     }
 
@@ -42,24 +33,27 @@ final class SignUpInterestButton: UIButton {
     }
 }
 
-// MARK: - Configure SignUp Interest Button UI
+// MARK: - Configure Button UI
 extension SignUpInterestButton {
     private func configureButtonUI(with title: String) {
         let screenHeight = UIScreen.main.bounds.height
-        let size = screenHeight * 15/852
+        let fontSize = screenHeight * 15/852
 
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = UIColor(resource: .popcornLightGrayOpacity1)
         config.attributedTitle = AttributedString(
             title,
             attributes: AttributeContainer([
-                .font: UIFont(name: RobotoFontName.robotoMedium, size: size)!,
+                .font: UIFont(name: RobotoFontName.robotoMedium, size: fontSize)!,
                 .foregroundColor: UIColor(resource: .popcornDarkGrayOpacity3)
             ])
         )
         config.cornerStyle = .capsule
-//        config.contentInsets = NSDirectionalEdgeInsets(top: 7, leading: 14, bottom: 7, trailing: 14)
         self.configuration = config
+
+        setTitle(title, for: .normal)
+        setTitleColor(UIColor(resource: .popcornDarkGrayOpacity3), for: .normal)
+        titleLabel?.font = UIFont(name: RobotoFontName.robotoMedium, size: fontSize)
     }
 
     private func setupConfigurationHandler() {
@@ -83,9 +77,29 @@ extension SignUpInterestButton {
     }
 }
 
-// MARK: - Configure SignUp Interest Button Actions
+// MARK: - Handle Button Actions
 extension SignUpInterestButton {
     @objc private func buttonTapped() {
         isSelected.toggle()
+    }
+
+    private func updateSelectionState() {
+        if isSelected {
+            if !Self.selectedButtons.contains(self) {
+                Self.selectedButtons.append(self)
+                print("버튼 선택됨: \(currentTitle ?? "")")
+            }
+            if Self.selectedButtons.count > Self.maxSelectableButton {
+                let buttonToDeselect = Self.selectedButtons.removeFirst()
+                buttonToDeselect.isSelected = false
+                print("버튼 선택 해제됨: \(buttonToDeselect.currentTitle ?? "")")
+            }
+        } else {
+            if let index = Self.selectedButtons.firstIndex(of: self) {
+                Self.selectedButtons.remove(at: index)
+                print("버튼 선택 해제됨: \(currentTitle ?? "")")
+            }
+        }
+        setNeedsUpdateConfiguration()
     }
 }
