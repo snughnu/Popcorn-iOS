@@ -10,11 +10,11 @@ import Foundation
 final class Endpoint<T: Decodable>: Requestable {
     typealias Response = T
 
-    var baseURL: String
-    var httpMethod: HttpMethod
-    var path: String
-    var queryItems: [URLQueryItem]
-    var headers: [String: String]
+    let baseURL: String
+    let httpMethod: HttpMethod
+    let path: String
+    let queryItems: [URLQueryItem]
+    let headers: [String: String]
 
     init(
         baseURL: String = APIConstant.baseURL,
