@@ -21,6 +21,8 @@
 		563483032D224CF2001646B5 /* CarouselHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563483022D224CF2001646B5 /* CarouselHeaderView.swift */; };
 		563483052D2274CB001646B5 /* PopupInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563483042D22747B001646B5 /* PopupInformation.swift */; };
 		56381C2A2D193CEE00F4F715 /* MainCarouselPickHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56381C292D193CEE00F4F715 /* MainCarouselPickHeaderView.swift */; };
+		5643991D2D44F10E0031688B /* MultipartBodyEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5643991C2D44F0FB0031688B /* MultipartBodyEndpoint.swift */; };
+		5643991F2D44F2000031688B /* Data+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5643991E2D44F1FD0031688B /* Data+.swift */; };
 		564524E22D240BBA00B05355 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564524E12D240BBA00B05355 /* StarRatingView.swift */; };
 		5649A5902CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5649A58F2CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift */; };
 		56537BB12CE0F5290092A292 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56537BA82CE0F5290092A292 /* Assets.xcassets */; };
@@ -124,6 +126,8 @@
 		563483022D224CF2001646B5 /* CarouselHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselHeaderView.swift; sourceTree = "<group>"; };
 		563483042D22747B001646B5 /* PopupInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupInformation.swift; sourceTree = "<group>"; };
 		56381C292D193CEE00F4F715 /* MainCarouselPickHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselPickHeaderView.swift; sourceTree = "<group>"; };
+		5643991C2D44F0FB0031688B /* MultipartBodyEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartBodyEndpoint.swift; sourceTree = "<group>"; };
+		5643991E2D44F1FD0031688B /* Data+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+.swift"; sourceTree = "<group>"; };
 		564524E12D240BBA00B05355 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		5649A58F2CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosingSoonPopupCell.swift; sourceTree = "<group>"; };
 		56537B732CE0F5100092A292 /* Popcorn-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Popcorn-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -373,6 +377,7 @@
 		5660FD362D42166000F9B4D9 /* Implementation */ = {
 			isa = PBXGroup;
 			children = (
+				5643991C2D44F0FB0031688B /* MultipartBodyEndpoint.swift */,
 				5660FD3A2D421B0100F9B4D9 /* JSONBodyEndpoint.swift */,
 				BC7420FB2CE23B9200BEED0A /* Endpoint.swift */,
 			);
@@ -487,6 +492,7 @@
 		56CD3A7E2CEC606600BAC02D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				5643991E2D44F1FD0031688B /* Data+.swift */,
 				560159412CF32F5300872662 /* UIButton+.swift */,
 				5601592F2CF319A300872662 /* UILabel+.swift */,
 				56018CA32CECC3FA00AC8ED5 /* Date+.swift */,
@@ -911,6 +917,7 @@
 				BC7420FE2CE23FD700BEED0A /* NetworkError.swift in Sources */,
 				56D68A342D23FBB700EA1404 /* RatingDistributionView.swift in Sources */,
 				BCE6E6032CF323570036BAF6 /* SignUpFirstViewController.swift in Sources */,
+				5643991F2D44F2000031688B /* Data+.swift in Sources */,
 				BCE6E5FC2CF321080036BAF6 /* SignUpFieldStackView.swift in Sources */,
 				BCF6ED392D33DF530038CCAE /* LoginResponse.swift in Sources */,
 				563483002D2248DB001646B5 /* PopupInfoReviewSegmentHeaderView.swift in Sources */,
@@ -958,6 +965,7 @@
 				56EAA92B2D34EA5A007265D3 /* UploadImageCollectionViewCell.swift in Sources */,
 				BC3201AB2D2CFC6900B73A14 /* ProfileImageCell.swift in Sources */,
 				BCC45D1A2CEB9A980045DC57 /* LoginTextField.swift in Sources */,
+				5643991D2D44F10E0031688B /* MultipartBodyEndpoint.swift in Sources */,
 				BCE8FA562D228C5400A7B8E2 /* ResetPwViewController.swift in Sources */,
 				56A061282D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift in Sources */,
 				56C98C712CF488960001CFD4 /* PopupDetailViewController.swift in Sources */,
