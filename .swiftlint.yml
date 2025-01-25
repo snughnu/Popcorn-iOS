@@ -5,6 +5,10 @@ disabled_rules: # 실행에서 제외할 룰 식별자들
   - function_body_length # 함수 본문의 행 길이 제한
   - statement_position # 조건문, 반복문 등의 코드 블록 위치를 일정하게 유지하는 규칙 제외
   - closure_end_indentation # 클로저 끝 부분 들여쓰기 규칙 제외
+  - file_length # 파일 길이 규칙 제외 (400줄 이상 허용)
+  - function_parameter_count # 함수 파라미터 개수 제한 규칙 제외 (5개 초과 허용)
+  - identifier_name # 식별자 이름 길이 제한 규칙 제외
+  - large_tuple # 튜플 멤버 개수 제한 규칙 제외 (2개 초과 허용)
 
 opt_in_rules: # 선택적으로 추가하는 규칙
   - empty_count # .count == 0보다 isEmpty 사용 권장
