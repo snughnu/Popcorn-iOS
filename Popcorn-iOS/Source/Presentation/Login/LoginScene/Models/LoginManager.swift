@@ -31,26 +31,32 @@ final class LoginManager {
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
+                print("로그인 요청 실패: \(error.localizedDescription)")
                 completion(.failure(error))
                 return
             }
 
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200,
-                let data = data else {
+            guard let httpResponse = response as? HTTPURLResponse, let data = data else {
+                print("로그인 응답 없음 또는 잘못된 응답")
                 completion(.failure(NSError(domain: "InvalidResponse", code: -1, userInfo: nil)))
                 return
             }
 
             do {
                 let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .formatted(DateFormatter.apiDateFormatter)
                 let loginResponse = try decoder.decode(LoginResponse.self, from: data)
-                if loginResponse.status == "success" {
+
+                if (200...299).contains(httpResponse.statusCode) {
                     completion(.success(loginResponse.data))
                 } else {
-                    completion(.failure(NSError(domain: "LoginFailed", code: loginResponse.resultCode, userInfo: nil)))
+                    let errorMessage = "로그인 실패. 상태 코드: \(httpResponse.statusCode)"
+                    print(errorMessage)
+                    completion(.failure(NSError(domain: "LoginFailed",
+                                                code: httpResponse.statusCode,
+                                                userInfo: [NSLocalizedDescriptionKey: errorMessage])))
                 }
             } catch {
+                print("로그인 데이터 처리 실패: \(error.localizedDescription)")
                 completion(.failure(error))
             }
         }

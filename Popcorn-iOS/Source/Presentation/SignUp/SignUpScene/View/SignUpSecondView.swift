@@ -8,6 +8,7 @@
 import UIKit
 
 class SignUpSecondView: UIView {
+    // MARK: - Properties
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -30,6 +31,10 @@ class SignUpSecondView: UIView {
         placeholder: "닉네임",
         textAlignment: .center
     )
+
+    var selectedInterests: [String] {
+        return SignUpInterestButton.selectedTitles
+    }
 
     private let interestTitles: [[String]] = [
         ["패션", "뷰티", "음식", "캐릭터"],
@@ -59,20 +64,14 @@ class SignUpSecondView: UIView {
         return button
     }()
 
-    let firstAgreeButton = SignUpAgreeButton(
-        title: "마케팅 정보 앱 푸시 알림 수신 동의(선택)"
-    )
-
-    let secondAgreeButton = SignUpAgreeButton(
-        title: "위치기반 서비스 약관 동의(필수)"
-    )
+    let firstAgreeButton = SignUpAgreeButton(title: "마케팅 정보 앱 푸시 알림 수신 동의(선택)")
+    let secondAgreeButton = SignUpAgreeButton(title: "위치기반 서비스 약관 동의(필수)")
 
     private let firstArrowButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = UIColor(.clear)
         config.image = UIImage(resource: .signUpRightArrow)
-        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         button.configuration = config
         return button
     }()
@@ -82,7 +81,6 @@ class SignUpSecondView: UIView {
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = UIColor(.clear)
         config.image = UIImage(resource: .signUpRightArrow)
-        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         button.configuration = config
         return button
     }()
@@ -105,13 +103,11 @@ class SignUpSecondView: UIView {
         return button
     }()
 
-    // MARK: - StackView
+    // MARK: - StackViews
     private lazy var interestStackView: UIStackView = {
         let stackView = UIStackView()
-        let screenHeight = UIScreen.main.bounds.height
-        let size = screenHeight * 13/852
         stackView.axis = .vertical
-        stackView.spacing = size
+        stackView.spacing = UIScreen.main.bounds.height * 13/852
         stackView.distribution = .fillEqually
         stackView.alignment = .center
         interestTitles.forEach { titles in
@@ -127,9 +123,7 @@ class SignUpSecondView: UIView {
             interestStackView
         ])
         stackView.axis = .vertical
-        let screenHeight = UIScreen.main.bounds.height
-        let size = screenHeight * 28/852
-        stackView.spacing = size
+        stackView.spacing = UIScreen.main.bounds.height * 28/852
         stackView.alignment = .fill
         stackView.distribution = .fill
         return stackView
@@ -141,9 +135,7 @@ class SignUpSecondView: UIView {
             secondAgreeButton
         ])
         stackView.axis = .vertical
-        let screenHeight = UIScreen.main.bounds.height
-        let size = screenHeight * 10/852
-        stackView.spacing = size
+        stackView.spacing = UIScreen.main.bounds.height * 10/852
         stackView.alignment = .leading
         stackView.distribution = .equalSpacing
         return stackView
@@ -155,9 +147,7 @@ class SignUpSecondView: UIView {
             individualAgreeStackView
         ])
         stackView.axis = .vertical
-        let screenHeight = UIScreen.main.bounds.height
-        let size = screenHeight * 15/852
-        stackView.spacing = size
+        stackView.spacing = UIScreen.main.bounds.height * 15/852
         stackView.alignment = .leading
         stackView.distribution = .equalSpacing
         return stackView
@@ -169,9 +159,7 @@ class SignUpSecondView: UIView {
             agreeStackView
         ])
         stackView.axis = .vertical
-        let screenHeight = UIScreen.main.bounds.height
-        let size = screenHeight * 32/852
-        stackView.spacing = size
+        stackView.spacing = UIScreen.main.bounds.height * 32/852
         stackView.alignment = .center
         stackView.distribution = .fillProportionally
         return stackView
@@ -183,9 +171,7 @@ class SignUpSecondView: UIView {
             signUpButton
         ])
         stackView.axis = .vertical
-        let screenHeight = UIScreen.main.bounds.height
-        let size = screenHeight * 47/852
-        stackView.spacing = size
+        stackView.spacing = UIScreen.main.bounds.height * 47/852
         stackView.alignment = .fill
         stackView.distribution = .fill
         return stackView
@@ -216,7 +202,7 @@ extension SignUpSecondView {
     }
 }
 
-// MARK: - Configure Layout
+// MARK: - Configure Subviews and Layout
 extension SignUpSecondView {
     private func configureSubviews() {
         [
@@ -244,10 +230,7 @@ extension SignUpSecondView {
 
             selectProfileImageButton.trailingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: -3),
             selectProfileImageButton.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor),
-            selectProfileImageButton.widthAnchor.constraint(
-                equalTo: profileImageView.widthAnchor,
-                multiplier: 24/106
-            ),
+            selectProfileImageButton.widthAnchor.constraint(equalTo: profileImageView.widthAnchor, multiplier: 24/106),
             selectProfileImageButton.heightAnchor.constraint(equalTo: selectProfileImageButton.widthAnchor),
 
             nickNameTextField.widthAnchor.constraint(equalTo: entireStackView.widthAnchor),

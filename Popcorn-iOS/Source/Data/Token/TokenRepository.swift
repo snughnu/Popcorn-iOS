@@ -75,8 +75,7 @@ final class TokenRepository {
 
     func fetchAccessToken() -> String? {
         let query = accessTokenAttributes.merging(fetchQuery) { _, new in new }
-        guard let item = keychainManager.fetchItem(with: query),
-              let data = item as? Data,
+        guard let data = keychainManager.fetchItem(with: query),
               let token = String(data: data, encoding: .utf8) else {
             return nil
         }
@@ -85,8 +84,7 @@ final class TokenRepository {
 
     func fetchRefreshToken() -> String? {
         let query = refreshTokenAttributes.merging(fetchQuery) { _, new in new }
-        guard let item = keychainManager.fetchItem(with: query),
-              let data = item as? Data,
+        guard let data = keychainManager.fetchItem(with: query),
               let token = String(data: data, encoding: .utf8) else {
             return nil
         }
@@ -101,8 +99,7 @@ final class TokenRepository {
             kSecMatchLimit as String: kSecMatchLimitOne,
             kSecReturnData as String: true
         ]
-        guard let item = keychainManager.fetchItem(with: query),
-              let data = item as? Data,
+        guard let data = keychainManager.fetchItem(with: query),
               let loginType = String(data: data, encoding: .utf8) else {
             return nil
         }
@@ -125,30 +122,42 @@ extension TokenRepository {
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
+                print("토큰 재발급 요청 실패: \(error.localizedDescription)")
                 completion(.failure(error))
                 return
             }
 
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200,
-                  let data = data else {
+            guard let httpResponse = response as? HTTPURLResponse, let data = data else {
+                print("토큰 재발급 응답 없음 또는 잘못된 응답")
                 completion(.failure(NSError(domain: "InvalidResponse", code: -1, userInfo: nil)))
                 return
             }
 
+            print("응답 상태 코드: \(httpResponse.statusCode)")
+            print("응답 데이터: \(String(data: data, encoding: .utf8) ?? "디코딩 실패")")
+
             do {
                 let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .formatted(DateFormatter.apiDateFormatter)
-                let loginResponse = try decoder.decode(LoginResponse.self, from: data)
+                let reissueResponse = try decoder.decode(ReissueResponse<NewToken>.self, from: data)
 
-                if loginResponse.status == "success" {
-                    completion(.success(loginResponse.data))
+                if httpResponse.statusCode == 200 {
+                    let newToken = reissueResponse.data
+                    let token = Token(
+                        accessToken: newToken.accessToken,
+                        refreshToken: newToken.refreshToken,
+                        accessExpiredAt: newToken.accessExpiredAt,
+                        refreshExpiredAt: newToken.refreshExpiredAt
+                    )
+                    completion(.success(token))
                 } else {
+                    let errorMessage = String(data: data, encoding: .utf8) ?? "알 수 없는 오류"
+                    print("토큰 재발급 실패. 상태 코드: \(httpResponse.statusCode), 오류 메시지: \(errorMessage)")
                     completion(.failure(NSError(domain: "ReissueFailed",
-                                                code: loginResponse.resultCode,
-                                                userInfo: nil
-                                               )))
+                                                code: httpResponse.statusCode,
+                                                userInfo: [NSLocalizedDescriptionKey: errorMessage])))
                 }
             } catch {
+                print("토큰 재발급 데이터 처리 실패: \(error.localizedDescription)")
                 completion(.failure(error))
             }
         }

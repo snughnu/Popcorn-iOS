@@ -8,7 +8,7 @@
 import UIKit
 
 class ProfileImagePickerViewController: UIViewController {
-    var selectedImageHandler: ((UIImage?, UIColor?) -> Void)?
+    var selectedImageHandler: ((UIImage?, UIColor?, Int?) -> Void)?
     private let profileImagePickerView = ProfileImagePickerView()
     private let cellSize = (UIScreen.main.bounds.width - (29 * 2 + 18 * 2)) / 3
 
@@ -77,10 +77,9 @@ extension ProfileImagePickerViewController {
         guard let selectedIndex = selectedImageIndex else { return }
         let selectedImage = images[selectedIndex]
         let selectedColor = colors[selectedIndex]
-        selectedImageHandler?(selectedImage, selectedColor)
+        selectedImageHandler?(selectedImage, selectedColor, selectedIndex)
         dismiss(animated: true)
     }
-
 }
 
 // MARK: - UICollectionView DataSource & Delegate

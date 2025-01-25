@@ -217,85 +217,102 @@ extension SignUpFirstViewController {
 // MARK: - selector 함수
 extension SignUpFirstViewController {
     private func duplicateCheckButtonTapped() {
-        if let idText = signUpFirstView.idField.textFieldReference.text, !idText.isEmpty {
-            if !isValidId(idText) {
-                signUpFirstView.idField.labelReference.textColor = UIColor(.red)
-                signUpFirstView.idField.labelReference.text = "*6~12자의 영문과 숫자의 조합으로 입력해주세요."
-                isIdValid = false
-            } else {
-                checkIdDuplication { [weak self] isDuplicate in
-                    DispatchQueue.main.async {
-                        if isDuplicate {
-                            self?.signUpFirstView.idField.labelReference.textColor = UIColor(.red)
-                            self?.signUpFirstView.idField.labelReference.text = "*중복된 아이디입니다."
-                            self?.isIdValid = false
-                        } else {
-                            self?.signUpFirstView.idField.labelReference.textColor = UIColor(.blue)
-                            self?.signUpFirstView.idField.labelReference.text = "*사용 가능한 아이디입니다."
-                            self?.isIdValid = true
-                        }
-                    }
-                }
-            }
-        } else {
+        guard let idText = signUpFirstView.idField.textFieldReference.text, !idText.isEmpty else {
+            signUpFirstView.idField.labelReference.textColor = UIColor(.red)
+            signUpFirstView.idField.labelReference.text = "*아이디를 입력해주세요."
+            isIdValid = false
+            return
+        }
+
+        if !isValidId(idText) {
             signUpFirstView.idField.labelReference.textColor = UIColor(.red)
             signUpFirstView.idField.labelReference.text = "*6~12자의 영문과 숫자의 조합으로 입력해주세요."
             isIdValid = false
+            return
+        }
+
+        SignUpManager.shared.checkDuplicateId(username: idText) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    self?.signUpFirstView.idField.labelReference.textColor = UIColor(.blue)
+                    self?.signUpFirstView.idField.labelReference.text = "*사용 가능한 아이디입니다."
+                    self?.isIdValid = true
+                case .failure:
+                    self?.signUpFirstView.idField.labelReference.textColor = UIColor(.red)
+                    self?.signUpFirstView.idField.labelReference.text = "*중복된 아이디입니다."
+                    self?.isIdValid = false
+                }
+            }
         }
     }
 
     private func requestAuthButtonTapped() {
-        if let emailText = signUpFirstView.emailField.textFieldReference.text, !emailText.isEmpty {
-            if !isValidEmail(emailText) {
-                signUpFirstView.emailField.labelReference.textColor = UIColor(.red)
-                signUpFirstView.emailField.labelReference.text = "*이메일을 올바르게 입력해주세요."
-                isEmailValid = false
-            } else {
-                signUpFirstView.emailField.labelReference.text = ""
-                requestEmailVerification(for: emailText) { [weak self] success in
-                    DispatchQueue.main.async {
-                        if success {
-                            self?.signUpFirstView.emailField.labelReference.textColor = UIColor(.blue)
-                            self?.signUpFirstView.emailField.labelReference.text = "*인증번호가 발송되었습니다."
-                            self?.isEmailValid = true
-                        } else {
-                            self?.signUpFirstView.emailField.labelReference.textColor = UIColor(.red)
-                            self?.signUpFirstView.emailField.labelReference.text = "*인증번호 발송에 실패했습니다. 다시 시도해주세요."
-                            self?.isEmailValid = false
-                        }
-                    }
+        guard let emailText = signUpFirstView.emailField.textFieldReference.text, !emailText.isEmpty else {
+            signUpFirstView.emailField.labelReference.textColor = UIColor(.red)
+            signUpFirstView.emailField.labelReference.text = "*이메일을 올바르게 입력해주세요."
+            return
+        }
+
+        signUpFirstView.emailField.labelReference.textColor = UIColor(.blue)
+        signUpFirstView.emailField.labelReference.text = "전송 중입니다..."
+
+        SignUpManager.shared.sendVerificationCode(email: emailText) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    self?.signUpFirstView.emailField.labelReference.textColor = UIColor(.blue)
+                    self?.signUpFirstView.emailField.labelReference.text = "*인증번호가 발송되었습니다."
+                    self?.isEmailValid = true
+                case .failure:
+                    self?.signUpFirstView.emailField.labelReference.textColor = UIColor(.red)
+                    self?.signUpFirstView.emailField.labelReference.text = "*인증번호 발송 실패."
+                    self?.isEmailValid = false
                 }
             }
-        } else {
-            signUpFirstView.emailField.labelReference.textColor = UIColor(.red)
-            signUpFirstView.emailField.labelReference.text = "*이메일을 입력해주세요."
-            isEmailValid = false
         }
     }
 
     private func nextButtonTapped() {
         if isNameValid, isIdValid, isPasswordValid, isConfirmPasswordValid, isEmailValid {
-            validateAuthNumberField { [weak self] isAuthValid in
+            validateAuthNumber { [weak self] isValid in
                 DispatchQueue.main.async {
-                    if isAuthValid {
-                        self?.signUpFirstView.authNumberField.labelReference.textColor = UIColor(.blue)
-                        self?.signUpFirstView.authNumberField.labelReference.text = " "
-                        let signUpSecondViewController = SignUpSecondViewController()
-                        self?.navigationController?.pushViewController(signUpSecondViewController, animated: true)
+                    if isValid {
+                        self?.saveSignUpData()
+                        let secondVC = SignUpSecondViewController()
+                        self?.navigationController?.pushViewController(secondVC, animated: true)
                     } else {
                         self?.signUpFirstView.authNumberField.labelReference.textColor = UIColor(.red)
-                        self?.signUpFirstView.authNumberField.labelReference.text = "*인증번호를 다시 입력해주세요."
+                        self?.signUpFirstView.authNumberField.labelReference.text = "*인증번호가 올바르지 않습니다."
                     }
                 }
             }
         } else {
-            signUpFirstView.authNumberField.labelReference.textColor = UIColor(.red)
-            signUpFirstView.authNumberField.labelReference.text = "*개인정보를 먼저 입력해주세요."
+            DispatchQueue.main.async {
+                self.signUpFirstView.authNumberField.labelReference.textColor = UIColor(.red)
+                self.signUpFirstView.authNumberField.labelReference.text = "*개인정보를 먼저 입력해주세요."
+            }
+        }
+    }
+
+    private func validateAuthNumber(completion: @escaping (Bool) -> Void) {
+        guard let authNum = signUpFirstView.authNumberField.textFieldReference.text else {
+            completion(false)
+            return
+        }
+        SignUpManager.shared.verifyAuthCode(email: signUpFirstView.emailField.textFieldReference.text!,
+                                                authNum: authNum) { result in
+            switch result {
+            case .success:
+                completion(true)
+            case .failure:
+                completion(false)
+            }
         }
     }
 }
 
-// MARK: - 서브함수 - Validate
+// MARK: - Validate and Save Methods
 extension SignUpFirstViewController {
     private func validateNameField() {
         if let nameText = signUpFirstView.nameField.textFieldReference.text, !nameText.isEmpty {
@@ -355,34 +372,45 @@ extension SignUpFirstViewController {
         }
     }
 
-    private func validateAuthNumberField(completion: @escaping (Bool) -> Void) {
-        guard let authNumberText = signUpFirstView.authNumberField.textFieldReference.text,
-              !authNumberText.isEmpty else {
-            completion(false)
-            return
+    private func saveSignUpData() {
+        guard let name = signUpFirstView.nameField.textFieldReference.text,
+              let id = signUpFirstView.idField.textFieldReference.text,
+              let password = signUpFirstView.passwordField.textFieldReference.text,
+              let email = signUpFirstView.emailField.textFieldReference.text else { return }
+
+        let data = SignUpData(
+            firstSignupDto: FirstSignupDto(name: name, username: id, password: password, email: email),
+            secondSignupDto: nil
+        )
+
+        do {
+            let jsonData = try JSONEncoder().encode(data)
+            let query: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword,
+                kSecAttrAccount as String: "signupData"
+            ]
+            let attributes: [String: Any] = [
+                kSecValueData as String: jsonData
+            ]
+
+            let keychainManager = KeychainManager()
+            let status = keychainManager.updateItem(with: query, as: attributes)
+            if status == errSecItemNotFound {
+                let addQuery = query.merging(attributes) { _, new in new }
+                let addStatus = keychainManager.addItem(with: addQuery)
+                if addStatus == errSecSuccess {
+                    print("Keychain에 데이터 추가 성공")
+                } else {
+                    print("Keychain에 데이터 추가 실패, 상태 코드: \(addStatus)")
+                }
+            } else if status != errSecSuccess {
+                print("Keychain 업데이트 실패, 상태 코드: \(status)")
+            } else {
+                print("Keychain에 데이터 업데이트 성공")
+            }
+        } catch {
+            print("데이터 인코딩 실패: \(error)")
         }
-
-        verifyAuthNumber(authCode: authNumberText) { isValid in
-            completion(isValid)
-        }
-    }
-}
-
-// MARK: - 서버와 통신: 중복확인버튼, 이메일-인증번호요청버튼, 인증번호확인-다음버튼
-extension SignUpFirstViewController {
-    private func checkIdDuplication(completion: @escaping (Bool) -> Void) {
-        // TODO: 서버와 통신: 아이디 중복 여부를 확인하는 로직, 중복이 true
-        completion(false)
-    }
-
-    private func requestEmailVerification(for email: String, completion: @escaping (Bool) -> Void) {
-        // TODO: 서버와 통신: email 변수를 서버에 전달, 성공/실패 결과를 completion으로 반환
-        completion(true)
-    }
-
-    private func verifyAuthNumber(authCode: String, completion: @escaping (Bool) -> Void) {
-        // TODO: 서버와 통신하여 인증번호 확인
-        completion(true)
     }
 }
 
