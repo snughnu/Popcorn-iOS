@@ -174,7 +174,7 @@ extension SignUpSecondViewController {
                 return
             }
 
-            signUpData.secondSignupDto = SignUpData.SecondSignupDto(
+            signUpData.secondSignupDto = SecondSignupDto(
                 nickname: nickname,
                 profileId: selectedProfileId,
                 interests: signUpSecondView.selectedInterests.map(convertInterestToEnglish)
