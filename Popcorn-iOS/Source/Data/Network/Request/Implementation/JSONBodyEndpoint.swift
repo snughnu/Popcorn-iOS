@@ -14,7 +14,7 @@ struct JSONBodyEndpoint<R: Decodable>: Requestable {
     var httpMethod: HttpMethod
     var path: String
     var queryItems: [URLQueryItem]
-    var headers: [String : String]
+    var headers: [String: String]
     var body: Encodable
 
     init(
@@ -22,7 +22,7 @@ struct JSONBodyEndpoint<R: Decodable>: Requestable {
         httpMethod: HttpMethod,
         path: String,
         queryItems: [URLQueryItem] = [],
-        headers: [String : String] = [:],
+        headers: [String: String] = [:],
         body: Encodable
     ) {
         self.baseURL = baseURL
@@ -48,6 +48,4 @@ struct JSONBodyEndpoint<R: Decodable>: Requestable {
 
         return urlRequest
     }
-    
-    
 }

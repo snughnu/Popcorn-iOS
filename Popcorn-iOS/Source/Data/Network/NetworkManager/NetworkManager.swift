@@ -18,6 +18,7 @@ protocol NetworkManagerProtocol {
 final class NetworkManager: NetworkManagerProtocol {
     private let session: URLSession
     private let decoder: JSONDecoder
+
     init(session: URLSession = URLSession.shared, decoder: JSONDecoder = JSONDecoder()) {
         self.session = session
         self.decoder = decoder
@@ -57,7 +58,7 @@ final class NetworkManager: NetworkManagerProtocol {
                 completion(.failure(NetworkError.emptyData))
                 return
             }
-            
+
             do {
                 let decodedData: Request.Response = try JSONDecoder().decode(Request.Response.self, from: data)
                 completion(.success(decodedData))
