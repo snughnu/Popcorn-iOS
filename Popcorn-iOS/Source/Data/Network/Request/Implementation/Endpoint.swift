@@ -7,36 +7,35 @@
 
 import Foundation
 
-final class Request: Requestable {
-    var baseURL: String
-    var httpMethod: HttpMethod
-    var path: String
-    var queryItems: [URLQueryItem]
-    var headers: [String: String]
-    var bodyParameters: Encodable
+final class Endpoint<R: Decodable>: Requestable {
+    typealias Response = R
+
+    let baseURL: String
+    let httpMethod: HttpMethod
+    let path: String
+    let queryItems: [URLQueryItem]
+    let headers: [String: String]
 
     init(
-        baseURL: String = "",
+        baseURL: String = APIConstant.baseURL,
         httpMethod: HttpMethod,
         path: String,
         queryItems: [URLQueryItem] = [],
-        headers: [String: String] = [:],
-        bodyParameters: Encodable
+        headers: [String: String] = [:]
     ) {
         self.baseURL = baseURL
         self.httpMethod = httpMethod
         self.path = path
         self.queryItems = queryItems
         self.headers = headers
-        self.bodyParameters = bodyParameters
     }
 
     func makeURLRequest() -> URLRequest? {
         guard let url = makeURL() else { return nil }
 
         var urlRequest = URLRequest(url: url)
-        urlRequest.allHTTPHeaderFields = headers
         urlRequest.httpMethod = httpMethod.rawValue
+        urlRequest.allHTTPHeaderFields = headers
 
         return urlRequest
     }
