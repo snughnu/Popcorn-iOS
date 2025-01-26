@@ -80,6 +80,7 @@
 		BC90A0B82CF4CC9A003488F0 /* SignUpInterestButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC90A0B72CF4CC9A003488F0 /* SignUpInterestButton.swift */; };
 		BC90A0BC2CF4CF53003488F0 /* SignUpSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC90A0BB2CF4CF53003488F0 /* SignUpSecondViewController.swift */; };
 		BC9BF2012CECC52000AEE534 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9BF2002CECC52000AEE534 /* LoginViewController.swift */; };
+		BCB86A502D46368800F00F1F /* LoginRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB86A4F2D46368800F00F1F /* LoginRequestDTO.swift */; };
 		BCC45D1A2CEB9A980045DC57 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC45D192CEB9A980045DC57 /* LoginTextField.swift */; };
 		BCD2DFFB2D298A5C000ED875 /* CompleteResetPwView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD2DFFA2D298A5C000ED875 /* CompleteResetPwView.swift */; };
 		BCD2DFFD2D298D10000ED875 /* CompleteResetPwViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD2DFFC2D298D10000ED875 /* CompleteResetPwViewController.swift */; };
@@ -188,6 +189,7 @@
 		BC90A0B72CF4CC9A003488F0 /* SignUpInterestButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInterestButton.swift; sourceTree = "<group>"; };
 		BC90A0BB2CF4CF53003488F0 /* SignUpSecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecondViewController.swift; sourceTree = "<group>"; };
 		BC9BF2002CECC52000AEE534 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		BCB86A4F2D46368800F00F1F /* LoginRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestDTO.swift; sourceTree = "<group>"; };
 		BCC45D192CEB9A980045DC57 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		BCD2DFFA2D298A5C000ED875 /* CompleteResetPwView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteResetPwView.swift; sourceTree = "<group>"; };
 		BCD2DFFC2D298D10000ED875 /* CompleteResetPwViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteResetPwViewController.swift; sourceTree = "<group>"; };
@@ -725,6 +727,7 @@
 			children = (
 				BCF6ED332D33D5420038CCAE /* LoginManager.swift */,
 				BCF6ED382D33DF530038CCAE /* LoginResponse.swift */,
+				BCB86A4F2D46368800F00F1F /* LoginRequestDTO.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -908,6 +911,7 @@
 				56A0C8532D2AB2F2005E6C51 /* PopupDetailViewModel.swift in Sources */,
 				BC9BF2012CECC52000AEE534 /* LoginViewController.swift in Sources */,
 				BCE8FA2D2D2271F900A7B8E2 /* FindIdPwTextField.swift in Sources */,
+				BCB86A502D46368800F00F1F /* LoginRequestDTO.swift in Sources */,
 				BCD2DFFD2D298D10000ED875 /* CompleteResetPwViewController.swift in Sources */,
 				BCE6E6002CF321AE0036BAF6 /* SignUpFirstView.swift in Sources */,
 				BCF6ED502D37CBEB0038CCAE /* KeychainManager.swift in Sources */,
