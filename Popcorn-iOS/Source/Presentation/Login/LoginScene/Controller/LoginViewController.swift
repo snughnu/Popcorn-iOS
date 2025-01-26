@@ -10,6 +10,7 @@ import UIKit
 
 class LoginViewController: UIViewController {
     private let loginView = LoginView()
+    private let loginManager = LoginManager(networkManager: NetworkManager(), tokenRepository: TokenRepository())
 
     override func loadView() {
         view = loginView
@@ -42,11 +43,11 @@ class LoginViewController: UIViewController {
             return
         }
 
-        LoginManager.shared.login(username: username, password: password) { [weak self] result in
+        loginManager.login(username: username, password: password) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let token):
-                    self?.handleLoginSuccess(token)
+                case .success:
+                    self?.handleLoginSuccess()
                 case .failure:
                     self?.updateErrorLabel(message: "아이디 또는 비밀번호를 확인해주세요.")
                 }
@@ -59,10 +60,7 @@ class LoginViewController: UIViewController {
         loginView.checkIdPwLabel.text = message
     }
 
-    private func handleLoginSuccess(_ token: Token) {
-        let tokenRepository = TokenRepository()
-        tokenRepository.saveToken(with: token)
-
+    private func handleLoginSuccess() {
         let mainSceneViewController = MainSceneViewController()
         navigationController?.setViewControllers([mainSceneViewController], animated: true)
     }
