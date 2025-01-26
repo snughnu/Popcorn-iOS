@@ -8,58 +8,36 @@
 import Foundation
 
 final class LoginManager {
-    static let shared = LoginManager()
-    private init() {}
+    private let networkManager: NetworkManager
+    private let tokenRepository: TokenRepository
 
+    init(
+        networkManager: NetworkManager,
+        tokenRepository: TokenRepository
+    ) {
+        self.networkManager = networkManager
+        self.tokenRepository = tokenRepository
+    }
+}
+
+// MARK: - Public Interface
+extension LoginManager {
     func login(username: String, password: String, completion: @escaping (Result<Token, Error>) -> Void) {
-        let url = URL(string: "https://popcorm.store/login")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let endPoint = JSONBodyEndpoint<LoginResponse>(
+            httpMethod: .post,
+            path: APIConstant.loginPath,
+            body: LoginRequestDTO(username: username, password: password)
+        )
 
-        let requestBody: [String: String] = [
-            "username": username,
-            "password": password
-        ]
-
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: requestBody, options: [])
-        } catch {
-            completion(.failure(error))
-            return
-        }
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("로그인 요청 실패: \(error.localizedDescription)")
-                completion(.failure(error))
-                return
-            }
-
-            guard let httpResponse = response as? HTTPURLResponse, let data = data else {
-                print("로그인 응답 없음 또는 잘못된 응답")
-                completion(.failure(NSError(domain: "InvalidResponse", code: -1, userInfo: nil)))
-                return
-            }
-
-            do {
-                let decoder = JSONDecoder()
-                let loginResponse = try decoder.decode(LoginResponse.self, from: data)
-
-                if (200...299).contains(httpResponse.statusCode) {
-                    completion(.success(loginResponse.data))
-                } else {
-                    let errorMessage = "로그인 실패. 상태 코드: \(httpResponse.statusCode)"
-                    print(errorMessage)
-                    completion(.failure(NSError(domain: "LoginFailed",
-                                                code: httpResponse.statusCode,
-                                                userInfo: [NSLocalizedDescriptionKey: errorMessage])))
-                }
-            } catch {
-                print("로그인 데이터 처리 실패: \(error.localizedDescription)")
+        networkManager.request(endpoint: endPoint) { result in
+            switch result {
+            case .success(let loginResponse):
+                let token = loginResponse.data
+                self.tokenRepository.saveToken(with: token)
+                completion(.success(token))
+            case .failure(let error):
                 completion(.failure(error))
             }
         }
-        task.resume()
     }
 }

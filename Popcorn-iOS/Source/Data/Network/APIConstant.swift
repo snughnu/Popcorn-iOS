@@ -9,4 +9,5 @@ struct APIConstant {
     static let baseURL = "https://popcorm.store"
     static let authPath = "/auth"
     static let popupPath = "/popups"
+    static let loginPath = "/login"
 }
