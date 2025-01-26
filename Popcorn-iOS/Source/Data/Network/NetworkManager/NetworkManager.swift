@@ -46,8 +46,8 @@ final class NetworkManager: NetworkManagerProtocol {
             }
 
             guard (200..<400) ~= httpResponse.statusCode else {
-                if let severError = ServerError(rawValue: httpResponse.statusCode) {
-                    completion(.failure(NetworkError.serverError(severError)))
+                if let serverError = ServerError(rawValue: httpResponse.statusCode) {
+                    completion(.failure(NetworkError.serverError(serverError)))
                 } else {
                     completion(.failure(NetworkError.unknown))
                 }
