@@ -8,9 +8,20 @@
 import KakaoSDKUser
 import UIKit
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
+    // MARK: - Properties
     private let loginView = LoginView()
-    private let loginManager = LoginManager(networkManager: NetworkManager(), tokenRepository: TokenRepository())
+    private let loginViewModel: LoginViewModel
+
+    // MARK: - Initializer
+    init(viewModel: LoginViewModel = LoginViewModel()) {
+        self.loginViewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func loadView() {
         view = loginView
@@ -18,10 +29,39 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        bind(to: loginViewModel)
         setupAddTarget()
         setupTextField()
     }
+}
 
+// MARK: - Bind func
+extension LoginViewController {
+    private func bind(to loginViewModel: LoginViewModel) {
+        loginViewModel.isLoginButtonEnabled = { [weak self] isEnabled in
+            guard let self = self else { return }
+            self.loginView.loginButton.backgroundColor = isEnabled
+            ? UIColor(resource: .popcornOrange)
+            : UIColor(resource: .popcornGray2)
+            self.loginView.loginButton.isEnabled = isEnabled
+        }
+
+        loginViewModel.loginSuccess = { [weak self] in
+            guard let self = self else { return }
+            let mainSceneViewController = MainSceneViewController()
+            self.navigationController?.setViewControllers([mainSceneViewController], animated: true)
+        }
+
+        loginViewModel.errorMessage = { [weak self] message in
+            guard let self = self else { return }
+            self.loginView.checkIdPwLabel.textColor = .red
+            self.loginView.checkIdPwLabel.text = message
+        }
+    }
+}
+
+// MARK: - Configure AddTarger
+extension LoginViewController {
     private func setupAddTarget() {
         loginView.pwEyeButton.addTarget(self, action: #selector(passwordEyeButtonTapped), for: .touchUpInside)
         loginView.loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
@@ -37,32 +77,7 @@ class LoginViewController: UIViewController {
     }
 
     @objc private func loginButtonTapped() {
-        guard let username = loginView.idTextField.text, !username.isEmpty,
-              let password = loginView.pwTextField.text, !password.isEmpty else {
-            updateErrorLabel(message: "아이디 또는 비밀번호를 입력해주세요.")
-            return
-        }
-
-        loginManager.login(username: username, password: password) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success:
-                    self?.handleLoginSuccess()
-                case .failure:
-                    self?.updateErrorLabel(message: "아이디 또는 비밀번호를 확인해주세요.")
-                }
-            }
-        }
-    }
-
-    private func updateErrorLabel(message: String) {
-        loginView.checkIdPwLabel.textColor = .red
-        loginView.checkIdPwLabel.text = message
-    }
-
-    private func handleLoginSuccess() {
-        let mainSceneViewController = MainSceneViewController()
-        navigationController?.setViewControllers([mainSceneViewController], animated: true)
+        loginViewModel.login()
     }
 
     @objc private func findButtonTapped() {
@@ -152,11 +167,21 @@ extension LoginViewController {
     }
 }
 
-// MARK: - TextField Delegate Protocol
+// MARK: - Configure TextField
 extension LoginViewController: UITextFieldDelegate {
     private func setupTextField() {
         loginView.idTextField.delegate = self
         loginView.pwTextField.delegate = self
+        loginView.idTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
+        loginView.pwTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
+    }
+
+    @objc func textFieldEditingChanged(_ textField: UITextField) {
+        if textField == loginView.idTextField {
+            loginViewModel.username = textField.text ?? ""
+        } else if textField == loginView.pwTextField {
+            loginViewModel.password = textField.text ?? ""
+        }
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -191,5 +216,9 @@ extension LoginViewController: UITextFieldDelegate {
             return true
         }
        return false
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        loginView.endEditing(true)
     }
 }
