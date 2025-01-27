@@ -78,7 +78,7 @@ extension LoginViewController {
     }
 }
 
-// MARK: - Configure AddTarger
+// MARK: - Configure AddTarget
 extension LoginViewController {
     private func setupAddTarget() {
         loginView.pwEyeButton.addTarget(self, action: #selector(passwordEyeButtonTapped), for: .touchUpInside)
