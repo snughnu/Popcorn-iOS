@@ -250,7 +250,6 @@ final class LoginView: UIView {
         configureInitialSetting()
         configureSubviews()
         configureLayout()
-        configureTextFields()
     }
 
     required init?(coder: NSCoder) {
@@ -262,18 +261,6 @@ final class LoginView: UIView {
 extension LoginView {
     func configureInitialSetting() {
         backgroundColor = .white
-    }
-}
-
-// MARK: - Configure TextFields
-extension LoginView {
-    func configureTextFields() {
-        idTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
-        pwTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
-    }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.endEditing(true)
     }
 }
 
@@ -350,26 +337,5 @@ extension LoginView {
                 constant: 26
             )
         ])
-    }
-}
-
-// MARK: - LoginButton Active
-extension LoginView {
-    @objc func textFieldEditingChanged(_ textField: UITextField) {
-        if textField.text?.count == 1 {
-            if textField.text?.first == " " {
-                textField.text = " "
-                return
-            }
-        }
-        guard
-            let id = idTextField.text, !id.isEmpty,
-            let password = pwTextField.text, !password.isEmpty else {
-            loginButton.backgroundColor = UIColor(resource: .popcornGray2)
-            loginButton.isEnabled = false
-            return
-        }
-        loginButton.backgroundColor = UIColor(resource: .popcornOrange)
-        loginButton.isEnabled = true
     }
 }
