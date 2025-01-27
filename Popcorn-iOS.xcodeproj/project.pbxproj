@@ -82,6 +82,7 @@
 		BC9BF2012CECC52000AEE534 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9BF2002CECC52000AEE534 /* LoginViewController.swift */; };
 		BCB86A502D46368800F00F1F /* LoginRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB86A4F2D46368800F00F1F /* LoginRequestDTO.swift */; };
 		BCB86A532D467E7700F00F1F /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB86A522D467E7700F00F1F /* LoginViewModel.swift */; };
+		BCB86A552D475B9700F00F1F /* SocialLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB86A542D475B9700F00F1F /* SocialLoginViewModel.swift */; };
 		BCC45D1A2CEB9A980045DC57 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC45D192CEB9A980045DC57 /* LoginTextField.swift */; };
 		BCD2DFFB2D298A5C000ED875 /* CompleteResetPwView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD2DFFA2D298A5C000ED875 /* CompleteResetPwView.swift */; };
 		BCD2DFFD2D298D10000ED875 /* CompleteResetPwViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD2DFFC2D298D10000ED875 /* CompleteResetPwViewController.swift */; };
@@ -192,6 +193,7 @@
 		BC9BF2002CECC52000AEE534 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BCB86A4F2D46368800F00F1F /* LoginRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestDTO.swift; sourceTree = "<group>"; };
 		BCB86A522D467E7700F00F1F /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		BCB86A542D475B9700F00F1F /* SocialLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginViewModel.swift; sourceTree = "<group>"; };
 		BCC45D192CEB9A980045DC57 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		BCD2DFFA2D298A5C000ED875 /* CompleteResetPwView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteResetPwView.swift; sourceTree = "<group>"; };
 		BCD2DFFC2D298D10000ED875 /* CompleteResetPwViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteResetPwViewController.swift; sourceTree = "<group>"; };
@@ -533,19 +535,19 @@
 			isa = PBXGroup;
 			children = (
 				BCF6ED322D33D5230038CCAE /* Models */,
-				BC2D115F2CEC5DDA0030F4E0 /* View */,
-				BCB86A512D467E3300F00F1F /* ViewModel */,
+				BC2D115F2CEC5DDA0030F4E0 /* Views */,
+				BCB86A512D467E3300F00F1F /* ViewModels */,
 			);
 			path = LoginScene;
 			sourceTree = "<group>";
 		};
-		BC2D115F2CEC5DDA0030F4E0 /* View */ = {
+		BC2D115F2CEC5DDA0030F4E0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				BC2D11612CEC5DF60030F4E0 /* LoginView.swift */,
 				BC9BF2002CECC52000AEE534 /* LoginViewController.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		BC3201AC2D2D66B000B73A14 /* Models */ = {
@@ -576,12 +578,13 @@
 			path = Request;
 			sourceTree = "<group>";
 		};
-		BCB86A512D467E3300F00F1F /* ViewModel */ = {
+		BCB86A512D467E3300F00F1F /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				BCB86A522D467E7700F00F1F /* LoginViewModel.swift */,
+				BCB86A542D475B9700F00F1F /* SocialLoginViewModel.swift */,
 			);
-			path = ViewModel;
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		BCC45D162CEB9A790045DC57 /* Login */ = {
@@ -940,6 +943,7 @@
 				563483002D2248DB001646B5 /* PopupInfoReviewSegmentHeaderView.swift in Sources */,
 				BC8113722CF5ECC800F82331 /* SignUpSecondView.swift in Sources */,
 				56C5DDD52CE9C1E40090D3A2 /* PopupPreview.swift in Sources */,
+				BCB86A552D475B9700F00F1F /* SocialLoginViewModel.swift in Sources */,
 				56018CA22CECB1C400AC8ED5 /* MainSceneViewController.swift in Sources */,
 				BCE8FA342D2272F600A7B8E2 /* FindIdPwViewController.swift in Sources */,
 				BCE6E5F82CF31F1A0036BAF6 /* SignUpTextField.swift in Sources */,
