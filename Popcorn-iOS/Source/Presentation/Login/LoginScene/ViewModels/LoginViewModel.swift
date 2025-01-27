@@ -35,7 +35,10 @@ final class LoginViewModel {
         let isValid = !username.isEmpty && !password.isEmpty
         isLoginButtonEnabled?(isValid)
     }
+}
 
+// MARK: - Public method
+extension LoginViewModel {
     func login() {
         guard !username.isEmpty, !password.isEmpty else {
             errorMessage?("아이디 또는 비밀번호를 입력해주세요.")

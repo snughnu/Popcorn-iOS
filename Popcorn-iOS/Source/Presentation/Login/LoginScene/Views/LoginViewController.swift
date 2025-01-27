@@ -12,10 +12,14 @@ final class LoginViewController: UIViewController {
     // MARK: - Properties
     private let loginView = LoginView()
     private let loginViewModel: LoginViewModel
+    private let socialLoginViewModel: SocialLoginViewModel
 
     // MARK: - Initializer
-    init(viewModel: LoginViewModel = LoginViewModel()) {
-        self.loginViewModel = viewModel
+    init(loginViewModel: LoginViewModel = LoginViewModel(),
+         socialLoginViewModel: SocialLoginViewModel = SocialLoginViewModel()
+    ) {
+        self.loginViewModel = loginViewModel
+        self.socialLoginViewModel = socialLoginViewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -30,6 +34,7 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bind(to: loginViewModel)
+        bind(to: socialLoginViewModel)
         setupAddTarget()
         setupTextField()
     }
@@ -56,6 +61,19 @@ extension LoginViewController {
             guard let self = self else { return }
             self.loginView.checkIdPwLabel.textColor = .red
             self.loginView.checkIdPwLabel.text = message
+        }
+    }
+
+    private func bind(to socialLoginViewModel: SocialLoginViewModel) {
+        socialLoginViewModel.loginSuccess = { [weak self] nickname in
+            guard let self = self else { return }
+            let signUpSecondViewController = SignUpSecondViewController()
+            signUpSecondViewController.signUpSecondView.nickNameTextField.text = nickname
+            self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
+        }
+
+        socialLoginViewModel.loginFailure = { error in
+            print("소셜 로그인 실패: \(error.localizedDescription)")
         }
     }
 }
@@ -92,9 +110,9 @@ extension LoginViewController {
 
     @objc private func kakaoButtonTapped() {
         if UserApi.isKakaoTalkLoginAvailable() {
-            loginWithApp()
+            socialLoginViewModel.loginWithKaKaoTalk()
         } else {
-            loginWithWeb()
+            socialLoginViewModel.loginWithKakaoWeb()
         }
     }
 
@@ -103,66 +121,6 @@ extension LoginViewController {
     }
 
     @objc private func appleButtonTapped() {
-
-    }
-}
-
-// MARK: - Kakao Social Login SubFunction
-extension LoginViewController {
-    func loginWithApp() {
-        UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
-            if let error = error {
-                print(error)
-            } else if let token = oauthToken {
-                let newToken = Token(
-                    accessToken: token.accessToken,
-                    refreshToken: token.refreshToken,
-                    accessExpiredAt: ISO8601DateFormatter().string(from: token.expiredAt),
-                    refreshExpiredAt: ISO8601DateFormatter().string(from: token.refreshTokenExpiredAt)
-                )
-                TokenRepository().saveToken(with: newToken, loginType: "kakao")
-                self.fetchUserInfo()
-                self.sendTokenToServer()
-            }
-        }
-    }
-
-    func loginWithWeb() {
-        UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
-            if let error = error {
-                print("카카오 계정 로그인 실패: \(error.localizedDescription)")
-            } else if let token = oauthToken {
-                let newToken = Token(
-                    accessToken: token.accessToken,
-                    refreshToken: token.refreshToken,
-                    accessExpiredAt: ISO8601DateFormatter().string(from: token.expiredAt),
-                    refreshExpiredAt: ISO8601DateFormatter().string(from: token.refreshTokenExpiredAt)
-                )
-                TokenRepository().saveToken(with: newToken, loginType: "kakao")
-                self.fetchUserInfo()
-                self.sendTokenToServer()
-            }
-        }
-    }
-
-    private func fetchUserInfo() {
-        UserApi.shared.me { [weak self] (user, error) in
-            if let error = error {
-                print(error)
-            } else {
-                guard let nickname = user?.kakaoAccount?.profile?.nickname else { return }
-                self?.presentToSignUpSecondViewController(with: nickname)
-            }
-        }
-    }
-
-    func presentToSignUpSecondViewController(with nickname: String) {
-        let signUpSecondViewController = SignUpSecondViewController()
-        signUpSecondViewController.signUpSecondView.nickNameTextField.text = nickname
-        self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
-    }
-
-    private func sendTokenToServer() {
 
     }
 }
