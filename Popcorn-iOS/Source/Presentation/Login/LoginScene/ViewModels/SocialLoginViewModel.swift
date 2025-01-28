@@ -5,76 +5,59 @@
 //  Created by 김성훈 on 1/27/25.
 //
 
-import KakaoSDKUser
 import Foundation
+import KakaoSDKUser
 
 final class SocialLoginViewModel {
     // MARK: - Properties
-    private let tokenRepository: TokenRepository
+    private let socialLoginUseCase: SocialLogionUseCaseProtocol
 
     // MARK: - Output
-    var loginSuccess: ((String) -> Void)?
-    var loginFailure: ((Error) -> Void)?
+    var loginSuccessHandler: ((String) -> Void)?
+    var loginFailHandler: ((Error) -> Void)?
 
     // MARK: - Initializer
-    init(tokenRepository: TokenRepository = TokenRepository()) {
-        self.tokenRepository = tokenRepository
+    init(socialLoginUseCase: SocialLogionUseCaseProtocol) {
+        self.socialLoginUseCase = socialLoginUseCase
     }
 }
 
 // MARK: - Public methods
 extension SocialLoginViewModel {
+    func loginWithKakao() {
+        if UserApi.isKakaoTalkLoginAvailable() {
+            loginWithKaKaoTalk()
+        } else {
+            loginWithKakaoWeb()
+        }
+    }
+}
+
+// MARK: - Private methods
+extension SocialLoginViewModel {
     func loginWithKaKaoTalk() {
-        UserApi.shared.loginWithKakaoTalk { [weak self] (oauthToken, error) in
-            if let error = error {
-                self?.loginFailure?(error)
-                return
+        socialLoginUseCase.loginWithKakaoTalk { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let nickname):
+                    self?.loginSuccessHandler?(nickname)
+                case .failure(let error):
+                    self?.loginFailHandler?(error)
+                }
             }
-            guard let token = oauthToken else { return }
-            let newToken = Token(
-                accessToken: token.accessToken,
-                refreshToken: token.refreshToken,
-                accessExpiredAt: ISO8601DateFormatter().string(from: token.expiredAt),
-                refreshExpiredAt: ISO8601DateFormatter().string(from: token.refreshTokenExpiredAt)
-            )
-            self?.tokenRepository.saveToken(with: newToken, loginType: "kakao")
-            self?.fetchUserInfo()
-            self?.sendTokenToServer()
         }
     }
 
     func loginWithKakaoWeb() {
-        UserApi.shared.loginWithKakaoAccount { [weak self] (oauthToken, error) in
-            if let error = error {
-                self?.loginFailure?(error)
-                return
+        socialLoginUseCase.loginWithKakaoWeb { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let nickname):
+                    self?.loginSuccessHandler?(nickname)
+                case .failure(let error):
+                    self?.loginFailHandler?(error)
+                }
             }
-
-            guard let token = oauthToken else { return }
-            let newToken = Token(
-                accessToken: token.accessToken,
-                refreshToken: token.refreshToken,
-                accessExpiredAt: ISO8601DateFormatter().string(from: token.expiredAt),
-                refreshExpiredAt: ISO8601DateFormatter().string(from: token.refreshTokenExpiredAt)
-            )
-            self?.tokenRepository.saveToken(with: newToken, loginType: "kakao")
-            self?.fetchUserInfo()
-            self?.sendTokenToServer()
         }
-    }
-
-    private func fetchUserInfo() {
-        UserApi.shared.me { [weak self] (user, error) in
-            if let error = error {
-                self?.loginFailure?(error)
-                return
-            }
-            guard let nickname = user?.kakaoAccount?.profile?.nickname else { return }
-            self?.loginSuccess?(nickname)
-        }
-    }
-
-    private func sendTokenToServer() {
-        // TODO: 서버로 토큰 보내기
     }
 }
