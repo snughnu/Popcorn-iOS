@@ -9,7 +9,7 @@ import Foundation
 
 final class LoginViewModel {
     // MARK: - Properties
-    private let loginManager: LoginManager
+    private let loginUseCase: LoginUseCaseProtocol
 
     private var username: String = "" {
         didSet { updateLoginButtonEnabled() }
@@ -29,11 +29,10 @@ final class LoginViewModel {
     var loginFailHandler: ((String) -> Void)?
 
     // MARK: - Initializer
-    init (loginManager: LoginManager = LoginManager(
-        networkManager: NetworkManager(),
-        tokenRepository: TokenRepository()
-    )) {
-        self.loginManager = loginManager
+    init (
+        loginUseCase: LoginUseCaseProtocol
+    ) {
+        self.loginUseCase = loginUseCase
     }
 
     private func updateLoginButtonEnabled() {
@@ -60,7 +59,7 @@ extension LoginViewModel {
             return
         }
 
-        loginManager.login(username: username, password: password) { [weak self] result in
+        loginUseCase.login(username: username, password: password) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success:

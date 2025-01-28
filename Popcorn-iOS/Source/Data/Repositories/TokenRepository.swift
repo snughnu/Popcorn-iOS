@@ -7,7 +7,17 @@
 
 import Foundation
 
-final class TokenRepository {
+protocol TokenRepositoryProtocol {
+    func saveToken(with token: Token, loginType: String?)
+    func updateToken(with token: Token)
+    func fetchAccessToken() -> String?
+    func fetchRefreshToken() -> String?
+    func fetchLoginType() -> String?
+    func deleteTokens()
+    func reissueAccessToken(refreshToken: String, completion: @escaping (Result<Token, Error>) -> Void)
+}
+
+final class TokenRepository: TokenRepositoryProtocol {
     private let keychainManager = KeychainManager()
     private let accessTokenAttributes: [String: Any] = [
         kSecClass as String: kSecClassGenericPassword,
@@ -138,7 +148,7 @@ extension TokenRepository {
 
             do {
                 let decoder = JSONDecoder()
-                let reissueResponse = try decoder.decode(ReissueResponse<NewToken>.self, from: data)
+                let reissueResponse = try decoder.decode(ReissueResponseDTO<NewToken>.self, from: data)
 
                 if httpResponse.statusCode == 200 {
                     let newToken = reissueResponse.data

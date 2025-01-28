@@ -15,11 +15,14 @@ final class LoginViewController: UIViewController {
     private let socialLoginViewModel: SocialLoginViewModel
 
     // MARK: - Initializer
-    init(loginViewModel: LoginViewModel = LoginViewModel(),
-         socialLoginViewModel: SocialLoginViewModel = SocialLoginViewModel()
-    ) {
-        self.loginViewModel = loginViewModel
-        self.socialLoginViewModel = socialLoginViewModel
+    init() {
+        let networkManager = NetworkManager()
+        let tokenRepository = TokenRepository()
+        let loginRepository = LoginRepository(networkManager: networkManager, tokenRepository: tokenRepository)
+        let loginUseCase = LoginUseCase(repository: loginRepository)
+
+        self.loginViewModel = LoginViewModel(loginUseCase: loginUseCase)
+        self.socialLoginViewModel = SocialLoginViewModel()
         super.init(nibName: nil, bundle: nil)
     }
 
