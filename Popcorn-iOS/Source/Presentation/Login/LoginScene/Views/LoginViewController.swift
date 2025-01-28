@@ -18,11 +18,13 @@ final class LoginViewController: UIViewController {
     init() {
         let networkManager = NetworkManager()
         let tokenRepository = TokenRepository()
-        let loginRepository = LoginRepository(networkManager: networkManager, tokenRepository: tokenRepository)
-        let loginUseCase = LoginUseCase(repository: loginRepository)
+        let loginRepository = LoginRepository(networkManager: networkManager)
+        let loginUseCase = LoginUseCase(loginRepository: loginRepository, tokenRepository: tokenRepository)
+        let socialLoginRepository = SocialLoginRepository()
+        let socialLoginUseCase = SocialLoginUseCase(socialLoginRepository: socialLoginRepository, tokenRepository: tokenRepository)
 
         self.loginViewModel = LoginViewModel(loginUseCase: loginUseCase)
-        self.socialLoginViewModel = SocialLoginViewModel()
+        self.socialLoginViewModel = SocialLoginViewModel(socialLoginUseCase: socialLoginUseCase)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -68,14 +70,14 @@ extension LoginViewController {
     }
 
     private func bind(to socialLoginViewModel: SocialLoginViewModel) {
-        socialLoginViewModel.loginSuccess = { [weak self] nickname in
+        socialLoginViewModel.loginSuccessHandler = { [weak self] nickname in
             guard let self = self else { return }
             let signUpSecondViewController = SignUpSecondViewController()
             signUpSecondViewController.signUpSecondView.nickNameTextField.text = nickname
             self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
         }
 
-        socialLoginViewModel.loginFailure = { error in
+        socialLoginViewModel.loginFailHandler = { error in
             print("소셜 로그인 실패: \(error.localizedDescription)")
         }
     }
@@ -112,11 +114,7 @@ extension LoginViewController {
     }
 
     @objc private func kakaoButtonTapped() {
-        if UserApi.isKakaoTalkLoginAvailable() {
-            socialLoginViewModel.loginWithKaKaoTalk()
-        } else {
-            socialLoginViewModel.loginWithKakaoWeb()
-        }
+        socialLoginViewModel.loginWithKakao()
     }
 
     @objc private func googleButtonTapped() {
