@@ -43,7 +43,7 @@ final class LoginViewController: UIViewController {
 // MARK: - Bind func
 extension LoginViewController {
     private func bind(to loginViewModel: LoginViewModel) {
-        loginViewModel.isLoginButtonEnabled = { [weak self] isEnabled in
+        loginViewModel.loginButtonEnabledHandler = { [weak self] isEnabled in
             guard let self = self else { return }
             self.loginView.loginButton.backgroundColor = isEnabled
             ? UIColor(resource: .popcornOrange)
@@ -51,13 +51,13 @@ extension LoginViewController {
             self.loginView.loginButton.isEnabled = isEnabled
         }
 
-        loginViewModel.loginSuccess = { [weak self] in
+        loginViewModel.loginSuccessHandler = { [weak self] in
             guard let self = self else { return }
             let mainSceneViewController = MainSceneViewController()
             self.navigationController?.setViewControllers([mainSceneViewController], animated: true)
         }
 
-        loginViewModel.errorMessage = { [weak self] message in
+        loginViewModel.loginFailHandler = { [weak self] message in
             guard let self = self else { return }
             self.loginView.checkIdPwLabel.textColor = .red
             self.loginView.checkIdPwLabel.text = message
@@ -136,9 +136,9 @@ extension LoginViewController: UITextFieldDelegate {
 
     @objc func textFieldEditingChanged(_ textField: UITextField) {
         if textField == loginView.idTextField {
-            loginViewModel.username = textField.text ?? ""
+            loginViewModel.updateUsername(textField.text ?? "")
         } else if textField == loginView.pwTextField {
-            loginViewModel.password = textField.text ?? ""
+            loginViewModel.updatePassword(textField.text ?? "")
         }
     }
 
