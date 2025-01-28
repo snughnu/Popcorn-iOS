@@ -8,11 +8,11 @@
 import Foundation
 
 final class LoginManager {
-    private let networkManager: NetworkManager
+    private let networkManager: NetworkManagerProtocol
     private let tokenRepository: TokenRepository
 
     init(
-        networkManager: NetworkManager,
+        networkManager: NetworkManagerProtocol,
         tokenRepository: TokenRepository
     ) {
         self.networkManager = networkManager
