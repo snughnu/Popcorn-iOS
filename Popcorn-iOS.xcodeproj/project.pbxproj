@@ -104,7 +104,7 @@
 		BCF6ED492D3426A60038CCAE /* TokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED482D3426A60038CCAE /* TokenRepository.swift */; };
 		BCF6ED502D37CBEB0038CCAE /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED4F2D37CBEB0038CCAE /* KeychainManager.swift */; };
 		BCF6ED552D37CCE30038CCAE /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED542D37CCE30038CCAE /* Token.swift */; };
-		BCF6ED572D37D55B0038CCAE /* TokenExpireResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED562D37D55B0038CCAE /* TokenExpireResolver.swift */; };
+		BCF6ED572D37D55B0038CCAE /* TokenUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED562D37D55B0038CCAE /* TokenUseCase.swift */; };
 		BCF6ED592D37DAA30038CCAE /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED582D37DAA30038CCAE /* DateFormatter+.swift */; };
 		BCF945162D48A50100E8B3EA /* SocialLoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF945152D48A50100E8B3EA /* SocialLoginUseCase.swift */; };
 		BCF945182D48A50C00E8B3EA /* SocialLoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF945172D48A50C00E8B3EA /* SocialLoginRepository.swift */; };
@@ -218,7 +218,7 @@
 		BCF6ED482D3426A60038CCAE /* TokenRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRepository.swift; sourceTree = "<group>"; };
 		BCF6ED4F2D37CBEB0038CCAE /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		BCF6ED542D37CCE30038CCAE /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
-		BCF6ED562D37D55B0038CCAE /* TokenExpireResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenExpireResolver.swift; sourceTree = "<group>"; };
+		BCF6ED562D37D55B0038CCAE /* TokenUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenUseCase.swift; sourceTree = "<group>"; };
 		BCF6ED582D37DAA30038CCAE /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 		BCF945152D48A50100E8B3EA /* SocialLoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginUseCase.swift; sourceTree = "<group>"; };
 		BCF945172D48A50C00E8B3EA /* SocialLoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginRepository.swift; sourceTree = "<group>"; };
@@ -626,7 +626,7 @@
 		BCB86A652D486DDB00F00F1F /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				BCF6ED562D37D55B0038CCAE /* TokenExpireResolver.swift */,
+				BCF6ED562D37D55B0038CCAE /* TokenUseCase.swift */,
 				BCB86A602D4869AF00F00F1F /* LoginUseCase.swift */,
 				BCF945152D48A50100E8B3EA /* SocialLoginUseCase.swift */,
 			);
@@ -1002,7 +1002,7 @@
 				BC7420F82CE2395600BEED0A /* HttpMethod.swift in Sources */,
 				56B6D3722D2A5DA600FFB733 /* ReviewSortButtonHeaderView.swift in Sources */,
 				563482FE2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift in Sources */,
-				BCF6ED572D37D55B0038CCAE /* TokenExpireResolver.swift in Sources */,
+				BCF6ED572D37D55B0038CCAE /* TokenUseCase.swift in Sources */,
 				563483032D224CF2001646B5 /* CarouselHeaderView.swift in Sources */,
 				566A0E4F2D3E23AF00B70929 /* WriteReviewViewModel.swift in Sources */,
 				56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */,
