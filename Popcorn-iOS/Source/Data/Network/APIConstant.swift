@@ -10,4 +10,5 @@ struct APIConstant {
     static let authPath = "/auth"
     static let popupPath = "/popups"
     static let loginPath = "/login"
+    static let reissueTokenPath = "/reissue"
 }

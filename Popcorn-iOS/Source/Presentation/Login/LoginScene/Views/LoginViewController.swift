@@ -17,7 +17,7 @@ final class LoginViewController: UIViewController {
     // MARK: - Initializer
     init() {
         let networkManager = NetworkManager()
-        let tokenRepository = TokenRepository()
+        let tokenRepository = TokenRepository(networkManager: networkManager)
         let loginRepository = LoginRepository(networkManager: networkManager)
         let loginUseCase = LoginUseCase(loginRepository: loginRepository, tokenRepository: tokenRepository)
         let socialLoginRepository = SocialLoginRepository()

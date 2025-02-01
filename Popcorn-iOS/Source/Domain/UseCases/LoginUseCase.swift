@@ -27,7 +27,7 @@ final class LoginUseCase: LoginUseCaseProtocol {
         loginRepository.login(username: username, password: password) { [weak self] result in
             switch result {
             case .success(let token):
-                self?.tokenRepository.saveToken(with: token, loginType: nil)
+                self?.tokenRepository.saveToken(with: token, loginType: "custom")
                 completion(.success(token))
             case .failure(let error):
                 completion(.failure(error))

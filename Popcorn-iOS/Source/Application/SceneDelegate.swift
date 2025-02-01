@@ -10,6 +10,7 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+    private let tokenUseCase = TokenUseCase(tokenRepository: TokenRepository(networkManager: NetworkManager()))
 
     func scene(
         _ scene: UIScene,
@@ -20,9 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window = UIWindow(windowScene: windowScene)
 
-        let tokenExpireResolver = TokenExpireResolver()
-
-        tokenExpireResolver.handleTokenExpiration { [weak self] isTokenValid in
+        tokenUseCase.handleTokenExpiration { [weak self] isTokenValid in
             DispatchQueue.main.async {
                 if isTokenValid {
                     self?.showMainScene()
@@ -43,8 +42,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func showLoginScene() {
         let loginViewController = LoginViewController()
-        let navigationController = UINavigationController(rootViewController: loginViewController)
-        self.window?.rootViewController = navigationController
+        self.window?.rootViewController = UINavigationController(rootViewController: loginViewController)
     }
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
