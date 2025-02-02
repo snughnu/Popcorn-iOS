@@ -7,7 +7,15 @@
 
 import Foundation
 
-final class KeychainManager {
+protocol KeychainManagerProtocol {
+    func fetchItem(with query: [String: Any]) -> Data?
+    func addItem(with attributes: [String: Any]) -> OSStatus
+    func updateItem(with query: [String: Any], as attributes: [String: Any]) -> OSStatus
+    func deleteItem(with query: [String: Any]) -> OSStatus
+    func loadSignupData() -> SignUpData?
+}
+
+final class KeychainManager: KeychainManagerProtocol {
     // MARK: - Fetch Item
     @discardableResult
     func fetchItem(with query: [String: Any]) -> Data? {

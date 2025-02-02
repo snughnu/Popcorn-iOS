@@ -185,8 +185,8 @@ extension SignUpSecondViewController {
                     switch result {
                     case .success:
                         print("회원가입 성공")
-                        let loginVC = LoginViewController()
-                        self?.navigationController?.pushViewController(loginVC, animated: true)
+//                        let loginVC = LoginViewController()
+//                        self?.navigationController?.pushViewController(loginVC, animated: true)
                     case .failure(let error):
                         print("회원가입 실패: \(error.localizedDescription)")
                     }
