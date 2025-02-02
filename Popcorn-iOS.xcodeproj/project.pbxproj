@@ -548,6 +548,23 @@
 			path = Token;
 			sourceTree = "<group>";
 		};
+		56F6D4642D4FBAD400C2BEBE /* LoginUseCase */ = {
+			isa = PBXGroup;
+			children = (
+				BCF945152D48A50100E8B3EA /* SocialLoginUseCase.swift */,
+				BCB86A602D4869AF00F00F1F /* LoginUseCase.swift */,
+			);
+			path = LoginUseCase;
+			sourceTree = "<group>";
+		};
+		56F6D4652D4FBB2000C2BEBE /* TokenUseCase */ = {
+			isa = PBXGroup;
+			children = (
+				BCF6ED562D37D55B0038CCAE /* TokenUseCase.swift */,
+			);
+			path = TokenUseCase;
+			sourceTree = "<group>";
+		};
 		BC2D115E2CEC5DCA0030F4E0 /* LoginScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -634,9 +651,8 @@
 		BCB86A652D486DDB00F00F1F /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				BCF6ED562D37D55B0038CCAE /* TokenUseCase.swift */,
-				BCB86A602D4869AF00F00F1F /* LoginUseCase.swift */,
-				BCF945152D48A50100E8B3EA /* SocialLoginUseCase.swift */,
+				56F6D4652D4FBB2000C2BEBE /* TokenUseCase */,
+				56F6D4642D4FBAD400C2BEBE /* LoginUseCase */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
