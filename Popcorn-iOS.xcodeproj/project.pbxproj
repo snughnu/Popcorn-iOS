@@ -61,6 +61,9 @@
 		56F6D45F2D4FBA0C00C2BEBE /* PopupPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4592D4FBA0C00C2BEBE /* PopupPreview.swift */; };
 		56F6D4602D4FBA0C00C2BEBE /* PopupInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4582D4FBA0C00C2BEBE /* PopupInformation.swift */; };
 		56F6D4612D4FBA0C00C2BEBE /* UserInterestPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D45B2D4FBA0C00C2BEBE /* UserInterestPopup.swift */; };
+		56F6D46B2D4FBBB200C2BEBE /* TokenRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D46A2D4FBBB200C2BEBE /* TokenRepositoryProtocol.swift */; };
+		56F6D46D2D4FBBE200C2BEBE /* LoginRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D46C2D4FBBDB00C2BEBE /* LoginRepositoryProtocol.swift */; };
+		56F6D46F2D4FBBEC00C2BEBE /* SocialLoginRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D46E2D4FBBE500C2BEBE /* SocialLoginRepositoryProtocol.swift */; };
 		BC29A50E2D2EA5DF0059A5C5 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A50D2D2EA5DE0059A5C5 /* KakaoSDKAuth */; };
 		BC29A5102D2EA5DF0059A5C5 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A50F2D2EA5DF0059A5C5 /* KakaoSDKCommon */; };
 		BC29A5122D2EA5DF0059A5C5 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A5112D2EA5DF0059A5C5 /* KakaoSDKUser */; };
@@ -178,6 +181,9 @@
 		56F6D4592D4FBA0C00C2BEBE /* PopupPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupPreview.swift; sourceTree = "<group>"; };
 		56F6D45A2D4FBA0C00C2BEBE /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		56F6D45B2D4FBA0C00C2BEBE /* UserInterestPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterestPopup.swift; sourceTree = "<group>"; };
+		56F6D46A2D4FBBB200C2BEBE /* TokenRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRepositoryProtocol.swift; sourceTree = "<group>"; };
+		56F6D46C2D4FBBDB00C2BEBE /* LoginRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepositoryProtocol.swift; sourceTree = "<group>"; };
+		56F6D46E2D4FBBE500C2BEBE /* SocialLoginRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginRepositoryProtocol.swift; sourceTree = "<group>"; };
 		BC2D11612CEC5DF60030F4E0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BC3201AA2D2CFC6900B73A14 /* ProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCell.swift; sourceTree = "<group>"; };
 		BC55FE852D2AC8F100E269B6 /* ProfileImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerViewController.swift; sourceTree = "<group>"; };
@@ -457,6 +463,7 @@
 			children = (
 				56F6D45C2D4FBA0C00C2BEBE /* Entities */,
 				BCB86A652D486DDB00F00F1F /* UseCases */,
+				56F6D4662D4FBB5900C2BEBE /* Interfaces */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -563,6 +570,40 @@
 				BCF6ED562D37D55B0038CCAE /* TokenUseCase.swift */,
 			);
 			path = TokenUseCase;
+			sourceTree = "<group>";
+		};
+		56F6D4662D4FBB5900C2BEBE /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				56F6D4672D4FBB6B00C2BEBE /* Repositories */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		56F6D4672D4FBB6B00C2BEBE /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				56F6D4682D4FBB7D00C2BEBE /* Token */,
+				56F6D4692D4FBB9700C2BEBE /* Login */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		56F6D4682D4FBB7D00C2BEBE /* Token */ = {
+			isa = PBXGroup;
+			children = (
+				56F6D46A2D4FBBB200C2BEBE /* TokenRepositoryProtocol.swift */,
+			);
+			path = Token;
+			sourceTree = "<group>";
+		};
+		56F6D4692D4FBB9700C2BEBE /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				56F6D46C2D4FBBDB00C2BEBE /* LoginRepositoryProtocol.swift */,
+				56F6D46E2D4FBBE500C2BEBE /* SocialLoginRepositoryProtocol.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		BC2D115E2CEC5DCA0030F4E0 /* LoginScene */ = {
@@ -960,6 +1001,7 @@
 				BC55FE862D2AC8F100E269B6 /* ProfileImagePickerViewController.swift in Sources */,
 				56EAA92F2D34EB08007265D3 /* StarRatingViewDelegate.swift in Sources */,
 				565C415F2D2032160016003A /* MainCarouselViewModelProtocol.swift in Sources */,
+				56F6D46D2D4FBBE200C2BEBE /* LoginRepositoryProtocol.swift in Sources */,
 				5660FD492D421E9E00F9B4D9 /* NetworkManager.swift in Sources */,
 				56018CA42CECC41000AC8ED5 /* Date+.swift in Sources */,
 				56CD3A7B2CEB858100BAC02D /* PickOrInterestCell.swift in Sources */,
@@ -1013,9 +1055,11 @@
 				56CD3A722CEB83CF00BAC02D /* MainSceneViewModel.swift in Sources */,
 				5660FD3F2D421CE100F9B4D9 /* Cancellable.swift in Sources */,
 				5660FD392D42186E00F9B4D9 /* APIConstant.swift in Sources */,
+				56F6D46F2D4FBBEC00C2BEBE /* SocialLoginRepositoryProtocol.swift in Sources */,
 				BC55FE882D2AD51000E269B6 /* ProfileImagePickerView.swift in Sources */,
 				BC90A0522CF4A6EA003488F0 /* UIResponder+.swift in Sources */,
 				BC7420FC2CE23B9600BEED0A /* Endpoint.swift in Sources */,
+				56F6D46B2D4FBBB200C2BEBE /* TokenRepositoryProtocol.swift in Sources */,
 				BCB86A632D486A6F00F00F1F /* LoginRepository.swift in Sources */,
 				56D68A362D2409DB00EA1404 /* PopupRatingCollectionViewCell.swift in Sources */,
 				BC7420F82CE2395600BEED0A /* HttpMethod.swift in Sources */,

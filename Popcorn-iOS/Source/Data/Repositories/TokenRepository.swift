@@ -8,20 +8,6 @@
 import Foundation
 import KakaoSDKAuth
 
-protocol TokenRepositoryProtocol {
-    func saveToken(with token: Token, loginType: String?)
-    func deleteTokens()
-
-    func fetchAccessToken() -> String?
-    func fetchRefreshToken() -> String?
-    func fetchLoginType() -> String?
-    func fetchAccessTokenExpirationDate() -> Date?
-    func fetchRefreshTokenExpirationDate() -> Date?
-
-    func reissueAccessToken(refreshToken: String, completion: @escaping (Result<NewToken, Error>) -> Void)
-    func reissueKakaoAccessToken(refreshToken: String, completion: @escaping (Result<Token, Error>) -> Void)
-}
-
 final class TokenRepository: TokenRepositoryProtocol {
     // MARK: - Properties
     private let keychainManager: KeychainManagerProtocol
