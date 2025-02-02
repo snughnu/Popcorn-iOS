@@ -15,6 +15,7 @@ protocol SocialLoginRepositoryProtocol {
     func sendTokenToServer(completion: @escaping () -> Void)
 }
 
+// MARK: - Public interface
 final class SocialLoginRepository: SocialLoginRepositoryProtocol {
     func loginWithKaKaoTalk(completion: @escaping (Result<Token, Error>) -> Void) {
         UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in

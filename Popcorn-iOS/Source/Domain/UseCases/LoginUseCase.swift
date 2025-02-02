@@ -22,7 +22,10 @@ final class LoginUseCase: LoginUseCaseProtocol {
         self.loginRepository = loginRepository
         self.tokenRepository = tokenRepository
     }
+}
 
+// MARK: - Public interface
+extension LoginUseCase {
     func login(username: String, password: String, completion: @escaping (Result<Token, Error>) -> Void) {
         loginRepository.login(username: username, password: password) { [weak self] result in
             switch result {

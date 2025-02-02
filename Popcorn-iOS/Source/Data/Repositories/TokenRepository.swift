@@ -24,15 +24,9 @@ protocol TokenRepositoryProtocol {
 
 final class TokenRepository: TokenRepositoryProtocol {
     // MARK: - Properties
-    private let keychainManager = KeychainManager()
+    private let keychainManager: KeychainManagerProtocol
     private let networkManager: NetworkManagerProtocol
 
-    // MARK: - Initializer
-    init(networkManager: NetworkManagerProtocol) {
-        self.networkManager = networkManager
-    }
-
-    // MARK: - Private Constants
     private let accessTokenAttributes: [String: Any] = [
         kSecClass as String: kSecClassGenericPassword,
         kSecAttrAccount as String: "Popcorn",
@@ -63,6 +57,15 @@ final class TokenRepository: TokenRepositoryProtocol {
         kSecReturnData as String: true
     ]
 
+    // MARK: - Initializer
+    init(
+        networkManager: NetworkManagerProtocol,
+        keychainManager: KeychainManagerProtocol
+    ) {
+        self.networkManager = networkManager
+        self.keychainManager = keychainManager
+    }
+
     // MARK: - Private Methods
     private func convertTokenToSecValueData(token: String) -> [String: Any]? {
         guard let data = token.data(using: .utf8) else { return nil }
@@ -75,8 +78,8 @@ final class TokenRepository: TokenRepositoryProtocol {
         var item = attributes
         item[kSecValueData as String] = data
 
-        keychainManager.deleteItem(with: attributes)
-        keychainManager.addItem(with: item)
+        _ = keychainManager.deleteItem(with: attributes)
+        _ = keychainManager.addItem(with: item)
     }
 }
 
@@ -93,11 +96,11 @@ extension TokenRepository {
     }
 
     func deleteTokens() {
-        keychainManager.deleteItem(with: accessTokenAttributes)
-        keychainManager.deleteItem(with: refreshTokenAttributes)
-        keychainManager.deleteItem(with: accessExpiredAtAttributes)
-        keychainManager.deleteItem(with: refreshExpiredAtAttributes)
-        keychainManager.deleteItem(with: loginTypeAttributes)
+        _ = keychainManager.deleteItem(with: accessTokenAttributes)
+        _ = keychainManager.deleteItem(with: refreshTokenAttributes)
+        _ = keychainManager.deleteItem(with: accessExpiredAtAttributes)
+        _ = keychainManager.deleteItem(with: refreshExpiredAtAttributes)
+        _ = keychainManager.deleteItem(with: loginTypeAttributes)
     }
 }
 
