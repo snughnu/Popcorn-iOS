@@ -423,12 +423,12 @@
 				BCE8FA292D2271C800A7B8E2 /* FindIdPw */,
 				BCE6E5F02CF31EBC0036BAF6 /* SignUp */,
 				BCC45D162CEB9A790045DC57 /* Login */,
-				56C5DDB82CE7989E0090D3A2 /* Main */,
+				56C5DDB82CE7989E0090D3A2 /* MainScene */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		56C5DDB82CE7989E0090D3A2 /* Main */ = {
+		56C5DDB82CE7989E0090D3A2 /* MainScene */ = {
 			isa = PBXGroup;
 			children = (
 				562447132D33B651000E94A0 /* Protocol */,
@@ -437,7 +437,7 @@
 				563482F72D223F90001646B5 /* PopupDetailView */,
 				56CD3A712CEB83CF00BAC02D /* ViewModel */,
 			);
-			path = Main;
+			path = MainScene;
 			sourceTree = "<group>";
 		};
 		56C5DDBD2CE87BA80090D3A2 /* Util */ = {
