@@ -46,8 +46,8 @@ final class NetworkManager: NetworkManagerProtocol {
             }
 
             guard (200..<400) ~= httpResponse.statusCode else {
-                if let severError = ServerError(rawValue: httpResponse.statusCode) {
-                    completion(.failure(NetworkError.serverError(severError)))
+                if let serverError = ServerError(rawValue: httpResponse.statusCode) {
+                    completion(.failure(NetworkError.serverError(serverError)))
                 } else {
                     completion(.failure(NetworkError.unknown))
                 }
@@ -67,14 +67,16 @@ final class NetworkManager: NetworkManagerProtocol {
             }
         }
 
-        let task: Cancellable
+//        let task: Cancellable
+//
+//        if let body = request.httpBody {
+//            task = session.uploadTask(with: request, from: body, completionHandler: completionHandler)
+//        } else {
+//            task = session.dataTask(with: request, completionHandler: completionHandler)
+//        }
 
-        if let body = request.httpBody {
-            task = session.uploadTask(with: request, from: body, completionHandler: completionHandler)
-        } else {
-            task = session.dataTask(with: request, completionHandler: completionHandler)
-        }
-
+        let task = session.dataTask(with: request, completionHandler: completionHandler)
+        task.resume()
         return task
     }
 }

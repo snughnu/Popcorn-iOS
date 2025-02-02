@@ -17,17 +17,42 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         options connectionOptions: UIScene.ConnectionOptions
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-
         window = UIWindow(windowScene: windowScene)
 
-        let tokenExpireResolver = TokenExpireResolver()
+        // MARK: - Dependency injection
+        let keyChainManager = KeychainManager()
+        let networkManager = NetworkManager()
 
-        tokenExpireResolver.handleTokenExpiration { [weak self] isTokenValid in
+        let tokenRepository = TokenRepository(
+            networkManager: networkManager,
+            keychainManager: keyChainManager
+        )
+        let loginRepository = LoginRepository(networkManager: networkManager)
+        let socialLoginRepository = SocialLoginRepository()
+
+        let tokenUseCase = TokenUseCase(tokenRepository: tokenRepository)
+        let loginUseCase = LoginUseCase(
+            loginRepository: loginRepository,
+            tokenRepository: tokenRepository
+        )
+        let socialLoginUseCase = SocialLoginUseCase(
+            socialLoginRepository: socialLoginRepository,
+            tokenRepository: tokenRepository
+        )
+
+        let loginViewModel = LoginViewModel(loginUseCase: loginUseCase)
+        let socialLoginViewModel = SocialLoginViewModel(socialLoginUseCase: socialLoginUseCase)
+
+        // MARK: - 토큰 상태에 따른 초기화면 설정
+        tokenUseCase.handleTokenExpiration { [weak self] isTokenValid in
             DispatchQueue.main.async {
                 if isTokenValid {
                     self?.showMainScene()
                 } else {
-                    self?.showLoginScene()
+                    self?.showLoginScene(
+                        loginViewModel: loginViewModel,
+                        socialLoginViewModel: socialLoginViewModel
+                    )
                 }
             }
         }
@@ -41,10 +66,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.rootViewController = UINavigationController(rootViewController: mainSceneViewController)
     }
 
-    private func showLoginScene() {
-        let loginViewController = LoginViewController()
-        let navigationController = UINavigationController(rootViewController: loginViewController)
-        self.window?.rootViewController = navigationController
+    private func showLoginScene(
+        loginViewModel: LoginViewModel,
+        socialLoginViewModel: SocialLoginViewModel
+    ) {
+        let loginViewController = LoginViewController(
+            loginViewModel: loginViewModel,
+            socialLoginViewModel: socialLoginViewModel
+        )
+        self.window?.rootViewController = UINavigationController(rootViewController: loginViewController)
     }
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
