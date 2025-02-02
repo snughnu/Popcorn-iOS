@@ -11,20 +11,16 @@ import UIKit
 final class LoginViewController: UIViewController {
     // MARK: - Properties
     private let loginView = LoginView()
-    private let loginViewModel: LoginViewModel
-    private let socialLoginViewModel: SocialLoginViewModel
+    private var loginViewModel: LoginViewModelProtocol
+    private var socialLoginViewModel: SocialLoginViewModelProtocol
 
     // MARK: - Initializer
-    init() {
-        let networkManager = NetworkManager()
-        let tokenRepository = TokenRepository(networkManager: networkManager)
-        let loginRepository = LoginRepository(networkManager: networkManager)
-        let loginUseCase = LoginUseCase(loginRepository: loginRepository, tokenRepository: tokenRepository)
-        let socialLoginRepository = SocialLoginRepository()
-        let socialLoginUseCase = SocialLoginUseCase(socialLoginRepository: socialLoginRepository, tokenRepository: tokenRepository)
-
-        self.loginViewModel = LoginViewModel(loginUseCase: loginUseCase)
-        self.socialLoginViewModel = SocialLoginViewModel(socialLoginUseCase: socialLoginUseCase)
+    init(
+        loginViewModel: LoginViewModelProtocol,
+        socialLoginViewModel: SocialLoginViewModelProtocol
+    ) {
+        self.loginViewModel = loginViewModel
+        self.socialLoginViewModel = socialLoginViewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -47,8 +43,8 @@ final class LoginViewController: UIViewController {
 
 // MARK: - Bind func
 extension LoginViewController {
-    private func bind(to loginViewModel: LoginViewModel) {
-        loginViewModel.loginButtonEnabledHandler = { [weak self] isEnabled in
+    private func bind(to loginViewModel: LoginViewModelProtocol) {
+        self.loginViewModel.loginButtonEnabledHandler = { [weak self] isEnabled in
             guard let self = self else { return }
             self.loginView.loginButton.backgroundColor = isEnabled
             ? UIColor(resource: .popcornOrange)
@@ -56,28 +52,28 @@ extension LoginViewController {
             self.loginView.loginButton.isEnabled = isEnabled
         }
 
-        loginViewModel.loginSuccessHandler = { [weak self] in
+        self.loginViewModel.loginSuccessHandler = { [weak self] in
             guard let self = self else { return }
             let mainSceneViewController = MainSceneViewController()
             self.navigationController?.setViewControllers([mainSceneViewController], animated: true)
         }
 
-        loginViewModel.loginFailHandler = { [weak self] message in
+        self.loginViewModel.loginFailHandler = { [weak self] message in
             guard let self = self else { return }
             self.loginView.checkIdPwLabel.textColor = .red
             self.loginView.checkIdPwLabel.text = message
         }
     }
 
-    private func bind(to socialLoginViewModel: SocialLoginViewModel) {
-        socialLoginViewModel.loginSuccessHandler = { [weak self] nickname in
+    private func bind(to socialLoginViewModel: SocialLoginViewModelProtocol) {
+        self.socialLoginViewModel.loginSuccessHandler = { [weak self] nickname in
             guard let self = self else { return }
             let signUpSecondViewController = SignUpSecondViewController()
             signUpSecondViewController.signUpSecondView.nickNameTextField.text = nickname
             self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
         }
 
-        socialLoginViewModel.loginFailHandler = { error in
+        self.socialLoginViewModel.loginFailHandler = { error in
             print("소셜 로그인 실패: \(error.localizedDescription)")
         }
     }

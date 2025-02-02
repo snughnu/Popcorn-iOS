@@ -7,7 +7,17 @@
 
 import Foundation
 
-final class LoginViewModel {
+protocol LoginViewModelProtocol {
+    var loginButtonEnabledHandler: ((Bool) -> Void)? { get set }
+    var loginSuccessHandler: (() -> Void)? { get set }
+    var loginFailHandler: ((String) -> Void)? { get set }
+
+    func updateUsername(_ username: String)
+    func updatePassword(_ password: String)
+    func login()
+}
+
+final class LoginViewModel: LoginViewModelProtocol {
     // MARK: - Properties
     private let loginUseCase: LoginUseCaseProtocol
 

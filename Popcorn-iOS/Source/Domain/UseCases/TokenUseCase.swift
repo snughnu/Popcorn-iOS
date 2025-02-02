@@ -65,7 +65,7 @@ final class TokenUseCase: TokenUseCaseProtocol {
 // MARK: - Public method
 extension TokenUseCase {
     func handleTokenExpiration(completion: @escaping (Bool) -> Void) {
-        guard let accessToken = tokenRepository.fetchAccessToken() else {
+        guard (tokenRepository.fetchAccessToken()) != nil else {
             return handleRefreshTokenExpiration(completion: completion)
         }
         guard let accessTokenExpirationDate = tokenRepository.fetchAccessTokenExpirationDate(),

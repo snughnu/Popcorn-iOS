@@ -23,7 +23,10 @@ final class SocialLoginUseCase: SocialLogionUseCaseProtocol {
         self.socialLoginRepository = socialLoginRepository
         self.tokenRepository = tokenRepository
     }
+}
 
+// MARK: - Public interface
+extension SocialLoginUseCase {
     func loginWithKakaoTalk(completion: @escaping (Result<String, any Error>) -> Void) {
         socialLoginRepository.loginWithKaKaoTalk { [weak self] result in
             switch result {

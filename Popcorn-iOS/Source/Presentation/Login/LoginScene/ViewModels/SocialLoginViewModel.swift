@@ -8,7 +8,14 @@
 import Foundation
 import KakaoSDKUser
 
-final class SocialLoginViewModel {
+protocol SocialLoginViewModelProtocol {
+    var loginSuccessHandler: ((String) -> Void)? { get set }
+    var loginFailHandler: ((Error) -> Void)? { get set }
+
+    func loginWithKakao()
+}
+
+final class SocialLoginViewModel: SocialLoginViewModelProtocol {
     // MARK: - Properties
     private let socialLoginUseCase: SocialLogionUseCaseProtocol
 
@@ -19,17 +26,6 @@ final class SocialLoginViewModel {
     // MARK: - Initializer
     init(socialLoginUseCase: SocialLogionUseCaseProtocol) {
         self.socialLoginUseCase = socialLoginUseCase
-    }
-}
-
-// MARK: - Public methods
-extension SocialLoginViewModel {
-    func loginWithKakao() {
-        if UserApi.isKakaoTalkLoginAvailable() {
-            loginWithKaKaoTalk()
-        } else {
-            loginWithKakaoWeb()
-        }
     }
 }
 
@@ -58,6 +54,17 @@ extension SocialLoginViewModel {
                     self?.loginFailHandler?(error)
                 }
             }
+        }
+    }
+}
+
+// MARK: - Public methods
+extension SocialLoginViewModel {
+    func loginWithKakao() {
+        if UserApi.isKakaoTalkLoginAvailable() {
+            loginWithKaKaoTalk()
+        } else {
+            loginWithKakaoWeb()
         }
     }
 }
