@@ -345,11 +345,11 @@
 		56537BB82CE0F52B0092A292 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				56537BBA2CE0F5370092A292 /* Application */,
 				BCF6ED522D37CC5A0038CCAE /* Data */,
 				56C5DDC92CE9AE1F0090D3A2 /* Domain */,
-				56C5DDBD2CE87BA80090D3A2 /* Util */,
 				56C5DDB72CE797FB0090D3A2 /* Presentation */,
-				56537BBA2CE0F5370092A292 /* Application */,
+				56C5DDBD2CE87BA80090D3A2 /* Util */,
 			);
 			path = Source;
 			sourceTree = "<group>";
