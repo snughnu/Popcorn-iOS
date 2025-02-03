@@ -7,10 +7,6 @@
 
 import Foundation
 
-protocol LoginRepositoryProtocol {
-    func login(username: String, password: String, completion: @escaping (Result<Token, Error>) -> Void)
-}
-
 final class LoginRepository: LoginRepositoryProtocol {
     private let networkManager: NetworkManagerProtocol
 

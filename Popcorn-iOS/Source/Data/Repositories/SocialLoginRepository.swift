@@ -8,13 +8,6 @@
 import Foundation
 import KakaoSDKUser
 
-protocol SocialLoginRepositoryProtocol {
-    func loginWithKaKaoTalk(completion: @escaping (Result<Token, Error>) -> Void)
-    func loginWithKakaoWeb(completion: @escaping (Result<Token, Error>) -> Void)
-    func fetchUserInfo(completion: @escaping (Result<String, Error>) -> Void)
-    func sendTokenToServer(completion: @escaping () -> Void)
-}
-
 // MARK: - Public interface
 final class SocialLoginRepository: SocialLoginRepositoryProtocol {
     func loginWithKaKaoTalk(completion: @escaping (Result<Token, Error>) -> Void) {
