@@ -378,7 +378,7 @@ extension SignUpFirstViewController {
               let password = signUpFirstView.passwordField.textFieldReference.text,
               let email = signUpFirstView.emailField.textFieldReference.text else { return }
 
-        let data = SignUpData(
+        let data = SignUpRequestDTO(
             firstSignupDto: FirstSignupDto(name: name, username: id, password: password, email: email),
             secondSignupDto: nil
         )
