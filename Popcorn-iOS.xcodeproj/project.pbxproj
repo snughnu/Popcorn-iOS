@@ -77,6 +77,11 @@
 		BC5F3C102D52497700248DB0 /* SignUpFirstUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C0F2D52497700248DB0 /* SignUpFirstUseCase.swift */; };
 		BC5F3C132D524A0800248DB0 /* SignUpRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C122D524A0800248DB0 /* SignUpRepository.swift */; };
 		BC5F3C152D524A1C00248DB0 /* SignUpRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C142D524A1C00248DB0 /* SignUpRepositoryProtocol.swift */; };
+		BC5F3C1D2D5253FE00248DB0 /* CheckUsernameResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C1C2D5253FE00248DB0 /* CheckUsernameResponseDTO.swift */; };
+		BC5F3C212D525CC200248DB0 /* VerificationCodeRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C202D525CC200248DB0 /* VerificationCodeRequestDTO.swift */; };
+		BC5F3C232D525ED700248DB0 /* ValidateVerificationCodeResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C222D525ED700248DB0 /* ValidateVerificationCodeResponseDTO.swift */; };
+		BC5F3C272D525FCE00248DB0 /* ValidateVerificationCodeRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C262D525FCE00248DB0 /* ValidateVerificationCodeRequestDTO.swift */; };
+		BC5F3C292D52622300248DB0 /* SignUpResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C282D52622300248DB0 /* SignUpResponseDTO.swift */; };
 		BC7420F82CE2395600BEED0A /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7420F72CE2391400BEED0A /* HttpMethod.swift */; };
 		BC7420FA2CE23A9500BEED0A /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7420F92CE23A8A00BEED0A /* Requestable.swift */; };
 		BC7420FC2CE23B9600BEED0A /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7420FB2CE23B9200BEED0A /* Endpoint.swift */; };
@@ -198,6 +203,11 @@
 		BC5F3C0F2D52497700248DB0 /* SignUpFirstUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFirstUseCase.swift; sourceTree = "<group>"; };
 		BC5F3C122D524A0800248DB0 /* SignUpRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepository.swift; sourceTree = "<group>"; };
 		BC5F3C142D524A1C00248DB0 /* SignUpRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepositoryProtocol.swift; sourceTree = "<group>"; };
+		BC5F3C1C2D5253FE00248DB0 /* CheckUsernameResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckUsernameResponseDTO.swift; sourceTree = "<group>"; };
+		BC5F3C202D525CC200248DB0 /* VerificationCodeRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeRequestDTO.swift; sourceTree = "<group>"; };
+		BC5F3C222D525ED700248DB0 /* ValidateVerificationCodeResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateVerificationCodeResponseDTO.swift; sourceTree = "<group>"; };
+		BC5F3C262D525FCE00248DB0 /* ValidateVerificationCodeRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateVerificationCodeRequestDTO.swift; sourceTree = "<group>"; };
+		BC5F3C282D52622300248DB0 /* SignUpResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpResponseDTO.swift; sourceTree = "<group>"; };
 		BC7420F72CE2391400BEED0A /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		BC7420F92CE23A8A00BEED0A /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		BC7420FB2CE23B9200BEED0A /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
@@ -644,7 +654,8 @@
 		BC5F3C012D52428F00248DB0 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
-				BC58B0D32D3D231B00A8E42F /* SignUpRequestDTO.swift */,
+				BC5F3C242D525EE800248DB0 /* Request */,
+				BC5F3C252D525EED00248DB0 /* Response */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -712,6 +723,26 @@
 			path = SignUp;
 			sourceTree = "<group>";
 		};
+		BC5F3C242D525EE800248DB0 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				BC5F3C202D525CC200248DB0 /* VerificationCodeRequestDTO.swift */,
+				BC5F3C262D525FCE00248DB0 /* ValidateVerificationCodeRequestDTO.swift */,
+				BC58B0D32D3D231B00A8E42F /* SignUpRequestDTO.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		BC5F3C252D525EED00248DB0 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				BC5F3C1C2D5253FE00248DB0 /* CheckUsernameResponseDTO.swift */,
+				BC5F3C222D525ED700248DB0 /* ValidateVerificationCodeResponseDTO.swift */,
+				BC5F3C282D52622300248DB0 /* SignUpResponseDTO.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
 		BC7420F12CE22CFE00BEED0A /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -743,8 +774,8 @@
 		BCB86A5C2D48636B00F00F1F /* DTO */ = {
 			isa = PBXGroup;
 			children = (
-				BC5F3C012D52428F00248DB0 /* SignUp */,
 				BCB86A5F2D48640A00F00F1F /* Login */,
+				BC5F3C012D52428F00248DB0 /* SignUp */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -1102,6 +1133,7 @@
 				563483002D2248DB001646B5 /* PopupInfoReviewSegmentHeaderView.swift in Sources */,
 				BC8113722CF5ECC800F82331 /* SignUpSecondView.swift in Sources */,
 				BCB86A552D475B9700F00F1F /* SocialLoginViewModel.swift in Sources */,
+				BC5F3C292D52622300248DB0 /* SignUpResponseDTO.swift in Sources */,
 				56018CA22CECB1C400AC8ED5 /* MainSceneViewController.swift in Sources */,
 				BCE8FA342D2272F600A7B8E2 /* FindIdPwViewController.swift in Sources */,
 				BCE6E5F82CF31F1A0036BAF6 /* SignUpTextField.swift in Sources */,
@@ -1124,6 +1156,7 @@
 				BC5F3C102D52497700248DB0 /* SignUpFirstUseCase.swift in Sources */,
 				56C5DDBF2CE87C0E0090D3A2 /* Reusable.swift in Sources */,
 				56CD3A722CEB83CF00BAC02D /* MainSceneViewModel.swift in Sources */,
+				BC5F3C232D525ED700248DB0 /* ValidateVerificationCodeResponseDTO.swift in Sources */,
 				5660FD3F2D421CE100F9B4D9 /* Cancellable.swift in Sources */,
 				5660FD392D42186E00F9B4D9 /* APIConstant.swift in Sources */,
 				56F6D46F2D4FBBEC00C2BEBE /* SocialLoginRepositoryProtocol.swift in Sources */,
@@ -1139,6 +1172,7 @@
 				56F6D45E2D4FBA0C00C2BEBE /* Token.swift in Sources */,
 				56F6D45F2D4FBA0C00C2BEBE /* PopupPreview.swift in Sources */,
 				56F6D4602D4FBA0C00C2BEBE /* PopupInformation.swift in Sources */,
+				BC5F3C1D2D5253FE00248DB0 /* CheckUsernameResponseDTO.swift in Sources */,
 				56F6D4612D4FBA0C00C2BEBE /* UserInterestPopup.swift in Sources */,
 				563482FE2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift in Sources */,
 				BCF6ED572D37D55B0038CCAE /* TokenUseCase.swift in Sources */,
@@ -1147,6 +1181,7 @@
 				56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */,
 				56018C9B2CEC9AE000AC8ED5 /* MainCollectionHeaderView.swift in Sources */,
 				BCE8FA382D227CF100A7B8E2 /* CompleteFindIdViewController.swift in Sources */,
+				BC5F3C272D525FCE00248DB0 /* ValidateVerificationCodeRequestDTO.swift in Sources */,
 				56CD3A7D2CEC31B000BAC02D /* UIView+.swift in Sources */,
 				560159302CF319A700872662 /* UILabel+.swift in Sources */,
 				5649A5902CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift in Sources */,
@@ -1155,6 +1190,7 @@
 				BCC45D1A2CEB9A980045DC57 /* LoginTextField.swift in Sources */,
 				5643991D2D44F10E0031688B /* MultipartBodyEndpoint.swift in Sources */,
 				BCE8FA562D228C5400A7B8E2 /* ResetPwViewController.swift in Sources */,
+				BC5F3C212D525CC200248DB0 /* VerificationCodeRequestDTO.swift in Sources */,
 				56A061282D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift in Sources */,
 				BCF945182D48A50C00E8B3EA /* SocialLoginRepository.swift in Sources */,
 				56C98C712CF488960001CFD4 /* PopupDetailViewController.swift in Sources */,
