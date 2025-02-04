@@ -9,6 +9,7 @@ import UIKit
 
 class SignUpFirstViewController: UIViewController {
     private let signUpFirstView = SignUpFirstView()
+    // private let signUpFistViewModel = SignUpFirstViewModel()
     private let screenHeight = UIScreen.main.bounds.height
 
     private var isNameValid = false
@@ -55,7 +56,7 @@ extension SignUpFirstViewController {
     }
 }
 
-// MARK: - TextField Delegate Protocol
+// MARK: - Setup TextField
 extension SignUpFirstViewController: UITextFieldDelegate {
     private func setupTextField() {
         [
