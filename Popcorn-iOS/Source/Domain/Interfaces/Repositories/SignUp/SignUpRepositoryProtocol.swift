@@ -8,8 +8,8 @@
 import Foundation
 
 protocol SignUpRepositoryProtocol {
-    func checkUsernameAvailability(username: String, completion: @escaping (Result<Bool, Error>) -> Void)
-    func requestVerificationCode(email: String, completion: @escaping (Result<Bool, Error>) -> Void)
-    func validateVerificationCode(email: String, authNum: String, completion: @escaping (Result<Bool, Error>) -> Void)
-    func sendSignUpData(signupData: SignUpRequestDTO, completion: @escaping (Result<Bool, Error>) -> Void)
+    func fetchUsernameDuplicationResult(username: String, completion: @escaping (Result<Int, Error>) -> Void)
+    func fetchRequestVerificationCodeResult(email: String, completion: @escaping (Result<String, Error>) -> Void)
+    func fetchValidateVerificationCodeResult(email: String, authNum: String, completion: @escaping (Result<Int, Error>) -> Void)
+    func fetchSendSignUpDataResult(signupData: SignUpRequestDTO, completion: @escaping (Result<Int, Error>) -> Void)
 }
