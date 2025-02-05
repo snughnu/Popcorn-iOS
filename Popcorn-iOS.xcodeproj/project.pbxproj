@@ -66,6 +66,7 @@
 		56F6D46F2D4FBBEC00C2BEBE /* SocialLoginRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D46E2D4FBBE500C2BEBE /* SocialLoginRepositoryProtocol.swift */; };
 		56F6D47C2D5340B400C2BEBE /* ImageFetchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D47B2D5340AF00C2BEBE /* ImageFetchError.swift */; };
 		56F6D47E2D53413B00C2BEBE /* ImageFetchManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D47D2D53413300C2BEBE /* ImageFetchManagerProtocol.swift */; };
+		56F6D4802D53417200C2BEBE /* ImageFetchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D47F2D53416D00C2BEBE /* ImageFetchManager.swift */; };
 		BC29A50E2D2EA5DF0059A5C5 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A50D2D2EA5DE0059A5C5 /* KakaoSDKAuth */; };
 		BC29A5102D2EA5DF0059A5C5 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A50F2D2EA5DF0059A5C5 /* KakaoSDKCommon */; };
 		BC29A5122D2EA5DF0059A5C5 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A5112D2EA5DF0059A5C5 /* KakaoSDKUser */; };
@@ -188,6 +189,7 @@
 		56F6D46E2D4FBBE500C2BEBE /* SocialLoginRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginRepositoryProtocol.swift; sourceTree = "<group>"; };
 		56F6D47B2D5340AF00C2BEBE /* ImageFetchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchError.swift; sourceTree = "<group>"; };
 		56F6D47D2D53413300C2BEBE /* ImageFetchManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchManagerProtocol.swift; sourceTree = "<group>"; };
+		56F6D47F2D53416D00C2BEBE /* ImageFetchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchManager.swift; sourceTree = "<group>"; };
 		BC2D11612CEC5DF60030F4E0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BC3201AA2D2CFC6900B73A14 /* ProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCell.swift; sourceTree = "<group>"; };
 		BC55FE852D2AC8F100E269B6 /* ProfileImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerViewController.swift; sourceTree = "<group>"; };
@@ -613,6 +615,7 @@
 		56F6D47A2D53409900C2BEBE /* ImageFetchManager */ = {
 			isa = PBXGroup;
 			children = (
+				56F6D47F2D53416D00C2BEBE /* ImageFetchManager.swift */,
 				56F6D47D2D53413300C2BEBE /* ImageFetchManagerProtocol.swift */,
 				56F6D47B2D5340AF00C2BEBE /* ImageFetchError.swift */,
 			);
@@ -1038,6 +1041,7 @@
 				BCE8FA322D2272EB00A7B8E2 /* FindIdPwView.swift in Sources */,
 				562447072D33975B000E94A0 /* FullScreenReviewImageViewController.swift in Sources */,
 				56A0C8492D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift in Sources */,
+				56F6D4802D53417200C2BEBE /* ImageFetchManager.swift in Sources */,
 				56C5DDBA2CE79AC90090D3A2 /* MainCarouselView.swift in Sources */,
 				BC7420FE2CE23FD700BEED0A /* NetworkError.swift in Sources */,
 				56D68A342D23FBB700EA1404 /* RatingDistributionView.swift in Sources */,
