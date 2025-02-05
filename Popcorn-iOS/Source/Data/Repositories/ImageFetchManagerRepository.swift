@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ImageFetchManagerRepository: ImageFetchManagerRepsitoryProtocol {
+final class ImageFetchManagerRepository: ImageFetchManagerRepositoryProtocol {
     private let imageFetchManager: ImageFetchManagerProtocol
 
     init(imageFetchManager: ImageFetchManagerProtocol) {

@@ -7,9 +7,9 @@
 import Foundation
 
 final class ImageFetchUseCase: ImageFetchUseCaseProtocol {
-    let repository: ImageFetchManagerRepsitoryProtocol
+    let repository: ImageFetchManagerRepositoryProtocol
 
-    init(repository: ImageFetchManagerRepsitoryProtocol) {
+    init(repository: ImageFetchManagerRepositoryProtocol) {
         self.repository = repository
     }
 
