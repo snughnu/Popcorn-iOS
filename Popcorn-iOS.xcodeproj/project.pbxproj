@@ -74,7 +74,7 @@
 		BC58B0D42D3D231B00A8E42F /* SignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC58B0D32D3D231B00A8E42F /* SignUpRequestDTO.swift */; };
 		BC58B0D62D3D241A00A8E42F /* SignUpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC58B0D52D3D241A00A8E42F /* SignUpManager.swift */; };
 		BC5F3C0D2D52447900248DB0 /* SignUpFirstViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C0C2D52447900248DB0 /* SignUpFirstViewModel.swift */; };
-		BC5F3C102D52497700248DB0 /* SignUpFirstUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C0F2D52497700248DB0 /* SignUpFirstUseCase.swift */; };
+		BC5F3C102D52497700248DB0 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C0F2D52497700248DB0 /* SignUpUseCase.swift */; };
 		BC5F3C132D524A0800248DB0 /* SignUpRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C122D524A0800248DB0 /* SignUpRepository.swift */; };
 		BC5F3C152D524A1C00248DB0 /* SignUpRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C142D524A1C00248DB0 /* SignUpRepositoryProtocol.swift */; };
 		BC5F3C1D2D5253FE00248DB0 /* CheckUsernameResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C1C2D5253FE00248DB0 /* CheckUsernameResponseDTO.swift */; };
@@ -200,7 +200,7 @@
 		BC58B0D32D3D231B00A8E42F /* SignUpRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequestDTO.swift; sourceTree = "<group>"; };
 		BC58B0D52D3D241A00A8E42F /* SignUpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpManager.swift; sourceTree = "<group>"; };
 		BC5F3C0C2D52447900248DB0 /* SignUpFirstViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFirstViewModel.swift; sourceTree = "<group>"; };
-		BC5F3C0F2D52497700248DB0 /* SignUpFirstUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFirstUseCase.swift; sourceTree = "<group>"; };
+		BC5F3C0F2D52497700248DB0 /* SignUpUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
 		BC5F3C122D524A0800248DB0 /* SignUpRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepository.swift; sourceTree = "<group>"; };
 		BC5F3C142D524A1C00248DB0 /* SignUpRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepositoryProtocol.swift; sourceTree = "<group>"; };
 		BC5F3C1C2D5253FE00248DB0 /* CheckUsernameResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckUsernameResponseDTO.swift; sourceTree = "<group>"; };
@@ -684,7 +684,7 @@
 		BC5F3C0E2D52496000248DB0 /* SignUpUseCase */ = {
 			isa = PBXGroup;
 			children = (
-				BC5F3C0F2D52497700248DB0 /* SignUpFirstUseCase.swift */,
+				BC5F3C0F2D52497700248DB0 /* SignUpUseCase.swift */,
 			);
 			path = SignUpUseCase;
 			sourceTree = "<group>";
@@ -1153,7 +1153,7 @@
 				BC5F3C132D524A0800248DB0 /* SignUpRepository.swift in Sources */,
 				56EAA9332D34EB9C007265D3 /* PopcornOrangeButton.swift in Sources */,
 				565C415C2D2028DD0016003A /* MainCollectionTitleHeaderView.swift in Sources */,
-				BC5F3C102D52497700248DB0 /* SignUpFirstUseCase.swift in Sources */,
+				BC5F3C102D52497700248DB0 /* SignUpUseCase.swift in Sources */,
 				56C5DDBF2CE87C0E0090D3A2 /* Reusable.swift in Sources */,
 				56CD3A722CEB83CF00BAC02D /* MainSceneViewModel.swift in Sources */,
 				BC5F3C232D525ED700248DB0 /* ValidateVerificationCodeResponseDTO.swift in Sources */,
