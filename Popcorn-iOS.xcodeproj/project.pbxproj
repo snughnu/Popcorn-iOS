@@ -67,7 +67,7 @@
 		56F6D47C2D5340B400C2BEBE /* ImageFetchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D47B2D5340AF00C2BEBE /* ImageFetchError.swift */; };
 		56F6D47E2D53413B00C2BEBE /* ImageFetchManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D47D2D53413300C2BEBE /* ImageFetchManagerProtocol.swift */; };
 		56F6D4802D53417200C2BEBE /* ImageFetchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D47F2D53416D00C2BEBE /* ImageFetchManager.swift */; };
-		56F6D4842D534A2500C2BEBE /* ImageFetchManagerRepsitoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4832D534A1C00C2BEBE /* ImageFetchManagerRepsitoryProtocol.swift */; };
+		56F6D4842D534A2500C2BEBE /* ImageFetchManagerRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4832D534A1C00C2BEBE /* ImageFetchManagerRepositoryProtocol.swift */; };
 		56F6D4862D534CCE00C2BEBE /* ImageFetchManagerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4852D534CC600C2BEBE /* ImageFetchManagerRepository.swift */; };
 		56F6D48A2D534D5200C2BEBE /* ImageFetchUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4892D534D4B00C2BEBE /* ImageFetchUseCaseProtocol.swift */; };
 		56F6D48D2D534D9500C2BEBE /* ImageFetchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D48C2D534D9500C2BEBE /* ImageFetchUseCase.swift */; };
@@ -194,7 +194,7 @@
 		56F6D47B2D5340AF00C2BEBE /* ImageFetchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchError.swift; sourceTree = "<group>"; };
 		56F6D47D2D53413300C2BEBE /* ImageFetchManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchManagerProtocol.swift; sourceTree = "<group>"; };
 		56F6D47F2D53416D00C2BEBE /* ImageFetchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchManager.swift; sourceTree = "<group>"; };
-		56F6D4832D534A1C00C2BEBE /* ImageFetchManagerRepsitoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchManagerRepsitoryProtocol.swift; sourceTree = "<group>"; };
+		56F6D4832D534A1C00C2BEBE /* ImageFetchManagerRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchManagerRepositoryProtocol.swift; sourceTree = "<group>"; };
 		56F6D4852D534CC600C2BEBE /* ImageFetchManagerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchManagerRepository.swift; sourceTree = "<group>"; };
 		56F6D4892D534D4B00C2BEBE /* ImageFetchUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchUseCaseProtocol.swift; sourceTree = "<group>"; };
 		56F6D48C2D534D9500C2BEBE /* ImageFetchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchUseCase.swift; sourceTree = "<group>"; };
@@ -634,7 +634,7 @@
 		56F6D4812D534A0D00C2BEBE /* ImageFetchManager */ = {
 			isa = PBXGroup;
 			children = (
-				56F6D4832D534A1C00C2BEBE /* ImageFetchManagerRepsitoryProtocol.swift */,
+				56F6D4832D534A1C00C2BEBE /* ImageFetchManagerRepositoryProtocol.swift */,
 			);
 			path = ImageFetchManager;
 			sourceTree = "<group>";
@@ -1139,7 +1139,7 @@
 				563482FE2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift in Sources */,
 				BCF6ED572D37D55B0038CCAE /* TokenUseCase.swift in Sources */,
 				563483032D224CF2001646B5 /* CarouselHeaderView.swift in Sources */,
-				56F6D4842D534A2500C2BEBE /* ImageFetchManagerRepsitoryProtocol.swift in Sources */,
+				56F6D4842D534A2500C2BEBE /* ImageFetchManagerRepositoryProtocol.swift in Sources */,
 				566A0E4F2D3E23AF00B70929 /* WriteReviewViewModel.swift in Sources */,
 				56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */,
 				56018C9B2CEC9AE000AC8ED5 /* MainCollectionHeaderView.swift in Sources */,
