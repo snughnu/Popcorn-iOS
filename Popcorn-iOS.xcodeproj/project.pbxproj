@@ -67,6 +67,7 @@
 		56F6D47C2D5340B400C2BEBE /* ImageFetchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D47B2D5340AF00C2BEBE /* ImageFetchError.swift */; };
 		56F6D47E2D53413B00C2BEBE /* ImageFetchManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D47D2D53413300C2BEBE /* ImageFetchManagerProtocol.swift */; };
 		56F6D4802D53417200C2BEBE /* ImageFetchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D47F2D53416D00C2BEBE /* ImageFetchManager.swift */; };
+		56F6D4842D534A2500C2BEBE /* ImageFetchManagerRepsitoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4832D534A1C00C2BEBE /* ImageFetchManagerRepsitoryProtocol.swift */; };
 		BC29A50E2D2EA5DF0059A5C5 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A50D2D2EA5DE0059A5C5 /* KakaoSDKAuth */; };
 		BC29A5102D2EA5DF0059A5C5 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A50F2D2EA5DF0059A5C5 /* KakaoSDKCommon */; };
 		BC29A5122D2EA5DF0059A5C5 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A5112D2EA5DF0059A5C5 /* KakaoSDKUser */; };
@@ -190,6 +191,7 @@
 		56F6D47B2D5340AF00C2BEBE /* ImageFetchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchError.swift; sourceTree = "<group>"; };
 		56F6D47D2D53413300C2BEBE /* ImageFetchManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchManagerProtocol.swift; sourceTree = "<group>"; };
 		56F6D47F2D53416D00C2BEBE /* ImageFetchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchManager.swift; sourceTree = "<group>"; };
+		56F6D4832D534A1C00C2BEBE /* ImageFetchManagerRepsitoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchManagerRepsitoryProtocol.swift; sourceTree = "<group>"; };
 		BC2D11612CEC5DF60030F4E0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BC3201AA2D2CFC6900B73A14 /* ProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCell.swift; sourceTree = "<group>"; };
 		BC55FE852D2AC8F100E269B6 /* ProfileImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerViewController.swift; sourceTree = "<group>"; };
@@ -589,6 +591,7 @@
 		56F6D4672D4FBB6B00C2BEBE /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				56F6D4812D534A0D00C2BEBE /* ImageFetchManager */,
 				56F6D4682D4FBB7D00C2BEBE /* Token */,
 				56F6D4692D4FBB9700C2BEBE /* Login */,
 			);
@@ -618,6 +621,14 @@
 				56F6D47F2D53416D00C2BEBE /* ImageFetchManager.swift */,
 				56F6D47D2D53413300C2BEBE /* ImageFetchManagerProtocol.swift */,
 				56F6D47B2D5340AF00C2BEBE /* ImageFetchError.swift */,
+			);
+			path = ImageFetchManager;
+			sourceTree = "<group>";
+		};
+		56F6D4812D534A0D00C2BEBE /* ImageFetchManager */ = {
+			isa = PBXGroup;
+			children = (
+				56F6D4832D534A1C00C2BEBE /* ImageFetchManagerRepsitoryProtocol.swift */,
 			);
 			path = ImageFetchManager;
 			sourceTree = "<group>";
@@ -1092,6 +1103,7 @@
 				563482FE2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift in Sources */,
 				BCF6ED572D37D55B0038CCAE /* TokenUseCase.swift in Sources */,
 				563483032D224CF2001646B5 /* CarouselHeaderView.swift in Sources */,
+				56F6D4842D534A2500C2BEBE /* ImageFetchManagerRepsitoryProtocol.swift in Sources */,
 				566A0E4F2D3E23AF00B70929 /* WriteReviewViewModel.swift in Sources */,
 				56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */,
 				56018C9B2CEC9AE000AC8ED5 /* MainCollectionHeaderView.swift in Sources */,
