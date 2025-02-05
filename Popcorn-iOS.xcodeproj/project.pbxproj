@@ -65,6 +65,7 @@
 		56F6D46D2D4FBBE200C2BEBE /* LoginRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D46C2D4FBBDB00C2BEBE /* LoginRepositoryProtocol.swift */; };
 		56F6D46F2D4FBBEC00C2BEBE /* SocialLoginRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D46E2D4FBBE500C2BEBE /* SocialLoginRepositoryProtocol.swift */; };
 		56F6D47C2D5340B400C2BEBE /* ImageFetchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D47B2D5340AF00C2BEBE /* ImageFetchError.swift */; };
+		56F6D47E2D53413B00C2BEBE /* ImageFetchManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D47D2D53413300C2BEBE /* ImageFetchManagerProtocol.swift */; };
 		BC29A50E2D2EA5DF0059A5C5 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A50D2D2EA5DE0059A5C5 /* KakaoSDKAuth */; };
 		BC29A5102D2EA5DF0059A5C5 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A50F2D2EA5DF0059A5C5 /* KakaoSDKCommon */; };
 		BC29A5122D2EA5DF0059A5C5 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A5112D2EA5DF0059A5C5 /* KakaoSDKUser */; };
@@ -186,6 +187,7 @@
 		56F6D46C2D4FBBDB00C2BEBE /* LoginRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepositoryProtocol.swift; sourceTree = "<group>"; };
 		56F6D46E2D4FBBE500C2BEBE /* SocialLoginRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginRepositoryProtocol.swift; sourceTree = "<group>"; };
 		56F6D47B2D5340AF00C2BEBE /* ImageFetchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchError.swift; sourceTree = "<group>"; };
+		56F6D47D2D53413300C2BEBE /* ImageFetchManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchManagerProtocol.swift; sourceTree = "<group>"; };
 		BC2D11612CEC5DF60030F4E0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BC3201AA2D2CFC6900B73A14 /* ProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCell.swift; sourceTree = "<group>"; };
 		BC55FE852D2AC8F100E269B6 /* ProfileImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerViewController.swift; sourceTree = "<group>"; };
@@ -611,6 +613,7 @@
 		56F6D47A2D53409900C2BEBE /* ImageFetchManager */ = {
 			isa = PBXGroup;
 			children = (
+				56F6D47D2D53413300C2BEBE /* ImageFetchManagerProtocol.swift */,
 				56F6D47B2D5340AF00C2BEBE /* ImageFetchError.swift */,
 			);
 			path = ImageFetchManager;
@@ -1039,6 +1042,7 @@
 				BC7420FE2CE23FD700BEED0A /* NetworkError.swift in Sources */,
 				56D68A342D23FBB700EA1404 /* RatingDistributionView.swift in Sources */,
 				BCE6E6032CF323570036BAF6 /* SignUpFirstViewController.swift in Sources */,
+				56F6D47E2D53413B00C2BEBE /* ImageFetchManagerProtocol.swift in Sources */,
 				5643991F2D44F2000031688B /* Data+.swift in Sources */,
 				BCE6E5FC2CF321080036BAF6 /* SignUpFieldStackView.swift in Sources */,
 				BCF6ED392D33DF530038CCAE /* LoginResponseDTO.swift in Sources */,
