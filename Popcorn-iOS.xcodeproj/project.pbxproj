@@ -20,6 +20,7 @@
 		563483002D2248DB001646B5 /* PopupInfoReviewSegmentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563482FF2D2248DB001646B5 /* PopupInfoReviewSegmentHeaderView.swift */; };
 		563483032D224CF2001646B5 /* CarouselHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563483022D224CF2001646B5 /* CarouselHeaderView.swift */; };
 		56381C2A2D193CEE00F4F715 /* MainCarouselPickHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56381C292D193CEE00F4F715 /* MainCarouselPickHeaderView.swift */; };
+		563A1E2A2D5390E8008DA4F8 /* PopupMainList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E292D5390E0008DA4F8 /* PopupMainList.swift */; };
 		5643991D2D44F10E0031688B /* MultipartBodyEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5643991C2D44F0FB0031688B /* MultipartBodyEndpoint.swift */; };
 		5643991F2D44F2000031688B /* Data+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5643991E2D44F1FD0031688B /* Data+.swift */; };
 		564524E22D240BBA00B05355 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564524E12D240BBA00B05355 /* StarRatingView.swift */; };
@@ -144,6 +145,7 @@
 		563482FF2D2248DB001646B5 /* PopupInfoReviewSegmentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupInfoReviewSegmentHeaderView.swift; sourceTree = "<group>"; };
 		563483022D224CF2001646B5 /* CarouselHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselHeaderView.swift; sourceTree = "<group>"; };
 		56381C292D193CEE00F4F715 /* MainCarouselPickHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselPickHeaderView.swift; sourceTree = "<group>"; };
+		563A1E292D5390E0008DA4F8 /* PopupMainList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupMainList.swift; sourceTree = "<group>"; };
 		5643991C2D44F0FB0031688B /* MultipartBodyEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartBodyEndpoint.swift; sourceTree = "<group>"; };
 		5643991E2D44F1FD0031688B /* Data+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+.swift"; sourceTree = "<group>"; };
 		564524E12D240BBA00B05355 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
@@ -553,6 +555,7 @@
 		56F6D4622D4FBA8300C2BEBE /* MainScene */ = {
 			isa = PBXGroup;
 			children = (
+				563A1E292D5390E0008DA4F8 /* PopupMainList.swift */,
 				56F6D4592D4FBA0C00C2BEBE /* PopupPreview.swift */,
 				56F6D45B2D4FBA0C00C2BEBE /* UserInterestPopup.swift */,
 				56F6D4582D4FBA0C00C2BEBE /* PopupInformation.swift */,
@@ -1098,6 +1101,7 @@
 				BCF6ED392D33DF530038CCAE /* LoginResponseDTO.swift in Sources */,
 				563483002D2248DB001646B5 /* PopupInfoReviewSegmentHeaderView.swift in Sources */,
 				BC8113722CF5ECC800F82331 /* SignUpSecondView.swift in Sources */,
+				563A1E2A2D5390E8008DA4F8 /* PopupMainList.swift in Sources */,
 				BCB86A552D475B9700F00F1F /* SocialLoginViewModel.swift in Sources */,
 				56018CA22CECB1C400AC8ED5 /* MainSceneViewController.swift in Sources */,
 				BCE8FA342D2272F600A7B8E2 /* FindIdPwViewController.swift in Sources */,
