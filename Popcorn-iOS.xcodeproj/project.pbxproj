@@ -64,6 +64,13 @@
 		56F6D46B2D4FBBB200C2BEBE /* TokenRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D46A2D4FBBB200C2BEBE /* TokenRepositoryProtocol.swift */; };
 		56F6D46D2D4FBBE200C2BEBE /* LoginRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D46C2D4FBBDB00C2BEBE /* LoginRepositoryProtocol.swift */; };
 		56F6D46F2D4FBBEC00C2BEBE /* SocialLoginRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D46E2D4FBBE500C2BEBE /* SocialLoginRepositoryProtocol.swift */; };
+		56F6D47C2D5340B400C2BEBE /* ImageFetchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D47B2D5340AF00C2BEBE /* ImageFetchError.swift */; };
+		56F6D47E2D53413B00C2BEBE /* ImageFetchManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D47D2D53413300C2BEBE /* ImageFetchManagerProtocol.swift */; };
+		56F6D4802D53417200C2BEBE /* ImageFetchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D47F2D53416D00C2BEBE /* ImageFetchManager.swift */; };
+		56F6D4842D534A2500C2BEBE /* ImageFetchManagerRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4832D534A1C00C2BEBE /* ImageFetchManagerRepositoryProtocol.swift */; };
+		56F6D4862D534CCE00C2BEBE /* ImageFetchManagerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4852D534CC600C2BEBE /* ImageFetchManagerRepository.swift */; };
+		56F6D48A2D534D5200C2BEBE /* ImageFetchUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4892D534D4B00C2BEBE /* ImageFetchUseCaseProtocol.swift */; };
+		56F6D48D2D534D9500C2BEBE /* ImageFetchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D48C2D534D9500C2BEBE /* ImageFetchUseCase.swift */; };
 		BC29A50E2D2EA5DF0059A5C5 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A50D2D2EA5DE0059A5C5 /* KakaoSDKAuth */; };
 		BC29A5102D2EA5DF0059A5C5 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A50F2D2EA5DF0059A5C5 /* KakaoSDKCommon */; };
 		BC29A5122D2EA5DF0059A5C5 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A5112D2EA5DF0059A5C5 /* KakaoSDKUser */; };
@@ -184,6 +191,13 @@
 		56F6D46A2D4FBBB200C2BEBE /* TokenRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRepositoryProtocol.swift; sourceTree = "<group>"; };
 		56F6D46C2D4FBBDB00C2BEBE /* LoginRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepositoryProtocol.swift; sourceTree = "<group>"; };
 		56F6D46E2D4FBBE500C2BEBE /* SocialLoginRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginRepositoryProtocol.swift; sourceTree = "<group>"; };
+		56F6D47B2D5340AF00C2BEBE /* ImageFetchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchError.swift; sourceTree = "<group>"; };
+		56F6D47D2D53413300C2BEBE /* ImageFetchManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchManagerProtocol.swift; sourceTree = "<group>"; };
+		56F6D47F2D53416D00C2BEBE /* ImageFetchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchManager.swift; sourceTree = "<group>"; };
+		56F6D4832D534A1C00C2BEBE /* ImageFetchManagerRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchManagerRepositoryProtocol.swift; sourceTree = "<group>"; };
+		56F6D4852D534CC600C2BEBE /* ImageFetchManagerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchManagerRepository.swift; sourceTree = "<group>"; };
+		56F6D4892D534D4B00C2BEBE /* ImageFetchUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchUseCaseProtocol.swift; sourceTree = "<group>"; };
+		56F6D48C2D534D9500C2BEBE /* ImageFetchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchUseCase.swift; sourceTree = "<group>"; };
 		BC2D11612CEC5DF60030F4E0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BC3201AA2D2CFC6900B73A14 /* ProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCell.swift; sourceTree = "<group>"; };
 		BC55FE852D2AC8F100E269B6 /* ProfileImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerViewController.swift; sourceTree = "<group>"; };
@@ -583,6 +597,7 @@
 		56F6D4672D4FBB6B00C2BEBE /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				56F6D4812D534A0D00C2BEBE /* ImageFetchManager */,
 				56F6D4682D4FBB7D00C2BEBE /* Token */,
 				56F6D4692D4FBB9700C2BEBE /* Login */,
 			);
@@ -604,6 +619,49 @@
 				56F6D46E2D4FBBE500C2BEBE /* SocialLoginRepositoryProtocol.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		56F6D47A2D53409900C2BEBE /* ImageFetchManager */ = {
+			isa = PBXGroup;
+			children = (
+				56F6D47F2D53416D00C2BEBE /* ImageFetchManager.swift */,
+				56F6D47D2D53413300C2BEBE /* ImageFetchManagerProtocol.swift */,
+				56F6D47B2D5340AF00C2BEBE /* ImageFetchError.swift */,
+			);
+			path = ImageFetchManager;
+			sourceTree = "<group>";
+		};
+		56F6D4812D534A0D00C2BEBE /* ImageFetchManager */ = {
+			isa = PBXGroup;
+			children = (
+				56F6D4832D534A1C00C2BEBE /* ImageFetchManagerRepositoryProtocol.swift */,
+			);
+			path = ImageFetchManager;
+			sourceTree = "<group>";
+		};
+		56F6D4872D534D3200C2BEBE /* ImageFetchUseCase */ = {
+			isa = PBXGroup;
+			children = (
+				56F6D4882D534D4400C2BEBE /* Interfaces */,
+				56F6D48B2D534D8B00C2BEBE /* Implementations */,
+			);
+			path = ImageFetchUseCase;
+			sourceTree = "<group>";
+		};
+		56F6D4882D534D4400C2BEBE /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				56F6D4892D534D4B00C2BEBE /* ImageFetchUseCaseProtocol.swift */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		56F6D48B2D534D8B00C2BEBE /* Implementations */ = {
+			isa = PBXGroup;
+			children = (
+				56F6D48C2D534D9500C2BEBE /* ImageFetchUseCase.swift */,
+			);
+			path = Implementations;
 			sourceTree = "<group>";
 		};
 		BC2D115E2CEC5DCA0030F4E0 /* LoginScene */ = {
@@ -638,6 +696,7 @@
 			children = (
 				5660FD382D42186B00F9B4D9 /* APIConstant.swift */,
 				5660FD352D42165400F9B4D9 /* NetworkManager */,
+				56F6D47A2D53409900C2BEBE /* ImageFetchManager */,
 				BC7420F22CE22D0F00BEED0A /* Request */,
 			);
 			path = Network;
@@ -682,6 +741,7 @@
 		BCB86A642D486D8300F00F1F /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				56F6D4852D534CC600C2BEBE /* ImageFetchManagerRepository.swift */,
 				BCF6ED482D3426A60038CCAE /* TokenRepository.swift */,
 				BCB86A622D486A6F00F00F1F /* LoginRepository.swift */,
 				BCF945172D48A50C00E8B3EA /* SocialLoginRepository.swift */,
@@ -692,6 +752,7 @@
 		BCB86A652D486DDB00F00F1F /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				56F6D4872D534D3200C2BEBE /* ImageFetchUseCase */,
 				56F6D4652D4FBB2000C2BEBE /* TokenUseCase */,
 				56F6D4642D4FBAD400C2BEBE /* LoginUseCase */,
 			);
@@ -1008,8 +1069,10 @@
 				56A0C8532D2AB2F2005E6C51 /* PopupDetailViewModel.swift in Sources */,
 				BC9BF2012CECC52000AEE534 /* LoginViewController.swift in Sources */,
 				BCB86A532D467E7700F00F1F /* LoginViewModel.swift in Sources */,
+				56F6D48D2D534D9500C2BEBE /* ImageFetchUseCase.swift in Sources */,
 				BCE8FA2D2D2271F900A7B8E2 /* FindIdPwTextField.swift in Sources */,
 				BCB86A502D46368800F00F1F /* LoginRequestDTO.swift in Sources */,
+				56F6D48A2D534D5200C2BEBE /* ImageFetchUseCaseProtocol.swift in Sources */,
 				BCD2DFFD2D298D10000ED875 /* CompleteResetPwViewController.swift in Sources */,
 				BCE6E6002CF321AE0036BAF6 /* SignUpFirstView.swift in Sources */,
 				BCF6ED502D37CBEB0038CCAE /* KeychainManager.swift in Sources */,
@@ -1024,10 +1087,12 @@
 				BCE8FA322D2272EB00A7B8E2 /* FindIdPwView.swift in Sources */,
 				562447072D33975B000E94A0 /* FullScreenReviewImageViewController.swift in Sources */,
 				56A0C8492D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift in Sources */,
+				56F6D4802D53417200C2BEBE /* ImageFetchManager.swift in Sources */,
 				56C5DDBA2CE79AC90090D3A2 /* MainCarouselView.swift in Sources */,
 				BC7420FE2CE23FD700BEED0A /* NetworkError.swift in Sources */,
 				56D68A342D23FBB700EA1404 /* RatingDistributionView.swift in Sources */,
 				BCE6E6032CF323570036BAF6 /* SignUpFirstViewController.swift in Sources */,
+				56F6D47E2D53413B00C2BEBE /* ImageFetchManagerProtocol.swift in Sources */,
 				5643991F2D44F2000031688B /* Data+.swift in Sources */,
 				BCE6E5FC2CF321080036BAF6 /* SignUpFieldStackView.swift in Sources */,
 				BCF6ED392D33DF530038CCAE /* LoginResponseDTO.swift in Sources */,
@@ -1062,6 +1127,7 @@
 				56F6D46B2D4FBBB200C2BEBE /* TokenRepositoryProtocol.swift in Sources */,
 				BCB86A632D486A6F00F00F1F /* LoginRepository.swift in Sources */,
 				56D68A362D2409DB00EA1404 /* PopupRatingCollectionViewCell.swift in Sources */,
+				56F6D4862D534CCE00C2BEBE /* ImageFetchManagerRepository.swift in Sources */,
 				BC7420F82CE2395600BEED0A /* HttpMethod.swift in Sources */,
 				56B6D3722D2A5DA600FFB733 /* ReviewSortButtonHeaderView.swift in Sources */,
 				56F6D45D2D4FBA0C00C2BEBE /* NewToken.swift in Sources */,
@@ -1069,9 +1135,11 @@
 				56F6D45F2D4FBA0C00C2BEBE /* PopupPreview.swift in Sources */,
 				56F6D4602D4FBA0C00C2BEBE /* PopupInformation.swift in Sources */,
 				56F6D4612D4FBA0C00C2BEBE /* UserInterestPopup.swift in Sources */,
+				56F6D47C2D5340B400C2BEBE /* ImageFetchError.swift in Sources */,
 				563482FE2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift in Sources */,
 				BCF6ED572D37D55B0038CCAE /* TokenUseCase.swift in Sources */,
 				563483032D224CF2001646B5 /* CarouselHeaderView.swift in Sources */,
+				56F6D4842D534A2500C2BEBE /* ImageFetchManagerRepositoryProtocol.swift in Sources */,
 				566A0E4F2D3E23AF00B70929 /* WriteReviewViewModel.swift in Sources */,
 				56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */,
 				56018C9B2CEC9AE000AC8ED5 /* MainCollectionHeaderView.swift in Sources */,
