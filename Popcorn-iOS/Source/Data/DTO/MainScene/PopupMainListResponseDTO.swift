@@ -9,7 +9,7 @@ import Foundation
 
 struct PopupMainListResponseDTO: Decodable {
     let userPickPopups: [PopupPreviewResponseDTO]
-    let userInterestPopups: [String: PopupPreviewResponseDTO]
+    let userInterestPopups: [String: [PopupPreviewResponseDTO]]
     let closingSoonPopups: [PopupPreviewResponseDTO]
 
     enum CodingKeys: String, CodingKey {

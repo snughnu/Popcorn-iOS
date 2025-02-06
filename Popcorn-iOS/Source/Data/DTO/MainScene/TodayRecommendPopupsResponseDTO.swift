@@ -6,5 +6,5 @@
 //
 
 struct TodayRecommendPopupsResponseDTO: Decodable {
-    let imageUrl: [String]
+    let imageUrls: [String]
 }
