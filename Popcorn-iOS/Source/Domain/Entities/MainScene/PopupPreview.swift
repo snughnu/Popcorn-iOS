@@ -8,20 +8,20 @@
 import Foundation
 
 struct PopupPreview {
-    let popupImage: Data
+    let popupImageUrl: String
     let popupTitle: String
     let popupEndDate: Date
     let popupStartDate: Date?
     let popupLocation: String?
 
     init(
-        popupImage: Data,
+        popupImageUrl: String,
         popupTitle: String,
         popupEndDate: Date,
         popupStartDate: Date? = nil,
         popupLocation: String? = nil
     ) {
-        self.popupImage = popupImage
+        self.popupImageUrl = popupImageUrl
         self.popupTitle = popupTitle
         self.popupEndDate = popupEndDate
         self.popupStartDate = popupStartDate
