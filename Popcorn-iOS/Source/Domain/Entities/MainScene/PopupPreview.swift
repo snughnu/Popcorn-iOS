@@ -8,6 +8,7 @@
 import Foundation
 
 struct PopupPreview {
+    let popupId: Int
     let popupImageUrl: String
     let popupTitle: String
     let popupEndDate: Date
@@ -15,12 +16,14 @@ struct PopupPreview {
     let popupLocation: String?
 
     init(
+        popupId: Int,
         popupImageUrl: String,
         popupTitle: String,
         popupEndDate: Date,
         popupStartDate: Date? = nil,
         popupLocation: String? = nil
     ) {
+        self.popupId = popupId
         self.popupImageUrl = popupImageUrl
         self.popupTitle = popupTitle
         self.popupEndDate = popupEndDate
