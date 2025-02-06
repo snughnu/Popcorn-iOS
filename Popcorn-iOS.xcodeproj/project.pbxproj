@@ -293,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				562447142D33B657000E94A0 /* Delegate */,
+				565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -519,10 +520,9 @@
 		56CD3A712CEB83CF00BAC02D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				566A0E4E2D3E23A800B70929 /* WriteReviewViewModel.swift */,
-				56A0C8522D2AB2E5005E6C51 /* PopupDetailViewModel.swift */,
-				565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */,
 				56CD3A702CEB83CF00BAC02D /* MainSceneViewModel.swift */,
+				56A0C8522D2AB2E5005E6C51 /* PopupDetailViewModel.swift */,
+				566A0E4E2D3E23A800B70929 /* WriteReviewViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";

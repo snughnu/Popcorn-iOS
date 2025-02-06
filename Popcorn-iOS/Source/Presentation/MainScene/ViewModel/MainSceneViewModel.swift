@@ -5,7 +5,7 @@
 //  Created by 제민우 on 11/17/24.
 //
 
-import UIKit
+import Foundation
 
 enum MainCategory {
     case userPick
@@ -14,7 +14,7 @@ enum MainCategory {
 }
 
 struct PopupPreviewData {
-    let popupImage: UIImage
+    let popupImageUrl: String
     let popupTitle: String?
     let popupStartDate: String?
     let popupEndDate: String?
@@ -23,7 +23,7 @@ struct PopupPreviewData {
     let isPick: Bool?
 
     init(
-        popupImage: UIImage,
+        popupImageUrl: String,
         popupTitle: String? = nil,
         popupStartDate: String? = nil,
         popupEndDate: String? = nil,
@@ -31,7 +31,7 @@ struct PopupPreviewData {
         popupDDay: String? = nil,
         isPick: Bool? = nil
     ) {
-        self.popupImage = popupImage
+        self.popupImageUrl = popupImageUrl
         self.popupTitle = popupTitle
         self.popupStartDate = popupStartDate
         self.popupEndDate = popupEndDate
@@ -41,28 +41,35 @@ struct PopupPreviewData {
     }
 }
 
+struct UserInterestPopupViewData {
+    let interestCategory: InterestCategory
+    let popups: [PopupPreviewData]
+}
+
 final class MainSceneViewModel: MainCarouselViewModelProtocol {
-        // 프로토콜 멤버의 접근제어는 모두 동일한데, 구현체에서 얘를 private으로 설정하니 프로토콜에서 정의된 접근제어자와 일치하지 않는다는 에러 발생..
-        // 그래서 internal로 냅뒀습니다..
-    var carouselPopupImage: [UIImage] = [] {
+    private let imageFetchUseCase: ImageFetchUseCase
+
+    // 프로토콜 멤버의 접근제어는 모두 동일한데, 구현체에서 얘를 private으로 설정하니 프로토콜에서 정의된 접근제어자와 일치하지 않는다는 에러 발생..
+    // 그래서 internal로 냅뒀습니다..
+    var carouselPopupImageUrl: [String] = [] {
         didSet {
             carouselImagePublisher?()
         }
     }
 
-    private var userPickPopup: [PopupPreview] = [] {
+    private var userPickPopup: [PopupPreviewData] = [] {
         didSet {
             userPickPopupPublisher?()
         }
     }
 
-    private var userInterestPopup: [UserInterestPopup] = [] {
+    private var userInterestPopup: [UserInterestPopupViewData] = [] {
         didSet {
             userInterestPopupPublisher?()
         }
     }
 
-    private var closingSoonPopup: [PopupPreview] = [] {
+    private var closingSoonPopup: [PopupPreviewData] = [] {
         didSet {
             userInterestPopupPublisher?()
         }
@@ -74,33 +81,33 @@ final class MainSceneViewModel: MainCarouselViewModelProtocol {
     var userInterestPopupPublisher: (() -> Void)?
     var closingSoonPopupPublisher: (() -> Void)?
 
-    init() {
+    init(imageFetchUseCase: ImageFetchUseCase = ImageFetchUseCase()) {
+        self.imageFetchUseCase = imageFetchUseCase
     }
 
     private func preparePopupPreview(
         of category: MainCategory,
-        popupData: PopupPreview
+        popupData: PopupPreviewData
     ) -> PopupPreviewData? {
-        if let popupImage = UIImage(data: popupData.popupImage) {
-            if category == .userInterest || category == .userPick {
-                let dDay = calculateDDay(from: popupData.popupEndDate)
+        if category == .userInterest || category == .userPick {
+            if let dDay = popupData.popupDDay {
                 return PopupPreviewData(
-                    popupImage: popupImage,
+                    popupImageUrl: popupData.popupImageUrl,
                     popupTitle: popupData.popupTitle,
                     popupDDay: "D-\(dDay)"
                 )
             }
-            else if category == .closingSoon,
-                    let popupStartDate = popupData.popupStartDate,
-                    let popupLocation = popupData.popupLocation {
-                return PopupPreviewData(
-                    popupImage: popupImage,
-                    popupTitle: popupData.popupTitle,
-                    popupStartDate: popupStartDate.toYYMMDDString(),
-                    popupEndDate: popupData.popupEndDate.toYYMMDDString(),
-                    popupLocation: popupLocation
-                )
-            }
+        }
+        else if category == .closingSoon,
+                let popupStartDate = popupData.popupStartDate,
+                let popupLocation = popupData.popupLocation {
+            return PopupPreviewData(
+                popupImageUrl: popupData.popupImageUrl,
+                popupTitle: popupData.popupTitle,
+                popupStartDate: popupStartDate,
+                popupEndDate: popupData.popupEndDate,
+                popupLocation: popupLocation
+            )
         }
 
         return nil
@@ -112,6 +119,11 @@ final class MainSceneViewModel: MainCarouselViewModelProtocol {
         let due = calendar.startOfDay(for: dueDate)
         let components = calendar.dateComponents([.day], from: today, to: due).day ?? 0
         return String(components)
+    }
+
+    func fetchImage(url: String, completion: @escaping (Result<Data, ImageFetchError>) -> Void) {
+        guard let url = URL(string: url) else { return }
+        imageFetchUseCase.fetchImage(url: url, completion: completion)
     }
 }
 
@@ -144,7 +156,7 @@ extension MainSceneViewModel {
         at index: Int,
         sectionOfInterest: Int = 0
     ) -> PopupPreviewData? {
-        let popupData: PopupPreview
+        let popupData: PopupPreviewData
 
         switch category {
         case .userPick:
@@ -167,80 +179,16 @@ extension MainSceneViewModel {
 // MARK: - Implement MainCarouselDataSource
 extension MainSceneViewModel {
     func numbersOfCarouselImage() -> Int {
-        return carouselPopupImage.count
+        return carouselPopupImageUrl.count
     }
 
-    func provideCarouselImage() -> [UIImage] {
-        return carouselPopupImage
+    func provideCarouselImage() -> [String] {
+        return carouselPopupImageUrl
     }
 }
 
 // MARK: - Mocking
 extension MainSceneViewModel {
     private func genereateMockData() {
-        let calendar = Calendar.current
-        let today = Date()
-        guard let tomorrow = calendar.date(byAdding: .day, value: 1, to: today) else { return }
-        let image = UIImage(resource: .carousel)
-
-        if let imageData = image.jpegData(compressionQuality: 1.0) {
-            let popupPreview = PopupPreview(popupImage: imageData, popupTitle: "찜", popupEndDate: tomorrow)
-            let interestPreview = PopupPreview(
-                popupImage: imageData,
-                popupTitle: "아트아트아트아트아트아트아트아트아트아트아트",
-                popupEndDate: tomorrow
-            )
-            let interestPreview2 = PopupPreview(
-                popupImage: imageData,
-                popupTitle: "뷰티",
-                popupEndDate: tomorrow
-            )
-            let interestPreview3 = PopupPreview(
-                popupImage: imageData,
-                popupTitle: "셀럽",
-                popupEndDate: tomorrow
-            )
-            let artPreview = UserInterestPopup(
-                interestCategory: .art,
-                popups: [interestPreview, interestPreview, interestPreview]
-            )
-            let beautyPreview = UserInterestPopup(
-                interestCategory: .beauty,
-                popups: [interestPreview2, interestPreview2, interestPreview2]
-            )
-            let celebPreview = UserInterestPopup(
-                interestCategory: .celebrity,
-                popups: [interestPreview3, interestPreview3, interestPreview3]
-            )
-            let closingSoonPreview = PopupPreview(
-                popupImage: imageData,
-                popupTitle: "흰둥이흰둥이흰둥이흰둥이흰둥이",
-                popupEndDate: Date(),
-                popupStartDate: tomorrow,
-                popupLocation: "부산광역시 남구 용소로 1번길"
-            )
-
-            let closingSoonPreview2 = PopupPreview(
-                popupImage: imageData,
-                popupTitle: "흰둥이",
-                popupEndDate: Date(),
-                popupStartDate: tomorrow,
-                popupLocation: "부산광역시 남구 용소로 1번길"
-            )
-
-            for _ in 0..<5 {
-                carouselPopupImage.append(UIImage(resource: .carousel))
-                userPickPopup.append(popupPreview)
-            }
-            closingSoonPopup.append(closingSoonPreview)
-            closingSoonPopup.append(closingSoonPreview2)
-            closingSoonPopup.append(closingSoonPreview)
-            closingSoonPopup.append(closingSoonPreview)
-            closingSoonPopup.append(closingSoonPreview)
-
-            userInterestPopup.append(artPreview)
-            userInterestPopup.append(beautyPreview)
-            userInterestPopup.append(celebPreview)
-        }
     }
 }
