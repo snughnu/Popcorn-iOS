@@ -12,7 +12,7 @@ protocol KeychainManagerProtocol {
     func addItem(with attributes: [String: Any]) -> OSStatus
     func updateItem(with query: [String: Any], as attributes: [String: Any]) -> OSStatus
     func deleteItem(with query: [String: Any]) -> OSStatus
-    func loadSignupData() -> SignUpData?
+    func loadSignupData() -> SignUpRequestDTO?
 }
 
 final class KeychainManager: KeychainManagerProtocol {
@@ -61,7 +61,7 @@ final class KeychainManager: KeychainManagerProtocol {
     }
 
     // MARK: - Load SignUp Data
-    func loadSignupData() -> SignUpData? {
+    func loadSignupData() -> SignUpRequestDTO? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: "signupData",
@@ -75,7 +75,7 @@ final class KeychainManager: KeychainManagerProtocol {
         }
 
         do {
-            let signupData = try JSONDecoder().decode(SignUpData.self, from: data)
+            let signupData = try JSONDecoder().decode(SignUpRequestDTO.self, from: data)
             print("키체인 Load SignUp Data 성공: \(signupData)")
             return signupData
         } catch {
