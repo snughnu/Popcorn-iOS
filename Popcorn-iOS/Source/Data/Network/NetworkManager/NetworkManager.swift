@@ -59,6 +59,11 @@ final class NetworkManager: NetworkManagerProtocol {
                 return
             }
 
+            if Request.Response.self == String.self, let stringResponse = String(data: data, encoding: .utf8) {
+                completion(.success(stringResponse as! Request.Response))
+                return
+            }
+
             do {
                 let decodedData: Request.Response = try JSONDecoder().decode(Request.Response.self, from: data)
                 completion(.success(decodedData))

@@ -38,7 +38,7 @@ final class SignUpRepository: SignUpRepositoryProtocol {
         let endPoint = JSONBodyEndpoint<String>(
             httpMethod: .post,
             path: APIConstant.sendVerificationCodePath,
-            body: VerificationCodeRequestDTO(email: email)
+            body: AuthNumRequestDTO(email: email)
         )
 
         networkManager.request(endpoint: endPoint) { result in
@@ -52,10 +52,10 @@ final class SignUpRepository: SignUpRepositoryProtocol {
     }
 
     func fetchValidateVerificationCodeResult(email: String, authNum: String, completion: @escaping (Result<Int, Error>) -> Void) {
-        let endPoint = JSONBodyEndpoint<ValidateVerificationCodeResponseDTO>(
+        let endPoint = JSONBodyEndpoint<ValidateAuthNumResponseDTO>(
             httpMethod: .post,
             path: APIConstant.validateVerificationCodePath,
-            body: ValidateVerificationCodeRequestDTO(email: email, authNum: authNum)
+            body: ValidateAuthNumRequestDTO(email: email, authNum: authNum)
         )
 
         networkManager.request(endpoint: endPoint) { result in
