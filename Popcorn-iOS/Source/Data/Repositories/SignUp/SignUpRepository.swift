@@ -29,7 +29,11 @@ final class SignUpRepository: SignUpRepositoryProtocol {
                 let resultCode = checkUsernameResponse.resultCode
                 completion(.success(resultCode))
             case .failure(let error):
-                completion(.failure(error))
+                if case NetworkError.serverError(.badRequest) = error {
+                    completion(.success(400))
+                } else {
+                    completion(.failure(error))
+                }
             }
         }
     }
