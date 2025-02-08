@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ValidateVerificationCodeResponseDTO: Decodable {
+struct ValidateAuthNumResponseDTO: Decodable {
     let resultCode: Int
     let status: String
     let data: String
