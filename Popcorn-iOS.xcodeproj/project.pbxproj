@@ -438,9 +438,9 @@
 			isa = PBXGroup;
 			children = (
 				56EAA9302D34EB90007265D3 /* Common */,
-				BCE8FA292D2271C800A7B8E2 /* FindIdPw */,
-				BCE6E5F02CF31EBC0036BAF6 /* SignUp */,
 				BCC45D162CEB9A790045DC57 /* Login */,
+				BCE6E5F02CF31EBC0036BAF6 /* SignUp */,
+				BCE8FA292D2271C800A7B8E2 /* FindIdPw */,
 				56C5DDB82CE7989E0090D3A2 /* MainScene */,
 			);
 			path = Presentation;

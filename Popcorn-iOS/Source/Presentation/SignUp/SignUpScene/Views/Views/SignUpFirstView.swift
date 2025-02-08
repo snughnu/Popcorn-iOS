@@ -81,7 +81,7 @@ class SignUpFirstView: UIView {
     let nextButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor(resource: .popcornOrange)
+        config.baseBackgroundColor = UIColor(resource: .popcornGray2)
         config.background.cornerRadius = 10
         let screenHeight = UIScreen.main.bounds.height
         let size = screenHeight * 15/852
