@@ -55,7 +55,11 @@ final class SignUpRepository: SignUpRepositoryProtocol {
         }
     }
 
-    func fetchValidateVerificationCodeResult(email: String, authNum: String, completion: @escaping (Result<Int, Error>) -> Void) {
+    func fetchValidateVerificationCodeResult(
+        email: String,
+        authNum: String,
+        completion: @escaping (Result<Int, Error>) -> Void
+    ) {
         let endPoint = JSONBodyEndpoint<ValidateAuthNumResponseDTO>(
             httpMethod: .post,
             path: APIConstant.validateVerificationCodePath,

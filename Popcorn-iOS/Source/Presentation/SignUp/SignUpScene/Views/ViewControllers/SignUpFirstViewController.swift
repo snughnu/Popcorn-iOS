@@ -42,7 +42,64 @@ final class SignUpFirstViewController: UIViewController {
 // MARK: - Bind func
 extension SignUpFirstViewController {
     private func bind(to signUpFirstViewModel: SignUpFirstViewModelProtocol) {
+        self.signUpFirstViewModel.nameMessageHandler = { [weak self] message, color in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.signUpFirstView.nameField.labelReference.text = message
+                self.signUpFirstView.nameField.labelReference.textColor = color
+            }
+        }
 
+        self.signUpFirstViewModel.idMessageHandler = { [weak self] message, color in
+            DispatchQueue.main.async {
+                self?.signUpFirstView.idField.labelReference.text = message
+                self?.signUpFirstView.idField.labelReference.textColor = color
+            }
+        }
+
+        self.signUpFirstViewModel.pwMessageHandler = { [weak self] message, color in
+            DispatchQueue.main.async {
+                self?.signUpFirstView.passwordField.labelReference.text = message
+                self?.signUpFirstView.passwordField.labelReference.textColor = color
+            }
+        }
+
+        self.signUpFirstViewModel.confirmPwMessageHandler = { [weak self] message, color in
+            DispatchQueue.main.async {
+                self?.signUpFirstView.confirmPasswordField.labelReference.text = message
+                self?.signUpFirstView.confirmPasswordField.labelReference.textColor = color
+            }
+        }
+
+        self.signUpFirstViewModel.emailMessageHandler = { [weak self] message, color in
+            DispatchQueue.main.async {
+                self?.signUpFirstView.emailField.labelReference.text = message
+                self?.signUpFirstView.emailField.labelReference.textColor = color
+            }
+        }
+
+        self.signUpFirstViewModel.authNumMessageHandler = { [weak self] message, color in
+            DispatchQueue.main.async {
+                self?.signUpFirstView.authNumberField.labelReference.text = message
+                self?.signUpFirstView.authNumberField.labelReference.textColor = color
+            }
+        }
+
+        self.signUpFirstViewModel.allFieldsValidHandler = { [weak self] isValid in
+            guard let self = self else { return }
+            var config = self.signUpFirstView.nextButton.configuration
+            config?.baseBackgroundColor = isValid ? UIColor(resource: .popcornOrange) : UIColor(resource: .popcornGray2)
+            self.signUpFirstView.nextButton.configuration = config
+            self.signUpFirstView.nextButton.isEnabled = isValid
+        }
+
+        self.signUpFirstViewModel.navigateToSignUpSecondHandler = { [weak self] in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                let signUpSecondViewController = SignUpSecondViewController()
+                self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
+            }
+        }
     }
 }
 
@@ -77,7 +134,7 @@ extension SignUpFirstViewController {
             signUpFirstView.emailField.labelReference.text = "*이메일을 올바르게 입력해주세요."
             return
         }
-        signUpFirstViewModel.requestVerificationCode(email: emailText)
+        signUpFirstViewModel.requestAuthNum(email: emailText)
     }
 
     private func nextButtonTapped() {
@@ -87,7 +144,7 @@ extension SignUpFirstViewController {
             signUpFirstView.authNumberField.labelReference.text = "*인증번호를 입력해주세요."
             return
         }
-        signUpFirstViewModel.validateVerificationCode(email: email, authNum: authNum)
+        signUpFirstViewModel.validateAuthNum(email: email, authNum: authNum)
     }
 }
 
@@ -125,6 +182,8 @@ extension SignUpFirstViewController: UITextFieldDelegate {
             signUpFirstViewModel.updateConfirmPw(password, textField.text ?? "")
         } else if textField == signUpFirstView.emailField.textFieldReference {
             signUpFirstViewModel.updateEmail(textField.text ?? "")
+        } else if textField == signUpFirstView.authNumberField.textFieldReference {
+            signUpFirstViewModel.updateAuthNum(textField.text ?? "")
         }
     }
 

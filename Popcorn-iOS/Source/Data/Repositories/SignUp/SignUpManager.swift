@@ -7,6 +7,7 @@
 
 import Foundation
 
+// TODO: 회원가입화면2 리팩토링 후 파일 삭제
 final class SignUpManager {
     static let shared = SignUpManager()
     private init() {}
