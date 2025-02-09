@@ -23,19 +23,18 @@ final class SignUpRepository: SignUpRepositoryProtocol {
             queryItems: [URLQueryItem(name: "username", value: username)]
         )
 
-        // TODO: API변경되면 refactoring
         networkManager.request(endpoint: endPoint) { result in
             switch result {
             case .success(let response):
-                let resultCode = response.resultCode
-                if resultCode == 200 {
+                let isDuplicated = response.status.contains("fail")
+                if !isDuplicated {
                     completion(.success(true))
-                } else if resultCode == 400 {
+                } else if isDuplicated {
                     completion(.success(false))
                 } else {
                     let error = NSError(domain: "SignUpError",
-                                        code: resultCode,
-                                        userInfo: [NSLocalizedDescriptionKey : "알 수 없는 상태 코드: \(resultCode)"])
+                                        code: response.resultCode,
+                                        userInfo: [NSLocalizedDescriptionKey : "알 수 없는 상태 코드: \(response.resultCode)"])
                     completion(.failure(error))
                 }
             case .failure(let error):
@@ -44,9 +43,8 @@ final class SignUpRepository: SignUpRepositoryProtocol {
         }
     }
 
-    // TODO: API수정되면 refactoring
     func fetchRequestAuthNumResult(email: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        let endPoint = JSONBodyEndpoint<String>(
+        let endPoint = JSONBodyEndpoint<AuthNumResultResponseDTO>(
             httpMethod: .post,
             path: APIConstant.sendVerificationCodePath,
             body: AuthNumRequestDTO(email: email)
@@ -55,10 +53,13 @@ final class SignUpRepository: SignUpRepositoryProtocol {
         networkManager.request(endpoint: endPoint) { result in
             switch result {
             case .success(let response):
-                if response.contains("발송") || response.contains("성공") {
+                if response.resultCode == 200 {
                     completion(.success(true))
                 } else {
-                    completion(.success(false))
+                    let error = NSError(domain: "SignUpError",
+                                        code: response.resultCode,
+                                        userInfo: [NSLocalizedDescriptionKey: "알 수 없는 상태 코드: \(response.resultCode)"])
+                    completion(.failure(error))
                 }
             case .failure(let error):
                 completion(.failure(error))
