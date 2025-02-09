@@ -7,20 +7,20 @@
 
 import Foundation
 
-struct FirstSignupDto: Encodable {
+struct FirstSignupDto: Codable {
     let name: String
     let username: String
     let password: String
     let email: String
 }
 
-struct SecondSignupDto: Encodable {
+struct SecondSignupDto: Codable {
     let nickname: String
     let profileId: Int
     let interests: [String]
 }
 
-struct SignUpRequestDTO: Encodable {
+struct SignUpRequestDTO: Codable {
     let firstSignupDto: FirstSignupDto
     var secondSignupDto: SecondSignupDto?
 }
