@@ -16,6 +16,22 @@ enum InterestCategory: String {
     case IT = "IT"
     case celebrity = "셀럽"
     case pet = "반려동물"
+
+    init?(serverValue: String) {
+        switch serverValue {
+        case "FASHION": self = .fashion
+        case "BEAUTY": self = .beauty
+        case "FOOD": self = .food
+        case "CHARACTERS": self = .character
+        case "MOVIES": self = .dramaMovie
+        case "LIFESTYLE": self = .lifeStyle
+        case "ART": self = .art
+        case "IT": self = .IT
+        case "CELEBRITY": self = .celebrity
+        case "PETS": self = .pet
+        default: return nil
+        }
+    }
 }
 
 struct UserInterestPopup {
