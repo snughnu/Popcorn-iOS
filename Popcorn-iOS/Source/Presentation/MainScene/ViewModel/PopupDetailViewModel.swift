@@ -69,7 +69,7 @@ struct PopupReviewViewData {
 final class PopupDetailViewModel: MainCarouselViewModelProtocol {
     private let imageFetchUseCase: ImageFetchUseCaseProtocol
 
-    var carouselPopupImageUrl: [String] = [] {
+    var carouselPopupImageUrls: [String] = [] {
         didSet {
             carouselImagePublisher?()
         }
@@ -113,7 +113,7 @@ final class PopupDetailViewModel: MainCarouselViewModelProtocol {
     private func bindPopupDetailInformation(_ data: PopupInformation) {
         let hashTags = data.mainInformation.hashTags ?? []
 
-        carouselPopupImageUrl = data.popupImagesUrl
+        carouselPopupImageUrls = data.popupImagesUrl
 
         popupMainInformation = PopupMainInformationViewData(
             popupTitle: data.mainInformation.popupTitle,
@@ -207,10 +207,10 @@ extension PopupDetailViewModel {
 // MARK: - Implement MainCarouselViewModelProtocol
 extension PopupDetailViewModel {
     func provideCarouselImage() -> [String] {
-        return carouselPopupImageUrl
+        return carouselPopupImageUrls
     }
 
     func numbersOfCarouselImage() -> Int {
-        return carouselPopupImageUrl.count
+        return carouselPopupImageUrls.count
     }
 }
