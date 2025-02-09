@@ -28,6 +28,7 @@
 		563A1E3C2D54AB41008DA4F8 /* PopupListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E3B2D54AB3D008DA4F8 /* PopupListRepository.swift */; };
 		563A1E432D58B8B0008DA4F8 /* FetchPopupListUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E422D58B89C008DA4F8 /* FetchPopupListUseCaseProtocol.swift */; };
 		563A1E482D58BC19008DA4F8 /* FetchPopupListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E472D58BC16008DA4F8 /* FetchPopupListUseCase.swift */; };
+		563A1E4C2D58C1FE008DA4F8 /* PopupDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E4B2D58C1FB008DA4F8 /* PopupDateFormatter.swift */; };
 		5643991D2D44F10E0031688B /* MultipartBodyEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5643991C2D44F0FB0031688B /* MultipartBodyEndpoint.swift */; };
 		5643991F2D44F2000031688B /* Data+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5643991E2D44F1FD0031688B /* Data+.swift */; };
 		564524E22D240BBA00B05355 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564524E12D240BBA00B05355 /* StarRatingView.swift */; };
@@ -160,6 +161,7 @@
 		563A1E3B2D54AB3D008DA4F8 /* PopupListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupListRepository.swift; sourceTree = "<group>"; };
 		563A1E422D58B89C008DA4F8 /* FetchPopupListUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPopupListUseCaseProtocol.swift; sourceTree = "<group>"; };
 		563A1E472D58BC16008DA4F8 /* FetchPopupListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPopupListUseCase.swift; sourceTree = "<group>"; };
+		563A1E4B2D58C1FB008DA4F8 /* PopupDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDateFormatter.swift; sourceTree = "<group>"; };
 		5643991C2D44F0FB0031688B /* MultipartBodyEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartBodyEndpoint.swift; sourceTree = "<group>"; };
 		5643991E2D44F1FD0031688B /* Data+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+.swift"; sourceTree = "<group>"; };
 		564524E12D240BBA00B05355 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
@@ -396,6 +398,14 @@
 			path = MainScene;
 			sourceTree = "<group>";
 		};
+		563A1E4A2D58C1F2008DA4F8 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				563A1E4B2D58C1FB008DA4F8 /* PopupDateFormatter.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 		56537B6A2CE0F5100092A292 = {
 			isa = PBXGroup;
 			children = (
@@ -535,6 +545,7 @@
 		56C5DDC62CE99AC80090D3A2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				563A1E4A2D58C1F2008DA4F8 /* Util */,
 				56C5DDCB2CE9B1D50090D3A2 /* View */,
 			);
 			path = Common;
@@ -1187,6 +1198,7 @@
 				BCD2DFFB2D298A5C000ED875 /* CompleteResetPwView.swift in Sources */,
 				560159422CF32F5900872662 /* UIButton+.swift in Sources */,
 				BC8113762CF6221400F82331 /* SignUpAgreeButton.swift in Sources */,
+				563A1E4C2D58C1FE008DA4F8 /* PopupDateFormatter.swift in Sources */,
 				56C5DDBC2CE875990090D3A2 /* MainCarouselCollectionViewCell.swift in Sources */,
 				5601592E2CF3175E00872662 /* RobotoFontName.swift in Sources */,
 				BCE6E60A2CF378DF0036BAF6 /* SignUpLabel.swift in Sources */,
