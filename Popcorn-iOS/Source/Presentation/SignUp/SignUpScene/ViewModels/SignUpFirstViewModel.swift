@@ -31,12 +31,11 @@ protocol SignUpFirstViewModelProtocol {
 final class SignUpFirstViewModel: SignUpFirstViewModelProtocol {
     // MARK: - Properties
     private let signUpUseCase: SignUpUseCaseProtocol
-    private let keychainManager: KeychainManagerProtocol
 
     // MARK: - 입력값 검사
     private var name: String = "" {
         didSet {
-            isNameValid = isNameFormatted(name)
+            isNameValid = signUpUseCase.isNameFormatted(name)
             let message = isNameValid ? " " : "*이름을 올바르게 입력해주세요."
             nameMessageHandler?(message, isNameValid)
         }
@@ -44,7 +43,7 @@ final class SignUpFirstViewModel: SignUpFirstViewModelProtocol {
 
     private var id: String = "" {
         didSet {
-            isIdValid = isIdFormatted(id)
+            isIdValid = signUpUseCase.isIdFormatted(id)
             let message = isIdValid ? " " : "*6~12자의 영문과 숫자의 조합으로 입력해주세요."
             idMessageHandler?(message, isIdValid)
         }
@@ -52,7 +51,7 @@ final class SignUpFirstViewModel: SignUpFirstViewModelProtocol {
 
     private var pw: String = "" {
         didSet {
-            isPwValid = isPwFormatted(pw)
+            isPwValid = signUpUseCase.isPwFormatted(pw)
             let message = isPwValid ? "*사용 가능한 비밀번호 입니다." : "*8~16자, 영문, 숫자, 특수문자를 조합해주세요."
             pwMessageHandler?(message, isPwValid)
         }
@@ -60,7 +59,7 @@ final class SignUpFirstViewModel: SignUpFirstViewModelProtocol {
 
     private var confirmPw: String = "" {
         didSet {
-            isConfirmPwValid = isConfirmPwFormatted(pw, confirmPw)
+            isConfirmPwValid = signUpUseCase.isConfirmPwFormatted(pw, confirmPw)
             let message = isConfirmPwValid ? "*비밀번호가 일치합니다." : "*비밀번호가 일치하지 않습니다."
             confirmPwMessageHandler?(message, isConfirmPwValid)
         }
@@ -68,7 +67,7 @@ final class SignUpFirstViewModel: SignUpFirstViewModelProtocol {
 
     private var email: String = "" {
         didSet {
-            isEmailValid = isEmailFormatted(email)
+            isEmailValid = signUpUseCase.isEmailFormatted(email)
             let message = isEmailValid ? " " : "*이메일을 올바르게 입력해주세요."
             emailMessageHandler?(message, isEmailValid)
         }
@@ -119,44 +118,9 @@ final class SignUpFirstViewModel: SignUpFirstViewModelProtocol {
 
     // MARK: - Initializer
     init(
-        signUpUseCase: SignUpUseCaseProtocol,
-        keychainManager: KeychainManagerProtocol
+        signUpUseCase: SignUpUseCaseProtocol
     ) {
         self.signUpUseCase = signUpUseCase
-        self.keychainManager = keychainManager
-    }
-}
-
-// MARK: - 유효성 검사 (Validation)
-extension SignUpFirstViewModel {
-    private func isNameFormatted(_ name: String) -> Bool {
-        let nameRegex = "^[가-힣a-zA-Z]{2,10}$"
-        let nameTest = NSPredicate(format: "SELF MATCHES %@", nameRegex)
-        return nameTest.evaluate(with: name)
-    }
-
-    private func isIdFormatted(_ id: String) -> Bool {
-        let idRegex = "^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,12}$"
-        let idTest = NSPredicate(format: "SELF MATCHES %@", idRegex)
-        return idTest.evaluate(with: id)
-    }
-
-    private func isPwFormatted(_ password: String) -> Bool {
-        let passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]{8,16}$"
-        let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
-        return passwordTest.evaluate(with: password)
-    }
-
-    private func isConfirmPwFormatted(_ password: String, _ confirmPassword: String) -> Bool {
-        let pw = password
-        let confirmPw = confirmPassword
-        return (pw == confirmPw)
-    }
-
-    private func isEmailFormatted(_ email: String) -> Bool {
-        let emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
-        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegex)
-        return emailTest.evaluate(with: email)
     }
 
     private func updateAllFieldsValid() {
@@ -172,7 +136,7 @@ extension SignUpFirstViewModel {
 
     func updateId(_ id: String) {
         self.id = id
-        isIdFormattedValid = isIdFormatted(id)
+        isIdFormattedValid = signUpUseCase.isIdFormatted(id)
         isIdValid = false
     }
 
@@ -245,7 +209,7 @@ extension SignUpFirstViewModel {
                 switch result {
                 case .success(let isSuccess):
                     if isSuccess {
-                        let isSaved = self.saveSignUpData(
+                        let isSaved = self.signUpUseCase.saveSignUpData(
                             name: self.name,
                             id: self.id,
                             password: self.pw,
@@ -264,36 +228,5 @@ extension SignUpFirstViewModel {
                 }
             }
         }
-    }
-
-    private func saveSignUpData(name: String, id: String, password: String, email: String) -> Bool {
-        let data = SignUpRequestDTO(
-            firstSignupDto: FirstSignupDto(name: name, username: id, password: password, email: email),
-            secondSignupDto: nil
-        )
-
-        do {
-            let jsonData = try JSONEncoder().encode(data)
-            let query: [String: Any] = [
-                kSecClass as String: kSecClassGenericPassword,
-                kSecAttrAccount as String: "signupData"
-            ]
-            let attributes: [String: Any] = [
-                kSecValueData as String: jsonData
-            ]
-
-            let status = keychainManager.updateItem(with: query, as: attributes)
-
-            if status == errSecItemNotFound {
-                let addQuery = query.merging(attributes) { _, new in new }
-                let addStatus = keychainManager.addItem(with: addQuery)
-                return addStatus == errSecSuccess
-            } else if status == errSecSuccess {
-                return true
-            }
-        } catch {
-            print("데이터 인코딩 실패: \(error)")
-        }
-        return false
     }
 }

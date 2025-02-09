@@ -16,4 +16,5 @@ protocol SignUpRepositoryProtocol {
         completion: @escaping (Result<Bool, Error>) -> Void
     )
     func fetchSendSignUpDataResult(signupData: SignUpRequestDTO, completion: @escaping (Result<Bool, Error>) -> Void)
+    func saveSignUpData(signUpData: SignUpRequestDTO) -> Bool
 }
