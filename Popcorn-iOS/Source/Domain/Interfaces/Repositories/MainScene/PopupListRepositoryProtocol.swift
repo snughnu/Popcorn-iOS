@@ -6,6 +6,6 @@
 //
 
 protocol PopupListRepositoryProtocol {
-    func fetchPopupMainList(completion: @escaping (Result<PopupMainList, NetworkError>) -> Void)
+    func fetchPopupMainList(completion: @escaping (Result<PopupMainList, Error>) -> Void)
     func fetchCategorizedPopupList(completion: @escaping (Result<[PopupPreview], NetworkError>) -> Void)
 }
