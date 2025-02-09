@@ -9,11 +9,14 @@ import Foundation
 
 final class SignUpRepository: SignUpRepositoryProtocol {
     private let networkManager: NetworkManagerProtocol
+    private let keychainManager: KeychainManagerProtocol
 
     init(
-        networkManager: NetworkManagerProtocol
+        networkManager: NetworkManagerProtocol,
+        keychainManager: KeychainManagerProtocol
     ) {
         self.networkManager = networkManager
+        self.keychainManager = keychainManager
     }
 
     func fetchUsernameDuplicationResult(username: String, completion: @escaping (Result<Bool, Error>) -> Void) {
@@ -34,7 +37,7 @@ final class SignUpRepository: SignUpRepositoryProtocol {
                 } else {
                     let error = NSError(domain: "SignUpError",
                                         code: response.resultCode,
-                                        userInfo: [NSLocalizedDescriptionKey : "알 수 없는 상태 코드: \(response.resultCode)"])
+                                        userInfo: [NSLocalizedDescriptionKey: "알 수 없는 상태 코드: \(response.resultCode)"])
                     completion(.failure(error))
                 }
             case .failure(let error):
@@ -46,7 +49,7 @@ final class SignUpRepository: SignUpRepositoryProtocol {
     func fetchRequestAuthNumResult(email: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         let endPoint = JSONBodyEndpoint<AuthNumResultResponseDTO>(
             httpMethod: .post,
-            path: APIConstant.sendVerificationCodePath,
+            path: APIConstant.sendAuthNumPath,
             body: AuthNumRequestDTO(email: email)
         )
 
@@ -74,7 +77,7 @@ final class SignUpRepository: SignUpRepositoryProtocol {
     ) {
         let endPoint = JSONBodyEndpoint<ValidateAuthNumResponseDTO>(
             httpMethod: .post,
-            path: APIConstant.validateVerificationCodePath,
+            path: APIConstant.validateAuthNumPath,
             body: ValidateAuthNumRequestDTO(email: email, authNum: authNum)
         )
 
@@ -123,5 +126,31 @@ final class SignUpRepository: SignUpRepositoryProtocol {
                 completion(.failure(error))
             }
         }
+    }
+
+    func saveSignUpData(signUpData: SignUpRequestDTO) -> Bool {
+        do {
+            let jsonData = try JSONEncoder().encode(signUpData)
+            let query: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword,
+                kSecAttrAccount as String: "signupData"
+            ]
+            let attributes: [String: Any] = [
+                kSecValueData as String: jsonData
+            ]
+
+            let status = keychainManager.updateItem(with: query, as: attributes)
+
+            if status == errSecItemNotFound {
+                let addQuery = query.merging(attributes) { _, new in new }
+                let addStatus = keychainManager.addItem(with: addQuery)
+                return addStatus == errSecSuccess
+            } else if status == errSecSuccess {
+                return true
+            }
+        } catch {
+            print("데이터 인코딩 실패: \(error)")
+        }
+        return false
     }
 }
