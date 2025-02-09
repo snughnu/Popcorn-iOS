@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MainCarouselViewModelProtocol: AnyObject {
-    var carouselPopupImageUrl: [String] { get set }
+    var carouselPopupImageUrls: [String] { get set }
 
     var carouselImagePublisher: (() -> Void)? { get set }
 

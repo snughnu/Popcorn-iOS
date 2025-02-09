@@ -36,12 +36,13 @@ final class MainSceneViewController: UIViewController {
         configureInitialSetting()
         configureSubviews()
         configureLayout()
-        mockingData()
         bind(to: mainViewModel)
+        mainViewModel.fetchPopupList()
     }
 
     func bind(to viewModel: MainSceneViewModel) {
         let numbersOfInterest = viewModel.numbersOfInterest()
+
         viewModel.userPickPopupPublisher = { [weak self] in
             guard let self else { return }
             self.mainCollectionView.reloadSections(IndexSet(0...0))
@@ -55,6 +56,11 @@ final class MainSceneViewController: UIViewController {
         viewModel.closingSoonPopupPublisher = { [weak self] in
             guard let self else { return }
             self.mainCollectionView.reloadSections(IndexSet((1 + numbersOfInterest)...(1 + numbersOfInterest)))
+        }
+
+        viewModel.fetchPopupImagesErrorPublisher = { [weak self] in
+            guard let self else { return }
+            self.mainCollectionView.reloadData()
         }
     }
 }
@@ -127,10 +133,13 @@ extension MainSceneViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
 
-            if let popupData = mainViewModel.providePopupPreviewData(of: .userPick, at: indexPath.row),
-               let popupTitle = popupData.popupTitle,
-               let popupDDay = popupData.popupDDay {
-                mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
+            let popupData = mainViewModel.providePopupPreviewData(of: .userPick, at: indexPath.row)
+            ?? PopupPreviewViewData.placeholder
+
+            if let popupTitle = popupData.popupTitle,
+               let popupDDay = popupData.popupDDay,
+               let popupImageUrl = popupData.popupImageUrl {
+                mainViewModel.fetchImage(url: popupImageUrl) { result in
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let imageData):
@@ -146,6 +155,12 @@ extension MainSceneViewController: UICollectionViewDataSource {
                         }
                     }
                 }
+            } else {
+                cell.configureContents(
+                    popupImage: UIImage(resource: .popupPreviewPlaceHolder),
+                    popupTitle: PopupPreviewViewData.placeholder.popupTitle!,
+                    dDay: PopupPreviewViewData.placeholder.popupDDay!
+                )
             }
             return cell
 
@@ -163,8 +178,9 @@ extension MainSceneViewController: UICollectionViewDataSource {
                 sectionOfInterest: indexPath.section - 1
             ),
                let popupTitle = popupData.popupTitle,
-               let popupDDay = popupData.popupDDay {
-                mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
+               let popupDDay = popupData.popupDDay,
+               let popupImageUrl = popupData.popupImageUrl {
+                mainViewModel.fetchImage(url: popupImageUrl) { result in
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let imageData):
@@ -180,6 +196,12 @@ extension MainSceneViewController: UICollectionViewDataSource {
                         }
                     }
                 }
+            } else {
+                cell.configureContents(
+                    popupImage: UIImage(resource: .popupPreviewPlaceHolder),
+                    popupTitle: PopupPreviewViewData.placeholder.popupTitle!,
+                    dDay: PopupPreviewViewData.placeholder.popupDDay!
+                )
             }
             return cell
 
@@ -193,10 +215,10 @@ extension MainSceneViewController: UICollectionViewDataSource {
 
             if let popupData = mainViewModel.providePopupPreviewData(of: .closingSoon, at: indexPath.row),
                let popupTitle = popupData.popupTitle,
-               let popupStartDate = popupData.popupStartDate,
-               let popupEndDate = popupData.popupEndDate,
-               let popupLocation = popupData.popupLocation {
-                mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
+               let popupPeriod = popupData.popupPeriod,
+               let popupLocation = popupData.popupLocation,
+               let popupImageUrl = popupData.popupImageUrl {
+                mainViewModel.fetchImage(url: popupImageUrl) { result in
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let imageData):
@@ -205,7 +227,7 @@ extension MainSceneViewController: UICollectionViewDataSource {
                                     cell.configureContents(
                                         popupImage: image,
                                         popupTitle: popupTitle,
-                                        period: "\(popupStartDate)~\(popupEndDate)",
+                                        period: popupPeriod,
                                         location: popupLocation
                                     )
                                 }
@@ -214,12 +236,19 @@ extension MainSceneViewController: UICollectionViewDataSource {
                             cell.configureContents(
                                 popupImage: UIImage(resource: .popupPreviewPlaceHolder),
                                 popupTitle: popupTitle,
-                                period: "\(popupStartDate)~\(popupEndDate)",
+                                period: popupPeriod,
                                 location: popupLocation
                             )
                         }
                     }
                 }
+            } else {
+                cell.configureContents(
+                    popupImage: UIImage(resource: .popupPreviewPlaceHolder),
+                    popupTitle: PopupPreviewViewData.placeholder.popupTitle!,
+                    period: PopupPreviewViewData.placeholder.popupPeriod!,
+                    location: PopupPreviewViewData.placeholder.popupLocation!
+                )
             }
 
             return cell
