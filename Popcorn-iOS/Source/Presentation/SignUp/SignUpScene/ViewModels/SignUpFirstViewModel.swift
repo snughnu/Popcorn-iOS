@@ -6,15 +6,14 @@
 //
 
 import Foundation
-import UIKit.UIColor
 
 protocol SignUpFirstViewModelProtocol {
-    var nameMessageHandler: ((String, UIColor) -> Void)? { get set }
-    var idMessageHandler: ((String, UIColor) -> Void)? { get set }
-    var pwMessageHandler: ((String, UIColor) -> Void)? { get set }
-    var confirmPwMessageHandler: ((String, UIColor) -> Void)? { get set }
-    var emailMessageHandler: ((String, UIColor) -> Void)? { get set }
-    var authNumMessageHandler: ((String, UIColor) -> Void)? { get set }
+    var nameMessageHandler: ((String, Bool) -> Void)? { get set }
+    var idMessageHandler: ((String, Bool) -> Void)? { get set }
+    var pwMessageHandler: ((String, Bool) -> Void)? { get set }
+    var confirmPwMessageHandler: ((String, Bool) -> Void)? { get set }
+    var emailMessageHandler: ((String, Bool) -> Void)? { get set }
+    var authNumMessageHandler: ((String, Bool) -> Void)? { get set }
     var allFieldsValidHandler: ((Bool) -> Void)? { get set }
     var navigateToSignUpSecondHandler: (() -> Void)? { get set }
 
@@ -27,23 +26,19 @@ protocol SignUpFirstViewModelProtocol {
     func checkUsernameAvailability(username: String)
     func requestAuthNum(email: String)
     func validateAuthNum(email: String, authNum: String)
-
-    func setupKeyboardHandling(for view: UIView)
 }
 
 final class SignUpFirstViewModel: SignUpFirstViewModelProtocol {
     // MARK: - Properties
     private let signUpUseCase: SignUpUseCaseProtocol
     private let keychainManager: KeychainManagerProtocol
-    private weak var rootView: UIView?
 
     // MARK: - 입력값 검사
     private var name: String = "" {
         didSet {
             isNameValid = isNameFormatted(name)
             let message = isNameValid ? " " : "*이름을 올바르게 입력해주세요."
-            let color = isNameValid ? UIColor(.blue) : UIColor(.red)
-            nameMessageHandler?(message, color)
+            nameMessageHandler?(message, isNameValid)
         }
     }
 
@@ -51,8 +46,7 @@ final class SignUpFirstViewModel: SignUpFirstViewModelProtocol {
         didSet {
             isIdValid = isIdFormatted(id)
             let message = isIdValid ? " " : "*6~12자의 영문과 숫자의 조합으로 입력해주세요."
-            let color = isIdValid ? UIColor(.blue) : UIColor(.red)
-            idMessageHandler?(message, color)
+            idMessageHandler?(message, isIdValid)
         }
     }
 
@@ -60,8 +54,7 @@ final class SignUpFirstViewModel: SignUpFirstViewModelProtocol {
         didSet {
             isPwValid = isPwFormatted(pw)
             let message = isPwValid ? "*사용 가능한 비밀번호 입니다." : "*8~16자, 영문, 숫자, 특수문자를 조합해주세요."
-            let color = isPwValid ? UIColor(.blue) : UIColor(.red)
-            pwMessageHandler?(message, color)
+            pwMessageHandler?(message, isPwValid)
         }
     }
 
@@ -69,8 +62,7 @@ final class SignUpFirstViewModel: SignUpFirstViewModelProtocol {
         didSet {
             isConfirmPwValid = isConfirmPwFormatted(pw, confirmPw)
             let message = isConfirmPwValid ? "*비밀번호가 일치합니다." : "*비밀번호가 일치하지 않습니다."
-            let color = isConfirmPwValid ? UIColor(.blue) : UIColor(.red)
-            confirmPwMessageHandler?(message, color)
+            confirmPwMessageHandler?(message, isConfirmPwValid)
         }
     }
 
@@ -78,8 +70,7 @@ final class SignUpFirstViewModel: SignUpFirstViewModelProtocol {
         didSet {
             isEmailValid = isEmailFormatted(email)
             let message = isEmailValid ? " " : "*이메일을 올바르게 입력해주세요."
-            let color = isEmailValid ? UIColor(.blue) : UIColor(.red)
-            emailMessageHandler?(message, color)
+            emailMessageHandler?(message, isEmailValid)
         }
     }
 
@@ -117,12 +108,12 @@ final class SignUpFirstViewModel: SignUpFirstViewModelProtocol {
     }
 
     // MARK: - Output
-    var nameMessageHandler: ((String, UIColor) -> Void)?
-    var idMessageHandler: ((String, UIColor) -> Void)?
-    var pwMessageHandler: ((String, UIColor) -> Void)?
-    var confirmPwMessageHandler: ((String, UIColor) -> Void)?
-    var emailMessageHandler: ((String, UIColor) -> Void)?
-    var authNumMessageHandler: ((String, UIColor) -> Void)?
+    var nameMessageHandler: ((String, Bool) -> Void)?
+    var idMessageHandler: ((String, Bool) -> Void)?
+    var pwMessageHandler: ((String, Bool) -> Void)?
+    var confirmPwMessageHandler: ((String, Bool) -> Void)?
+    var emailMessageHandler: ((String, Bool) -> Void)?
+    var authNumMessageHandler: ((String, Bool) -> Void)?
     var allFieldsValidHandler: ((Bool) -> Void)?
     var navigateToSignUpSecondHandler: (() -> Void)?
 
@@ -208,7 +199,7 @@ extension SignUpFirstViewModel {
 
     func checkUsernameAvailability(username: String) {
         guard isIdFormattedValid else {
-            idMessageHandler?("*6~12자의 영문과 숫자의 조합으로 입력해주세요.", UIColor(.red))
+            idMessageHandler?("*6~12자의 영문과 숫자의 조합으로 입력해주세요.", false)
             return
         }
         signUpUseCase.executeUsernameDuplicationCheck(username: username) { [weak self] result in
@@ -217,10 +208,9 @@ extension SignUpFirstViewModel {
                 case .success(let isAvailable):
                     self?.isIdValid = isAvailable
                     let message = isAvailable ? "*사용 가능한 아이디입니다." : "*중복된 아이디입니다."
-                    let color = isAvailable ? UIColor(.blue) : UIColor(.red)
-                    self?.idMessageHandler?(message, color)
+                    self?.idMessageHandler?(message, isAvailable)
                 case .failure:
-                    self?.idMessageHandler?("*아이디 중복 확인 실패.", UIColor(.red))
+                    self?.idMessageHandler?("*아이디 중복 확인 실패.", false)
                 }
             }
         }
@@ -228,7 +218,7 @@ extension SignUpFirstViewModel {
 
     func requestAuthNum(email: String) {
         guard isEmailValid else {
-            emailMessageHandler?("*이메일을 올바르게 입력해주세요.", UIColor(.red))
+            emailMessageHandler?("*이메일을 올바르게 입력해주세요.", false)
             return
         }
         signUpUseCase.executeSendVerificationCode(email: email) { [weak self] result in
@@ -236,10 +226,9 @@ extension SignUpFirstViewModel {
                 switch result {
                 case .success(let isSuccess):
                     let message = isSuccess ? "*인증번호가 발송되었습니다." : "*인증번호 전송 실패."
-                    let color = isSuccess ? UIColor(.blue) : UIColor(.red)
-                    self?.emailMessageHandler?(message, color)
+                    self?.emailMessageHandler?(message, isSuccess)
                 case .failure:
-                    self?.emailMessageHandler?("*네트워크 오류.", UIColor(.red))
+                    self?.emailMessageHandler?("*네트워크 오류.", false)
                 }
             }
         }
@@ -247,7 +236,7 @@ extension SignUpFirstViewModel {
 
     func validateAuthNum(email: String, authNum: String) {
         guard isAllValid else {
-            authNumMessageHandler?("*모든 정보를 올바르게 입력해주세요.", UIColor(.red))
+            authNumMessageHandler?("*모든 정보를 올바르게 입력해주세요.", false)
             return
         }
         signUpUseCase.executeValidateVerificationCode(email: email, authNum: authNum) { [weak self] result in
@@ -265,13 +254,13 @@ extension SignUpFirstViewModel {
                         if isSaved {
                             self.navigateToSignUpSecondHandler?()
                         } else {
-                            self.authNumMessageHandler?("*데이터 저장에 실패했습니다.", UIColor(.red))
+                            self.authNumMessageHandler?("*데이터 저장에 실패했습니다.", false)
                         }
                     } else {
-                        self.authNumMessageHandler?("*인증번호가 올바르지 않습니다.", UIColor(.red))
+                        self.authNumMessageHandler?("*인증번호가 올바르지 않습니다.", false)
                     }
                 case .failure:
-                    self.authNumMessageHandler?("*네트워크 오류가 발생했습니다.", UIColor(.red))
+                    self.authNumMessageHandler?("*네트워크 오류가 발생했습니다.", false)
                 }
             }
         }
@@ -306,40 +295,5 @@ extension SignUpFirstViewModel {
             print("데이터 인코딩 실패: \(error)")
         }
         return false
-    }
-}
-
-// MARK: - setup Keyboard
-extension SignUpFirstViewModel {
-    func setupKeyboardHandling(for view: UIView) {
-        self.rootView = view
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillShow),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillHide),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
-    }
-
-    @objc private func keyboardWillShow(_ notification: Notification) {
-        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-              let rootView = rootView,
-              let activeTextField = UIResponder.currentResponder as? UITextField else { return }
-
-        let keyboardTopY = keyboardFrame.cgRectValue.origin.y
-        let convertedTextFieldFrame = rootView.convert(activeTextField.frame, from: activeTextField.superview)
-        let textFieldBottomY = convertedTextFieldFrame.origin.y + convertedTextFieldFrame.size.height
-
-        if textFieldBottomY > keyboardTopY {
-            let textFieldTopY = convertedTextFieldFrame.origin.y
-            let newFrame = textFieldTopY - keyboardTopY / 1.6
-            rootView.frame.origin.y = -newFrame
-        }
-    }
-
-    @objc private func keyboardWillHide(_ notification: Notification) {
-        rootView?.frame.origin.y = 0
     }
 }

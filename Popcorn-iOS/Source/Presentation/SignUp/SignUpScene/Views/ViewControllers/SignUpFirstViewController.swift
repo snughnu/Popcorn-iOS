@@ -34,54 +34,65 @@ final class SignUpFirstViewController: UIViewController {
         bind(to: signUpFirstViewModel)
         setupAddActions()
         setupTextField()
-        signUpFirstViewModel.setupKeyboardHandling(for: view)
         setupNavigationBar()
+        setupKeyboard()
     }
 }
 
 // MARK: - Bind func
 extension SignUpFirstViewController {
     private func bind(to signUpFirstViewModel: SignUpFirstViewModelProtocol) {
-        self.signUpFirstViewModel.nameMessageHandler = { [weak self] message, color in
+        self.signUpFirstViewModel.nameMessageHandler = { [weak self] message, isNameValid in
             guard let self = self else { return }
+            let color = isNameValid ? UIColor(.blue) : UIColor(.red)
             DispatchQueue.main.async {
                 self.signUpFirstView.nameField.labelReference.text = message
                 self.signUpFirstView.nameField.labelReference.textColor = color
             }
         }
 
-        self.signUpFirstViewModel.idMessageHandler = { [weak self] message, color in
+        self.signUpFirstViewModel.idMessageHandler = { [weak self] message, isIdValid in
+            guard let self = self else { return }
+            let color = isIdValid ? UIColor(.blue) : UIColor(.red)
             DispatchQueue.main.async {
-                self?.signUpFirstView.idField.labelReference.text = message
-                self?.signUpFirstView.idField.labelReference.textColor = color
+                self.signUpFirstView.idField.labelReference.text = message
+                self.signUpFirstView.idField.labelReference.textColor = color
             }
         }
 
-        self.signUpFirstViewModel.pwMessageHandler = { [weak self] message, color in
+        self.signUpFirstViewModel.pwMessageHandler = { [weak self] message, isPwValid in
+            guard let self = self else { return }
+            let color = isPwValid ? UIColor(.blue) : UIColor(.red)
             DispatchQueue.main.async {
-                self?.signUpFirstView.passwordField.labelReference.text = message
-                self?.signUpFirstView.passwordField.labelReference.textColor = color
+                self.signUpFirstView.passwordField.labelReference.text = message
+                self.signUpFirstView.passwordField.labelReference.textColor = color
             }
         }
 
-        self.signUpFirstViewModel.confirmPwMessageHandler = { [weak self] message, color in
+        self.signUpFirstViewModel.confirmPwMessageHandler = { [weak self] message, isConfirmPwValid in
+            guard let self = self else { return }
+            let color = isConfirmPwValid ? UIColor(.blue) : UIColor(.red)
             DispatchQueue.main.async {
-                self?.signUpFirstView.confirmPasswordField.labelReference.text = message
-                self?.signUpFirstView.confirmPasswordField.labelReference.textColor = color
+                self.signUpFirstView.confirmPasswordField.labelReference.text = message
+                self.signUpFirstView.confirmPasswordField.labelReference.textColor = color
             }
         }
 
-        self.signUpFirstViewModel.emailMessageHandler = { [weak self] message, color in
+        self.signUpFirstViewModel.emailMessageHandler = { [weak self] message, isEmailValid in
+            guard let self = self else { return }
+            let color = isEmailValid ? UIColor(.blue) : UIColor(.red)
             DispatchQueue.main.async {
-                self?.signUpFirstView.emailField.labelReference.text = message
-                self?.signUpFirstView.emailField.labelReference.textColor = color
+                self.signUpFirstView.emailField.labelReference.text = message
+                self.signUpFirstView.emailField.labelReference.textColor = color
             }
         }
 
-        self.signUpFirstViewModel.authNumMessageHandler = { [weak self] message, color in
+        self.signUpFirstViewModel.authNumMessageHandler = { [weak self] message, isAllValid in
+            guard let self = self else { return }
+            let color = isAllValid ? UIColor(.blue) : UIColor(.red)
             DispatchQueue.main.async {
-                self?.signUpFirstView.authNumberField.labelReference.text = message
-                self?.signUpFirstView.authNumberField.labelReference.textColor = color
+                self.signUpFirstView.authNumberField.labelReference.text = message
+                self.signUpFirstView.authNumberField.labelReference.textColor = color
             }
         }
 
@@ -286,5 +297,38 @@ extension SignUpFirstViewController {
 
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
+    }
+}
+
+// MARK: - Setup Keyboard
+extension SignUpFirstViewController {
+    private func setupKeyboard() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+
+    @objc func keyboardWillShow(_ sender: Notification) {
+        guard let keyboardFrame = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+              let currentTextField = UIResponder.currentResponder as? UITextField else { return }
+        let keyboardTopY = keyboardFrame.cgRectValue.origin.y
+        let convertedTextFieldFrame = view.convert(currentTextField.frame, from: currentTextField.superview)
+        let textFieldBottomY = convertedTextFieldFrame.origin.y + convertedTextFieldFrame.size.height
+        if textFieldBottomY > keyboardTopY {
+            let textFieldTopY = convertedTextFieldFrame.origin.y
+            let newFrame = textFieldTopY - keyboardTopY/1.6
+            view.frame.origin.y = -newFrame
+        }
+    }
+
+    @objc func keyboardWillHide(_ sender: Notification) {
+        if view.frame.origin.y != 0 {
+            view.frame.origin.y = 0
+        }
     }
 }
