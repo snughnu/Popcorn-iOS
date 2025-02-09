@@ -15,7 +15,9 @@ final class PopupListRepository: PopupListRepositoryProtocol {
 
     init(
         networkManager: NetworkManagerProtocol = NetworkManager(),
-        tokenRepository: TokenRepositoryProtocol
+        tokenRepository: TokenRepositoryProtocol = TokenRepository(
+            networkManager: NetworkManager(),
+            keychainManager: KeychainManager())
     ) {
         self.networkManager = networkManager
         self.tokenRepository = tokenRepository
