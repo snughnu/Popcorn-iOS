@@ -16,29 +16,36 @@ final class SignUpRepository: SignUpRepositoryProtocol {
         self.networkManager = networkManager
     }
 
-    func fetchUsernameDuplicationResult(username: String, completion: @escaping (Result<Int, Error>) -> Void) {
+    func fetchUsernameDuplicationResult(username: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         let endPoint = Endpoint<CheckUsernameResponseDTO>(
             httpMethod: .get,
             path: APIConstant.checkUsernamePath,
             queryItems: [URLQueryItem(name: "username", value: username)]
         )
 
+        // TODO: API변경되면 refactoring
         networkManager.request(endpoint: endPoint) { result in
             switch result {
-            case .success(let checkUsernameResponse):
-                let resultCode = checkUsernameResponse.resultCode
-                completion(.success(resultCode))
-            case .failure(let error):
-                if case NetworkError.serverError(.badRequest) = error {
-                    completion(.success(400))
+            case .success(let response):
+                let resultCode = response.resultCode
+                if resultCode == 200 {
+                    completion(.success(true))
+                } else if resultCode == 400 {
+                    completion(.success(false))
                 } else {
+                    let error = NSError(domain: "SignUpError",
+                                        code: resultCode,
+                                        userInfo: [NSLocalizedDescriptionKey : "알 수 없는 상태 코드: \(resultCode)"])
                     completion(.failure(error))
                 }
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }
 
-    func fetchRequestVerificationCodeResult(email: String, completion: @escaping (Result<String, Error>) -> Void) {
+    // TODO: API수정되면 refactoring
+    func fetchRequestAuthNumResult(email: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         let endPoint = JSONBodyEndpoint<String>(
             httpMethod: .post,
             path: APIConstant.sendVerificationCodePath,
@@ -48,17 +55,21 @@ final class SignUpRepository: SignUpRepositoryProtocol {
         networkManager.request(endpoint: endPoint) { result in
             switch result {
             case .success(let response):
-                completion(.success(response))
+                if response.contains("발송") || response.contains("성공") {
+                    completion(.success(true))
+                } else {
+                    completion(.success(false))
+                }
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
 
-    func fetchValidateVerificationCodeResult(
+    func fetchValidateAuthNumResult(
         email: String,
         authNum: String,
-        completion: @escaping (Result<Int, Error>) -> Void
+        completion: @escaping (Result<Bool, Error>) -> Void
     ) {
         let endPoint = JSONBodyEndpoint<ValidateAuthNumResponseDTO>(
             httpMethod: .post,
@@ -70,14 +81,23 @@ final class SignUpRepository: SignUpRepositoryProtocol {
             switch result {
             case .success(let response):
                 let resultCode = response.resultCode
-                completion(.success(resultCode))
+                if (200...299).contains(resultCode) {
+                    completion(.success(true))
+                } else if (400...499).contains(resultCode) {
+                    completion(.success(false))
+                } else {
+                    let error = NSError(domain: "SignUpError",
+                                        code: resultCode,
+                                        userInfo: [NSLocalizedDescriptionKey: "알 수 없는 상태 코드: \(resultCode)"])
+                    completion(.failure(error))
+                }
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
 
-    func fetchSendSignUpDataResult(signupData: SignUpRequestDTO, completion: @escaping (Result<Int, Error>) -> Void) {
+    func fetchSendSignUpDataResult(signupData: SignUpRequestDTO, completion: @escaping (Result<Bool, Error>) -> Void) {
         let endPoint = JSONBodyEndpoint<SignUpResponseDTO>(
             httpMethod: .post,
             path: APIConstant.signUpPath,
@@ -88,7 +108,16 @@ final class SignUpRepository: SignUpRepositoryProtocol {
             switch result {
             case .success(let response):
                 let resultCode = response.resultCode
-                completion(.success(resultCode))
+                if (200...299).contains(resultCode) {
+                    completion(.success(true))
+                } else if resultCode == 102 {
+                    completion(.success(false))
+                } else {
+                    let error = NSError(domain: "SignUpError",
+                                        code: resultCode,
+                                        userInfo: [NSLocalizedDescriptionKey: "알 수 없는 상태 코드: \(resultCode)"])
+                    completion(.failure(error))
+                }
             case .failure(let error):
                 completion(.failure(error))
             }
