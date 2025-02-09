@@ -26,6 +26,7 @@
 		563A1E332D539277008DA4F8 /* PopupListRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E322D539270008DA4F8 /* PopupListRepositoryProtocol.swift */; };
 		563A1E392D54AA9E008DA4F8 /* PopupPreviewResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E382D54AA96008DA4F8 /* PopupPreviewResponseDTO.swift */; };
 		563A1E3C2D54AB41008DA4F8 /* PopupListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E3B2D54AB3D008DA4F8 /* PopupListRepository.swift */; };
+		563A1E432D58B8B0008DA4F8 /* FetchPopupListUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E422D58B89C008DA4F8 /* FetchPopupListUseCaseProtocol.swift */; };
 		5643991D2D44F10E0031688B /* MultipartBodyEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5643991C2D44F0FB0031688B /* MultipartBodyEndpoint.swift */; };
 		5643991F2D44F2000031688B /* Data+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5643991E2D44F1FD0031688B /* Data+.swift */; };
 		564524E22D240BBA00B05355 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564524E12D240BBA00B05355 /* StarRatingView.swift */; };
@@ -156,6 +157,7 @@
 		563A1E322D539270008DA4F8 /* PopupListRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupListRepositoryProtocol.swift; sourceTree = "<group>"; };
 		563A1E382D54AA96008DA4F8 /* PopupPreviewResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupPreviewResponseDTO.swift; sourceTree = "<group>"; };
 		563A1E3B2D54AB3D008DA4F8 /* PopupListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupListRepository.swift; sourceTree = "<group>"; };
+		563A1E422D58B89C008DA4F8 /* FetchPopupListUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPopupListUseCaseProtocol.swift; sourceTree = "<group>"; };
 		5643991C2D44F0FB0031688B /* MultipartBodyEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartBodyEndpoint.swift; sourceTree = "<group>"; };
 		5643991E2D44F1FD0031688B /* Data+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+.swift"; sourceTree = "<group>"; };
 		564524E12D240BBA00B05355 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
@@ -363,6 +365,30 @@
 			isa = PBXGroup;
 			children = (
 				563A1E3B2D54AB3D008DA4F8 /* PopupListRepository.swift */,
+			);
+			path = MainScene;
+			sourceTree = "<group>";
+		};
+		563A1E3F2D58B88D008DA4F8 /* Implementations */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Implementations;
+			sourceTree = "<group>";
+		};
+		563A1E402D58B88D008DA4F8 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				563A1E422D58B89C008DA4F8 /* FetchPopupListUseCaseProtocol.swift */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		563A1E412D58B88D008DA4F8 /* MainScene */ = {
+			isa = PBXGroup;
+			children = (
+				563A1E402D58B88D008DA4F8 /* Interfaces */,
+				563A1E3F2D58B88D008DA4F8 /* Implementations */,
 			);
 			path = MainScene;
 			sourceTree = "<group>";
@@ -794,6 +820,7 @@
 		BCB86A652D486DDB00F00F1F /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				563A1E412D58B88D008DA4F8 /* MainScene */,
 				56F6D4872D534D3200C2BEBE /* ImageFetchUseCase */,
 				56F6D4652D4FBB2000C2BEBE /* TokenUseCase */,
 				56F6D4642D4FBAD400C2BEBE /* LoginUseCase */,
@@ -1120,6 +1147,7 @@
 				BCF6ED502D37CBEB0038CCAE /* KeychainManager.swift in Sources */,
 				56EAA9352D34EC2B007265D3 /* WriteReviewViewController.swift in Sources */,
 				BC7420FA2CE23A9500BEED0A /* Requestable.swift in Sources */,
+				563A1E432D58B8B0008DA4F8 /* FetchPopupListUseCaseProtocol.swift in Sources */,
 				56381C2A2D193CEE00F4F715 /* MainCarouselPickHeaderView.swift in Sources */,
 				BCF6ED592D37DAA30038CCAE /* DateFormatter+.swift in Sources */,
 				5660FD3B2D421B0B00F9B4D9 /* JSONBodyEndpoint.swift in Sources */,
