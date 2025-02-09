@@ -107,10 +107,10 @@ extension LoginViewController {
     // TODO: DIContainer 생성하고 정리..
     @objc private func signUpButtonTapped() {
         let networkManager = NetworkManager()
-        let signUpRepository = SignUpRepository(networkManager: networkManager)
-        let signUpUseCase = SignUpUseCase(signUpRepository: signUpRepository)
         let keychainManager = KeychainManager()
-        let signUpViewModel = SignUpFirstViewModel(signUpUseCase: signUpUseCase, keychainManager: keychainManager)
+        let signUpRepository = SignUpRepository(networkManager: networkManager, keychainManager: keychainManager)
+        let signUpUseCase = SignUpUseCase(signUpRepository: signUpRepository)
+        let signUpViewModel = SignUpFirstViewModel(signUpUseCase: signUpUseCase)
 
         let signUpFirstViewController = SignUpFirstViewController(signUpFirstViewModel: signUpViewModel)
         self.navigationController?.pushViewController(signUpFirstViewController, animated: true)
