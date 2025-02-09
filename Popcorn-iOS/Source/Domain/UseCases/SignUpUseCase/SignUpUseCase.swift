@@ -33,16 +33,11 @@ extension SignUpUseCase {
     func executeUsernameDuplicationCheck(username: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         signUpRepository.fetchUsernameDuplicationResult(username: username) { result in
             switch result {
-            case .success(let resultCode):
-                if resultCode == 200 {
+            case .success(let result):
+                if result {
                     completion(.success(true))
-                } else if resultCode == 400 {
-                    completion(.success(false))
                 } else {
-                    let error = NSError(domain: "SignUpError",
-                                        code: resultCode,
-                                        userInfo: [NSLocalizedDescriptionKey: "알 수 없는 상태 코드: \(resultCode)"])
-                    completion(.failure(error))
+                    completion(.success(false))
                 }
             case .failure(let error):
                 completion(.failure(error))
@@ -51,10 +46,10 @@ extension SignUpUseCase {
     }
 
     func executeSendVerificationCode(email: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        signUpRepository.fetchRequestVerificationCodeResult(email: email) { result in
+        signUpRepository.fetchRequestAuthNumResult(email: email) { result in
             switch result {
-            case .success(let response):
-                if response.contains("발송") || response.contains("성공") {
+            case .success(let result):
+                if result {
                     completion(.success(true))
                 } else {
                     completion(.success(false))
@@ -70,18 +65,13 @@ extension SignUpUseCase {
         authNum: String,
         completion: @escaping (Result<Bool, any Error>) -> Void
     ) {
-        signUpRepository.fetchValidateVerificationCodeResult(email: email, authNum: authNum) { result in
+        signUpRepository.fetchValidateAuthNumResult(email: email, authNum: authNum) { result in
             switch result {
-            case .success(let resultCode):
-                if resultCode == 200 {
+            case .success(let result):
+                if result {
                     completion(.success(true))
-                } else if resultCode == 400 {
-                    completion(.success(false))
                 } else {
-                    let error = NSError(domain: "SignUpError",
-                                        code: resultCode,
-                                        userInfo: [NSLocalizedDescriptionKey: "알 수 없는 상태 코드: \(resultCode)"])
-                    completion(.failure(error))
+                    completion(.success(false))
                 }
             case .failure(let error):
                 completion(.failure(error))
@@ -92,16 +82,11 @@ extension SignUpUseCase {
     func executeSendSignUpData(signupData: SignUpRequestDTO, completion: @escaping (Result<Bool, any Error>) -> Void) {
         signUpRepository.fetchSendSignUpDataResult(signupData: signupData) { result in
             switch result {
-            case .success(let resultCode):
-                if resultCode == 200 {
+            case .success(let result):
+                if result {
                     completion(.success(true))
-                } else if resultCode == 102 {
-                    completion(.success(false))
                 } else {
-                    let error = NSError(domain: "SignUpError",
-                                        code: resultCode,
-                                        userInfo: [NSLocalizedDescriptionKey: "알 수 없는 상태 코드: \(resultCode)"])
-                    completion(.failure(error))
+                    completion(.success(false))
                 }
             case .failure(let error):
                 completion(.failure(error))
