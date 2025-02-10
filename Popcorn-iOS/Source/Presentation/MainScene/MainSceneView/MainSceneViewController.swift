@@ -50,7 +50,8 @@ final class MainSceneViewController: UIViewController {
 
         viewModel.userInterestPopupPublisher = { [weak self] in
             guard let self else { return }
-            self.mainCollectionView.reloadSections(IndexSet((1)..<(1 + numbersOfInterest)))
+//            self.mainCollectionView.reloadSections(IndexSet((1)..<(1 + numbersOfInterest)))
+            self.mainCollectionView.reloadData()
         }
 
         viewModel.closingSoonPopupPublisher = { [weak self] in
