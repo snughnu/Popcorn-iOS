@@ -109,7 +109,7 @@ extension MainSceneViewController: UICollectionViewDataSource {
         switch section {
         case 0:
             return mainViewModel.numbersOfPopup(of: .userPick)
-        case 1...numberOfInterest:
+        case 1..<(1 + numberOfInterest):
             return mainViewModel.numbersOfPopup(of: .userInterest, at: section - 1)
         case (1 + numberOfInterest):
             let count = mainViewModel.numbersOfPopup(of: .closingSoon)
