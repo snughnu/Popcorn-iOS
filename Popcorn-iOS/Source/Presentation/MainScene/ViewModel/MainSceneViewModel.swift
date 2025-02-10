@@ -78,7 +78,7 @@ final class MainSceneViewModel: MainCarouselViewModelProtocol {
 
     private var closingSoonPopup: [PopupPreviewViewData] = [] {
         didSet {
-            userInterestPopupPublisher?()
+            closingSoonPopupPublisher?()
         }
     }
 
