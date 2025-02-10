@@ -37,7 +37,7 @@ final class PopupListRepository: PopupListRepositoryProtocol {
         let dispatchGroup = DispatchGroup()
         var popupMainListResponse: PopupMainListResponseDTO?
         var todayRecommendPopupResponse: TodayRecommendPopupsResponseDTO?
-        var capturedError: NetworkError?
+        var capturedErrors = [NetworkError]()
 
         let popupMainListEndpoint = Endpoint<PopupMainListResponseDTO>(
             httpMethod: .get,
@@ -60,13 +60,13 @@ final class PopupListRepository: PopupListRepositoryProtocol {
             self.popupListSyncQueue.async {
                 defer { dispatchGroup.leave() }
 
-                if capturedError != nil { return }
+                if !capturedErrors.isEmpty { return }
 
                 switch result {
                 case .success(let response):
                     popupMainListResponse = response
                 case .failure(let error):
-                    capturedError = error
+                    capturedErrors.append(error)
                 }
             }
         }
@@ -81,20 +81,29 @@ final class PopupListRepository: PopupListRepositoryProtocol {
             self.popupListSyncQueue.async {
                 defer { dispatchGroup.leave() }
 
-                if capturedError != nil { return }
+                if !capturedErrors.isEmpty { return }
 
                 switch result {
                 case .success(let response):
                     todayRecommendPopupResponse = response
                 case .failure(let error):
-                    capturedError = error
+                    capturedErrors.append(error)
                 }
             }
         }
 
         dispatchGroup.notify(queue: .main) { [weak self] in
-            if let error = capturedError {
-                completion(.failure(error))
+            if !capturedErrors.isEmpty {
+                let combinedError = NSError(
+                    domain: "PopupListRepsitory",
+                    code: -2,
+                    userInfo: [
+                        NSLocalizedDescriptionKey: "메인화면 데이터 요청 실패",
+                        "error": capturedErrors
+                    ]
+                )
+
+                completion(.failure(combinedError))
                 return
             }
 
