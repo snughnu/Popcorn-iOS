@@ -131,35 +131,6 @@ extension MainSceneViewModel {
             }
         }
     }
-
-    private func convertToViewModelData(
-        of category: MainCategory,
-        popupData: PopupPreview
-    ) -> PopupPreviewViewData? {
-        if category == .userInterest || category == .userPick {
-            let dDayDate = calculateDDay(from: popupData.popupEndDate)
-
-            return PopupPreviewViewData(
-                popupId: popupData.popupId,
-                popupImageUrl: popupData.popupImageUrl,
-                popupTitle: popupData.popupTitle,
-                popupDDay: "D-\(dDayDate)"
-            )
-        } else if category == .closingSoon,
-                  let popupStartDate = popupData.popupStartDate,
-                  let location = popupData.popupLocation {
-            let startDate = PopupDateFormatter.convertToString(date: popupStartDate)
-            let endDate = PopupDateFormatter.convertToString(date: popupData.popupEndDate)
-            return PopupPreviewViewData(
-                popupId: popupData.popupId,
-                popupImageUrl: popupData.popupImageUrl,
-                popupTitle: popupData.popupTitle,
-                popupPeriod: "\(startDate)~\(endDate)",
-                popupLocation: location
-            )
-        }
-        return nil
-    }
 }
 
 // MARK: - Public Interface
@@ -220,6 +191,35 @@ extension MainSceneViewModel {
         self.closingSoonPopup = popupMainList.closingSoonPopup.compactMap {
             self.convertToViewModelData(of: .closingSoon, popupData: $0)
         }
+    }
+
+    private func convertToViewModelData(
+        of category: MainCategory,
+        popupData: PopupPreview
+    ) -> PopupPreviewViewData? {
+        if category == .userInterest || category == .userPick {
+            let dDayDate = calculateDDay(from: popupData.popupEndDate)
+
+            return PopupPreviewViewData(
+                popupId: popupData.popupId,
+                popupImageUrl: popupData.popupImageUrl,
+                popupTitle: popupData.popupTitle,
+                popupDDay: "D-\(dDayDate)"
+            )
+        } else if category == .closingSoon,
+                  let popupStartDate = popupData.popupStartDate,
+                  let location = popupData.popupLocation {
+            let startDate = PopupDateFormatter.convertToString(date: popupStartDate)
+            let endDate = PopupDateFormatter.convertToString(date: popupData.popupEndDate)
+            return PopupPreviewViewData(
+                popupId: popupData.popupId,
+                popupImageUrl: popupData.popupImageUrl,
+                popupTitle: popupData.popupTitle,
+                popupPeriod: "\(startDate)~\(endDate)",
+                popupLocation: location
+            )
+        }
+        return nil
     }
 
     private func showPlaceholderData() {
