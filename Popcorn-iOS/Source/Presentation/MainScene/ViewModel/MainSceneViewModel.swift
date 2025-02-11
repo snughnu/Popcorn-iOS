@@ -176,11 +176,11 @@ extension MainSceneViewModel {
 // MARK: - View Model
 struct PopupPreviewViewData {
     let popupId: Int
-    let popupImageUrl: String?
-    let popupTitle: String?
+    let popupImageUrl: String
+    let popupTitle: String
     let popupPeriod: String?
-    let popupLocation: String?
     let popupDDay: String?
+    let popupLocation: String?
 
     static let placeholder = PopupPreviewViewData(
         from: PopupPreview(
@@ -199,7 +199,7 @@ struct PopupPreviewViewData {
         self.popupTitle = popupPreview.popupTitle
         self.popupLocation = popupPreview.popupLocation
         self.popupDDay = PopupDateFormatter.calculateDDay(from: popupPreview.popupEndDate)
-        
+
         self.popupPeriod = popupPreview.popupStartDate.map { startDate in
             let startDateString = PopupDateFormatter.convertToString(date: startDate)
             let endDateString = PopupDateFormatter.convertToString(date: popupPreview.popupEndDate)
