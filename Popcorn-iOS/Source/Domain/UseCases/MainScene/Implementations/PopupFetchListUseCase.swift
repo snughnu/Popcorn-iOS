@@ -5,7 +5,7 @@
 //  Created by 제민우 on 2/9/25.
 //
 
-final class FetchPopupListUseCase: FetchPopupListUseCaseProtocol {
+final class PopupFetchListUseCase: PopupFetchListUseCaseProtocol {
     private let repository: PopupListRepositoryProtocol
 
     init(repository: PopupListRepositoryProtocol = PopupListRepository()) {

@@ -26,8 +26,8 @@
 		563A1E332D539277008DA4F8 /* PopupListRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E322D539270008DA4F8 /* PopupListRepositoryProtocol.swift */; };
 		563A1E392D54AA9E008DA4F8 /* PopupPreviewResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E382D54AA96008DA4F8 /* PopupPreviewResponseDTO.swift */; };
 		563A1E3C2D54AB41008DA4F8 /* PopupListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E3B2D54AB3D008DA4F8 /* PopupListRepository.swift */; };
-		563A1E432D58B8B0008DA4F8 /* FetchPopupListUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E422D58B89C008DA4F8 /* FetchPopupListUseCaseProtocol.swift */; };
-		563A1E482D58BC19008DA4F8 /* FetchPopupListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E472D58BC16008DA4F8 /* FetchPopupListUseCase.swift */; };
+		563A1E432D58B8B0008DA4F8 /* PopupFetchListUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E422D58B89C008DA4F8 /* PopupFetchListUseCaseProtocol.swift */; };
+		563A1E482D58BC19008DA4F8 /* PopupFetchListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E472D58BC16008DA4F8 /* PopupFetchListUseCase.swift */; };
 		563A1E4C2D58C1FE008DA4F8 /* PopupDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E4B2D58C1FB008DA4F8 /* PopupDateFormatter.swift */; };
 		5643991D2D44F10E0031688B /* MultipartBodyEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5643991C2D44F0FB0031688B /* MultipartBodyEndpoint.swift */; };
 		5643991F2D44F2000031688B /* Data+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5643991E2D44F1FD0031688B /* Data+.swift */; };
@@ -159,8 +159,8 @@
 		563A1E322D539270008DA4F8 /* PopupListRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupListRepositoryProtocol.swift; sourceTree = "<group>"; };
 		563A1E382D54AA96008DA4F8 /* PopupPreviewResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupPreviewResponseDTO.swift; sourceTree = "<group>"; };
 		563A1E3B2D54AB3D008DA4F8 /* PopupListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupListRepository.swift; sourceTree = "<group>"; };
-		563A1E422D58B89C008DA4F8 /* FetchPopupListUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPopupListUseCaseProtocol.swift; sourceTree = "<group>"; };
-		563A1E472D58BC16008DA4F8 /* FetchPopupListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPopupListUseCase.swift; sourceTree = "<group>"; };
+		563A1E422D58B89C008DA4F8 /* PopupFetchListUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupFetchListUseCaseProtocol.swift; sourceTree = "<group>"; };
+		563A1E472D58BC16008DA4F8 /* PopupFetchListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupFetchListUseCase.swift; sourceTree = "<group>"; };
 		563A1E4B2D58C1FB008DA4F8 /* PopupDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDateFormatter.swift; sourceTree = "<group>"; };
 		5643991C2D44F0FB0031688B /* MultipartBodyEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartBodyEndpoint.swift; sourceTree = "<group>"; };
 		5643991E2D44F1FD0031688B /* Data+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+.swift"; sourceTree = "<group>"; };
@@ -376,7 +376,7 @@
 		563A1E3F2D58B88D008DA4F8 /* Implementations */ = {
 			isa = PBXGroup;
 			children = (
-				563A1E472D58BC16008DA4F8 /* FetchPopupListUseCase.swift */,
+				563A1E472D58BC16008DA4F8 /* PopupFetchListUseCase.swift */,
 			);
 			path = Implementations;
 			sourceTree = "<group>";
@@ -384,7 +384,7 @@
 		563A1E402D58B88D008DA4F8 /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
-				563A1E422D58B89C008DA4F8 /* FetchPopupListUseCaseProtocol.swift */,
+				563A1E422D58B89C008DA4F8 /* PopupFetchListUseCaseProtocol.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -1161,7 +1161,7 @@
 				BCF6ED502D37CBEB0038CCAE /* KeychainManager.swift in Sources */,
 				56EAA9352D34EC2B007265D3 /* WriteReviewViewController.swift in Sources */,
 				BC7420FA2CE23A9500BEED0A /* Requestable.swift in Sources */,
-				563A1E432D58B8B0008DA4F8 /* FetchPopupListUseCaseProtocol.swift in Sources */,
+				563A1E432D58B8B0008DA4F8 /* PopupFetchListUseCaseProtocol.swift in Sources */,
 				56381C2A2D193CEE00F4F715 /* MainCarouselPickHeaderView.swift in Sources */,
 				BCF6ED592D37DAA30038CCAE /* DateFormatter+.swift in Sources */,
 				5660FD3B2D421B0B00F9B4D9 /* JSONBodyEndpoint.swift in Sources */,
@@ -1216,7 +1216,7 @@
 				BC7420FC2CE23B9600BEED0A /* Endpoint.swift in Sources */,
 				56F6D46B2D4FBBB200C2BEBE /* TokenRepositoryProtocol.swift in Sources */,
 				BCB86A632D486A6F00F00F1F /* LoginRepository.swift in Sources */,
-				563A1E482D58BC19008DA4F8 /* FetchPopupListUseCase.swift in Sources */,
+				563A1E482D58BC19008DA4F8 /* PopupFetchListUseCase.swift in Sources */,
 				56D68A362D2409DB00EA1404 /* PopupRatingCollectionViewCell.swift in Sources */,
 				56F6D4862D534CCE00C2BEBE /* ImageFetchManagerRepository.swift in Sources */,
 				BC7420F82CE2395600BEED0A /* HttpMethod.swift in Sources */,
