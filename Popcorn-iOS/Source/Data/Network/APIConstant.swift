@@ -11,4 +11,9 @@ struct APIConstant {
     static let popupPath = "/popups"
     static let loginPath = "/login"
     static let reissueTokenPath = "/reissue"
+    static let checkUsernamePath = "/auth/chkUser"
+    static let checkDuplicationEmailPath = "/auth/validEmail"
+    static let sendAuthNumPath = "/mailsend"
+    static let validateAuthNumPath = "/mailauthChk"
+    static let signUpPath = "/auth/signup"
 }
