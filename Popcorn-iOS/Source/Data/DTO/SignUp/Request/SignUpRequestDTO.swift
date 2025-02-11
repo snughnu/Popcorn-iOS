@@ -1,5 +1,5 @@
 //
-//  SignUpData.swift
+//  SignUpRequestDTO.swift
 //  Popcorn-iOS
 //
 //  Created by 김성훈 on 1/19/25.
@@ -20,7 +20,7 @@ struct SecondSignupDto: Codable {
     let interests: [String]
 }
 
-struct SignUpData: Codable {
+struct SignUpRequestDTO: Codable {
     let firstSignupDto: FirstSignupDto
     var secondSignupDto: SecondSignupDto?
 }

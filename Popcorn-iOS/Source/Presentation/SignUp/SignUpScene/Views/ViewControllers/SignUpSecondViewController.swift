@@ -166,7 +166,7 @@ extension SignUpSecondViewController {
         }
 
         do {
-            var signUpData = try JSONDecoder().decode(SignUpData.self, from: jsonData)
+            var signUpData = try JSONDecoder().decode(SignUpRequestDTO.self, from: jsonData)
 
             guard let nickname = signUpSecondView.nickNameTextField.text, !nickname.isEmpty,
                   let selectedProfileId = selectedProfileId else {
