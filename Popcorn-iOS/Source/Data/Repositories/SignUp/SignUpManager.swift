@@ -7,6 +7,7 @@
 
 import Foundation
 
+// TODO: 회원가입화면2 리팩토링 후 파일 삭제
 final class SignUpManager {
     static let shared = SignUpManager()
     private init() {}
@@ -154,7 +155,7 @@ final class SignUpManager {
     }
 
     // MARK: - 가입하기 버튼 동작
-    func submitSignupData(signupData: SignUpData, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func submitSignupData(signupData: SignUpRequestDTO, completion: @escaping (Result<Bool, Error>) -> Void) {
         let url = URL(string: "https://popcorm.store/auth/signup")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
