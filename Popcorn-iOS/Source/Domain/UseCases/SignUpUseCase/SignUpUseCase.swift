@@ -9,6 +9,7 @@ import Foundation
 
 protocol SignUpUseCaseProtocol {
     func executeUsernameDuplicationCheck(username: String, completion: @escaping (Result<Bool, Error>) -> Void)
+    func executeEmailDuplicationCheck(email: String, completion: @escaping (Result<Bool, Error>) -> Void)
     func executeSendVerificationCode(email: String, completion: @escaping (Result<Bool, Error>) -> Void)
     func executeValidateVerificationCode(
         email: String,
@@ -40,6 +41,21 @@ class SignUpUseCase: SignUpUseCaseProtocol {
 extension SignUpUseCase {
     func executeUsernameDuplicationCheck(username: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         signUpRepository.fetchUsernameDuplicationResult(username: username) { result in
+            switch result {
+            case .success(let result):
+                if result {
+                    completion(.success(true))
+                } else {
+                    completion(.success(false))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func executeEmailDuplicationCheck(email: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+        signUpRepository.fetchEmailDuplicationResult(email: email) { result in
             switch result {
             case .success(let result):
                 if result {

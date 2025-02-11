@@ -46,6 +46,33 @@ final class SignUpRepository: SignUpRepositoryProtocol {
         }
     }
 
+    func fetchEmailDuplicationResult(email: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+        let endPoint = Endpoint<CheckDuplicationEmailResponseDTO>(
+            httpMethod: .get,
+            path: APIConstant.checkDuplicationEmailPath,
+            queryItems: [URLQueryItem(name: "email", value: email)]
+        )
+
+        networkManager.request(endpoint: endPoint) { result in
+            switch result {
+            case .success(let response):
+                let isDuplicated = response.status.contains("fail")
+                if !isDuplicated {
+                    completion(.success(true))
+                } else if isDuplicated {
+                    completion(.success(false))
+                } else {
+                    let error = NSError(domain: "SignUpError",
+                                        code: response.resultCode,
+                                        userInfo: [NSLocalizedDescriptionKey: "알 수 없는 상태 코드: \(response.resultCode)"])
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
     func fetchRequestAuthNumResult(email: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         let endPoint = JSONBodyEndpoint<AuthNumResultResponseDTO>(
             httpMethod: .post,
