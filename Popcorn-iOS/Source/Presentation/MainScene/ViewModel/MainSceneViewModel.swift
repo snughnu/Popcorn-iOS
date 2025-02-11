@@ -17,37 +17,14 @@ final class MainSceneViewModel: MainCarouselViewModelProtocol {
     private let fetchPopupListUseCase: FetchPopupListUseCaseProtocol
     private let imageFetchUseCase: ImageFetchUseCase
 
-    // 프로토콜 멤버의 접근제어는 모두 동일한데, 구현체에서 얘를 private으로 설정하니 프로토콜에서 정의된 접근제어자와 일치하지 않는다는 에러 발생..
-    // 그래서 internal로 냅뒀습니다..
-    var carouselPopupImageUrls: [String] = [] {
-        didSet {
-            carouselImagePublisher?()
-        }
-    }
-
-    private var userPickPopup: [PopupPreviewViewData] = [] {
-        didSet {
-            userPickPopupPublisher?()
-        }
-    }
-
-    private var userInterestPopup: [UserInterestPopupViewData] = [] {
-        didSet {
-            userInterestPopupPublisher?()
-        }
-    }
-
-    private var closingSoonPopup: [PopupPreviewViewData] = [] {
-        didSet {
-            closingSoonPopupPublisher?()
-        }
-    }
+    private var carouselPopupImageUrls: [String] = []
+    private var userPickPopup: [PopupPreviewViewData] = []
+    private var userInterestPopup: [UserInterestPopupViewData] = []
+    private var closingSoonPopup: [PopupPreviewViewData] = []
 
     // MARK: - Output
     var carouselImagePublisher: (() -> Void)?
-    var userPickPopupPublisher: (() -> Void)?
-    var userInterestPopupPublisher: (() -> Void)?
-    var closingSoonPopupPublisher: (() -> Void)?
+    var fetchPopupDataPublisher: (() -> Void)?
     var fetchPopupImagesErrorPublisher: (() -> Void)?
 
     init(
@@ -79,6 +56,7 @@ extension MainSceneViewModel {
             switch result {
             case .success(let popupMainList):
                 self.handleFetchPopupList(popupMainList)
+                fetchPopupDataPublisher?()
             case .failure:
                 self.showPlaceholderData()
             }
@@ -167,12 +145,6 @@ extension MainSceneViewModel {
     }
 }
 
-// MARK: - Mocking
-extension MainSceneViewModel {
-    private func genereateMockData() {
-    }
-}
-
 // MARK: - View Model
 struct PopupPreviewViewData {
     let popupId: Int
@@ -198,7 +170,7 @@ struct PopupPreviewViewData {
         self.popupImageUrl = popupPreview.popupImageUrl
         self.popupTitle = popupPreview.popupTitle
         self.popupLocation = popupPreview.popupLocation
-        self.popupDDay = PopupDateFormatter.calculateDDay(from: popupPreview.popupEndDate)
+        self.popupDDay = "D-\(PopupDateFormatter.calculateDDay(from: popupPreview.popupEndDate))"
 
         self.popupPeriod = popupPreview.popupStartDate.map { startDate in
             let startDateString = PopupDateFormatter.convertToString(date: startDate)
@@ -211,4 +183,10 @@ struct PopupPreviewViewData {
 struct UserInterestPopupViewData {
     let interestCategory: String
     let popups: [PopupPreviewViewData]
+}
+
+// MARK: - Mocking
+extension MainSceneViewModel {
+    private func genereateMockData() {
+    }
 }
