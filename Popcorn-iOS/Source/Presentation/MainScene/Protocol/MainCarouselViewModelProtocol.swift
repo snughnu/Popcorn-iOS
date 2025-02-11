@@ -8,8 +8,6 @@
 import Foundation
 
 protocol MainCarouselViewModelProtocol: AnyObject {
-    var carouselPopupImageUrls: [String] { get set }
-
     var carouselImagePublisher: (() -> Void)? { get set }
 
     func numbersOfCarouselImage() -> Int

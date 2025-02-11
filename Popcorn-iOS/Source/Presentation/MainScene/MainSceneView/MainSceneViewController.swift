@@ -41,22 +41,9 @@ final class MainSceneViewController: UIViewController {
     }
 
     func bind(to viewModel: MainSceneViewModel) {
-        let numbersOfInterest = viewModel.numbersOfInterest()
-
-        viewModel.userPickPopupPublisher = { [weak self] in
+        viewModel.fetchPopupImagesErrorPublisher = { [weak self] in
             guard let self else { return }
-            self.mainCollectionView.reloadSections(IndexSet(0...0))
-        }
-
-        viewModel.userInterestPopupPublisher = { [weak self] in
-            guard let self else { return }
-//            self.mainCollectionView.reloadSections(IndexSet((1)..<(1 + numbersOfInterest)))
             self.mainCollectionView.reloadData()
-        }
-
-        viewModel.closingSoonPopupPublisher = { [weak self] in
-            guard let self else { return }
-            self.mainCollectionView.reloadSections(IndexSet((1 + numbersOfInterest)...(1 + numbersOfInterest)))
         }
 
         viewModel.fetchPopupImagesErrorPublisher = { [weak self] in
