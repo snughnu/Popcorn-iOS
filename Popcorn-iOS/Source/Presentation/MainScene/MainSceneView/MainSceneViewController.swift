@@ -37,7 +37,7 @@ final class MainSceneViewController: UIViewController {
         configureSubviews()
         configureLayout()
         bind(to: mainViewModel)
-        mainViewModel.fetchPopupList()
+        mainViewModel.fetchMockData()
     }
 
     func bind(to viewModel: MainSceneViewModel) {
@@ -408,6 +408,6 @@ extension MainSceneViewController {
 // MARK: - Mocking
 extension MainSceneViewController {
     private func mockingData() {
-        mainViewModel.fetchPopupImages()
+        mainViewModel.fetchMockData()
     }
 }
