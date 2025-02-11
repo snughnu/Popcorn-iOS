@@ -13,6 +13,10 @@ protocol KeychainManagerProtocol {
     func updateItem(with query: [String: Any], as attributes: [String: Any]) -> OSStatus
     func deleteItem(with query: [String: Any]) -> OSStatus
     func loadSignupData() -> SignUpRequestDTO?
+
+    func saveIdToken(provider: String, idToken: IdToken) -> Bool
+    func getIdToken(provider: String) -> String?
+    func deleteIdToken(provider: String)
 }
 
 final class KeychainManager: KeychainManagerProtocol {
@@ -81,6 +85,63 @@ final class KeychainManager: KeychainManagerProtocol {
         } catch {
             print("키체인 Load SignUp Data 디코딩 실패: \(error)")
             return nil
+        }
+    }
+}
+
+// MARK: - IdToken
+extension KeychainManager {
+    func saveIdToken(provider: String, idToken: IdToken) -> Bool {
+        let tokenData = Data(idToken.idToken.utf8)
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: provider,
+            kSecAttrAccount as String: "id_token",
+            kSecValueData as String: tokenData
+        ]
+
+        SecItemDelete(query as CFDictionary)
+        let status = SecItemAdd(query as CFDictionary, nil)
+        if status == errSecSuccess {
+            return true
+        } else {
+            print("\(provider) idToken 저장 실패: 상태 코드 \(status)")
+            return false
+        }
+    }
+
+    func getIdToken(provider: String) -> String? {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: provider,
+            kSecAttrAccount as String: "id_token",
+            kSecReturnData as String: true,
+            kSecMatchLimit as String: kSecMatchLimitOne
+        ]
+
+        guard let data = fetchItem(with: query) else {
+            print("\(provider) idToken 불러오기 실패")
+            return nil
+        }
+
+        guard let idToken = String(data: data, encoding: .utf8) else {
+            print("\(provider) idToken 디코딩 실패")
+            return nil
+        }
+
+        return idToken
+    }
+
+    func deleteIdToken(provider: String) {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: provider,
+            kSecAttrAccount as String: "id_token"
+        ]
+
+        let status = SecItemDelete(query as CFDictionary)
+        if status != errSecSuccess {
+            print("\(provider) idToken 삭제 실패: 상태 코드 \(status)")
         }
     }
 }
