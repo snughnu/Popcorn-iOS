@@ -6,10 +6,10 @@
 //
 
 import Foundation
+import KakaoSDKUser
 
 protocol SocialLogionUseCaseProtocol {
-    func loginWithKakaoTalk(completion: @escaping (Result<String, Error>) -> Void)
-    func loginWithKakaoWeb(completion: @escaping (Result<String, Error>) -> Void)
+    func loginWithKakao(completion: @escaping (Result<Bool, Error>) -> Void)
 }
 
 final class SocialLoginUseCase: SocialLogionUseCaseProtocol {
@@ -25,29 +25,65 @@ final class SocialLoginUseCase: SocialLogionUseCaseProtocol {
     }
 }
 
-// MARK: - Public interface
+// MARK: - Private func
 extension SocialLoginUseCase {
-    func loginWithKakaoTalk(completion: @escaping (Result<String, any Error>) -> Void) {
+    private func loginWithKakaoTalk(completion: @escaping (Result<Bool, Error>) -> Void) {
         socialLoginRepository.loginWithKaKaoTalk { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let token):
-                self?.tokenRepository.saveToken(with: token, loginType: "kakao")
-                self?.socialLoginRepository.fetchUserInfo(completion: completion)
+                self.handleKakaoLoginSuccess(token: token, completion: completion)
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
 
-    func loginWithKakaoWeb(completion: @escaping (Result<String, any Error>) -> Void) {
+    private func loginWithKakaoWeb(completion: @escaping (Result<Bool, any Error>) -> Void) {
         socialLoginRepository.loginWithKakaoWeb { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let token):
-                self?.tokenRepository.saveToken(with: token, loginType: "kakao")
-                self?.socialLoginRepository.fetchUserInfo(completion: completion)
+                self.handleKakaoLoginSuccess(token: token, completion: completion)
             case .failure(let error):
                 completion(.failure(error))
             }
+        }
+    }
+
+    private func handleKakaoLoginSuccess(token: Token, completion: @escaping (Result<Bool, Error>) -> Void) {
+        tokenRepository.saveToken(with: token, loginType: "kakao")
+
+        socialLoginRepository.fetchIdToken { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let idToken):
+                self.checkNewUserWithIdToken(idToken: idToken, completion: completion)
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    private func checkNewUserWithIdToken(idToken: IdToken, completion: @escaping (Result<Bool, Error>) -> Void) {
+        socialLoginRepository.fetchNewUserResult(idToken: idToken.idToken) { result in
+            switch result {
+            case .success(let isNewUser):
+                completion(.success(isNewUser))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+}
+
+// MARK: - Public interface
+extension SocialLoginUseCase {
+    func loginWithKakao(completion: @escaping (Result<Bool, Error>) -> Void) {
+        if UserApi.isKakaoTalkLoginAvailable() {
+            loginWithKakaoTalk(completion: completion)
+        } else {
+            loginWithKakaoWeb(completion: completion)
         }
     }
 }
