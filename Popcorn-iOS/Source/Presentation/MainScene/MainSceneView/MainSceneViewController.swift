@@ -275,7 +275,7 @@ extension MainSceneViewController: UICollectionViewDataSource {
 
             carouselHeader.configureContents(headerTitle: "찜 목록", viewModel: mainViewModel)
             return carouselHeader
-        case 1...mainViewModel.numbersOfInterest():
+        case 1..<(1 + mainViewModel.numbersOfInterest()):
             guard let header = collectionView.dequeueReusableSupplementaryView(
                 ofKind: UICollectionView.elementKindSectionHeader,
                 withReuseIdentifier: MainCollectionHeaderView.reuseIdentifier,
@@ -313,7 +313,7 @@ extension MainSceneViewController {
             switch sectionIndex {
             case 0:
                 return generateHorizontalLayout(isPickSection: true)
-            case 1...self.mainViewModel.numbersOfInterest():
+            case 1..<(1 + self.mainViewModel.numbersOfInterest()):
                 return generateHorizontalLayout()
             case self.mainViewModel.numbersOfInterest() + 1:
                 return generateVerticalGridLayout()
