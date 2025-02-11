@@ -13,45 +13,6 @@ enum MainCategory {
     case closingSoon
 }
 
-struct PopupPreviewViewData {
-    let popupId: Int
-    let popupImageUrl: String?
-    let popupTitle: String?
-    let popupPeriod: String?
-    let popupLocation: String?
-    let popupDDay: String?
-
-    static let placeholder = PopupPreviewViewData(
-        popupId: -1,
-        popupImageUrl: nil,
-        popupTitle: "팝콘 팝업스토어",
-        popupPeriod: "00.00.00~00.00.00",
-        popupLocation: "팝콘 팝업스토어",
-        popupDDay: "D-0"
-    )
-
-    init(
-        popupId: Int,
-        popupImageUrl: String?,
-        popupTitle: String? = nil,
-        popupPeriod: String? = nil,
-        popupLocation: String? = nil,
-        popupDDay: String? = nil
-    ) {
-        self.popupId = popupId
-        self.popupImageUrl = popupImageUrl
-        self.popupTitle = popupTitle
-        self.popupPeriod = popupPeriod
-        self.popupLocation = popupLocation
-        self.popupDDay = popupDDay
-    }
-}
-
-struct UserInterestPopupViewData {
-    let interestCategory: String
-    let popups: [PopupPreviewViewData]
-}
-
 final class MainSceneViewModel: MainCarouselViewModelProtocol {
     private let fetchPopupListUseCase: FetchPopupListUseCaseProtocol
     private let imageFetchUseCase: ImageFetchUseCase
@@ -95,14 +56,6 @@ final class MainSceneViewModel: MainCarouselViewModelProtocol {
     ) {
         self.imageFetchUseCase = imageFetchUseCase
         self.fetchPopupListUseCase = fetchPopupListUseCase
-    }
-
-    private func calculateDDay(from dueDate: Date) -> String {
-        let calendar = Calendar.current
-        let today = calendar.startOfDay(for: Date())
-        let due = calendar.startOfDay(for: dueDate)
-        let components = calendar.dateComponents([.day], from: today, to: due).day ?? 0
-        return String(components)
     }
 
     func fetchImage(url: String, completion: @escaping (Result<Data, ImageFetchError>) -> Void) {
@@ -176,50 +129,21 @@ extension MainSceneViewModel {
         self.carouselPopupImageUrls = popupMainList.recommandedPopups
 
         self.userPickPopup = popupMainList.userPickPopups.compactMap {
-            self.convertToViewModelData(of: .userPick, popupData: $0)
+            PopupPreviewViewData(from: $0)
         }
 
         self.userInterestPopup = popupMainList.userInterestPopup
             .map { category in
-                let popups = category.popups.compactMap {
-                    self.convertToViewModelData(of: .userInterest, popupData: $0)
-                }
-                return UserInterestPopupViewData(interestCategory: category.interestCategory.rawValue, popups: popups)
+                return UserInterestPopupViewData(
+                    interestCategory: category.interestCategory.rawValue,
+                    popups: category.popups.compactMap { PopupPreviewViewData(from: $0) }
+                )
             }
             .sorted { $0.interestCategory < $1.interestCategory }
 
         self.closingSoonPopup = popupMainList.closingSoonPopup.compactMap {
-            self.convertToViewModelData(of: .closingSoon, popupData: $0)
+            PopupPreviewViewData(from: $0)
         }
-    }
-
-    private func convertToViewModelData(
-        of category: MainCategory,
-        popupData: PopupPreview
-    ) -> PopupPreviewViewData? {
-        if category == .userInterest || category == .userPick {
-            let dDayDate = calculateDDay(from: popupData.popupEndDate)
-
-            return PopupPreviewViewData(
-                popupId: popupData.popupId,
-                popupImageUrl: popupData.popupImageUrl,
-                popupTitle: popupData.popupTitle,
-                popupDDay: "D-\(dDayDate)"
-            )
-        } else if category == .closingSoon,
-                  let popupStartDate = popupData.popupStartDate,
-                  let location = popupData.popupLocation {
-            let startDate = PopupDateFormatter.convertToString(date: popupStartDate)
-            let endDate = PopupDateFormatter.convertToString(date: popupData.popupEndDate)
-            return PopupPreviewViewData(
-                popupId: popupData.popupId,
-                popupImageUrl: popupData.popupImageUrl,
-                popupTitle: popupData.popupTitle,
-                popupPeriod: "\(startDate)~\(endDate)",
-                popupLocation: location
-            )
-        }
-        return nil
     }
 
     private func showPlaceholderData() {
@@ -247,4 +171,44 @@ extension MainSceneViewModel {
 extension MainSceneViewModel {
     private func genereateMockData() {
     }
+}
+
+// MARK: - View Model
+struct PopupPreviewViewData {
+    let popupId: Int
+    let popupImageUrl: String?
+    let popupTitle: String?
+    let popupPeriod: String?
+    let popupLocation: String?
+    let popupDDay: String?
+
+    static let placeholder = PopupPreviewViewData(
+        from: PopupPreview(
+            popupId: -1,
+            popupImageUrl: "",
+            popupTitle: "팝콘 팝업스토어",
+            popupEndDate: Date(),
+            popupStartDate: Date(),
+            popupLocation: "팝콘시 팝콘구 팝콘로 0번길"
+        )
+    )
+
+    init(from popupPreview: PopupPreview) {
+        self.popupId = popupPreview.popupId
+        self.popupImageUrl = popupPreview.popupImageUrl
+        self.popupTitle = popupPreview.popupTitle
+        self.popupLocation = popupPreview.popupLocation
+        self.popupDDay = PopupDateFormatter.calculateDDay(from: popupPreview.popupEndDate)
+        
+        self.popupPeriod = popupPreview.popupStartDate.map { startDate in
+            let startDateString = PopupDateFormatter.convertToString(date: startDate)
+            let endDateString = PopupDateFormatter.convertToString(date: popupPreview.popupEndDate)
+            return "\(startDateString)~\(endDateString)"
+        }
+    }
+}
+
+struct UserInterestPopupViewData {
+    let interestCategory: String
+    let popups: [PopupPreviewViewData]
 }
