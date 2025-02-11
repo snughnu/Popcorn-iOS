@@ -46,10 +46,12 @@ extension LoginViewController {
     private func bind(to loginViewModel: LoginViewModelProtocol) {
         self.loginViewModel.loginButtonEnabledHandler = { [weak self] isEnabled in
             guard let self = self else { return }
-            self.loginView.loginButton.backgroundColor = isEnabled
-            ? UIColor(resource: .popcornOrange)
-            : UIColor(resource: .popcornGray2)
-            self.loginView.loginButton.isEnabled = isEnabled
+            DispatchQueue.main.async {
+                self.loginView.loginButton.backgroundColor = isEnabled
+                ? UIColor(resource: .popcornOrange)
+                : UIColor(resource: .popcornGray2)
+                self.loginView.loginButton.isEnabled = isEnabled
+            }
         }
 
         self.loginViewModel.loginSuccessHandler = { [weak self] in
@@ -60,21 +62,31 @@ extension LoginViewController {
 
         self.loginViewModel.loginFailHandler = { [weak self] message in
             guard let self = self else { return }
-            self.loginView.checkIdPwLabel.textColor = .red
-            self.loginView.checkIdPwLabel.text = message
+            DispatchQueue.main.async {
+                self.loginView.checkIdPwLabel.textColor = UIColor(.red)
+                self.loginView.checkIdPwLabel.text = message
+            }
         }
     }
 
     private func bind(to socialLoginViewModel: SocialLoginViewModelProtocol) {
-        self.socialLoginViewModel.loginSuccessHandler = { [weak self] nickname in
+        self.socialLoginViewModel.loginSuccessHandler = { [weak self] isNewUser in
             guard let self = self else { return }
-            let signUpSecondViewController = SignUpSecondViewController()
-            signUpSecondViewController.signUpSecondView.nickNameTextField.text = nickname
-            self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
+            if isNewUser {
+                let signUpSecondViewController = SignUpSecondViewController()
+                self.navigationController?.setViewControllers([signUpSecondViewController], animated: true)
+            } else {
+                let mainSceneViewController = MainSceneViewController()
+                self.navigationController?.setViewControllers([mainSceneViewController], animated: true)
+            }
         }
 
-        self.socialLoginViewModel.loginFailHandler = { error in
-            print("소셜 로그인 실패: \(error.localizedDescription)")
+        self.socialLoginViewModel.loginFailHandler = { [weak self] message in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.loginView.checkIdPwLabel.textColor = UIColor(.red)
+                self.loginView.checkIdPwLabel.text = message
+            }
         }
     }
 }
