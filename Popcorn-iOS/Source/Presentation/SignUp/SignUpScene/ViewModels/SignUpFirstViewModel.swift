@@ -193,7 +193,7 @@ extension SignUpFirstViewModel {
                     if isAvailable {
                         self?.requestAuthNum(email: email)
                     } else {
-                        self?.emailMessageHandler?("*중복된 이메일입니다.", false)
+                        self?.emailMessageHandler?("*이미 가입된 이메일입니다.", false)
                     }
                 case .failure:
                     self?.emailMessageHandler?("*네트워크 오류", false)
@@ -207,6 +207,7 @@ extension SignUpFirstViewModel {
             emailMessageHandler?("*이메일을 올바르게 입력해주세요.", false)
             return
         }
+        emailMessageHandler?("전송 중입니다..", true)
         signUpUseCase.executeSendVerificationCode(email: email) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
