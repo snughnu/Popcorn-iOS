@@ -90,6 +90,7 @@
 		BC5F3C272D525FCE00248DB0 /* ValidateAuthNumRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C262D525FCE00248DB0 /* ValidateAuthNumRequestDTO.swift */; };
 		BC5F3C292D52622300248DB0 /* SignUpResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C282D52622300248DB0 /* SignUpResponseDTO.swift */; };
 		BC6420832D58E03F001ACC51 /* AuthNumResultResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6420822D58E03F001ACC51 /* AuthNumResultResponseDTO.swift */; };
+		BC6420A92D5B1F76001ACC51 /* CheckDuplicationEmailResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6420A82D5B1F76001ACC51 /* CheckDuplicationEmailResponseDTO.swift */; };
 		BC7420F82CE2395600BEED0A /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7420F72CE2391400BEED0A /* HttpMethod.swift */; };
 		BC7420FA2CE23A9500BEED0A /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7420F92CE23A8A00BEED0A /* Requestable.swift */; };
 		BC7420FC2CE23B9600BEED0A /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7420FB2CE23B9200BEED0A /* Endpoint.swift */; };
@@ -224,6 +225,7 @@
 		BC5F3C262D525FCE00248DB0 /* ValidateAuthNumRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateAuthNumRequestDTO.swift; sourceTree = "<group>"; };
 		BC5F3C282D52622300248DB0 /* SignUpResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpResponseDTO.swift; sourceTree = "<group>"; };
 		BC6420822D58E03F001ACC51 /* AuthNumResultResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNumResultResponseDTO.swift; sourceTree = "<group>"; };
+		BC6420A82D5B1F76001ACC51 /* CheckDuplicationEmailResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDuplicationEmailResponseDTO.swift; sourceTree = "<group>"; };
 		BC7420F72CE2391400BEED0A /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		BC7420F92CE23A8A00BEED0A /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		BC7420FB2CE23B9200BEED0A /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
@@ -800,6 +802,7 @@
 				BC5F3C222D525ED700248DB0 /* ValidateAuthNumResponseDTO.swift */,
 				BC5F3C282D52622300248DB0 /* SignUpResponseDTO.swift */,
 				BC6420822D58E03F001ACC51 /* AuthNumResultResponseDTO.swift */,
+				BC6420A82D5B1F76001ACC51 /* CheckDuplicationEmailResponseDTO.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1198,6 +1201,7 @@
 				5643991F2D44F2000031688B /* Data+.swift in Sources */,
 				BCE6E5FC2CF321080036BAF6 /* SignUpFieldStackView.swift in Sources */,
 				BCF6ED392D33DF530038CCAE /* LoginResponseDTO.swift in Sources */,
+				BC6420A92D5B1F76001ACC51 /* CheckDuplicationEmailResponseDTO.swift in Sources */,
 				563483002D2248DB001646B5 /* PopupInfoReviewSegmentHeaderView.swift in Sources */,
 				BC8113722CF5ECC800F82331 /* SignUpSecondView.swift in Sources */,
 				BCB86A552D475B9700F00F1F /* SocialLoginViewModel.swift in Sources */,

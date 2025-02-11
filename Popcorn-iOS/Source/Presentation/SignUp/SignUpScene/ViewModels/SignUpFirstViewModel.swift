@@ -24,6 +24,7 @@ protocol SignUpFirstViewModelProtocol {
     func updateEmail(_ email: String)
     func updateAuthNum(_ authNum: String)
     func checkUsernameAvailability(username: String)
+    func checkEmailAndRequestAuthNum(email: String)
     func requestAuthNum(email: String)
     func validateAuthNum(email: String, authNum: String)
 }
@@ -175,6 +176,27 @@ extension SignUpFirstViewModel {
                     self?.idMessageHandler?(message, isAvailable)
                 case .failure:
                     self?.idMessageHandler?("*아이디 중복 확인 실패.", false)
+                }
+            }
+        }
+    }
+
+    func checkEmailAndRequestAuthNum(email: String) {
+        guard isEmailValid else {
+            emailMessageHandler?("*이메일을 올바르게 입력해주세요.", false)
+            return
+        }
+        signUpUseCase.executeEmailDuplicationCheck(email: email) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let isAvailable):
+                    if isAvailable {
+                        self?.requestAuthNum(email: email)
+                    } else {
+                        self?.emailMessageHandler?("*중복된 이메일입니다.", false)
+                    }
+                case .failure:
+                    self?.emailMessageHandler?("*네트워크 오류", false)
                 }
             }
         }

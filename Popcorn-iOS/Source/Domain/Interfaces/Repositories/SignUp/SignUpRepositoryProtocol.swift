@@ -9,6 +9,7 @@ import Foundation
 
 protocol SignUpRepositoryProtocol {
     func fetchUsernameDuplicationResult(username: String, completion: @escaping (Result<Bool, Error>) -> Void)
+    func fetchEmailDuplicationResult(email: String, completion: @escaping (Result<Bool, Error>) -> Void)
     func fetchRequestAuthNumResult(email: String, completion: @escaping (Result<Bool, Error>) -> Void)
     func fetchValidateAuthNumResult(
         email: String,

@@ -145,7 +145,7 @@ extension SignUpFirstViewController {
             signUpFirstView.emailField.labelReference.text = "*이메일을 올바르게 입력해주세요."
             return
         }
-        signUpFirstViewModel.requestAuthNum(email: emailText)
+        signUpFirstViewModel.checkEmailAndRequestAuthNum(email: emailText)
     }
 
     private func nextButtonTapped() {
