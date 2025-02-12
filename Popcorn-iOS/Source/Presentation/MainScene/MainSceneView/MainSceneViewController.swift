@@ -393,7 +393,7 @@ extension MainSceneViewController {
         NSLayoutConstraint.activate([
             mainCollectionView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             mainCollectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            mainCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            mainCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -10),
             mainCollectionView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)
         ])
     }
