@@ -44,6 +44,7 @@
 		5660FD3F2D421CE100F9B4D9 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5660FD3E2D421CDE00F9B4D9 /* Cancellable.swift */; };
 		5660FD492D421E9E00F9B4D9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5660FD482D421E9A00F9B4D9 /* NetworkManager.swift */; };
 		566A0E4F2D3E23AF00B70929 /* WriteReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566A0E4E2D3E23A800B70929 /* WriteReviewViewModel.swift */; };
+		56799DDB2D5C821F001F11F7 /* MainSceneDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56799DDA2D5C821B001F11F7 /* MainSceneDataSource.swift */; };
 		56A061282D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A061272D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift */; };
 		56A0C8472D2A744C005E6C51 /* ReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A0C8462D2A744C005E6C51 /* ReviewCollectionViewCell.swift */; };
 		56A0C8492D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A0C8482D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift */; };
@@ -179,6 +180,7 @@
 		5660FD3E2D421CDE00F9B4D9 /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		5660FD482D421E9A00F9B4D9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		566A0E4E2D3E23A800B70929 /* WriteReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewModel.swift; sourceTree = "<group>"; };
+		56799DDA2D5C821B001F11F7 /* MainSceneDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneDataSource.swift; sourceTree = "<group>"; };
 		56A061272D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetailInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		56A0C8462D2A744C005E6C51 /* ReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		56A0C8482D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewImageCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -570,6 +572,7 @@
 		56CD3A712CEB83CF00BAC02D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				56799DDA2D5C821B001F11F7 /* MainSceneDataSource.swift */,
 				56CD3A702CEB83CF00BAC02D /* MainSceneViewModel.swift */,
 				56A0C8522D2AB2E5005E6C51 /* PopupDetailViewModel.swift */,
 				566A0E4E2D3E23A800B70929 /* WriteReviewViewModel.swift */,
@@ -1185,6 +1188,7 @@
 				563A1E2A2D5390E8008DA4F8 /* PopupMainList.swift in Sources */,
 				BCB86A552D475B9700F00F1F /* SocialLoginViewModel.swift in Sources */,
 				56018CA22CECB1C400AC8ED5 /* MainSceneViewController.swift in Sources */,
+				56799DDB2D5C821F001F11F7 /* MainSceneDataSource.swift in Sources */,
 				BCE8FA342D2272F600A7B8E2 /* FindIdPwViewController.swift in Sources */,
 				BCE6E5F82CF31F1A0036BAF6 /* SignUpTextField.swift in Sources */,
 				BC58B0D42D3D231B00A8E42F /* SignUpData.swift in Sources */,
