@@ -15,7 +15,7 @@ final class ImageFetchManager: ImageFetchManagerProtocol {
     }
 
     func fetchImage(from url: URL, completion: @escaping (Result<Data, ImageFetchError>) -> Void) {
-        let task = session.dataTask(with: url) { data, response, error in
+        let task = session.dataTask(with: url) { data, _, error in
             if let error = error as? URLError {
                 if error.code == .badURL {
                     completion(.failure(.invalidURL))

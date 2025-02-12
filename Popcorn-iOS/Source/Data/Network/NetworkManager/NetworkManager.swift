@@ -11,7 +11,7 @@ protocol NetworkManagerProtocol {
     @discardableResult
     func request<Request: Requestable>(
         endpoint: Request,
-        completion: @escaping (Result<Request.Response, Error>) -> Void
+        completion: @escaping (Result<Request.Response, NetworkError>) -> Void
     ) -> Cancellable?
 }
 
@@ -27,7 +27,7 @@ final class NetworkManager: NetworkManagerProtocol {
     @discardableResult
     func request<Request: Requestable>(
         endpoint: Request,
-        completion: @escaping (Result<Request.Response, Error>) -> Void
+        completion: @escaping (Result<Request.Response, NetworkError>) -> Void
     ) -> (any Cancellable)? {
         guard let request = endpoint.makeURLRequest() else {
             completion(.failure(NetworkError.invalidURL))
