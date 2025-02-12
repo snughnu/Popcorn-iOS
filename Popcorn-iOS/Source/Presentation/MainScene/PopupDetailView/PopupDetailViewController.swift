@@ -36,38 +36,20 @@ final class PopupDetailViewController: UIViewController {
     }
 
     private func bind(to viewModel: PopupDetailViewModel) {
-        viewModel.popupMainInformationPublisher = { [weak self] in
-            guard let self else { return }
-            if self.collectionView.numberOfItems(inSection: 0) == 0 {
-                DispatchQueue.main.async {
-                    self.collectionView.reloadSections(IndexSet(0...0))
-                }
-            }
-        }
-
-        viewModel.popupDetailInformationPublisher = { [weak self] in
+        viewModel.popupInformationPublisher = { [weak self] in
             guard let self else { return }
             if segmentIndex == 0 {
                 DispatchQueue.main.async {
-                    self.collectionView.reloadSections(IndexSet(1...1))
+                    self.collectionView.reloadData()
                 }
             }
         }
 
-        viewModel.popupRatingPublisher = { [weak self] in
+        viewModel.popupReviewPublisher = { [weak self] in
             guard let self else { return }
             if segmentIndex == 1 {
                 DispatchQueue.main.async {
-                    self.collectionView.reloadSections(IndexSet(1...1))
-                }
-            }
-        }
-
-        viewModel.popupReviewsDataPublisher = { [weak self] in
-            guard let self else { return }
-            if segmentIndex == 1 {
-                DispatchQueue.main.async {
-                    self.collectionView.reloadSections(IndexSet(2...2))
+                    self.collectionView.reloadData()
                 }
             }
         }
