@@ -114,10 +114,13 @@ final class PopupDetailViewModel: MainCarouselViewModelProtocol {
         let hashTags = data.mainInformation.hashTags ?? []
 
         carouselPopupImageUrls = data.popupImagesUrl
+        
+        let startDateString = PopupDateFormatter.formattedPopupStoreDate(from: data.mainInformation.startDate)
+        let endDateString = PopupDateFormatter.formattedPopupStoreDate(from: data.mainInformation.endDate)
 
         popupMainInformation = PopupMainInformationViewData(
             popupTitle: data.mainInformation.popupTitle,
-            popupPeriod: formatPeriod(start: data.mainInformation.startDate, end: data.mainInformation.endDate),
+            popupPeriod: "\(startDateString)~\(endDateString)",
             isUserPick: data.mainInformation.isUserPick,
             hashTags: hashTags
         )
@@ -142,23 +145,11 @@ final class PopupDetailViewModel: MainCarouselViewModelProtocol {
                 profileImageUrl: profileImageUrl,
                 nickname: review.nickName,
                 rating: review.reviewRating,
-                reviewDate: formatDate(review.reviewDate),
+                reviewDate: PopupDateFormatter.formattedReviewDate(from: review.reviewDate),
                 imagesUrl: reviewImagesUrls,
                 reviewText: review.reviewText
             )
         }
-    }
-
-    private func formatPeriod(start: Date, end: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yy.MM.dd"
-        return "\(dateFormatter.string(from: start)) - \(dateFormatter.string(from: end))"
-    }
-
-    private func formatDate(_ date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy.MM.dd"
-        return dateFormatter.string(from: date)
     }
 
     func fetchImage(url: String, completion: @escaping (Result<Data, ImageFetchError>) -> Void) {

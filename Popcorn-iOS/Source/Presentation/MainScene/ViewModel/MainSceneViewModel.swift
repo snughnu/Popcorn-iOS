@@ -100,8 +100,8 @@ struct PopupPreviewViewData {
         self.popupDDay = "D-\(PopupDateFormatter.calculateDDay(from: popupPreview.popupEndDate))"
 
         self.popupPeriod = popupPreview.popupStartDate.map { startDate in
-            let startDateString = PopupDateFormatter.convertToString(date: startDate)
-            let endDateString = PopupDateFormatter.convertToString(date: popupPreview.popupEndDate)
+            let startDateString = PopupDateFormatter.formattedPopupStoreDate(from: startDate)
+            let endDateString = PopupDateFormatter.formattedPopupStoreDate(from: popupPreview.popupEndDate)
             return "\(startDateString)~\(endDateString)"
         }
     }
