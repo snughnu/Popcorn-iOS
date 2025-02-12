@@ -96,8 +96,8 @@ extension MainCarouselView: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        if let carouselImagesUrl = viewModel?.provideCarouselImage() {
-            viewModel?.fetchImage(url: carouselImagesUrl[indexPath.item]) { result in
+        if let carouselImagesUrl = viewModel?.provideCarouselImageUrl(at: indexPath) {
+            viewModel?.fetchImage(url: carouselImagesUrl) { result in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let imageData):
