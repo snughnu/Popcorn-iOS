@@ -507,6 +507,14 @@
 			path = Interface;
 			sourceTree = "<group>";
 		};
+		56799DDD2D5C9AE0001F11F7 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				56799DDA2D5C821B001F11F7 /* MainSceneDataSource.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
 		56C5DDB72CE797FB0090D3A2 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -522,11 +530,12 @@
 		56C5DDB82CE7989E0090D3A2 /* MainScene */ = {
 			isa = PBXGroup;
 			children = (
-				562447132D33B651000E94A0 /* Protocol */,
 				56C5DDC62CE99AC80090D3A2 /* Common */,
+				562447132D33B651000E94A0 /* Protocol */,
 				56CD3A732CEB84D500BAC02D /* MainSceneView */,
 				563482F72D223F90001646B5 /* PopupDetailView */,
 				56CD3A712CEB83CF00BAC02D /* ViewModel */,
+				56799DDD2D5C9AE0001F11F7 /* DataSource */,
 			);
 			path = MainScene;
 			sourceTree = "<group>";
@@ -572,7 +581,6 @@
 		56CD3A712CEB83CF00BAC02D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				56799DDA2D5C821B001F11F7 /* MainSceneDataSource.swift */,
 				56CD3A702CEB83CF00BAC02D /* MainSceneViewModel.swift */,
 				56A0C8522D2AB2E5005E6C51 /* PopupDetailViewModel.swift */,
 				566A0E4E2D3E23A800B70929 /* WriteReviewViewModel.swift */,
