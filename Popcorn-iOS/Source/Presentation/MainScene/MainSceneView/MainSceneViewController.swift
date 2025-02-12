@@ -86,20 +86,19 @@ extension MainSceneViewController {
 // MARK: - Configure CollectionView DataSource
 extension MainSceneViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2 + mainViewModel.numbersOfInterest()
+        return 2 + mainViewModel.getDataSource().numbersOfInterest()
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let numberOfInterest = mainViewModel.numbersOfInterest()
+        let numberOfInterest = mainViewModel.getDataSource().numbersOfInterest()
 
         switch section {
         case 0:
-            return mainViewModel.numbersOfPopup(of: .userPick)
+            return mainViewModel.getDataSource().numbersOfPopup(of: .userPick)
         case 1..<(1 + numberOfInterest):
-            return mainViewModel.numbersOfPopup(of: .userInterest, at: section - 1)
+            return mainViewModel.getDataSource().numbersOfPopup(of: .userInterest, at: section - 1)
         case (1 + numberOfInterest):
-            let count = mainViewModel.numbersOfPopup(of: .closingSoon)
-            return count
+            return mainViewModel.getDataSource().numbersOfPopup(of: .closingSoon)
         default:
             return 0
         }
@@ -109,7 +108,9 @@ extension MainSceneViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        let numbersOfInterest = mainViewModel.numbersOfInterest()
+        let numbersOfInterest = mainViewModel.getDataSource().numbersOfInterest()
+        let popupData = mainViewModel.getDataSource().item(at: indexPath)
+
         switch indexPath.section {
         case 0:
             guard let cell = collectionView.dequeueReusableCell(
@@ -118,9 +119,6 @@ extension MainSceneViewController: UICollectionViewDataSource {
             ) as? PickOrInterestCell else {
                 return UICollectionViewCell()
             }
-
-            let popupData = mainViewModel.providePopupPreviewData(of: .userPick, at: indexPath.row)
-            ?? PopupPreviewViewData.placeholder
 
             if let popupDDay = popupData.popupDDay {
                 mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
@@ -160,12 +158,7 @@ extension MainSceneViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
 
-            if let popupData = mainViewModel.providePopupPreviewData(
-                of: .userInterest,
-                at: indexPath.row,
-                sectionOfInterest: indexPath.section - 1
-            ),
-               let popupDDay = popupData.popupDDay {
+            if let popupDDay = popupData.popupDDay {
                 mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
                     DispatchQueue.main.async {
                         switch result {
@@ -203,8 +196,7 @@ extension MainSceneViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
 
-            if let popupData = mainViewModel.providePopupPreviewData(of: .closingSoon, at: indexPath.row),
-               let popupPeriod = popupData.popupPeriod,
+            if let popupPeriod = popupData.popupPeriod,
                let popupLocation = popupData.popupLocation {
                 mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
                     DispatchQueue.main.async {
@@ -262,7 +254,7 @@ extension MainSceneViewController: UICollectionViewDataSource {
 
             carouselHeader.configureContents(headerTitle: "찜 목록", viewModel: mainViewModel)
             return carouselHeader
-        case 1..<(1 + mainViewModel.numbersOfInterest()):
+        case 1..<(1 + mainViewModel.getDataSource().numbersOfInterest()):
             guard let header = collectionView.dequeueReusableSupplementaryView(
                 ofKind: UICollectionView.elementKindSectionHeader,
                 withReuseIdentifier: MainCollectionHeaderView.reuseIdentifier,
@@ -271,10 +263,13 @@ extension MainSceneViewController: UICollectionViewDataSource {
                 return UICollectionReusableView()
             }
 
-            let headerTitle = mainViewModel.provideUserInterestTitle(sectionOfInterest: indexPath.section - 1)
+            let headerTitle = mainViewModel
+                .getDataSource()
+                .provideUserInterestTitle(sectionOfInterest: indexPath.section - 1)
+
             header.configureContents(headerTitle: headerTitle)
             return header
-        case (1 + mainViewModel.numbersOfInterest()):
+        case (1 + mainViewModel.getDataSource().numbersOfInterest()):
             guard let header = collectionView.dequeueReusableSupplementaryView(
                 ofKind: UICollectionView.elementKindSectionHeader,
                 withReuseIdentifier: MainCollectionHeaderView.reuseIdentifier,
@@ -300,9 +295,9 @@ extension MainSceneViewController {
             switch sectionIndex {
             case 0:
                 return generateHorizontalLayout(isPickSection: true)
-            case 1..<(1 + self.mainViewModel.numbersOfInterest()):
+            case 1..<(1 + self.mainViewModel.getDataSource().numbersOfInterest()):
                 return generateHorizontalLayout()
-            case self.mainViewModel.numbersOfInterest() + 1:
+            case self.mainViewModel.getDataSource().numbersOfInterest() + 1:
                 return generateVerticalGridLayout()
             default:
                 return generateHorizontalLayout()
