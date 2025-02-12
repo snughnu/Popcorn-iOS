@@ -206,8 +206,8 @@ extension PopupDetailViewModel {
 
 // MARK: - Implement MainCarouselViewModelProtocol
 extension PopupDetailViewModel {
-    func provideCarouselImage() -> [String] {
-        return carouselPopupImageUrls
+    func provideCarouselImageUrl(at indexPath: IndexPath) -> String {
+        return carouselPopupImageUrls[indexPath.row]
     }
 
     func numbersOfCarouselImage() -> Int {

@@ -12,7 +12,7 @@ protocol MainCarouselViewModelProtocol: AnyObject {
 
     func numbersOfCarouselImage() -> Int
 
-    func provideCarouselImage() -> [String]
+    func provideCarouselImageUrl(at indexPath: IndexPath) -> String
 
     func fetchImage(url: String, completion: @escaping (Result<Data, ImageFetchError>) -> Void)
 }

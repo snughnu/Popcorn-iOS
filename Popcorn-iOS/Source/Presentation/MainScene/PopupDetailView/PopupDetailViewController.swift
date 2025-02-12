@@ -433,7 +433,7 @@ extension PopupDetailViewController {
 // MARK: - Implement WriteReviewButton Delegate
 extension PopupDetailViewController: WriteReviewButtonDelegate {
     func didTapWriteReviewButtonDelegate() {
-        let imageUrl = viewModel.provideCarouselImage()[0]
+        let imageUrl = viewModel.provideCarouselImageUrl(at: IndexPath(row: 0, section: 0))
         let data = viewModel.provideMainInformationData()
 
         viewModel.fetchImage(url: imageUrl) { result in

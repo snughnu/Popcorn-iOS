@@ -7,12 +7,6 @@
 
 import Foundation
 
-enum MainCategory {
-    case userPick
-    case userInterest
-    case closingSoon
-}
-
 final class MainSceneViewModel: MainCarouselViewModelProtocol {
     private let fetchPopupListUseCase: FetchPopupListUseCaseProtocol
     private let imageFetchUseCase: ImageFetchUseCase
@@ -21,6 +15,7 @@ final class MainSceneViewModel: MainCarouselViewModelProtocol {
     private var userPickPopup: [PopupPreviewViewData] = []
     private var userInterestPopup: [UserInterestPopupViewData] = []
     private var closingSoonPopup: [PopupPreviewViewData] = []
+    private let mainSceneDataSource: MainSceneDataSource
 
     // MARK: - Output
     var carouselImagePublisher: (() -> Void)?
@@ -29,11 +24,18 @@ final class MainSceneViewModel: MainCarouselViewModelProtocol {
 
     init(
         fetchPopupListUseCase: FetchPopupListUseCaseProtocol = FetchPopupListUseCase(),
-        imageFetchUseCase: ImageFetchUseCase = ImageFetchUseCase()
+        imageFetchUseCase: ImageFetchUseCase = ImageFetchUseCase(),
+        mainSceneDataSource: MainSceneDataSource = MainSceneDataSource()
     ) {
         self.imageFetchUseCase = imageFetchUseCase
         self.fetchPopupListUseCase = fetchPopupListUseCase
+        self.mainSceneDataSource = mainSceneDataSource
     }
+
+    func getDataSource() -> MainSceneDataSource {
+        return mainSceneDataSource
+    }
+}
 
     func fetchImage(url: String, completion: @escaping (Result<Data, ImageFetchError>) -> Void) {
         guard let url = URL(string: url) else {
@@ -135,8 +137,8 @@ extension MainSceneViewModel {
         return carouselPopupImageUrls.count
     }
 
-    func provideCarouselImage() -> [String] {
-        return carouselPopupImageUrls.map { $0.popupImageUrl }
+    func provideCarouselImageUrl(at indexPath: IndexPath) -> String {
+        return mainSceneDataSource.item(at: indexPath).popupImageUrl
     }
 }
 
