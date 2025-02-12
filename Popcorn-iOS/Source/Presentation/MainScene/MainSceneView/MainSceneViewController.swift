@@ -15,13 +15,6 @@ final class MainSceneViewController: UIViewController {
         collectionViewLayout: generateCollectionViewLayout()
     )
 
-    private let mainTextLogoImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage.logoText
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-
     init(mainViewModel: MainSceneViewModel = MainSceneViewModel()) {
         self.mainViewModel = mainViewModel
         super.init(nibName: nil, bundle: nil)
@@ -29,6 +22,11 @@ final class MainSceneViewController: UIViewController {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     override func viewDidLoad() {
@@ -336,7 +334,7 @@ extension MainSceneViewController {
         if isPickSection {
             headerSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .fractionalWidth(391/393))
+                heightDimension: .fractionalWidth(446/393))
         } else {
             headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
         }
@@ -383,7 +381,7 @@ extension MainSceneViewController {
 // MARK: - Configure UI
 extension MainSceneViewController {
     private func configureSubviews() {
-        [mainTextLogoImageView, mainCollectionView].forEach {
+        [mainCollectionView].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -393,11 +391,7 @@ extension MainSceneViewController {
         let safeArea = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
-            mainTextLogoImageView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 5),
-            mainTextLogoImageView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            mainTextLogoImageView.heightAnchor.constraint(equalToConstant: 35),
-
-            mainCollectionView.topAnchor.constraint(equalTo: mainTextLogoImageView.bottomAnchor, constant: 17),
+            mainCollectionView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             mainCollectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             mainCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             mainCollectionView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)
