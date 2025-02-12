@@ -69,42 +69,16 @@ struct PopupReviewViewData {
 final class PopupDetailViewModel: MainCarouselViewModelProtocol {
     private let imageFetchUseCase: ImageFetchUseCaseProtocol
 
-    var carouselPopupImageUrls: [String] = [] {
-        didSet {
-            carouselImagePublisher?()
-        }
-    }
-
-    private var popupMainInformation: PopupMainInformationViewData = PopupMainInformationViewData() {
-        didSet {
-            popupMainInformationPublisher?()
-        }
-    }
-
-    private var popupDetailInformation: PopupDetailInformationViewData = PopupDetailInformationViewData() {
-        didSet {
-            popupDetailInformationPublisher?()
-        }
-    }
-
-    private var popupRating: PopupRatingViewData = PopupRatingViewData() {
-        didSet {
-            popupRatingPublisher?()
-        }
-    }
-
-    private var popupReviews: [PopupReviewViewData] = [] {
-        didSet {
-            popupReviewsDataPublisher?()
-        }
-    }
+    private var carouselPopupImageUrls: [String] = []
+    private var popupMainInformation: PopupMainInformationViewData = PopupMainInformationViewData()
+    private var popupDetailInformation: PopupDetailInformationViewData = PopupDetailInformationViewData()
+    private var popupRating: PopupRatingViewData = PopupRatingViewData()
+    private var popupReviews: [PopupReviewViewData] = []
 
     // MARK: - Output
     var carouselImagePublisher: (() -> Void)?
-    var popupMainInformationPublisher: (() -> Void)?
-    var popupDetailInformationPublisher: (() -> Void)?
-    var popupRatingPublisher: (() -> Void)?
-    var popupReviewsDataPublisher: (() -> Void)?
+    var popupInformationPublisher: (() -> Void)?
+    var popupReviewPublisher: (() -> Void)?
 
     init(imageFetchUseCase: ImageFetchUseCaseProtocol = ImageFetchUseCase()) {
         self.imageFetchUseCase = imageFetchUseCase
@@ -114,7 +88,7 @@ final class PopupDetailViewModel: MainCarouselViewModelProtocol {
         let hashTags = data.mainInformation.hashTags ?? []
 
         carouselPopupImageUrls = data.popupImagesUrl
-        
+
         let startDateString = PopupDateFormatter.formattedPopupStoreDate(from: data.mainInformation.startDate)
         let endDateString = PopupDateFormatter.formattedPopupStoreDate(from: data.mainInformation.endDate)
 
