@@ -8,7 +8,7 @@
 import UIKit
 
 final class PopupDetailViewController: UIViewController {
-    private let viewModel = PopupDetailViewModel()
+    private let viewModel: PopupDetailViewModel
 
     private lazy var collectionView = UICollectionView(
         frame: .zero,
@@ -16,6 +16,15 @@ final class PopupDetailViewController: UIViewController {
     )
 
     private var segmentIndex: Int = 0
+
+    init(viewModel: PopupDetailViewModel = PopupDetailViewModel()) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -197,14 +206,45 @@ extension PopupDetailViewController: UICollectionViewDataSource {
             cell.delegate = self
             let data = viewModel.provideReviewData(at: indexPath.item)
 
-            cell.configureContents(
-                profileImage: data.profileImage,
-                nickName: data.nickname,
-                starRating: data.rating,
-                reviewDate: data.reviewDate,
-                reviewImages: data.images,
-                reviewText: data.reviewText
-            )
+            var profileImage = UIImage(resource: .grayCircle)
+            var reviewImages = [UIImage]()
+
+            let dispatchGroup = DispatchGroup()
+
+            if let profileImageUrl = data.profileImageUrl {
+                dispatchGroup.enter()
+                viewModel.fetchImage(url: profileImageUrl) { result in
+                    if case .success(let imageData) = result,
+                       let image = UIImage(data: imageData) {
+                        profileImage = image
+                    }
+                    dispatchGroup.leave()
+                }
+            }
+
+            if let reviewImagesUrls = data.imagesUrl {
+                reviewImagesUrls.forEach { url in
+                    dispatchGroup.enter()
+                    viewModel.fetchImage(url: url) { result in
+                        if case .success(let imageData) = result,
+                           let image = UIImage(data: imageData) {
+                            reviewImages.append(image)
+                        }
+                        dispatchGroup.leave()
+                    }
+                }
+            }
+
+            dispatchGroup.notify(queue: .main) {
+                cell.configureContents(
+                    profileImage: profileImage,
+                    nickName: data.nickname,
+                    starRating: data.rating,
+                    reviewDate: data.reviewDate,
+                    reviewImages: reviewImages,
+                    reviewText: data.reviewText
+                )
+            }
 
             return cell
         default:
@@ -393,14 +433,27 @@ extension PopupDetailViewController {
 // MARK: - Implement WriteReviewButton Delegate
 extension PopupDetailViewController: WriteReviewButtonDelegate {
     func didTapWriteReviewButtonDelegate() {
-        let image = viewModel.provideCarouselImage()[0]
+        let imageUrl = viewModel.provideCarouselImage()[0]
         let data = viewModel.provideMainInformationData()
-        let writeReviewViewController = WriteReviewViewController(
-            image: image,
-            title: data.popupTitle,
-            period: data.popupPeriod
-        )
-        self.navigationController?.pushViewController(writeReviewViewController, animated: true)
+
+        viewModel.fetchImage(url: imageUrl) { result in
+            switch result {
+            case .success(let imageData):
+                DispatchQueue.main.async {
+                    if let image = UIImage(data: imageData) {
+                        let writeReviewViewController = WriteReviewViewController(
+                            image: image,
+                            title: data.popupTitle,
+                            period: data.popupPeriod
+                        )
+                        self.navigationController?.pushViewController(writeReviewViewController, animated: true)
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+
     }
 }
 

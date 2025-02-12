@@ -20,6 +20,15 @@
 		563483002D2248DB001646B5 /* PopupInfoReviewSegmentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563482FF2D2248DB001646B5 /* PopupInfoReviewSegmentHeaderView.swift */; };
 		563483032D224CF2001646B5 /* CarouselHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563483022D224CF2001646B5 /* CarouselHeaderView.swift */; };
 		56381C2A2D193CEE00F4F715 /* MainCarouselPickHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56381C292D193CEE00F4F715 /* MainCarouselPickHeaderView.swift */; };
+		563A1E2A2D5390E8008DA4F8 /* PopupMainList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E292D5390E0008DA4F8 /* PopupMainList.swift */; };
+		563A1E2D2D539137008DA4F8 /* PopupMainListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E2C2D53912E008DA4F8 /* PopupMainListResponseDTO.swift */; };
+		563A1E302D539208008DA4F8 /* TodayRecommendPopupsResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E2F2D5391FB008DA4F8 /* TodayRecommendPopupsResponseDTO.swift */; };
+		563A1E332D539277008DA4F8 /* PopupListRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E322D539270008DA4F8 /* PopupListRepositoryProtocol.swift */; };
+		563A1E392D54AA9E008DA4F8 /* PopupPreviewResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E382D54AA96008DA4F8 /* PopupPreviewResponseDTO.swift */; };
+		563A1E3C2D54AB41008DA4F8 /* PopupListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E3B2D54AB3D008DA4F8 /* PopupListRepository.swift */; };
+		563A1E432D58B8B0008DA4F8 /* FetchPopupListUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E422D58B89C008DA4F8 /* FetchPopupListUseCaseProtocol.swift */; };
+		563A1E482D58BC19008DA4F8 /* FetchPopupListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E472D58BC16008DA4F8 /* FetchPopupListUseCase.swift */; };
+		563A1E4C2D58C1FE008DA4F8 /* PopupDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A1E4B2D58C1FB008DA4F8 /* PopupDateFormatter.swift */; };
 		5643991D2D44F10E0031688B /* MultipartBodyEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5643991C2D44F0FB0031688B /* MultipartBodyEndpoint.swift */; };
 		5643991F2D44F2000031688B /* Data+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5643991E2D44F1FD0031688B /* Data+.swift */; };
 		564524E22D240BBA00B05355 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564524E12D240BBA00B05355 /* StarRatingView.swift */; };
@@ -155,6 +164,15 @@
 		563482FF2D2248DB001646B5 /* PopupInfoReviewSegmentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupInfoReviewSegmentHeaderView.swift; sourceTree = "<group>"; };
 		563483022D224CF2001646B5 /* CarouselHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselHeaderView.swift; sourceTree = "<group>"; };
 		56381C292D193CEE00F4F715 /* MainCarouselPickHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselPickHeaderView.swift; sourceTree = "<group>"; };
+		563A1E292D5390E0008DA4F8 /* PopupMainList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupMainList.swift; sourceTree = "<group>"; };
+		563A1E2C2D53912E008DA4F8 /* PopupMainListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupMainListResponseDTO.swift; sourceTree = "<group>"; };
+		563A1E2F2D5391FB008DA4F8 /* TodayRecommendPopupsResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRecommendPopupsResponseDTO.swift; sourceTree = "<group>"; };
+		563A1E322D539270008DA4F8 /* PopupListRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupListRepositoryProtocol.swift; sourceTree = "<group>"; };
+		563A1E382D54AA96008DA4F8 /* PopupPreviewResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupPreviewResponseDTO.swift; sourceTree = "<group>"; };
+		563A1E3B2D54AB3D008DA4F8 /* PopupListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupListRepository.swift; sourceTree = "<group>"; };
+		563A1E422D58B89C008DA4F8 /* FetchPopupListUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPopupListUseCaseProtocol.swift; sourceTree = "<group>"; };
+		563A1E472D58BC16008DA4F8 /* FetchPopupListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPopupListUseCase.swift; sourceTree = "<group>"; };
+		563A1E4B2D58C1FB008DA4F8 /* PopupDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDateFormatter.swift; sourceTree = "<group>"; };
 		5643991C2D44F0FB0031688B /* MultipartBodyEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartBodyEndpoint.swift; sourceTree = "<group>"; };
 		5643991E2D44F1FD0031688B /* Data+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+.swift"; sourceTree = "<group>"; };
 		564524E12D240BBA00B05355 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
@@ -307,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				562447142D33B657000E94A0 /* Delegate */,
+				565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -348,6 +367,65 @@
 				56A0C8482D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift */,
 			);
 			path = ReusableView;
+			sourceTree = "<group>";
+		};
+		563A1E2B2D539125008DA4F8 /* MainScene */ = {
+			isa = PBXGroup;
+			children = (
+				563A1E382D54AA96008DA4F8 /* PopupPreviewResponseDTO.swift */,
+				563A1E2C2D53912E008DA4F8 /* PopupMainListResponseDTO.swift */,
+				563A1E2F2D5391FB008DA4F8 /* TodayRecommendPopupsResponseDTO.swift */,
+			);
+			path = MainScene;
+			sourceTree = "<group>";
+		};
+		563A1E312D539259008DA4F8 /* MainScene */ = {
+			isa = PBXGroup;
+			children = (
+				563A1E322D539270008DA4F8 /* PopupListRepositoryProtocol.swift */,
+			);
+			path = MainScene;
+			sourceTree = "<group>";
+		};
+		563A1E3A2D54AB36008DA4F8 /* MainScene */ = {
+			isa = PBXGroup;
+			children = (
+				563A1E3B2D54AB3D008DA4F8 /* PopupListRepository.swift */,
+			);
+			path = MainScene;
+			sourceTree = "<group>";
+		};
+		563A1E3F2D58B88D008DA4F8 /* Implementations */ = {
+			isa = PBXGroup;
+			children = (
+				563A1E472D58BC16008DA4F8 /* FetchPopupListUseCase.swift */,
+			);
+			path = Implementations;
+			sourceTree = "<group>";
+		};
+		563A1E402D58B88D008DA4F8 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				563A1E422D58B89C008DA4F8 /* FetchPopupListUseCaseProtocol.swift */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		563A1E412D58B88D008DA4F8 /* MainScene */ = {
+			isa = PBXGroup;
+			children = (
+				563A1E402D58B88D008DA4F8 /* Interfaces */,
+				563A1E3F2D58B88D008DA4F8 /* Implementations */,
+			);
+			path = MainScene;
+			sourceTree = "<group>";
+		};
+		563A1E4A2D58C1F2008DA4F8 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				563A1E4B2D58C1FB008DA4F8 /* PopupDateFormatter.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		56537B6A2CE0F5100092A292 = {
@@ -489,6 +567,7 @@
 		56C5DDC62CE99AC80090D3A2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				563A1E4A2D58C1F2008DA4F8 /* Util */,
 				56C5DDCB2CE9B1D50090D3A2 /* View */,
 			);
 			path = Common;
@@ -516,10 +595,9 @@
 		56CD3A712CEB83CF00BAC02D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				566A0E4E2D3E23A800B70929 /* WriteReviewViewModel.swift */,
-				56A0C8522D2AB2E5005E6C51 /* PopupDetailViewModel.swift */,
-				565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */,
 				56CD3A702CEB83CF00BAC02D /* MainSceneViewModel.swift */,
+				56A0C8522D2AB2E5005E6C51 /* PopupDetailViewModel.swift */,
+				566A0E4E2D3E23A800B70929 /* WriteReviewViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -575,6 +653,7 @@
 		56F6D4622D4FBA8300C2BEBE /* MainScene */ = {
 			isa = PBXGroup;
 			children = (
+				563A1E292D5390E0008DA4F8 /* PopupMainList.swift */,
 				56F6D4592D4FBA0C00C2BEBE /* PopupPreview.swift */,
 				56F6D45B2D4FBA0C00C2BEBE /* UserInterestPopup.swift */,
 				56F6D4582D4FBA0C00C2BEBE /* PopupInformation.swift */,
@@ -622,6 +701,7 @@
 				56F6D4812D534A0D00C2BEBE /* ImageFetchManager */,
 				56F6D4682D4FBB7D00C2BEBE /* Token */,
 				56F6D4692D4FBB9700C2BEBE /* Login */,
+				563A1E312D539259008DA4F8 /* MainScene */,
 				BC5F3C112D5249BD00248DB0 /* SignUp */,
 			);
 			path = Repositories;
@@ -840,6 +920,7 @@
 			isa = PBXGroup;
 			children = (
 				BCB86A5F2D48640A00F00F1F /* Login */,
+				563A1E2B2D539125008DA4F8 /* MainScene */,
 				BC5F3C012D52428F00248DB0 /* SignUp */,
 			);
 			path = DTO;
@@ -858,6 +939,7 @@
 		BCB86A642D486D8300F00F1F /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				563A1E3A2D54AB36008DA4F8 /* MainScene */,
 				56F6D4852D534CC600C2BEBE /* ImageFetchManagerRepository.swift */,
 				BC5F3C162D524A4100248DB0 /* Token */,
 				BC5F3C1A2D524A4B00248DB0 /* Login */,
@@ -869,6 +951,7 @@
 		BCB86A652D486DDB00F00F1F /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				563A1E412D58B88D008DA4F8 /* MainScene */,
 				56F6D4872D534D3200C2BEBE /* ImageFetchUseCase */,
 				56F6D4652D4FBB2000C2BEBE /* TokenUseCase */,
 				56F6D4642D4FBAD400C2BEBE /* LoginUseCase */,
@@ -1183,6 +1266,7 @@
 				BCF6ED502D37CBEB0038CCAE /* KeychainManager.swift in Sources */,
 				56EAA9352D34EC2B007265D3 /* WriteReviewViewController.swift in Sources */,
 				BC7420FA2CE23A9500BEED0A /* Requestable.swift in Sources */,
+				563A1E432D58B8B0008DA4F8 /* FetchPopupListUseCaseProtocol.swift in Sources */,
 				56381C2A2D193CEE00F4F715 /* MainCarouselPickHeaderView.swift in Sources */,
 				BCF6ED592D37DAA30038CCAE /* DateFormatter+.swift in Sources */,
 				5660FD3B2D421B0B00F9B4D9 /* JSONBodyEndpoint.swift in Sources */,
@@ -1194,6 +1278,7 @@
 				56A0C8492D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift in Sources */,
 				56F6D4802D53417200C2BEBE /* ImageFetchManager.swift in Sources */,
 				56C5DDBA2CE79AC90090D3A2 /* MainCarouselView.swift in Sources */,
+				563A1E332D539277008DA4F8 /* PopupListRepositoryProtocol.swift in Sources */,
 				BC7420FE2CE23FD700BEED0A /* NetworkError.swift in Sources */,
 				56D68A342D23FBB700EA1404 /* RatingDistributionView.swift in Sources */,
 				BCE6E6032CF323570036BAF6 /* SignUpFirstViewController.swift in Sources */,
@@ -1201,9 +1286,13 @@
 				5643991F2D44F2000031688B /* Data+.swift in Sources */,
 				BCE6E5FC2CF321080036BAF6 /* SignUpFieldStackView.swift in Sources */,
 				BCF6ED392D33DF530038CCAE /* LoginResponseDTO.swift in Sources */,
+				563A1E392D54AA9E008DA4F8 /* PopupPreviewResponseDTO.swift in Sources */,
+				563A1E302D539208008DA4F8 /* TodayRecommendPopupsResponseDTO.swift in Sources */,
+				563A1E2D2D539137008DA4F8 /* PopupMainListResponseDTO.swift in Sources */,
 				BC6420A92D5B1F76001ACC51 /* CheckDuplicationEmailResponseDTO.swift in Sources */,
 				563483002D2248DB001646B5 /* PopupInfoReviewSegmentHeaderView.swift in Sources */,
 				BC8113722CF5ECC800F82331 /* SignUpSecondView.swift in Sources */,
+				563A1E2A2D5390E8008DA4F8 /* PopupMainList.swift in Sources */,
 				BCB86A552D475B9700F00F1F /* SocialLoginViewModel.swift in Sources */,
 				BC5F3C292D52622300248DB0 /* SignUpResponseDTO.swift in Sources */,
 				56018CA22CECB1C400AC8ED5 /* MainSceneViewController.swift in Sources */,
@@ -1216,6 +1305,7 @@
 				BCD2DFFB2D298A5C000ED875 /* CompleteResetPwView.swift in Sources */,
 				560159422CF32F5900872662 /* UIButton+.swift in Sources */,
 				BC8113762CF6221400F82331 /* SignUpAgreeButton.swift in Sources */,
+				563A1E4C2D58C1FE008DA4F8 /* PopupDateFormatter.swift in Sources */,
 				BC5F3C152D524A1C00248DB0 /* SignUpRepositoryProtocol.swift in Sources */,
 				56C5DDBC2CE875990090D3A2 /* MainCarouselCollectionViewCell.swift in Sources */,
 				5601592E2CF3175E00872662 /* RobotoFontName.swift in Sources */,
@@ -1237,6 +1327,7 @@
 				BC7420FC2CE23B9600BEED0A /* Endpoint.swift in Sources */,
 				56F6D46B2D4FBBB200C2BEBE /* TokenRepositoryProtocol.swift in Sources */,
 				BCB86A632D486A6F00F00F1F /* LoginRepository.swift in Sources */,
+				563A1E482D58BC19008DA4F8 /* FetchPopupListUseCase.swift in Sources */,
 				56D68A362D2409DB00EA1404 /* PopupRatingCollectionViewCell.swift in Sources */,
 				56F6D4862D534CCE00C2BEBE /* ImageFetchManagerRepository.swift in Sources */,
 				BC7420F82CE2395600BEED0A /* HttpMethod.swift in Sources */,
@@ -1275,6 +1366,7 @@
 				BCE8FA362D227CE000A7B8E2 /* CompleteFindIdView.swift in Sources */,
 				BCB86A612D4869AF00F00F1F /* LoginUseCase.swift in Sources */,
 				56537BB62CE0F5290092A292 /* SceneDelegate.swift in Sources */,
+				563A1E3C2D54AB41008DA4F8 /* PopupListRepository.swift in Sources */,
 				56537BB72CE0F5290092A292 /* ViewController.swift in Sources */,
 				BCF6ED492D3426A60038CCAE /* TokenRepository.swift in Sources */,
 				BC90A0B82CF4CC9A003488F0 /* SignUpInterestButton.swift in Sources */,
