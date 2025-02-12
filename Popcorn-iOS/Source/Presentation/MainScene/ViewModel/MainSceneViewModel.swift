@@ -17,7 +17,7 @@ final class MainSceneViewModel: MainCarouselViewModelProtocol {
     private let fetchPopupListUseCase: FetchPopupListUseCaseProtocol
     private let imageFetchUseCase: ImageFetchUseCase
 
-    private var carouselPopupImageUrls: [String] = []
+    private var carouselPopupImageUrls: [PopupPreviewViewData] = []
     private var userPickPopup: [PopupPreviewViewData] = []
     private var userInterestPopup: [UserInterestPopupViewData] = []
     private var closingSoonPopup: [PopupPreviewViewData] = []
@@ -105,11 +105,9 @@ extension MainSceneViewModel {
 // MARK: - Handling Input
 extension MainSceneViewModel {
     private func handleFetchPopupList(_ popupMainList: PopupMainList) {
-        self.carouselPopupImageUrls = popupMainList.recommandedPopups
-
-        self.userPickPopup = popupMainList.userPickPopups.compactMap {
-            PopupPreviewViewData(from: $0)
-        }
+        self.carouselPopupImageUrls = popupMainList.recommendedPopups.compactMap { PopupPreviewViewData(from: $0)}
+        self.userPickPopup = popupMainList.userPickPopups.compactMap { PopupPreviewViewData(from: $0) }
+        self.closingSoonPopup = popupMainList.closingSoonPopup.compactMap { PopupPreviewViewData(from: $0) }
 
         self.userInterestPopup = popupMainList.userInterestPopup
             .map { category in
@@ -119,10 +117,6 @@ extension MainSceneViewModel {
                 )
             }
             .sorted { $0.interestCategory < $1.interestCategory }
-
-        self.closingSoonPopup = popupMainList.closingSoonPopup.compactMap {
-            PopupPreviewViewData(from: $0)
-        }
     }
 
     private func showPlaceholderData() {
@@ -142,7 +136,7 @@ extension MainSceneViewModel {
     }
 
     func provideCarouselImage() -> [String] {
-        return carouselPopupImageUrls
+        return carouselPopupImageUrls.map { $0.popupImageUrl }
     }
 }
 
@@ -220,7 +214,7 @@ extension MainSceneViewModel {
             ))
         ]
 
-        self.carouselPopupImageUrls = [imageUrl1, imageUrl2, imageUrl3]
+        self.carouselPopupImageUrls = [mockPopups[0], mockPopups[1], mockPopups[2]]
         self.userPickPopup = mockPopups
         self.userInterestPopup = [
             UserInterestPopupViewData(interestCategory: "캐릭터", popups: [mockPopups[1]]),

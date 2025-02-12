@@ -8,7 +8,7 @@
 import Foundation
 
 struct PopupMainList {
-    let recommandedPopups: [String]
+    let recommendedPopups: [PopupPreview]
     let userPickPopups: [PopupPreview]
     let userInterestPopup: [UserInterestPopup]
     let closingSoonPopup: [PopupPreview]
