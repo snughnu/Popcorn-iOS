@@ -9,84 +9,53 @@ import Foundation
 
 final class PopupDetailViewModel: MainCarouselViewModelProtocol {
     private let imageFetchUseCase: ImageFetchUseCaseProtocol
-
-    private var carouselPopupImageUrls: [String] = []
-    private var popupMainInformation: PopupMainInformationViewData?
-    private var popupDetailInformation: PopupDetailInformationViewData?
-    private var popupRating: PopupRatingViewData?
-    private var popupReviews: [PopupReviewViewData] = []
+    private let popupDetailDataSource: PopupDetailDataSource
 
     // MARK: - Output
     var carouselImagePublisher: (() -> Void)?
     var popupInformationPublisher: (() -> Void)?
     var popupReviewPublisher: (() -> Void)?
 
-    init(imageFetchUseCase: ImageFetchUseCaseProtocol = ImageFetchUseCase()) {
+    init(imageFetchUseCase: ImageFetchUseCaseProtocol = ImageFetchUseCase(),
+         popupDetailDataSource: PopupDetailDataSource = PopupDetailDataSource()
+    ) {
         self.imageFetchUseCase = imageFetchUseCase
+        self.popupDetailDataSource = popupDetailDataSource
     }
 
-    private func bindPopupDetailInformation(_ data: PopupInformation) {
-        carouselPopupImageUrls = data.popupImagesUrl
-        popupMainInformation = PopupMainInformationViewData(from: data.mainInformation)
-        popupDetailInformation = PopupDetailInformationViewData(from: data.detailInformation)
-        popupRating = PopupRatingViewData(from: data.totalReview)
-        popupReviews = data.totalReview.review.map { PopupReviewViewData(from: $0) }
-    }
-
-    func fetchImage(url: String, completion: @escaping (Result<Data, ImageFetchError>) -> Void) {
-        guard let url = URL(string: url) else { return }
-        imageFetchUseCase.fetchImage(url: url, completion: completion)
+    func getDataSource() -> PopupDetailDataSource {
+        return popupDetailDataSource
     }
 }
 
-// MARK: - Input
+// MARK: - Networking
 extension PopupDetailViewModel {
+    func fetchImage(url: String, completion: @escaping (Result<Data, ImageFetchError>) -> Void) {
+        guard let url = URL(string: url) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        imageFetchUseCase.fetchImage(url: url, completion: completion)
+    }
+
     func fetchPopupInformation() {
+        // 네트워킹 코드... 
+        popupInformationPublisher?()
     }
 
     func generateMockData() {
-    }
-}
-
-// MARK: - Public Interface
-extension PopupDetailViewModel {
-    func numbersOfReviews() -> Int {
-        return popupReviews.count
-    }
-
-    func provideMainInformationData() -> PopupMainInformationViewData {
-        guard let popupMainInformation else { return PopupMainInformationViewData.placeholder }
-        return popupMainInformation
-    }
-
-    func provideDetailInformationData() -> PopupDetailInformationViewData {
-        guard let popupDetailInformation else { return PopupDetailInformationViewData.placeholder }
-        return popupDetailInformation
-    }
-
-    /// starBreakDown의 value 중 최댓값 반환. 단, value가 같을 경우 key가 가장 큰 원소의 key를 반환
-    func provideRatingData() -> (PopupRatingViewData, Int) {
-        guard let popupRating else { return (PopupRatingViewData.placeholder, 0) }
-        let maximumIndex = popupRating.starBreakDown.sorted {
-            $0.value == $1.value ? $0.key > $1.key : $0.value > $1.value
-        }.first?.key ?? 4
-
-        return (popupRating, maximumIndex)
-    }
-
-    func provideReviewData(at index: Int) -> PopupReviewViewData {
-        return popupReviews[index]
+        getDataSource().generateMockData()
     }
 }
 
 // MARK: - Implement MainCarouselViewModelProtocol
 extension PopupDetailViewModel {
-    func provideCarouselImageUrl(at indexPath: IndexPath) -> String {
-        return carouselPopupImageUrls[indexPath.row]
+    func numbersOfCarouselImage() -> Int {
+        return popupDetailDataSource.numberOfCarouseImage()
     }
 
-    func numbersOfCarouselImage() -> Int {
-        return carouselPopupImageUrls.count
+    func provideCarouselImageUrl(at indexPath: IndexPath) -> String {
+        return popupDetailDataSource.popupImageItem(at: indexPath)
     }
 }
 
