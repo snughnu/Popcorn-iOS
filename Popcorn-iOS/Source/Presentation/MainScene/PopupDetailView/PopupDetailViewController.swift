@@ -114,7 +114,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
         case (1, _):
             return 1
         case (2, 1):
-            return viewModel.numbersOfReviews()
+            return viewModel.getDataSource().numberOfReviews()
         default:
             return 0
         }
@@ -133,7 +133,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
 
-            let data = viewModel.provideMainInformationData()
+            let data = viewModel.getDataSource().mainInformationItem()
             cell.configureContents(
                 title: data.popupTitle,
                 period: data.popupPeriod,
@@ -150,7 +150,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
 
-            let data = viewModel.provideDetailInformationData()
+            let data = viewModel.getDataSource().detailInformationItem()
             cell.configureContents(
                 address: data.address,
                 officialLink: data.officialLink,
@@ -168,7 +168,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
             }
 
             cell.delegate = self
-            let (data, maximumIndex) = viewModel.provideRatingData()
+            let (data, maximumIndex) = viewModel.getDataSource().ratingItem()
             cell.configureContents(
                 totalRatingCount: data.totalRatingCount,
                 averageRating: data.averageRating,
@@ -186,8 +186,8 @@ extension PopupDetailViewController: UICollectionViewDataSource {
             }
 
             cell.delegate = self
-            let data = viewModel.provideReviewData(at: indexPath.item)
 
+            let data = viewModel.getDataSource().reviewItem(at: indexPath.item)
             var profileImage = UIImage(resource: .grayCircle)
             var reviewImages = [UIImage]()
 
@@ -416,26 +416,29 @@ extension PopupDetailViewController {
 extension PopupDetailViewController: WriteReviewButtonDelegate {
     func didTapWriteReviewButtonDelegate() {
         let imageUrl = viewModel.provideCarouselImageUrl(at: IndexPath(row: 0, section: 0))
-        let data = viewModel.provideMainInformationData()
+        let data = viewModel.getDataSource().mainInformationItem()
 
         viewModel.fetchImage(url: imageUrl) { result in
+            var mainImage = UIImage(resource: .popupPreviewPlaceHolder)
+
             switch result {
             case .success(let imageData):
-                DispatchQueue.main.async {
-                    if let image = UIImage(data: imageData) {
-                        let writeReviewViewController = WriteReviewViewController(
-                            image: image,
-                            title: data.popupTitle,
-                            period: data.popupPeriod
-                        )
-                        self.navigationController?.pushViewController(writeReviewViewController, animated: true)
-                    }
+                if let image = UIImage(data: imageData) {
+                    mainImage = image
                 }
             case .failure(let error):
                 print(error)
             }
-        }
 
+            DispatchQueue.main.async {
+                let writeReviewViewController = WriteReviewViewController(
+                    image: mainImage,
+                    title: data.popupTitle,
+                    period: data.popupPeriod
+                )
+                self.navigationController?.pushViewController(writeReviewViewController, animated: true)
+            }
+        }
     }
 }
 
