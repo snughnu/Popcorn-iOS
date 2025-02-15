@@ -28,7 +28,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             keychainManager: keyChainManager
         )
         let loginRepository = LoginRepository(networkManager: networkManager)
-        let socialLoginRepository = SocialLoginRepository()
+        let socialLoginRepository = SocialLoginRepository(
+            networkManager: networkManager,
+            keychainManager: keyChainManager
+        )
 
         let tokenUseCase = TokenUseCase(tokenRepository: tokenRepository)
         let loginUseCase = LoginUseCase(

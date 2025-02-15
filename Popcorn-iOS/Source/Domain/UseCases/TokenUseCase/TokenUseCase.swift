@@ -38,17 +38,8 @@ final class TokenUseCase: TokenUseCaseProtocol {
         completion: @escaping (Bool) -> Void
     ) {
         switch loginType {
-        case "custom":
+        case "custom", "kakao":
             tokenRepository.reissueAccessToken(refreshToken: refreshToken) { result in
-                switch result {
-                case .success:
-                    completion(true)
-                case .failure:
-                    completion(false)
-                }
-            }
-        case "kakao":
-            tokenRepository.reissueKakaoAccessToken(refreshToken: refreshToken) { result in
                 switch result {
                 case .success:
                     completion(true)

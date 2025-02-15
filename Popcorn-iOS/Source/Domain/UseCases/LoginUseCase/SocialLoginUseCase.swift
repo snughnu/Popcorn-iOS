@@ -8,14 +8,15 @@
 import Foundation
 
 protocol SocialLogionUseCaseProtocol {
-    func loginWithKakaoTalk(completion: @escaping (Result<String, Error>) -> Void)
-    func loginWithKakaoWeb(completion: @escaping (Result<String, Error>) -> Void)
+    func loginWithKakao(completion: @escaping (Result<Bool, Error>) -> Void)
 }
 
 final class SocialLoginUseCase: SocialLogionUseCaseProtocol {
+    // MARK: - Properties
     private let socialLoginRepository: SocialLoginRepositoryProtocol
     private let tokenRepository: TokenRepositoryProtocol
 
+    // MARK: - Initializer
     init(
         socialLoginRepository: SocialLoginRepositoryProtocol,
         tokenRepository: TokenRepositoryProtocol
@@ -23,30 +24,51 @@ final class SocialLoginUseCase: SocialLogionUseCaseProtocol {
         self.socialLoginRepository = socialLoginRepository
         self.tokenRepository = tokenRepository
     }
+
+    // MARK: - Private func
+    private func handleKakaoLoginResult(
+        _ result: Result<IdToken, Error>,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        switch result {
+        case .success(let idToken):
+            socialLoginRepository.fetchNewUserResult(idToken: idToken.idToken) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let response):
+                    if response.newUser {
+                        completion(.success(true))
+                    } else if let token = response.toToken() {
+                        self.tokenRepository.saveToken(with: token, loginType: "kakao")
+                        completion(.success(false))
+                    } else {
+                        let error = NSError(domain: "ServerError",
+                                            code: -1,
+                                            userInfo: [NSLocalizedDescriptionKey: "토큰이 없습니다."])
+                        completion(.failure(error))
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        case .failure(let error):
+            completion(.failure(error))
+        }
+    }
 }
 
 // MARK: - Public interface
 extension SocialLoginUseCase {
-    func loginWithKakaoTalk(completion: @escaping (Result<String, any Error>) -> Void) {
-        socialLoginRepository.loginWithKaKaoTalk { [weak self] result in
-            switch result {
-            case .success(let token):
-                self?.tokenRepository.saveToken(with: token, loginType: "kakao")
-                self?.socialLoginRepository.fetchUserInfo(completion: completion)
-            case .failure(let error):
-                completion(.failure(error))
+    func loginWithKakao(completion: @escaping (Result<Bool, Error>) -> Void) {
+        if socialLoginRepository.isKakaoTalkLoginAvailable() {
+            socialLoginRepository.loginWithKakaoTalk { [weak self] result in
+                guard let self = self else { return }
+                self.handleKakaoLoginResult(result, completion: completion)
             }
-        }
-    }
-
-    func loginWithKakaoWeb(completion: @escaping (Result<String, any Error>) -> Void) {
-        socialLoginRepository.loginWithKakaoWeb { [weak self] result in
-            switch result {
-            case .success(let token):
-                self?.tokenRepository.saveToken(with: token, loginType: "kakao")
-                self?.socialLoginRepository.fetchUserInfo(completion: completion)
-            case .failure(let error):
-                completion(.failure(error))
+        } else {
+            socialLoginRepository.loginWithKakaoWeb { [weak self] result in
+                guard let self = self else { return }
+                self.handleKakaoLoginResult(result, completion: completion)
             }
         }
     }
