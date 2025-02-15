@@ -150,29 +150,4 @@ extension TokenRepository {
             }
         }
     }
-
-    func reissueKakaoAccessToken(
-        refreshToken: String,
-        completion: @escaping (Result<Token, Error>) -> Void
-    ) {
-        AuthApi.shared.refreshToken { [weak self] oauthToken, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            guard let oauthToken = oauthToken else {
-                completion(.failure(NSError(domain: "InvalidToken", code: -1, userInfo: nil)))
-                return
-            }
-
-            let newToken = Token(
-                accessToken: oauthToken.accessToken,
-                refreshToken: oauthToken.refreshToken,
-                accessExpiredAt: ISO8601DateFormatter().string(from: oauthToken.expiredAt),
-                refreshExpiredAt: ISO8601DateFormatter().string(from: oauthToken.refreshTokenExpiredAt)
-            )
-            self?.saveToken(with: newToken, loginType: "kakao")
-            completion(.success(newToken))
-        }
-    }
 }
