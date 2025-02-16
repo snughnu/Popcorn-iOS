@@ -8,26 +8,32 @@
 import Foundation
 
 protocol SignUpUseCaseProtocol {
+    // MARK: - FirstScene signUp method
     func executeUsernameDuplicationCheck(username: String, completion: @escaping (Result<Bool, Error>) -> Void)
     func executeEmailDuplicationCheck(email: String, completion: @escaping (Result<Bool, Error>) -> Void)
-    func executeSendVerificationCode(email: String, completion: @escaping (Result<Bool, Error>) -> Void)
-    func executeValidateVerificationCode(
+    func executeSendAuthNum(email: String, completion: @escaping (Result<Bool, Error>) -> Void)
+    func executeValidateAuthNum(
         email: String,
         authNum: String,
         completion: @escaping (Result<Bool, Error>) -> Void
     )
-    func executeSendSignUpData(signupData: SignUpRequestDTO, completion: @escaping (Result<Bool, Error>) -> Void)
-
+    func saveSignUpData(name: String, id: String, password: String, email: String) -> Bool
     func isNameFormatted(_ name: String) -> Bool
     func isIdFormatted(_ id: String) -> Bool
     func isPwFormatted(_ password: String) -> Bool
     func isConfirmPwFormatted(_ password: String, _ confirmPassword: String) -> Bool
     func isEmailFormatted(_ email: String) -> Bool
 
-    func saveSignUpData(name: String, id: String, password: String, email: String) -> Bool
+    // MARK: - SecondScene signUp method
+    func executeSignUp(
+        nickName: String,
+        profileId: Int,
+        interests: [String],
+        completion: @escaping (Result<Bool, Error>) -> Void
+    )
 }
 
-class SignUpUseCase: SignUpUseCaseProtocol {
+final class SignUpUseCase: SignUpUseCaseProtocol {
     private let signUpRepository: SignUpRepositoryProtocol
 
     init(
@@ -37,7 +43,7 @@ class SignUpUseCase: SignUpUseCaseProtocol {
     }
 }
 
-// MARK: - Public interface
+// MARK: - Public interface - FirstScene signUp method
 extension SignUpUseCase {
     func executeUsernameDuplicationCheck(username: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         signUpRepository.fetchUsernameDuplicationResult(username: username) { result in
@@ -69,7 +75,7 @@ extension SignUpUseCase {
         }
     }
 
-    func executeSendVerificationCode(email: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func executeSendAuthNum(email: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         signUpRepository.fetchRequestAuthNumResult(email: email) { result in
             switch result {
             case .success(let result):
@@ -84,27 +90,12 @@ extension SignUpUseCase {
         }
     }
 
-    func executeValidateVerificationCode(
+    func executeValidateAuthNum(
         email: String,
         authNum: String,
         completion: @escaping (Result<Bool, any Error>) -> Void
     ) {
         signUpRepository.fetchValidateAuthNumResult(email: email, authNum: authNum) { result in
-            switch result {
-            case .success(let result):
-                if result {
-                    completion(.success(true))
-                } else {
-                    completion(.success(false))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-
-    func executeSendSignUpData(signupData: SignUpRequestDTO, completion: @escaping (Result<Bool, any Error>) -> Void) {
-        signUpRepository.fetchSendSignUpDataResult(signupData: signupData) { result in
             switch result {
             case .success(let result):
                 if result {
@@ -127,7 +118,7 @@ extension SignUpUseCase {
     }
 }
 
-// MARK: - 정규식
+// MARK: - FirstScene signUp 정규식 method
 extension SignUpUseCase {
     func isNameFormatted(_ name: String) -> Bool {
         let nameRegex = "^[가-힣a-zA-Z]{2,10}$"
@@ -157,5 +148,37 @@ extension SignUpUseCase {
         let emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
         let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         return emailTest.evaluate(with: email)
+    }
+}
+
+// MARK: - SecondScene signUp method
+extension SignUpUseCase {
+    func executeSignUp(
+        nickName: String,
+        profileId: Int,
+        interests: [String],
+        completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        guard let firstSignUpData = signUpRepository.fetchSignUpDataFromKeychain() else {
+            completion(.failure(NSError(domain: "SignUpError",
+                                        code: -1,
+                                        userInfo: [NSLocalizedDescriptionKey: "회원가입 첫번째 데이터가 없습니다."]))
+            )
+            return
+        }
+
+        let updateSignUpData = SignUpRequestDTO(
+            firstSignupDto: firstSignUpData.firstSignupDto,
+            secondSignupDto: SecondSignupDto(nickname: nickName, profileId: profileId, interests: interests)
+        )
+        
+        signUpRepository.fetchSendSignUpDataResult(signupData: updateSignUpData) { result in
+            switch result {
+            case .success(let success):
+                completion(.success(success))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }

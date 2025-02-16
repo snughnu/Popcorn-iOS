@@ -18,7 +18,10 @@ final class SignUpRepository: SignUpRepositoryProtocol {
         self.networkManager = networkManager
         self.keychainManager = keychainManager
     }
+}
 
+// MARK: - Public method - FirstScene signUp method
+extension SignUpRepository {
     func fetchUsernameDuplicationResult(username: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         let endPoint = Endpoint<CheckUsernameResponseDTO>(
             httpMethod: .get,
@@ -128,6 +131,39 @@ final class SignUpRepository: SignUpRepositoryProtocol {
         }
     }
 
+    func saveSignUpData(signUpData: SignUpRequestDTO) -> Bool {
+        do {
+            let jsonData = try JSONEncoder().encode(signUpData)
+            let query: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword,
+                kSecAttrAccount as String: "signupData"
+            ]
+            let attributes: [String: Any] = [
+                kSecValueData as String: jsonData
+            ]
+
+            let status = keychainManager.updateItem(with: query, as: attributes)
+
+            if status == errSecItemNotFound {
+                let addQuery = query.merging(attributes) { _, new in new }
+                let addStatus = keychainManager.addItem(with: addQuery)
+                return addStatus == errSecSuccess
+            } else if status == errSecSuccess {
+                return true
+            }
+        } catch {
+            print("데이터 인코딩 실패: \(error)")
+        }
+        return false
+    }
+}
+
+// MARK: - Public method - SecondScene signUp method
+extension SignUpRepository {
+    func fetchSignUpDataFromKeychain() -> SignUpRequestDTO? {
+        return keychainManager.loadSignupData()
+    }
+
     func fetchSendSignUpDataResult(signupData: SignUpRequestDTO, completion: @escaping (Result<Bool, Error>) -> Void) {
         let endPoint = JSONBodyEndpoint<SignUpResponseDTO>(
             httpMethod: .post,
@@ -153,31 +189,5 @@ final class SignUpRepository: SignUpRepositoryProtocol {
                 completion(.failure(error))
             }
         }
-    }
-
-    func saveSignUpData(signUpData: SignUpRequestDTO) -> Bool {
-        do {
-            let jsonData = try JSONEncoder().encode(signUpData)
-            let query: [String: Any] = [
-                kSecClass as String: kSecClassGenericPassword,
-                kSecAttrAccount as String: "signupData"
-            ]
-            let attributes: [String: Any] = [
-                kSecValueData as String: jsonData
-            ]
-
-            let status = keychainManager.updateItem(with: query, as: attributes)
-
-            if status == errSecItemNotFound {
-                let addQuery = query.merging(attributes) { _, new in new }
-                let addStatus = keychainManager.addItem(with: addQuery)
-                return addStatus == errSecSuccess
-            } else if status == errSecSuccess {
-                return true
-            }
-        } catch {
-            print("데이터 인코딩 실패: \(error)")
-        }
-        return false
     }
 }
