@@ -16,7 +16,7 @@ protocol SocialLoginViewModelProtocol {
 
 final class SocialLoginViewModel: SocialLoginViewModelProtocol {
     // MARK: - Properties
-    private let socialLoginUseCase: SocialLogionUseCaseProtocol
+    private let socialLoginUseCase: SocialLoginUseCaseProtocol
 
     // MARK: - Output
     var loginSuccessHandler: ((Bool) -> Void)?
@@ -24,7 +24,7 @@ final class SocialLoginViewModel: SocialLoginViewModelProtocol {
 
     // MARK: - Initializer
     init(
-        socialLoginUseCase: SocialLogionUseCaseProtocol
+        socialLoginUseCase: SocialLoginUseCaseProtocol
     ) {
         self.socialLoginUseCase = socialLoginUseCase
     }

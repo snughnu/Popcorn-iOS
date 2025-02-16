@@ -107,7 +107,7 @@ extension SignUpFirstViewController {
         self.signUpFirstViewModel.navigateToSignUpSecondHandler = { [weak self] in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                let signUpSecondViewController = SignUpSecondViewController()
+                let signUpSecondViewController = DIContainer().makeSignUpSecondViewController()
                 self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
             }
         }
