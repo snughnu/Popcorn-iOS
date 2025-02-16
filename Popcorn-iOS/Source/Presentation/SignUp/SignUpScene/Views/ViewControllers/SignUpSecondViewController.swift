@@ -58,6 +58,14 @@ extension SignUpSecondViewController {
             }
         }
 
+        self.signUpSecondViewModel.agreeStateUpdated = { [ weak self ] in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.updateAgreeButtonUI()
+                self.updateSignUpButtonState()
+            }
+        }
+
         self.signUpSecondViewModel.signUpResultHandler = { [ weak self ] isSuccess, message in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -80,15 +88,15 @@ extension SignUpSecondViewController {
         }, for: .touchUpInside)
 
         signUpSecondView.allAgreeButton.addAction(UIAction { _ in
-            self.allAgreeButtonTapped()
+            self.signUpSecondViewModel.toggleAllAgree()
         }, for: .touchUpInside)
 
         signUpSecondView.firstAgreeButton.addAction(UIAction { _ in
-            self.firstAgreeButtonTapped()
+            self.signUpSecondViewModel.toggleFirstAgree()
         }, for: .touchUpInside)
 
         signUpSecondView.secondAgreeButton.addAction(UIAction { _ in
-            self.secondAgreeButtonTapped()
+            self.signUpSecondViewModel.toggleSecondAgree()
         }, for: .touchUpInside)
 
         signUpSecondView.signUpButton.addAction(UIAction { _ in
@@ -106,18 +114,6 @@ extension SignUpSecondViewController {
         present(profilePickerViewController, animated: true)
     }
 
-    private func allAgreeButtonTapped() {
-//        signUpSecondViewModel.()
-    }
-
-    private func firstAgreeButtonTapped() {
-//        signUpSecondViewModel.()
-    }
-
-    private func secondAgreeButtonTapped() {
-//        signUpSecondViewModel.()
-    }
-
     private func signUpButtonTapped() {
         guard let nickName = signUpSecondView.nickNameTextField.text, !nickName.isEmpty else {
             showAlert(title: "입력 오류", message: "닉네임을 입력해주세요.")
@@ -132,6 +128,40 @@ extension SignUpSecondViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "확인", style: .default) { _ in completion?() })
         present(alert, animated: true)
+    }
+}
+
+// MARK: - Update button UI func
+extension SignUpSecondViewController {
+    private func updateAgreeButtonUI() {
+        signUpSecondView.allAgreeButton.isSelected = signUpSecondViewModel.isAllAgreed
+        signUpSecondView.firstAgreeButton.isSelected = signUpSecondViewModel.isFirstAgreed
+        signUpSecondView.secondAgreeButton.isSelected = signUpSecondViewModel.isSecondAgreed
+
+        let allAgreeImage = signUpSecondViewModel.isAllAgreed
+            ? UIImage(resource: .checkButtonSelected)
+            : UIImage(resource: .checkButton)
+        signUpSecondView.allAgreeButton.setImage(allAgreeImage, for: .normal)
+
+        let firstAgreeImage = signUpSecondViewModel.isFirstAgreed
+            ? UIImage(resource: .individualCheckButtonSelected)
+            : UIImage(resource: .individualCheckButton)
+        signUpSecondView.firstAgreeButton.setImage(firstAgreeImage, for: .normal)
+
+        let secondAgreeImage = signUpSecondViewModel.isSecondAgreed
+            ? UIImage(resource: .individualCheckButtonSelected)
+            : UIImage(resource: .individualCheckButton)
+        signUpSecondView.secondAgreeButton.setImage(secondAgreeImage, for: .normal)
+    }
+
+    private func updateSignUpButtonState() {
+        let isSecondAgreeSelected = signUpSecondViewModel.isSecondAgreed
+        signUpSecondView.signUpButton.isEnabled = isSecondAgreeSelected
+        var config = signUpSecondView.signUpButton.configuration
+        config?.background.backgroundColor = isSecondAgreeSelected
+            ? UIColor(resource: .popcornOrange)
+            : UIColor(resource: .popcornGray2)
+        signUpSecondView.signUpButton.configuration = config
     }
 }
 
