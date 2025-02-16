@@ -36,7 +36,7 @@ final class PopupListRepository: PopupListRepositoryProtocol {
 
         let dispatchGroup = DispatchGroup()
         var popupMainListResponse: PopupMainListResponseDTO?
-        var todayRecommendPopupResponse: TodayRecommendPopupsResponseDTO?
+        var todayRecommendPopupResponse: [PopupPreviewResponseDTO]?
         var capturedErrors = [NetworkError]()
 
         let popupMainListEndpoint = Endpoint<PopupMainListResponseDTO>(
@@ -45,7 +45,7 @@ final class PopupListRepository: PopupListRepositoryProtocol {
             headers: ["Authorization": "Bearer \(token)"]
         )
 
-        let todayRecommendPopupEndpoint = Endpoint<TodayRecommendPopupsResponseDTO>(
+        let todayRecommendPopupEndpoint = Endpoint<[PopupPreviewResponseDTO]>(
             httpMethod: .get,
             path: APIConstant.popupPath
         )
@@ -124,8 +124,9 @@ final class PopupListRepository: PopupListRepositoryProtocol {
 extension PopupListRepository {
     private func convertToPopupMainList(
         _ mainListResponseDTO: PopupMainListResponseDTO,
-        _ todayRecommendResponseDTO: TodayRecommendPopupsResponseDTO
+        _ todayRecommendResponseDTO: [PopupPreviewResponseDTO]
     ) -> PopupMainList {
+        let recommendedPopups = todayRecommendResponseDTO.map { $0.toEntity() }
         let userPickPopups = mainListResponseDTO.userPickPopups.map { $0.toEntity() }
 
         let userInterestPopups: [UserInterestPopup] = mainListResponseDTO.userInterestPopups.compactMap { key, value in
@@ -139,7 +140,7 @@ extension PopupListRepository {
         let closingSoonPopups = mainListResponseDTO.closingSoonPopups.map { $0.toEntity() }
 
         return PopupMainList(
-            recommandedPopups: todayRecommendResponseDTO.imageUrls,
+            recommendedPopups: recommendedPopups,
             userPickPopups: userPickPopups,
             userInterestPopup: userInterestPopups,
             closingSoonPopup: closingSoonPopups
