@@ -133,6 +133,7 @@
 		BCF945162D48A50100E8B3EA /* SocialLoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF945152D48A50100E8B3EA /* SocialLoginUseCase.swift */; };
 		BCF945182D48A50C00E8B3EA /* SocialLoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF945172D48A50C00E8B3EA /* SocialLoginRepository.swift */; };
 		BCFB36A72D5DB52A009DE162 /* SignUpSecondViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFB36A62D5DB52A009DE162 /* SignUpSecondViewModel.swift */; };
+		BCFB36B22D61DACE009DE162 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFB36B12D61DACE009DE162 /* DIContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -272,6 +273,7 @@
 		BCF945152D48A50100E8B3EA /* SocialLoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginUseCase.swift; sourceTree = "<group>"; };
 		BCF945172D48A50C00E8B3EA /* SocialLoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginRepository.swift; sourceTree = "<group>"; };
 		BCFB36A62D5DB52A009DE162 /* SignUpSecondViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecondViewModel.swift; sourceTree = "<group>"; };
+		BCFB36B12D61DACE009DE162 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -389,6 +391,7 @@
 		56537BB82CE0F52B0092A292 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				BCFB36B02D61DAB9009DE162 /* DI */,
 				56537BBA2CE0F5370092A292 /* Application */,
 				BCF6ED522D37CC5A0038CCAE /* Data */,
 				56C5DDC92CE9AE1F0090D3A2 /* Domain */,
@@ -1052,6 +1055,14 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		BCFB36B02D61DAB9009DE162 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				BCFB36B12D61DACE009DE162 /* DIContainer.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1244,6 +1255,7 @@
 				BCF945162D48A50100E8B3EA /* SocialLoginUseCase.swift in Sources */,
 				BC58B0D62D3D241A00A8E42F /* SignUpManager.swift in Sources */,
 				BCD2DFFB2D298A5C000ED875 /* CompleteResetPwView.swift in Sources */,
+				BCFB36B22D61DACE009DE162 /* DIContainer.swift in Sources */,
 				560159422CF32F5900872662 /* UIButton+.swift in Sources */,
 				BC8113762CF6221400F82331 /* SignUpAgreeButton.swift in Sources */,
 				BC5F3C152D524A1C00248DB0 /* SignUpRepositoryProtocol.swift in Sources */,

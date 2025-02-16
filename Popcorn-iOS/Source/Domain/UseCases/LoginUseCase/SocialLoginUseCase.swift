@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol SocialLogionUseCaseProtocol {
+protocol SocialLoginUseCaseProtocol {
     func loginWithKakao(completion: @escaping (Result<Bool, Error>) -> Void)
 }
 
-final class SocialLoginUseCase: SocialLogionUseCaseProtocol {
+final class SocialLoginUseCase: SocialLoginUseCaseProtocol {
     // MARK: - Properties
     private let socialLoginRepository: SocialLoginRepositoryProtocol
     private let tokenRepository: TokenRepositoryProtocol
