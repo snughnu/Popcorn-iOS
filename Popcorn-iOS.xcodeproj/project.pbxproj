@@ -133,7 +133,6 @@
 		BCF945162D48A50100E8B3EA /* SocialLoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF945152D48A50100E8B3EA /* SocialLoginUseCase.swift */; };
 		BCF945182D48A50C00E8B3EA /* SocialLoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF945172D48A50C00E8B3EA /* SocialLoginRepository.swift */; };
 		BCFB36A72D5DB52A009DE162 /* SignUpSecondViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFB36A62D5DB52A009DE162 /* SignUpSecondViewModel.swift */; };
-		BCFB36A92D5ED82D009DE162 /* ProfileImagePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFB36A82D5ED82D009DE162 /* ProfileImagePickerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -273,7 +272,6 @@
 		BCF945152D48A50100E8B3EA /* SocialLoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginUseCase.swift; sourceTree = "<group>"; };
 		BCF945172D48A50C00E8B3EA /* SocialLoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginRepository.swift; sourceTree = "<group>"; };
 		BCFB36A62D5DB52A009DE162 /* SignUpSecondViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecondViewModel.swift; sourceTree = "<group>"; };
-		BCFB36A82D5ED82D009DE162 /* ProfileImagePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -721,7 +719,6 @@
 			children = (
 				BC5F3C0C2D52447900248DB0 /* SignUpFirstViewModel.swift */,
 				BCFB36A62D5DB52A009DE162 /* SignUpSecondViewModel.swift */,
-				BCFB36A82D5ED82D009DE162 /* ProfileImagePickerViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1273,7 +1270,6 @@
 				56D68A362D2409DB00EA1404 /* PopupRatingCollectionViewCell.swift in Sources */,
 				56F6D4862D534CCE00C2BEBE /* ImageFetchManagerRepository.swift in Sources */,
 				BC7420F82CE2395600BEED0A /* HttpMethod.swift in Sources */,
-				BCFB36A92D5ED82D009DE162 /* ProfileImagePickerViewModel.swift in Sources */,
 				BCFB36A72D5DB52A009DE162 /* SignUpSecondViewModel.swift in Sources */,
 				56B6D3722D2A5DA600FFB733 /* ReviewSortButtonHeaderView.swift in Sources */,
 				56F6D45D2D4FBA0C00C2BEBE /* NewToken.swift in Sources */,
