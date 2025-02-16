@@ -8,7 +8,7 @@
 import Foundation
 
 struct PopupInformation {
-    let popupImages: [Data]
+    let popupImagesUrl: [String]
     let mainInformation: PopupMainInformation
     let detailInformation: PopupDetailInformation
     let totalReview: PopupTotalReview
@@ -36,10 +36,10 @@ struct PopupTotalReview {
 }
 
 struct PopupReview {
-    let profileImage: Data?
+    let profileImageUrl: String?
     let nickName: String
     let reviewRating: Float
     let reviewDate: Date
-    let reviewImages: [Data]?
+    let reviewImagesUrl: [String]?
     let reviewText: String
 }

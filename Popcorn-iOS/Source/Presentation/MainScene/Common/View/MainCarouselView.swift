@@ -96,10 +96,20 @@ extension MainCarouselView: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        if let carouselImages = viewModel?.provideCarouselImage() {
-            cell.configureContents(image: carouselImages[indexPath.item])
+        if let carouselImagesUrl = viewModel?.provideCarouselImageUrl(at: indexPath) {
+            viewModel?.fetchImage(url: carouselImagesUrl) { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let imageData):
+                        if let image = UIImage(data: imageData) {
+                            cell.configureContents(image: image)
+                        }
+                    case .failure:
+                        cell.configureContents(image: UIImage(resource: .popupPreviewPlaceHolder))
+                    }
+                }
+            }
         }
-
         return cell
     }
 }

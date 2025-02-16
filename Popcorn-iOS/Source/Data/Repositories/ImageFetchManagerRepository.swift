@@ -10,7 +10,7 @@ import Foundation
 final class ImageFetchManagerRepository: ImageFetchManagerRepositoryProtocol {
     private let imageFetchManager: ImageFetchManagerProtocol
 
-    init(imageFetchManager: ImageFetchManagerProtocol) {
+    init(imageFetchManager: ImageFetchManagerProtocol = ImageFetchManager()) {
         self.imageFetchManager = imageFetchManager
     }
 
