@@ -8,6 +8,7 @@
 import Foundation
 
 protocol SignUpRepositoryProtocol {
+    // MARK: - FirstScene signUp method
     func fetchUsernameDuplicationResult(username: String, completion: @escaping (Result<Bool, Error>) -> Void)
     func fetchEmailDuplicationResult(email: String, completion: @escaping (Result<Bool, Error>) -> Void)
     func fetchRequestAuthNumResult(email: String, completion: @escaping (Result<Bool, Error>) -> Void)
@@ -16,6 +17,9 @@ protocol SignUpRepositoryProtocol {
         authNum: String,
         completion: @escaping (Result<Bool, Error>) -> Void
     )
-    func fetchSendSignUpDataResult(signupData: SignUpRequestDTO, completion: @escaping (Result<Bool, Error>) -> Void)
     func saveSignUpData(signUpData: SignUpRequestDTO) -> Bool
+
+    // MARK: - SecondScene signUp method
+    func fetchSignUpDataFromKeychain() -> SignUpRequestDTO?
+    func fetchSendSignUpDataResult(signupData: SignUpRequestDTO, completion: @escaping (Result<Bool, Error>) -> Void)
 }
