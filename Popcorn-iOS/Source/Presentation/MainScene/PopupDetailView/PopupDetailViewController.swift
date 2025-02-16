@@ -8,7 +8,7 @@
 import UIKit
 
 final class PopupDetailViewController: UIViewController {
-    private let viewModel = PopupDetailViewModel()
+    private let viewModel: PopupDetailViewModel
 
     private lazy var collectionView = UICollectionView(
         frame: .zero,
@@ -16,6 +16,15 @@ final class PopupDetailViewController: UIViewController {
     )
 
     private var segmentIndex: Int = 0
+
+    init(viewModel: PopupDetailViewModel = PopupDetailViewModel()) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,38 +36,20 @@ final class PopupDetailViewController: UIViewController {
     }
 
     private func bind(to viewModel: PopupDetailViewModel) {
-        viewModel.popupMainInformationPublisher = { [weak self] in
-            guard let self else { return }
-            if self.collectionView.numberOfItems(inSection: 0) == 0 {
-                DispatchQueue.main.async {
-                    self.collectionView.reloadSections(IndexSet(0...0))
-                }
-            }
-        }
-
-        viewModel.popupDetailInformationPublisher = { [weak self] in
+        viewModel.popupInformationPublisher = { [weak self] in
             guard let self else { return }
             if segmentIndex == 0 {
                 DispatchQueue.main.async {
-                    self.collectionView.reloadSections(IndexSet(1...1))
+                    self.collectionView.reloadData()
                 }
             }
         }
 
-        viewModel.popupRatingPublisher = { [weak self] in
+        viewModel.popupReviewPublisher = { [weak self] in
             guard let self else { return }
             if segmentIndex == 1 {
                 DispatchQueue.main.async {
-                    self.collectionView.reloadSections(IndexSet(1...1))
-                }
-            }
-        }
-
-        viewModel.popupReviewsDataPublisher = { [weak self] in
-            guard let self else { return }
-            if segmentIndex == 1 {
-                DispatchQueue.main.async {
-                    self.collectionView.reloadSections(IndexSet(2...2))
+                    self.collectionView.reloadData()
                 }
             }
         }
@@ -123,7 +114,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
         case (1, _):
             return 1
         case (2, 1):
-            return viewModel.numbersOfReviews()
+            return viewModel.getDataSource().numberOfReviews()
         default:
             return 0
         }
@@ -142,7 +133,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
 
-            let data = viewModel.provideMainInformationData()
+            let data = viewModel.getDataSource().mainInformationItem()
             cell.configureContents(
                 title: data.popupTitle,
                 period: data.popupPeriod,
@@ -159,7 +150,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
 
-            let data = viewModel.provideDetailInformationData()
+            let data = viewModel.getDataSource().detailInformationItem()
             cell.configureContents(
                 address: data.address,
                 officialLink: data.officialLink,
@@ -177,7 +168,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
             }
 
             cell.delegate = self
-            let (data, maximumIndex) = viewModel.provideRatingData()
+            let (data, maximumIndex) = viewModel.getDataSource().ratingItem()
             cell.configureContents(
                 totalRatingCount: data.totalRatingCount,
                 averageRating: data.averageRating,
@@ -195,16 +186,47 @@ extension PopupDetailViewController: UICollectionViewDataSource {
             }
 
             cell.delegate = self
-            let data = viewModel.provideReviewData(at: indexPath.item)
 
-            cell.configureContents(
-                profileImage: data.profileImage,
-                nickName: data.nickname,
-                starRating: data.rating,
-                reviewDate: data.reviewDate,
-                reviewImages: data.images,
-                reviewText: data.reviewText
-            )
+            let data = viewModel.getDataSource().reviewItem(at: indexPath.item)
+            var profileImage = UIImage(resource: .grayCircle)
+            var reviewImages = [UIImage]()
+
+            let dispatchGroup = DispatchGroup()
+
+            if let profileImageUrl = data.profileImageUrl {
+                dispatchGroup.enter()
+                viewModel.fetchImage(url: profileImageUrl) { result in
+                    if case .success(let imageData) = result,
+                       let image = UIImage(data: imageData) {
+                        profileImage = image
+                    }
+                    dispatchGroup.leave()
+                }
+            }
+
+            if let reviewImagesUrls = data.imagesUrl {
+                reviewImagesUrls.forEach { url in
+                    dispatchGroup.enter()
+                    viewModel.fetchImage(url: url) { result in
+                        if case .success(let imageData) = result,
+                           let image = UIImage(data: imageData) {
+                            reviewImages.append(image)
+                        }
+                        dispatchGroup.leave()
+                    }
+                }
+            }
+
+            dispatchGroup.notify(queue: .main) {
+                cell.configureContents(
+                    profileImage: profileImage,
+                    nickName: data.nickname,
+                    starRating: data.rating,
+                    reviewDate: data.reviewDate,
+                    reviewImages: reviewImages,
+                    reviewText: data.reviewText
+                )
+            }
 
             return cell
         default:
@@ -393,14 +415,30 @@ extension PopupDetailViewController {
 // MARK: - Implement WriteReviewButton Delegate
 extension PopupDetailViewController: WriteReviewButtonDelegate {
     func didTapWriteReviewButtonDelegate() {
-        let image = viewModel.provideCarouselImage()[0]
-        let data = viewModel.provideMainInformationData()
-        let writeReviewViewController = WriteReviewViewController(
-            image: image,
-            title: data.popupTitle,
-            period: data.popupPeriod
-        )
-        self.navigationController?.pushViewController(writeReviewViewController, animated: true)
+        let imageUrl = viewModel.provideCarouselImageUrl(at: IndexPath(row: 0, section: 0))
+        let data = viewModel.getDataSource().mainInformationItem()
+
+        viewModel.fetchImage(url: imageUrl) { result in
+            var mainImage = UIImage(resource: .popupPreviewPlaceHolder)
+
+            switch result {
+            case .success(let imageData):
+                if let image = UIImage(data: imageData) {
+                    mainImage = image
+                }
+            case .failure(let error):
+                print(error)
+            }
+
+            DispatchQueue.main.async {
+                let writeReviewViewController = WriteReviewViewController(
+                    image: mainImage,
+                    title: data.popupTitle,
+                    period: data.popupPeriod
+                )
+                self.navigationController?.pushViewController(writeReviewViewController, animated: true)
+            }
+        }
     }
 }
 
