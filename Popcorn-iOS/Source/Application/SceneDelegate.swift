@@ -27,7 +27,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             DispatchQueue.main.async {
                 if isTokenValid {
                     let mainSceneViewController = MainSceneViewController()
-                    self.window?.rootViewController = UINavigationController(rootViewController: mainSceneViewController)
+                    self.window?.rootViewController = UINavigationController(
+                        rootViewController: mainSceneViewController
+                    )
                 } else {
                     let loginViewController = diContainer.makeLoginViewController()
                     self.window?.rootViewController = UINavigationController(rootViewController: loginViewController)

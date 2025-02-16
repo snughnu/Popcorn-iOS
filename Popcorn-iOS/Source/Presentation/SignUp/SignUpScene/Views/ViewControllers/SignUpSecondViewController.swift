@@ -10,9 +10,8 @@ import UIKit
 class SignUpSecondViewController: UIViewController {
     // MARK: - Properties
     private let signUpSecondView = SignUpSecondView()
-    private let signUpSecondViewModel: SignUpSecondViewModelProtocol
+    private var signUpSecondViewModel: SignUpSecondViewModelProtocol
     private let screenHeight = UIScreen.main.bounds.height
-    private var selectedProfileId: Int?
 
     // MARK: - Initializer
     init(
@@ -38,10 +37,38 @@ class SignUpSecondViewController: UIViewController {
         setupNavigationBar()
     }
 }
+
 // MARK: - Bind func
 extension SignUpSecondViewController {
     private func bind(to signUpSecondViewModel: SignUpSecondViewModelProtocol) {
-        
+        self.signUpSecondViewModel.profileImageUpdateHandler = { [ weak self ] profileId in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                let image: UIImage?
+                switch profileId {
+                case 0: image = UIImage(resource: .popcornProfile0)
+                case 1: image = UIImage(resource: .popcornProfile1)
+                case 2: image = UIImage(resource: .popcornProfile2)
+                case 3: image = UIImage(resource: .popcornProfile3)
+                case 4: image = UIImage(resource: .popcornProfile4)
+                default:
+                    return
+                }
+                self.signUpSecondView.profileImageView.image = image
+            }
+        }
+
+        self.signUpSecondViewModel.signUpResultHandler = { [ weak self ] isSuccess, message in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.showAlert(title: isSuccess ? "회원가입 성공" : "회원가입 실패", message: message) {
+                    if isSuccess {
+                        let loginViewController = DIContainer().makeLoginViewController()
+                        self.navigationController?.setViewControllers([loginViewController], animated: true)
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -70,23 +97,41 @@ extension SignUpSecondViewController {
     }
 
     private func selectProfileImageButtonTapped() {
-        signUpSecondViewModel.presentProfileImageView()
+        let profilePickerViewController = ProfileImagePickerViewController()
+        profilePickerViewController.selectedImageHandler = { [ weak self ] _, selectedIndex in
+            guard let self = self else { return }
+            guard let selectedIndex = selectedIndex else { return }
+            self.signUpSecondViewModel.updateSelectedProfile(index: selectedIndex)
+        }
+        present(profilePickerViewController, animated: true)
     }
 
     private func allAgreeButtonTapped() {
-        signUpSecondViewModel.updateAllAgreeButtonState()
+//        signUpSecondViewModel.()
     }
 
     private func firstAgreeButtonTapped() {
-        signUpSecondViewModel.updateFirstAgreeButtonState()
+//        signUpSecondViewModel.()
     }
 
     private func secondAgreeButtonTapped() {
-        signUpSecondViewModel.updateSecondAgreeButtonState()
+//        signUpSecondViewModel.()
     }
 
     private func signUpButtonTapped() {
-        signUpSecondViewModel.signUp()
+        guard let nickName = signUpSecondView.nickNameTextField.text, !nickName.isEmpty else {
+            showAlert(title: "입력 오류", message: "닉네임을 입력해주세요.")
+            return
+        }
+
+        signUpSecondViewModel.updateSelectedInterests(signUpSecondView.selectedInterests)
+        signUpSecondViewModel.sendSignUpData(nickName: nickName)
+    }
+
+    private func showAlert(title: String, message: String, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default) { _ in completion?() })
+        present(alert, animated: true)
     }
 }
 

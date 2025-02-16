@@ -73,7 +73,7 @@ extension LoginViewController {
         self.socialLoginViewModel.loginSuccessHandler = { [weak self] isNewUser in
             guard let self = self else { return }
             if isNewUser {
-                let signUpSecondViewController = DIContainer().makeSignUpViewController()
+                let signUpSecondViewController = DIContainer().makeSignUpSecondViewController()
                 self.navigationController?.setViewControllers([signUpSecondViewController], animated: true)
             } else {
                 let mainSceneViewController = MainSceneViewController()
