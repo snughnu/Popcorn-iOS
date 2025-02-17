@@ -10,6 +10,7 @@ import UIKit
 class SignUpSecondViewController: UIViewController {
     // MARK: - Properties
     private let signUpSecondView = SignUpSecondView()
+    private let diContainer = DIContainer()
     private var signUpSecondViewModel: SignUpSecondViewModelProtocol
     private let screenHeight = UIScreen.main.bounds.height
 
@@ -36,6 +37,12 @@ class SignUpSecondViewController: UIViewController {
         setupTextField()
         setupNavigationBar()
     }
+
+    private func showAlert(title: String, message: String, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default) { _ in completion?() })
+        present(alert, animated: true)
+    }
 }
 
 // MARK: - Bind func
@@ -58,11 +65,35 @@ extension SignUpSecondViewController {
             }
         }
 
-        self.signUpSecondViewModel.agreeStateUpdated = { [ weak self ] in
+        self.signUpSecondViewModel.updateAgreeStateHandler = { [ weak self ] state in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                self.updateAgreeButtonUI()
-                self.updateSignUpButtonState()
+                self.signUpSecondView.allAgreeButton.isSelected = state.isAllAgreed
+                self.signUpSecondView.firstAgreeButton.isSelected = state.isFirstAgreed
+                self.signUpSecondView.secondAgreeButton.isSelected = state.isSecondAgreed
+
+                let allAgreeImage = state.isAllAgreed
+                    ? UIImage(resource: .checkButtonSelected)
+                    : UIImage(resource: .checkButton)
+                self.signUpSecondView.allAgreeButton.setImage(allAgreeImage, for: .normal)
+
+                let firstAgreeImage = state.isFirstAgreed
+                    ? UIImage(resource: .individualCheckButtonSelected)
+                    : UIImage(resource: .individualCheckButton)
+                self.signUpSecondView.firstAgreeButton.setImage(firstAgreeImage, for: .normal)
+
+                let secondAgreeImage = state.isSecondAgreed
+                    ? UIImage(resource: .individualCheckButtonSelected)
+                    : UIImage(resource: .individualCheckButton)
+                self.signUpSecondView.secondAgreeButton.setImage(secondAgreeImage, for: .normal)
+
+                let isSecondAgreeSelected = state.isSecondAgreed
+                self.signUpSecondView.signUpButton.isEnabled = isSecondAgreeSelected
+                var config = self.signUpSecondView.signUpButton.configuration
+                config?.background.backgroundColor = isSecondAgreeSelected
+                    ? UIColor(resource: .popcornOrange)
+                    : UIColor(resource: .popcornGray2)
+                self.signUpSecondView.signUpButton.configuration = config
             }
         }
 
@@ -71,7 +102,7 @@ extension SignUpSecondViewController {
             DispatchQueue.main.async {
                 self.showAlert(title: isSuccess ? "회원가입 성공" : "회원가입 실패", message: message) {
                     if isSuccess {
-                        let loginViewController = DIContainer().makeLoginViewController()
+                        let loginViewController = self.diContainer.makeLoginViewController()
                         self.navigationController?.setViewControllers([loginViewController], animated: true)
                     }
                 }
@@ -119,49 +150,8 @@ extension SignUpSecondViewController {
             showAlert(title: "입력 오류", message: "닉네임을 입력해주세요.")
             return
         }
-
         signUpSecondViewModel.updateSelectedInterests(signUpSecondView.selectedInterests)
         signUpSecondViewModel.sendSignUpData(nickName: nickName)
-    }
-
-    private func showAlert(title: String, message: String, completion: (() -> Void)? = nil) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "확인", style: .default) { _ in completion?() })
-        present(alert, animated: true)
-    }
-}
-
-// MARK: - Update button UI func
-extension SignUpSecondViewController {
-    private func updateAgreeButtonUI() {
-        signUpSecondView.allAgreeButton.isSelected = signUpSecondViewModel.isAllAgreed
-        signUpSecondView.firstAgreeButton.isSelected = signUpSecondViewModel.isFirstAgreed
-        signUpSecondView.secondAgreeButton.isSelected = signUpSecondViewModel.isSecondAgreed
-
-        let allAgreeImage = signUpSecondViewModel.isAllAgreed
-            ? UIImage(resource: .checkButtonSelected)
-            : UIImage(resource: .checkButton)
-        signUpSecondView.allAgreeButton.setImage(allAgreeImage, for: .normal)
-
-        let firstAgreeImage = signUpSecondViewModel.isFirstAgreed
-            ? UIImage(resource: .individualCheckButtonSelected)
-            : UIImage(resource: .individualCheckButton)
-        signUpSecondView.firstAgreeButton.setImage(firstAgreeImage, for: .normal)
-
-        let secondAgreeImage = signUpSecondViewModel.isSecondAgreed
-            ? UIImage(resource: .individualCheckButtonSelected)
-            : UIImage(resource: .individualCheckButton)
-        signUpSecondView.secondAgreeButton.setImage(secondAgreeImage, for: .normal)
-    }
-
-    private func updateSignUpButtonState() {
-        let isSecondAgreeSelected = signUpSecondViewModel.isSecondAgreed
-        signUpSecondView.signUpButton.isEnabled = isSecondAgreeSelected
-        var config = signUpSecondView.signUpButton.configuration
-        config?.background.backgroundColor = isSecondAgreeSelected
-            ? UIColor(resource: .popcornOrange)
-            : UIColor(resource: .popcornGray2)
-        signUpSecondView.signUpButton.configuration = config
     }
 }
 

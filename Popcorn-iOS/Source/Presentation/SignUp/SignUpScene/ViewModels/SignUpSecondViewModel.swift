@@ -7,38 +7,38 @@
 
 import Foundation
 
+struct AgreeState {
+    let isAllAgreed: Bool
+    let isFirstAgreed: Bool
+    let isSecondAgreed: Bool
+}
+
 protocol SignUpSecondViewModelProtocol {
     var selectedProfileId: Int? { get set }
     var profileImageUpdateHandler: ((Int) -> Void)? { get set }
+    var updateAgreeStateHandler: ((AgreeState) -> Void)? { get set }
     var signUpResultHandler: ((Bool, String) -> Void)? { get set }
-    
-    var isAllAgreed: Bool { get }
-    var isFirstAgreed: Bool { get }
-    var isSecondAgreed: Bool { get }
-    var agreeStateUpdated: (() -> Void)? { get set }
 
     func updateSelectedProfile(index: Int)
     func updateSelectedInterests(_ interests: [String])
-
     func toggleAllAgree()
     func toggleFirstAgree()
     func toggleSecondAgree()
-    func updateAgreeState()
-
     func sendSignUpData(nickName: String)
 }
 
 final class SignUpSecondViewModel: SignUpSecondViewModelProtocol {
-    
     // MARK: - Properties
     private let signUpUseCase: SignUpUseCaseProtocol
     var selectedProfileId: Int?
     var selectedInterests: [String] = []
-    var profileImageUpdateHandler: ((Int) -> Void)?
     var isAllAgreed: Bool = false
     var isFirstAgreed: Bool = false
     var isSecondAgreed: Bool = false
-    var agreeStateUpdated: (() -> Void)?
+
+    // MARK: - Output
+    var profileImageUpdateHandler: ((Int) -> Void)?
+    var updateAgreeStateHandler: ((AgreeState) -> Void)?
     var signUpResultHandler: ((Bool, String) -> Void)?
 
     // MARK: - Initializer
@@ -47,9 +47,19 @@ final class SignUpSecondViewModel: SignUpSecondViewModelProtocol {
     ) {
         self.signUpUseCase = signUpUseCase
     }
+
+    // MARK: - Private func
+    private func notifyAgreeStateChanged() {
+        let state = AgreeState(
+            isAllAgreed: isAllAgreed,
+            isFirstAgreed: isFirstAgreed,
+            isSecondAgreed: isSecondAgreed
+        )
+        updateAgreeStateHandler?(state)
+    }
 }
 
-// MARK: - Public interface
+// MARK: - Public interface - Profile, Interests
 extension SignUpSecondViewModel {
     func updateSelectedProfile(index: Int) {
         self.selectedProfileId = index
@@ -59,30 +69,33 @@ extension SignUpSecondViewModel {
     func updateSelectedInterests(_ interests: [String]) {
         self.selectedInterests = interests
     }
+}
 
+// MARK: - Public interface - AgreeButton
+extension SignUpSecondViewModel {
     func toggleAllAgree() {
         let newState = !isAllAgreed
         isAllAgreed = newState
         isFirstAgreed = newState
         isSecondAgreed = newState
-        agreeStateUpdated?()
+        notifyAgreeStateChanged()
     }
 
     func toggleFirstAgree() {
         isFirstAgreed.toggle()
-        updateAgreeState()
+        isAllAgreed = isFirstAgreed && isSecondAgreed
+        notifyAgreeStateChanged()
     }
 
     func toggleSecondAgree() {
         isSecondAgreed.toggle()
-        updateAgreeState()
-    }
-
-    func updateAgreeState() {
         isAllAgreed = isFirstAgreed && isSecondAgreed
-        agreeStateUpdated?()
+        notifyAgreeStateChanged()
     }
+}
 
+// MARK: - Public interface - SignUp
+extension SignUpSecondViewModel {
     func sendSignUpData(nickName: String) {
         guard let profileId = selectedProfileId else {
             signUpResultHandler?(false, "프로필을 선택해주세요.")
