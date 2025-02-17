@@ -88,12 +88,12 @@ extension SignUpSecondViewController {
                 self.signUpSecondView.secondAgreeButton.setImage(secondAgreeImage, for: .normal)
 
                 let isSecondAgreeSelected = state.isSecondAgreed
-                self.signUpSecondView.signUpButton.isEnabled = isSecondAgreeSelected
                 var config = self.signUpSecondView.signUpButton.configuration
-                config?.background.backgroundColor = isSecondAgreeSelected
+                config?.baseBackgroundColor = isSecondAgreeSelected
                     ? UIColor(resource: .popcornOrange)
                     : UIColor(resource: .popcornGray2)
                 self.signUpSecondView.signUpButton.configuration = config
+                self.signUpSecondView.signUpButton.isEnabled = isSecondAgreeSelected
             }
         }
 

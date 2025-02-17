@@ -88,8 +88,6 @@ class SignUpSecondView: UIView {
     var signUpButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor(resource: .popcornGray2)
-        config.background.cornerRadius = 10
         let screenHeight = UIScreen.main.bounds.height
         let size = screenHeight * 15/852
         config.attributedTitle = AttributedString(
@@ -100,6 +98,9 @@ class SignUpSecondView: UIView {
             ])
         )
         button.configuration = config
+        button.backgroundColor = UIColor(resource: .popcornGray2)
+        button.cornerRadius(radius: 10)
+        button.isEnabled = false
         return button
     }()
 
