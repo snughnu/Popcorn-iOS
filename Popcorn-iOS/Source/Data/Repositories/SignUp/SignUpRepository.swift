@@ -126,6 +126,10 @@ extension SignUpRepository {
                     completion(.failure(error))
                 }
             case .failure(let error):
+                if case .serverError(let serverError) = error, (400...499).contains(serverError.rawValue) {
+                    completion(.success(false))
+                    return
+                }
                 completion(.failure(error))
             }
         }
