@@ -87,17 +87,14 @@ extension SignUpInterestButton {
         if isSelected {
             if !Self.selectedButtons.contains(self) {
                 Self.selectedButtons.append(self)
-                print("버튼 선택됨: \(currentTitle ?? "")")
             }
             if Self.selectedButtons.count > Self.maxSelectableButton {
                 let buttonToDeselect = Self.selectedButtons.removeFirst()
                 buttonToDeselect.isSelected = false
-                print("버튼 선택 해제됨: \(buttonToDeselect.currentTitle ?? "")")
             }
         } else {
             if let index = Self.selectedButtons.firstIndex(of: self) {
                 Self.selectedButtons.remove(at: index)
-                print("버튼 선택 해제됨: \(currentTitle ?? "")")
             }
         }
         setNeedsUpdateConfiguration()

@@ -11,6 +11,7 @@ import UIKit
 final class LoginViewController: UIViewController {
     // MARK: - Properties
     private let loginView = LoginView()
+    private let diContainer = DIContainer()
     private var loginViewModel: LoginViewModelProtocol
     private var socialLoginViewModel: SocialLoginViewModelProtocol
 
@@ -73,7 +74,7 @@ extension LoginViewController {
         self.socialLoginViewModel.loginSuccessHandler = { [weak self] isNewUser in
             guard let self = self else { return }
             if isNewUser {
-                let signUpSecondViewController = DIContainer().makeSignUpSecondViewController()
+                let signUpSecondViewController = diContainer.makeSignUpSecondViewController()
                 self.navigationController?.setViewControllers([signUpSecondViewController], animated: true)
             } else {
                 let mainSceneViewController = MainSceneViewController()
@@ -116,15 +117,8 @@ extension LoginViewController {
         self.navigationController?.pushViewController(findIdPwViewController, animated: true)
     }
 
-    // TODO: DIContainer 생성하고 정리..
     @objc private func signUpButtonTapped() {
-        let networkManager = NetworkManager()
-        let keychainManager = KeychainManager()
-        let signUpRepository = SignUpRepository(networkManager: networkManager, keychainManager: keychainManager)
-        let signUpUseCase = SignUpUseCase(signUpRepository: signUpRepository)
-        let signUpViewModel = SignUpFirstViewModel(signUpUseCase: signUpUseCase)
-
-        let signUpFirstViewController = SignUpFirstViewController(signUpFirstViewModel: signUpViewModel)
+        let signUpFirstViewController = diContainer.makeSignUpFirstViewController()
         self.navigationController?.pushViewController(signUpFirstViewController, animated: true)
     }
 

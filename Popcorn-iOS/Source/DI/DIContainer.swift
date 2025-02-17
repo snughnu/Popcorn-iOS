@@ -11,37 +11,58 @@ final class DIContainer {
     // MARK: - Network, Keychain
     private let networkManager: NetworkManagerProtocol
     private let keychainManager: KeychainManagerProtocol
-    
+
     // MARK: - Token
     private let tokenRepository: TokenRepositoryProtocol
     let tokenUseCase: TokenUseCaseProtocol
-    
+
     // MARK: - Login
     private let loginRepository: LoginRepositoryProtocol
     private let loginUseCase: LoginUseCaseProtocol
-    
+
     // MARK: - Social Login
     private let socialLoginRepository: SocialLoginRepositoryProtocol
     private let socialLoginUseCase: SocialLoginUseCaseProtocol
-    
+
     // MARK: - SignUp
     private let signUpRepository: SignUpRepositoryProtocol
     private let signUpUseCase: SignUpUseCaseProtocol
-    
+
     // MARK: - Initializer
     init() {
         self.networkManager = NetworkManager()
         self.keychainManager = KeychainManager()
-        
-        self.tokenRepository = TokenRepository(networkManager: networkManager, keychainManager: keychainManager)
-        self.loginRepository = LoginRepository(networkManager: networkManager)
-        self.socialLoginRepository = SocialLoginRepository(networkManager: networkManager, keychainManager: keychainManager)
-        self.signUpRepository = SignUpRepository(networkManager: networkManager, keychainManager: keychainManager)
-        
-        self.tokenUseCase = TokenUseCase(tokenRepository: tokenRepository)
-        self.loginUseCase = LoginUseCase(loginRepository: loginRepository, tokenRepository: tokenRepository)
-        self.socialLoginUseCase = SocialLoginUseCase(socialLoginRepository: socialLoginRepository, tokenRepository: tokenRepository)
-        self.signUpUseCase = SignUpUseCase(signUpRepository: signUpRepository)
+
+        self.tokenRepository = TokenRepository(
+            networkManager: networkManager,
+            keychainManager: keychainManager
+        )
+        self.loginRepository = LoginRepository(
+            networkManager: networkManager
+        )
+        self.socialLoginRepository = SocialLoginRepository(
+            networkManager: networkManager,
+            keychainManager: keychainManager
+        )
+        self.signUpRepository = SignUpRepository(
+            networkManager: networkManager,
+            keychainManager: keychainManager
+        )
+
+        self.tokenUseCase = TokenUseCase(
+            tokenRepository: tokenRepository
+        )
+        self.loginUseCase = LoginUseCase(
+            loginRepository: loginRepository,
+            tokenRepository: tokenRepository
+        )
+        self.socialLoginUseCase = SocialLoginUseCase(
+            socialLoginRepository: socialLoginRepository,
+            tokenRepository: tokenRepository
+        )
+        self.signUpUseCase = SignUpUseCase(
+            signUpRepository: signUpRepository
+        )
     }
 }
 

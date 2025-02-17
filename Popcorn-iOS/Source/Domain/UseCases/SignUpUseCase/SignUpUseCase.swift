@@ -171,7 +171,7 @@ extension SignUpUseCase {
             firstSignupDto: firstSignUpData.firstSignupDto,
             secondSignupDto: SecondSignupDto(nickname: nickName, profileId: profileId, interests: interests)
         )
-        
+
         signUpRepository.fetchSendSignUpDataResult(signupData: updateSignUpData) { result in
             switch result {
             case .success(let success):

@@ -10,6 +10,7 @@ import UIKit
 final class SignUpFirstViewController: UIViewController {
     // MARK: - Properties
     private let signUpFirstView = SignUpFirstView()
+    private let diContainer = DIContainer()
     private var signUpFirstViewModel: SignUpFirstViewModelProtocol
     private let screenHeight = UIScreen.main.bounds.height
 
@@ -107,7 +108,7 @@ extension SignUpFirstViewController {
         self.signUpFirstViewModel.navigateToSignUpSecondHandler = { [weak self] in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                let signUpSecondViewController = DIContainer().makeSignUpSecondViewController()
+                let signUpSecondViewController = self.diContainer.makeSignUpSecondViewController()
                 self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
             }
         }
