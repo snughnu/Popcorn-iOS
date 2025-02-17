@@ -34,12 +34,32 @@ protocol SignUpUseCaseProtocol {
 }
 
 final class SignUpUseCase: SignUpUseCaseProtocol {
+    // MARK: - Properties
     private let signUpRepository: SignUpRepositoryProtocol
 
+    // MARK: - Initializer
     init(
         signUpRepository: SignUpRepositoryProtocol
     ) {
         self.signUpRepository = signUpRepository
+    }
+
+    // MARK: - Private func
+    private func convertInterestToEnglish(_ interest: String) -> String {
+        let mapping: [String: String] = [
+            "패션": "FASHION",
+            "뷰티": "BEAUTY",
+            "음식": "FOOD",
+            "캐릭터": "CHARACTER",
+            "드라마/영화": "MOVIES",
+            "라이프 스타일": "LIFESTYLE",
+            "예술": "ART",
+            "IT": "IT",
+            "스포츠": "SPORTS",
+            "셀럽": "CELEBRITY",
+            "반려동물": "PETS"
+        ]
+        return mapping[interest] ?? interest
     }
 }
 
@@ -166,10 +186,10 @@ extension SignUpUseCase {
             )
             return
         }
-
+        let convertedInterests = interests.map { convertInterestToEnglish($0) }
         let updateSignUpData = SignUpRequestDTO(
             firstSignupDto: firstSignUpData.firstSignupDto,
-            secondSignupDto: SecondSignupDto(nickname: nickName, profileId: profileId, interests: interests)
+            secondSignupDto: SecondSignupDto(nickname: nickName, profileId: profileId, interests: convertedInterests)
         )
 
         signUpRepository.fetchSendSignUpDataResult(signupData: updateSignUpData) { result in
