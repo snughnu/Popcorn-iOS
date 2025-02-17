@@ -37,6 +37,7 @@
 		56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56537BA72CE0F5290092A292 /* AppDelegate.swift */; };
 		56537BB62CE0F5290092A292 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56537BAE2CE0F5290092A292 /* SceneDelegate.swift */; };
 		56537BB72CE0F5290092A292 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56537BAF2CE0F5290092A292 /* ViewController.swift */; };
+		565461642D63181900BC336D /* PopupInformationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565461632D63180D00BC336D /* PopupInformationResponseDTO.swift */; };
 		565C415C2D2028DD0016003A /* MainCollectionTitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565C415B2D2028DD0016003A /* MainCollectionTitleHeaderView.swift */; };
 		565C415F2D2032160016003A /* MainCarouselViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */; };
 		5660FD392D42186E00F9B4D9 /* APIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5660FD382D42186B00F9B4D9 /* APIConstant.swift */; };
@@ -185,6 +186,7 @@
 		56537BAA2CE0F5290092A292 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		56537BAE2CE0F5290092A292 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		56537BAF2CE0F5290092A292 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		565461632D63180D00BC336D /* PopupInformationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupInformationResponseDTO.swift; sourceTree = "<group>"; };
 		565C415B2D2028DD0016003A /* MainCollectionTitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionTitleHeaderView.swift; sourceTree = "<group>"; };
 		565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselViewModelProtocol.swift; sourceTree = "<group>"; };
 		5660FD382D42186B00F9B4D9 /* APIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstant.swift; sourceTree = "<group>"; };
@@ -374,8 +376,8 @@
 		563A1E2B2D539125008DA4F8 /* MainScene */ = {
 			isa = PBXGroup;
 			children = (
-				563A1E382D54AA96008DA4F8 /* PopupPreviewResponseDTO.swift */,
-				563A1E2C2D53912E008DA4F8 /* PopupMainListResponseDTO.swift */,
+				565461622D6317FE00BC336D /* MainScene */,
+				565461612D6317EF00BC336D /* PopupDetailScene */,
 			);
 			path = MainScene;
 			sourceTree = "<group>";
@@ -488,6 +490,23 @@
 				56537BA72CE0F5290092A292 /* AppDelegate.swift */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		565461612D6317EF00BC336D /* PopupDetailScene */ = {
+			isa = PBXGroup;
+			children = (
+				565461632D63180D00BC336D /* PopupInformationResponseDTO.swift */,
+			);
+			path = PopupDetailScene;
+			sourceTree = "<group>";
+		};
+		565461622D6317FE00BC336D /* MainScene */ = {
+			isa = PBXGroup;
+			children = (
+				563A1E2C2D53912E008DA4F8 /* PopupMainListResponseDTO.swift */,
+				563A1E382D54AA96008DA4F8 /* PopupPreviewResponseDTO.swift */,
+			);
+			path = MainScene;
 			sourceTree = "<group>";
 		};
 		565C415D2D202BA40016003A /* ReusableView */ = {
@@ -1294,6 +1313,7 @@
 				56D68A342D23FBB700EA1404 /* RatingDistributionView.swift in Sources */,
 				BCE6E6032CF323570036BAF6 /* SignUpFirstViewController.swift in Sources */,
 				56F6D47E2D53413B00C2BEBE /* ImageFetchManagerProtocol.swift in Sources */,
+				565461642D63181900BC336D /* PopupInformationResponseDTO.swift in Sources */,
 				5643991F2D44F2000031688B /* Data+.swift in Sources */,
 				BCE6E5FC2CF321080036BAF6 /* SignUpFieldStackView.swift in Sources */,
 				BCF6ED392D33DF530038CCAE /* LoginResponseDTO.swift in Sources */,
