@@ -168,7 +168,7 @@ extension SignUpRepository {
         return keychainManager.loadSignupData()
     }
 
-    func fetchSendSignUpDataResult(signupData: SignUpRequestDTO, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func fetchSignUpResult(signupData: SignUpRequestDTO, completion: @escaping (Result<Bool, Error>) -> Void) {
         let endPoint = JSONBodyEndpoint<SignUpResponseDTO>(
             httpMethod: .post,
             path: APIConstant.signUpPath,
