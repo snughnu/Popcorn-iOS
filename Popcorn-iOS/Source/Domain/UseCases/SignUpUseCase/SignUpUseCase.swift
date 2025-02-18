@@ -192,7 +192,7 @@ extension SignUpUseCase {
             secondSignupDto: SecondSignupDto(nickname: nickName, profileId: profileId, interests: convertedInterests)
         )
 
-        signUpRepository.fetchSendSignUpDataResult(signupData: updateSignUpData) { result in
+        signUpRepository.fetchSignUpResult(signupData: updateSignUpData) { result in
             switch result {
             case .success(let success):
                 completion(.success(success))
