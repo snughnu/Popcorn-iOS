@@ -19,10 +19,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
 
-        let diContainer = DIContainer()
+        let tokenUseCase = DIContainer.shared.resolve(TokenUseCaseProtocol.self)
+        let loginViewController = DIContainer.shared.makeLoginViewController()
 
         // MARK: - 토큰 상태에 따른 초기화면 설정
-        diContainer.tokenUseCase.handleTokenExpiration { [weak self] isTokenValid in
+        tokenUseCase.handleTokenExpiration { [weak self] isTokenValid in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 if isTokenValid {
@@ -31,7 +32,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         rootViewController: mainSceneViewController
                     )
                 } else {
-                    let loginViewController = diContainer.makeLoginViewController()
                     self.window?.rootViewController = UINavigationController(rootViewController: loginViewController)
                 }
             }

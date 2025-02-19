@@ -10,7 +10,6 @@ import UIKit
 class SignUpSecondViewController: UIViewController {
     // MARK: - Properties
     private let signUpSecondView = SignUpSecondView()
-    private let diContainer = DIContainer()
     private var signUpSecondViewModel: SignUpSecondViewModelProtocol
     private let screenHeight = UIScreen.main.bounds.height
 
@@ -102,7 +101,7 @@ extension SignUpSecondViewController {
             DispatchQueue.main.async {
                 self.showAlert(title: isSuccess ? "회원가입 성공" : "회원가입 실패", message: message) {
                     if isSuccess {
-                        let loginViewController = self.diContainer.makeLoginViewController()
+                        let loginViewController = DIContainer.shared.makeLoginViewController()
                         self.navigationController?.setViewControllers([loginViewController], animated: true)
                     }
                 }

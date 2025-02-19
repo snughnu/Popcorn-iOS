@@ -11,7 +11,6 @@ import UIKit
 final class LoginViewController: UIViewController {
     // MARK: - Properties
     private let loginView = LoginView()
-    private let diContainer = DIContainer()
     private var loginViewModel: LoginViewModelProtocol
     private var socialLoginViewModel: SocialLoginViewModelProtocol
 
@@ -74,7 +73,7 @@ extension LoginViewController {
         self.socialLoginViewModel.loginSuccessHandler = { [weak self] isNewUser in
             guard let self = self else { return }
             if isNewUser {
-                let signUpSecondViewController = diContainer.makeSignUpSecondViewController()
+                let signUpSecondViewController = DIContainer.shared.makeSignUpSecondViewController()
                 self.navigationController?.setViewControllers([signUpSecondViewController], animated: true)
             } else {
                 let mainSceneViewController = MainSceneViewController()
@@ -118,7 +117,7 @@ extension LoginViewController {
     }
 
     @objc private func signUpButtonTapped() {
-        let signUpFirstViewController = diContainer.makeSignUpFirstViewController()
+        let signUpFirstViewController = DIContainer.shared.makeSignUpFirstViewController()
         self.navigationController?.pushViewController(signUpFirstViewController, animated: true)
     }
 

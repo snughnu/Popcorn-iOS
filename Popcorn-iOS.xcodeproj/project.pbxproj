@@ -697,8 +697,8 @@
 		56F6D4642D4FBAD400C2BEBE /* LoginUseCase */ = {
 			isa = PBXGroup;
 			children = (
-				BCF945152D48A50100E8B3EA /* SocialLoginUseCase.swift */,
 				BCB86A602D4869AF00F00F1F /* LoginUseCase.swift */,
+				BCF945152D48A50100E8B3EA /* SocialLoginUseCase.swift */,
 			);
 			path = LoginUseCase;
 			sourceTree = "<group>";

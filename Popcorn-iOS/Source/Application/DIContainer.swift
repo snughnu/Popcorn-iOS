@@ -8,96 +8,45 @@
 import Foundation
 
 final class DIContainer {
-    // MARK: - Network, Keychain
-    private let networkManager: NetworkManagerProtocol
-    private let keychainManager: KeychainManagerProtocol
+    static let shared = DIContainer()
+    private var dependencies: [String: Any] = [:]
 
-    // MARK: - Token
-    private let tokenRepository: TokenRepositoryProtocol
-    let tokenUseCase: TokenUseCaseProtocol
+    private init() {}
 
-    // MARK: - Login
-    private let loginRepository: LoginRepositoryProtocol
-    private let loginUseCase: LoginUseCaseProtocol
+    // MARK: - Register
+    func register<T>(_ type: T.Type, instance: T) {
+        let key = String(describing: type)
+        dependencies[key] = instance
+    }
 
-    // MARK: - Social Login
-    private let socialLoginRepository: SocialLoginRepositoryProtocol
-    private let socialLoginUseCase: SocialLoginUseCaseProtocol
-
-    // MARK: - SignUp
-    private let signUpRepository: SignUpRepositoryProtocol
-    private let signUpUseCase: SignUpUseCaseProtocol
-
-    // MARK: - Initializer
-    init() {
-        self.networkManager = NetworkManager()
-        self.keychainManager = KeychainManager()
-
-        self.tokenRepository = TokenRepository(
-            networkManager: networkManager,
-            keychainManager: keychainManager
-        )
-        self.loginRepository = LoginRepository(
-            networkManager: networkManager
-        )
-        self.socialLoginRepository = SocialLoginRepository(
-            networkManager: networkManager,
-            keychainManager: keychainManager
-        )
-        self.signUpRepository = SignUpRepository(
-            networkManager: networkManager,
-            keychainManager: keychainManager
-        )
-
-        self.tokenUseCase = TokenUseCase(
-            tokenRepository: tokenRepository
-        )
-        self.loginUseCase = LoginUseCase(
-            loginRepository: loginRepository,
-            tokenRepository: tokenRepository
-        )
-        self.socialLoginUseCase = SocialLoginUseCase(
-            socialLoginRepository: socialLoginRepository,
-            tokenRepository: tokenRepository
-        )
-        self.signUpUseCase = SignUpUseCase(
-            signUpRepository: signUpRepository
-        )
+    // MARK: - Resolve
+    func resolve<T>(_ type: T.Type) -> T {
+        let key = String(describing: type)
+        guard let instance = dependencies[key] as? T else {
+            fatalError("\(key) 의존성이 등록되지 않았습니다.")
+        }
+        return instance
     }
 }
 
-// MARK: - ViewModel, ViewController 생성
+// MARK: - Make ViewController
 extension DIContainer {
-    // MARK: - Login
-    func makeLoginViewModel() -> LoginViewModelProtocol {
-        return LoginViewModel(loginUseCase: loginUseCase)
-    }
-
-    func makeSocialLoginViewModel() -> SocialLoginViewModelProtocol {
-        return SocialLoginViewModel(socialLoginUseCase: socialLoginUseCase)
-    }
-
     func makeLoginViewController() -> LoginViewController {
         return LoginViewController(
-            loginViewModel: makeLoginViewModel(),
-            socialLoginViewModel: makeSocialLoginViewModel()
+            loginViewModel: resolve(LoginViewModelProtocol.self),
+            socialLoginViewModel: resolve(SocialLoginViewModelProtocol.self)
         )
     }
 
-    // MARK: - SignUp
-    func makeSignUpFirstViewModel() -> SignUpFirstViewModelProtocol {
-        return SignUpFirstViewModel(signUpUseCase: signUpUseCase)
-    }
-
-    func makeSignUpSecondViewModel() -> SignUpSecondViewModelProtocol {
-        return SignUpSecondViewModel(signUpUseCase: signUpUseCase)
-    }
-
     func makeSignUpFirstViewController() -> SignUpFirstViewController {
-        return SignUpFirstViewController(signUpFirstViewModel: makeSignUpFirstViewModel())
+        return SignUpFirstViewController(
+            signUpFirstViewModel: resolve(SignUpFirstViewModelProtocol.self)
+        )
     }
 
     func makeSignUpSecondViewController() -> SignUpSecondViewController {
-        return SignUpSecondViewController(signUpSecondViewModel: makeSignUpSecondViewModel())
+        return SignUpSecondViewController(
+            signUpSecondViewModel: resolve(SignUpSecondViewModelProtocol.self)
+        )
     }
 }

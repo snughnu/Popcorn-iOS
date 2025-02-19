@@ -16,7 +16,9 @@ final class TokenUseCase: TokenUseCaseProtocol {
     private let tokenRepository: TokenRepositoryProtocol
 
     // MARK: - Initializer
-    init(tokenRepository: TokenRepositoryProtocol) {
+    init(
+        tokenRepository: TokenRepositoryProtocol
+    ) {
         self.tokenRepository = tokenRepository
     }
 
