@@ -21,6 +21,16 @@ enum RatingDistribution: CaseIterable {
         case .oneStar: "매우별로"
         }
     }
+
+    var ratingIndex: Int {
+        switch self {
+        case .fiveStars: 4
+        case .fourStars: 3
+        case .threeStars: 2
+        case .twoStars: 1
+        case .oneStar: 0
+        }
+    }
 }
 
 struct PopupRatingDistribution {

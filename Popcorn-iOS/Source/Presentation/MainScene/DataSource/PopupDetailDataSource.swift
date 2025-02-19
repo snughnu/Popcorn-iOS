@@ -55,12 +55,17 @@ extension PopupDetailDataSource {
         return popupDetailInformation
     }
 
-    /// starBreakDown의 value 중 최댓값 반환. 단, value가 같을 경우 key가 가장 큰 원소의 key를 반환
+    /// 평점의 개수가 가장 높은 평점의 인덱스를 반환. 단, 평점의 개수가 동률일 경우 평점이 높은 평점의 인덱스를 반환.
     func ratingItem() -> (PopupRatingViewData, Int) {
         guard let popupRating else { return (PopupRatingViewData.placeholder, 0) }
-        let maximumIndex = popupRating.starBreakDown.sorted {
-            $0.value == $1.value ? $0.key > $1.key : $0.value > $1.value
-        }.first?.key ?? 4
+
+        let maximumIndex = popupRating.ratingDistribution.sorted {
+            if $0.value == $1.value {
+                return $0.key.ratingIndex > $0.key.ratingIndex
+            } else {
+                return $0.value > $1.value
+            }
+        }.first?.key.ratingIndex ?? 4
 
         return (popupRating, maximumIndex)
     }
