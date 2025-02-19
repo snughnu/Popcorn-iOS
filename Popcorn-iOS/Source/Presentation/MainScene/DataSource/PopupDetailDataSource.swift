@@ -110,7 +110,8 @@ extension PopupDetailDataSource {
             address: "서울특별시 강남구 강남대로 123",
             officialLink: "https://example.com",
             businesesHours: "10:00 AM - 8:00 PM",
-            introduce: "팝콘 전시회는 다양한 팝아트 작품과 굿즈를 만나볼 수 있는 공간입니다."
+            introduce: "팝콘 전시회는 다양한 팝아트 작품과 굿즈를 만나볼 수 있는 공간입니다.",
+            reservationUrl: "www.naver.com"
         ))
 
         popupRating = PopupRatingViewData(from: PopupTotalReview(

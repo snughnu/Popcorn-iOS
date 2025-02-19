@@ -14,13 +14,6 @@ struct PopupInformation {
     let totalReview: PopupTotalReview
 }
 
-struct PopupDetailInformation {
-    let address: String
-    let officialLink: String
-    let businesesHours: String
-    let introduce: String
-}
-
 struct PopupTotalReview {
     let averageRating: Float
     let starBreakDown: [Int: Int]

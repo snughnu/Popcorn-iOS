@@ -99,7 +99,8 @@ struct PopupDetailInformationViewData {
             address: "",
             officialLink: "",
             businesesHours: "",
-            introduce: ""
+            introduce: "",
+            reservationUrl: ""
         )
     )
 
