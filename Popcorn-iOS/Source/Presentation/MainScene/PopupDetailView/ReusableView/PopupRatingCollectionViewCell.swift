@@ -31,11 +31,11 @@ final class PopupRatingCollectionViewCell: UICollectionViewCell {
         return view
     }()
 
-    private let ratingLevel5View = RatingDistributionView(title: .verySatisfied)
-    private let ratingLevel4View = RatingDistributionView(title: .satisfied)
-    private let ratingLevel3View = RatingDistributionView(title: .average)
-    private let ratingLevel2View = RatingDistributionView(title: .dissatisfied)
-    private let ratingLevel1View = RatingDistributionView(title: .veryDissatisfied)
+    private let ratingLevel5View = RatingDistributionView(title: .fiveStars)
+    private let ratingLevel4View = RatingDistributionView(title: .fourStars)
+    private let ratingLevel3View = RatingDistributionView(title: .threeStars)
+    private let ratingLevel2View = RatingDistributionView(title: .twoStars)
+    private let ratingLevel1View = RatingDistributionView(title: .oneStar)
 
     private let writeReviewButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -85,7 +85,7 @@ extension PopupRatingCollectionViewCell {
     func configureContents(
         totalRatingCount: Int,
         averageRating: Float,
-        ratingDistribution: [Int: Int],
+        ratingDistribution: [RatingDistribution: Int],
         maximumIndex: Int
     ) {
         let ratingLevelViews = [
@@ -94,11 +94,13 @@ extension PopupRatingCollectionViewCell {
 
         ratingLabel.text = String(averageRating)
         starRatingView.configureRating(at: averageRating)
-
-        (0..<5).forEach { ratingLevelViews[$0].configureContents(
-            ratingCount: ratingDistribution[$0, default: 0],
-            totalRatingCount: totalRatingCount
-        )}
+        
+        zip(ratingLevelViews, RatingDistribution.allCases).forEach { view, rating in
+            view.configureContents(
+                ratingCount: ratingDistribution[rating, default: 0],
+                totalRatingCount: totalRatingCount
+            )
+        }
 
         ratingLevelViews[maximumIndex].highlightMaximumDistribution()
     }

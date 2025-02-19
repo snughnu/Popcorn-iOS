@@ -11,14 +11,9 @@ struct PopupInformation {
     let popupImagesUrl: [String]
     let mainInformation: PopupMainInformation
     let detailInformation: PopupDetailInformation
-    let totalReview: PopupTotalReview
+    let totalReview: PopupRatingDistribution
 }
 
-struct PopupTotalReview {
-    let averageRating: Float
-    let starBreakDown: [Int: Int]
-    let review: [PopupReview]
-}
 
 struct PopupReview {
     let profileImageUrl: String?

@@ -7,14 +7,6 @@
 
 import UIKit
 
-enum ReviewDistribution: String {
-    case verySatisfied = "매우만족"
-    case satisfied = "만족"
-    case average = "보통"
-    case dissatisfied = "별로"
-    case veryDissatisfied = "매우별로"
-}
-
 final class RatingDistributionView: UIView {
     private let progressViewHeight: CGFloat = 5
 
@@ -39,9 +31,9 @@ final class RatingDistributionView: UIView {
         return label
     }()
 
-    init(title: ReviewDistribution) {
+    init(title: RatingDistribution) {
         super.init(frame: .zero)
-        titleLabel.text = title.rawValue
+        titleLabel.text = title.titleDescription
         configureSubviews()
         configureLayout()
     }

@@ -172,7 +172,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
             cell.configureContents(
                 totalRatingCount: data.totalRatingCount,
                 averageRating: data.averageRating,
-                ratingDistribution: data.starBreakDown,
+                ratingDistribution: data.ratingDistribution,
                 maximumIndex: maximumIndex
             )
 

@@ -22,7 +22,8 @@ extension PopupDetailDataSource {
         popupMainInformation = PopupMainInformationViewData(from: data.mainInformation)
         popupDetailInformation = PopupDetailInformationViewData(from: data.detailInformation)
         popupRating = PopupRatingViewData(from: data.totalReview)
-        popupReviews = data.totalReview.review.map { PopupReviewViewData(from: $0) }
+        // TODO: 리뷰 엔티티 리팩토링 후 변경
+//        popupReviews = data.totalReview.review.map { PopupReviewViewData(from: $0) }
     }
 }
 
@@ -114,10 +115,9 @@ extension PopupDetailDataSource {
             reservationUrl: "www.naver.com"
         ))
 
-        popupRating = PopupRatingViewData(from: PopupTotalReview(
+        popupRating = PopupRatingViewData(from: PopupRatingDistribution(
             averageRating: 4.75,
-            starBreakDown: [4: 2, 3: 0, 2: 0, 1: 0, 0: 0],
-            review: [review1, review2]
+            ratingDistribution: [.oneStar: 4, .twoStars: 0, .threeStars: 0, .fourStars: 0, .fiveStars: 0]
         ))
 
         popupReviews = [PopupReviewViewData(from: review1), PopupReviewViewData(from: review2)]

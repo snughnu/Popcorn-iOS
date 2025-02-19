@@ -115,19 +115,20 @@ struct PopupDetailInformationViewData {
 struct PopupRatingViewData {
     let totalRatingCount: Int
     let averageRating: Float
-    let starBreakDown: [Int: Int]
+    let ratingDistribution: [RatingDistribution: Int]
 
     static let placeholder = PopupRatingViewData(
-        from: PopupTotalReview(
+        from: PopupRatingDistribution(
             averageRating: 0,
-            starBreakDown: [0: 0, 1: 0, 2: 0, 3: 0, 4: 0],
-            review: [])
+            ratingDistribution: [.oneStar: 0, .twoStars: 0, .threeStars: 0, .fourStars: 0, .fiveStars: 0]
+        )
     )
 
-    init(from entity: PopupTotalReview) {
-        self.totalRatingCount = entity.review.count
+    init(from entity: PopupRatingDistribution) {
+        // TODO: 리뷰 엔티티 리팩토링 후 변경
+        self.totalRatingCount = 0
         self.averageRating = entity.averageRating
-        self.starBreakDown = entity.starBreakDown
+        self.ratingDistribution = entity.ratingDistribution
     }
 }
 
