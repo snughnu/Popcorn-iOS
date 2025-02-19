@@ -11,7 +11,7 @@ enum RatingDistribution: CaseIterable {
     case threeStars
     case fourStars
     case fiveStars
-    
+
     var titleDescription: String {
         switch self {
         case .fiveStars: "매우만족"

@@ -13,13 +13,3 @@ struct PopupInformation {
     let detailInformation: PopupDetailInformation
     let totalReview: PopupRatingDistribution
 }
-
-
-struct PopupReview {
-    let profileImageUrl: String?
-    let nickName: String
-    let reviewRating: Float
-    let reviewDate: Date
-    let reviewImagesUrl: [String]?
-    let reviewText: String
-}

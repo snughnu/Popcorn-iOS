@@ -94,7 +94,7 @@ extension PopupRatingCollectionViewCell {
 
         ratingLabel.text = String(averageRating)
         starRatingView.configureRating(at: averageRating)
-        
+
         zip(ratingLevelViews, RatingDistribution.allCases).forEach { view, rating in
             view.configureContents(
                 ratingCount: ratingDistribution[rating, default: 0],
