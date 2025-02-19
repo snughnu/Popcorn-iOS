@@ -98,6 +98,7 @@ extension PopupDetailDataSource {
         carouselPopupImageUrls = [imageUrl1, imageUrl2, imageUrl3]
 
         popupMainInformation = PopupMainInformationViewData(from: PopupMainInformation(
+            popupId: -1,
             popupTitle: "팝콘 팝업스토어",
             startDate: Date(),
             endDate: Calendar.current.date(byAdding: .day, value: 10, to: Date())!,

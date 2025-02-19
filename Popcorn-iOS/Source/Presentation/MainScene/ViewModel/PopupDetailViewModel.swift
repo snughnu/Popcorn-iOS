@@ -68,6 +68,7 @@ struct PopupMainInformationViewData {
 
     static let placeholder = PopupMainInformationViewData(
         from: PopupMainInformation(
+            popupId: -1,
             popupTitle: "팝콘 팝업스토어",
             startDate: Date(),
             endDate: Date(),

@@ -14,14 +14,6 @@ struct PopupInformation {
     let totalReview: PopupTotalReview
 }
 
-struct PopupMainInformation {
-    let popupTitle: String
-    let startDate: Date
-    let endDate: Date
-    let isUserPick: Bool
-    let hashTags: [String]?
-}
-
 struct PopupDetailInformation {
     let address: String
     let officialLink: String
