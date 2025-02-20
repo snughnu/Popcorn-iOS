@@ -158,6 +158,31 @@ final class PopupDetailRepository: PopupDetailRepositoryProtocol {
         page: Int,
         completion: @escaping (Result<PopupReviewList, any Error>
         ) -> Void) {
-        
+        // TODO: TokenRepository에서 access token 만료 시 자동으로 reissue 하는 로직 구현 후 리팩토링
+        guard let token = tokenRepository.fetchAccessToken() else {
+            completion(.failure(NSError(
+                domain: "PopupDetailRepository",
+                code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "액세스 토큰 만료"]
+            )))
+            return
+        }
+
+        let endpoint = Endpoint<PopupReviewListResponseDTO>(
+            httpMethod: .get,
+            path: APIConstant.popupReviewPath(popupId: String(popupId)),
+            queryItems: [URLQueryItem(name: "page", value: String(page))],
+            headers: ["Authorization": "Bearer \(token)"]
+        )
+
+        networkManager.request(endpoint: endpoint) { result in
+            switch result {
+            case .success(let response):
+                let reviewList = response.reviews.map { $0.toEntity() }
+                completion(.success(PopupReviewList(reviews: reviewList)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }
