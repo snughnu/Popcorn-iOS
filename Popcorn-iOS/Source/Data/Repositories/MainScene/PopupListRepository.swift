@@ -41,13 +41,13 @@ final class PopupListRepository: PopupListRepositoryProtocol {
 
         let popupMainListEndpoint = Endpoint<PopupMainListResponseDTO>(
             httpMethod: .get,
-            path: APIConstant.popupPath,
+            path: APIConstant.mainScenePath,
             headers: ["Authorization": "Bearer \(token)"]
         )
 
         let todayRecommendPopupEndpoint = Endpoint<[PopupPreviewResponseDTO]>(
             httpMethod: .get,
-            path: APIConstant.popupPath
+            path: APIConstant.mainScenePath
         )
 
         dispatchGroup.enter()
