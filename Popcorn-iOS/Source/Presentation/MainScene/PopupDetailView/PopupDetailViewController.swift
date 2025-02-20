@@ -153,8 +153,8 @@ extension PopupDetailViewController: UICollectionViewDataSource {
             let data = viewModel.getDataSource().detailInformationItem()
             cell.configureContents(
                 address: data.address,
-                officialLink: data.officialLink,
-                businessHourInfo: data.buisinessHours,
+                officialLink: data.organizationUrl,
+                businessHourInfo: data.businesesHours,
                 popupIntroduce: data.introduce
             )
 

@@ -8,7 +8,6 @@
 import Foundation
 
 final class PopupDetailDataSource {
-    private var carouselPopupImageUrls: [String] = []
     private var popupMainInformation: PopupMainInformationViewData?
     private var popupDetailInformation: PopupDetailInformationViewData?
     private var popupRating: PopupRatingViewData?
@@ -18,9 +17,8 @@ final class PopupDetailDataSource {
 // MARK: - Input
 extension PopupDetailDataSource {
     func updateInformationData(_ data: PopupInformation) {
-        carouselPopupImageUrls = data.popupImagesUrl
-        popupMainInformation = PopupMainInformationViewData(from: data.mainInformation)
-        popupDetailInformation = PopupDetailInformationViewData(from: data.detailInformation)
+        popupMainInformation = PopupMainInformationViewData(from: data)
+        popupDetailInformation = PopupDetailInformationViewData(from: data)
     }
 
     func updateRatingData(_ data: PopupRatingDistribution) {
@@ -40,11 +38,13 @@ extension PopupDetailDataSource {
     }
 
     func numberOfCarouseImage() -> Int {
-        return carouselPopupImageUrls.count
+        guard let popupMainInformation else { return 1 }
+        return popupMainInformation.popupImagesUrl.count
     }
 
     func popupImageItem(at indexPath: IndexPath) -> String {
-        return carouselPopupImageUrls[indexPath.row]
+        guard let popupMainInformation else { return "" }
+        return popupMainInformation.popupImagesUrl[indexPath.row]
     }
 
     func mainInformationItem() -> PopupMainInformationViewData {
@@ -85,6 +85,21 @@ extension PopupDetailDataSource {
         let imageUrl2 = "https://velog.velcdn.com/images/gration77/post/3a6ba214-83b1-4c08-99f6-e973d1a3bb5e/image.png"
         let imageUrl3 = "https://velog.velcdn.com/images/gration77/post/4ad770f3-e573-48e8-a2ee-2ca3c302f122/image.png"
 
+        let popupInformation = PopupInformation(
+            popupId: -1,
+            popupImagesUrl: [imageUrl1, imageUrl2, imageUrl3],
+            popupTitle: "팝콘 팝업스토어",
+            startDate: Date(),
+            endDate: Calendar.current.date(byAdding: .day, value: 10, to: Date())!,
+            isUserPick: true,
+            hashTags: ["#전시", "#팝업스토어", "#문화생활"],
+            address: "서울특별시 강남구 강남대로 123",
+            organizationUrl: "www.naver.com",
+            businesesHours: "10:00 AM - 8:00 PM",
+            introduce: "팝콘 전시회는 다양한 팝아트 작품과 굿즈를 만나볼 수 있는 공간입니다.",
+            reservationUrl: "www.naver.com"
+        )
+
         let review1 = PopupReview(
             profileImageUrl: "https://randomuser.me/api/portraits/men/1.jpg",
             nickName: "user123",
@@ -107,24 +122,8 @@ extension PopupDetailDataSource {
             isLiked: false
         )
 
-        carouselPopupImageUrls = [imageUrl1, imageUrl2, imageUrl3]
-
-        popupMainInformation = PopupMainInformationViewData(from: PopupMainInformation(
-            popupId: -1,
-            popupTitle: "팝콘 팝업스토어",
-            startDate: Date(),
-            endDate: Calendar.current.date(byAdding: .day, value: 10, to: Date())!,
-            isUserPick: true,
-            hashTags: ["#전시", "#팝업스토어", "#문화생활"]
-        ))
-
-        popupDetailInformation = PopupDetailInformationViewData(from: PopupDetailInformation(
-            address: "서울특별시 강남구 강남대로 123",
-            officialLink: "https://example.com",
-            businesesHours: "10:00 AM - 8:00 PM",
-            introduce: "팝콘 전시회는 다양한 팝아트 작품과 굿즈를 만나볼 수 있는 공간입니다.",
-            reservationUrl: "www.naver.com"
-        ))
+        popupMainInformation = PopupMainInformationViewData(from: popupInformation)
+        popupDetailInformation = PopupDetailInformationViewData(from: popupInformation)
 
         popupRating = PopupRatingViewData(from: PopupRatingDistribution(
             averageRating: 4.75,

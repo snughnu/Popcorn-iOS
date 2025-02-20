@@ -13,6 +13,7 @@ final class PopupDetailViewModel: MainCarouselViewModelProtocol {
 
     // MARK: - Output
     var carouselImagePublisher: (() -> Void)?
+    /// 상세화면 첫 진입시 캐러셀 이미지 헤더, 정보 탭, 후기 탭을 받아오고, 이를 뷰에 알리는 클로저
     var popupInformationPublisher: (() -> Void)?
     var popupReviewPublisher: (() -> Void)?
 
@@ -41,6 +42,7 @@ extension PopupDetailViewModel {
     func fetchPopupInformation() {
         // 네트워킹 코드...
         // dataSource.updateData()
+        carouselImagePublisher?()
         popupInformationPublisher?()
     }
 
@@ -68,54 +70,73 @@ extension PopupDetailViewModel {
 
 // MARK: - View Model
 struct PopupMainInformationViewData {
+    let popupId: Int
+    let popupImagesUrl: [String]
     let popupTitle: String
     let popupPeriod: String
     let isUserPick: Bool
     let hashTags: [String]
 
     static let placeholder = PopupMainInformationViewData(
-        from: PopupMainInformation(
+        from: PopupInformation(
             popupId: -1,
+            popupImagesUrl: [],
             popupTitle: "팝콘 팝업스토어",
-            startDate: Date(),
-            endDate: Date(),
+            startDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
+            endDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
             isUserPick: false,
-            hashTags: []
-        )
-    )
-
-    init(from entity: PopupMainInformation) {
-        let startDateString = PopupDateFormatter.formattedPopupStoreDate(from: entity.startDate)
-        let endDateString = PopupDateFormatter.formattedPopupStoreDate(from: entity.endDate)
-
-        self.popupTitle = entity.popupTitle
-        self.isUserPick = entity.isUserPick
-        self.hashTags = entity.hashTags ?? []
-        self.popupPeriod = "\(startDateString)~\(endDateString)"
-    }
-}
-
-struct PopupDetailInformationViewData {
-    let address: String
-    let officialLink: String
-    let buisinessHours: String
-    let introduce: String
-
-    static let placeholder = PopupDetailInformationViewData(
-        from: PopupDetailInformation(
+            hashTags: [],
             address: "",
-            officialLink: "",
+            organizationUrl: "",
             businesesHours: "",
             introduce: "",
             reservationUrl: ""
         )
     )
 
-    init(from entity: PopupDetailInformation) {
+    init(from entity: PopupInformation) {
+        let startDateString = PopupDateFormatter.formattedPopupStoreDate(from: entity.startDate)
+        let endDateString = PopupDateFormatter.formattedPopupStoreDate(from: entity.endDate)
+
+        self.popupId = entity.popupId
+        self.popupImagesUrl = entity.popupImagesUrl
+        self.popupTitle = entity.popupTitle
+        self.popupPeriod = "\(startDateString)~\(endDateString)"
+        self.isUserPick = entity.isUserPick
+        self.hashTags = entity.hashTags
+    }
+}
+
+struct PopupDetailInformationViewData {
+    let address: String
+    let organizationUrl: String
+    let businesesHours: String
+    let introduce: String
+    let reservationUrl: String
+
+    static let placeholder = PopupDetailInformationViewData(
+        from: PopupInformation(
+            popupId: -1,
+            popupImagesUrl: [],
+            popupTitle: "팝콘 팝업스토어",
+            startDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
+            endDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
+            isUserPick: false,
+            hashTags: [],
+            address: "",
+            organizationUrl: "",
+            businesesHours: "",
+            introduce: "",
+            reservationUrl: ""
+            )
+        )
+
+    init(from entity: PopupInformation) {
         self.address = entity.address
-        self.officialLink = entity.officialLink
-        self.buisinessHours = entity.businesesHours
+        self.organizationUrl = entity.organizationUrl
+        self.businesesHours = entity.businesesHours
         self.introduce = entity.introduce
+        self.reservationUrl = entity.reservationUrl
     }
 }
 
