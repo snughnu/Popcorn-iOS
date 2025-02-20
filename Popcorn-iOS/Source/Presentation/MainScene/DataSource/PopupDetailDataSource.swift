@@ -11,7 +11,7 @@ final class PopupDetailDataSource {
     private var popupMainInformation: PopupMainInformationViewData?
     private var popupDetailInformation: PopupDetailInformationViewData?
     private var popupRating: PopupRatingViewData?
-    private var popupReviews: [PopupReviewViewData]?
+    private var popupReviews = [PopupReviewViewData]()
 }
 
 // MARK: - Input
@@ -26,14 +26,13 @@ extension PopupDetailDataSource {
     }
 
     func updateReviewData(_ data: PopupReviewList) {
-        popupReviews = data.reviews.map { PopupReviewViewData(from: $0) }
+        popupReviews += data.reviews.map { PopupReviewViewData(from: $0) }
     }
 }
 
 // MARK: - Output
 extension PopupDetailDataSource {
     func numberOfReviews() -> Int {
-        guard let popupReviews else { return 0 }
         return popupReviews.count
     }
 
@@ -73,7 +72,6 @@ extension PopupDetailDataSource {
     }
 
     func reviewItem(at index: Int) -> PopupReviewViewData {
-        guard let popupReviews else { return PopupReviewViewData.placeholder}
         return popupReviews[index]
     }
 }
