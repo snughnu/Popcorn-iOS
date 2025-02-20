@@ -8,6 +8,7 @@
 import Foundation
 
 protocol MainCarouselViewModelProtocol: AnyObject {
+    /// MainCarouselView 파일에서 캐러셀 컬렉션뷰의 데이터와 개수를 얻기 위한 퍼블리셔
     var carouselImagePublisher: (() -> Void)? { get set }
 
     func numbersOfCarouselImage() -> Int
