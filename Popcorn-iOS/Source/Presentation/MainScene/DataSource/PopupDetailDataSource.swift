@@ -17,13 +17,18 @@ final class PopupDetailDataSource {
 
 // MARK: - Input
 extension PopupDetailDataSource {
-    func updateData(_ data: PopupInformation) {
+    func updateInformationData(_ data: PopupInformation) {
         carouselPopupImageUrls = data.popupImagesUrl
         popupMainInformation = PopupMainInformationViewData(from: data.mainInformation)
         popupDetailInformation = PopupDetailInformationViewData(from: data.detailInformation)
-        popupRating = PopupRatingViewData(from: data.totalReview)
-        // TODO: 리뷰 엔티티 리팩토링 후 변경
-//        popupReviews = data.totalReview.review.map { PopupReviewViewData(from: $0) }
+    }
+
+    func updateRatingData(_ data: PopupRatingDistribution) {
+        popupRating = PopupRatingViewData(from: data)
+    }
+
+    func updateReviewData(_ data: PopupReviewList) {
+        popupReviews = data.reviews.map { PopupReviewViewData(from: $0) }
     }
 }
 
@@ -86,7 +91,9 @@ extension PopupDetailDataSource {
             reviewRating: 4.5,
             reviewDate: Date(),
             reviewImagesUrl: [imageUrl1, imageUrl2],
-            reviewText: "매우 만족스러운 전시였습니다. 다양한 작품을 감상할 수 있었어요!"
+            reviewText: "매우 만족스러운 전시였습니다. 다양한 작품을 감상할 수 있었어요!",
+            likeCount: 5,
+            isLiked: true
         )
 
         let review2 = PopupReview(
@@ -95,7 +102,9 @@ extension PopupDetailDataSource {
             reviewRating: 5.0,
             reviewDate: Calendar.current.date(byAdding: .day, value: -3, to: Date())!,
             reviewImagesUrl: [imageUrl3],
-            reviewText: "굿즈도 많고, 전시 공간도 아름다웠어요. 추천합니다!"
+            reviewText: "굿즈도 많고, 전시 공간도 아름다웠어요. 추천합니다!",
+            likeCount: 0,
+            isLiked: false
         )
 
         carouselPopupImageUrls = [imageUrl1, imageUrl2, imageUrl3]

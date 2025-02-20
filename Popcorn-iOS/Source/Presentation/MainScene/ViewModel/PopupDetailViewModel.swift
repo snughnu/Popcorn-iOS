@@ -39,8 +39,15 @@ extension PopupDetailViewModel {
     }
 
     func fetchPopupInformation() {
-        // 네트워킹 코드... 
+        // 네트워킹 코드...
+        // dataSource.updateData()
         popupInformationPublisher?()
+    }
+
+    func fetchPopupReview() {
+        // 네트워킹 코드...
+        // dataSource.updateData()
+        popupReviewPublisher?()
     }
 
     func generateMockData() {
@@ -125,8 +132,7 @@ struct PopupRatingViewData {
     )
 
     init(from entity: PopupRatingDistribution) {
-        // TODO: 리뷰 엔티티 리팩토링 후 변경
-        self.totalRatingCount = 0
+        self.totalRatingCount = entity.ratingDistribution.values.reduce(0, +)
         self.averageRating = entity.averageRating
         self.ratingDistribution = entity.ratingDistribution
     }
@@ -135,28 +141,34 @@ struct PopupRatingViewData {
 struct PopupReviewViewData {
     let profileImageUrl: String?
     let nickname: String
-    let rating: Float
+    let reviewRating: Float
     let reviewDate: String
-    let imagesUrl: [String]?
+    let reviewImagesUrl: [String]?
     let reviewText: String
+    let likeCount: Int
+    let isLiked: Bool
 
     static let placeholder = PopupReviewViewData(
         from: PopupReview(
             profileImageUrl: nil,
-            nickName: "사용자",
+            nickName: "팝콘이",
             reviewRating: 0,
             reviewDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
             reviewImagesUrl: nil,
-            reviewText: ""
+            reviewText: "",
+            likeCount: 0,
+            isLiked: false
         )
     )
 
     init(from entity: PopupReview) {
         self.profileImageUrl = entity.profileImageUrl
         self.nickname = entity.nickName
-        self.rating = entity.reviewRating
+        self.reviewRating = entity.reviewRating
         self.reviewDate = PopupDateFormatter.formattedReviewDate(from: entity.reviewDate)
-        self.imagesUrl = entity.reviewImagesUrl
+        self.reviewImagesUrl = entity.reviewImagesUrl
         self.reviewText = entity.reviewText
+        self.likeCount = entity.likeCount
+        self.isLiked = entity.isLiked
     }
 }

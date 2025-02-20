@@ -32,6 +32,7 @@
 		5643991F2D44F2000031688B /* Data+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5643991E2D44F1FD0031688B /* Data+.swift */; };
 		564524E22D240BBA00B05355 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564524E12D240BBA00B05355 /* StarRatingView.swift */; };
 		5649A5902CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5649A58F2CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift */; };
+		5651F4B92D65F66B00951B6B /* PopupReviewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5651F4B82D65F66600951B6B /* PopupReviewList.swift */; };
 		56537BB12CE0F5290092A292 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56537BA82CE0F5290092A292 /* Assets.xcassets */; };
 		56537BB32CE0F5290092A292 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56537BAB2CE0F5290092A292 /* LaunchScreen.storyboard */; };
 		56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56537BA72CE0F5290092A292 /* AppDelegate.swift */; };
@@ -181,6 +182,7 @@
 		5643991E2D44F1FD0031688B /* Data+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+.swift"; sourceTree = "<group>"; };
 		564524E12D240BBA00B05355 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		5649A58F2CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosingSoonPopupCell.swift; sourceTree = "<group>"; };
+		5651F4B82D65F66600951B6B /* PopupReviewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupReviewList.swift; sourceTree = "<group>"; };
 		56537B732CE0F5100092A292 /* Popcorn-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Popcorn-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		56537B892CE0F5110092A292 /* Popcorn-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Popcorn-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		56537BA72CE0F5290092A292 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -587,6 +589,7 @@
 		56C040022D65DFE6007483F0 /* PopupDetailScene */ = {
 			isa = PBXGroup;
 			children = (
+				5651F4B82D65F66600951B6B /* PopupReviewList.swift */,
 				56C040072D65E2B8007483F0 /* PopupRating.swift */,
 				56C040032D65E0B2007483F0 /* PopupMainInformation.swift */,
 				56C040052D65E179007483F0 /* PopupDetailInformation.swift */,
@@ -1408,6 +1411,7 @@
 				56F6D47C2D5340B400C2BEBE /* ImageFetchError.swift in Sources */,
 				563482FE2D2240B8001646B5 /* PopupTitleCollectionViewCell.swift in Sources */,
 				BCF6ED572D37D55B0038CCAE /* TokenUseCase.swift in Sources */,
+				5651F4B92D65F66B00951B6B /* PopupReviewList.swift in Sources */,
 				563483032D224CF2001646B5 /* CarouselHeaderView.swift in Sources */,
 				56F6D4842D534A2500C2BEBE /* ImageFetchManagerRepositoryProtocol.swift in Sources */,
 				566A0E4F2D3E23AF00B70929 /* WriteReviewViewModel.swift in Sources */,

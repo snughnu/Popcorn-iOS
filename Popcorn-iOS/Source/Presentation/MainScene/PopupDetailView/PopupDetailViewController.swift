@@ -49,7 +49,7 @@ final class PopupDetailViewController: UIViewController {
             guard let self else { return }
             if segmentIndex == 1 {
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    self.collectionView.reloadSections(IndexSet(2...2))
                 }
             }
         }
@@ -204,7 +204,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
                 }
             }
 
-            if let reviewImagesUrls = data.imagesUrl {
+            if let reviewImagesUrls = data.reviewImagesUrl {
                 reviewImagesUrls.forEach { url in
                     dispatchGroup.enter()
                     viewModel.fetchImage(url: url) { result in
@@ -221,7 +221,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
                 cell.configureContents(
                     profileImage: profileImage,
                     nickName: data.nickname,
-                    starRating: data.rating,
+                    starRating: data.reviewRating,
                     reviewDate: data.reviewDate,
                     reviewImages: reviewImages,
                     reviewText: data.reviewText

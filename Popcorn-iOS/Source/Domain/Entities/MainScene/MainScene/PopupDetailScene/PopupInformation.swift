@@ -11,5 +11,4 @@ struct PopupInformation {
     let popupImagesUrl: [String]
     let mainInformation: PopupMainInformation
     let detailInformation: PopupDetailInformation
-    let totalReview: PopupRatingDistribution
 }
