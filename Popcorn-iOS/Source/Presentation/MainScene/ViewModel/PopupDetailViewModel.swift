@@ -9,6 +9,7 @@ import Foundation
 
 final class PopupDetailViewModel: MainCarouselViewModelProtocol {
     private let imageFetchUseCase: ImageFetchUseCaseProtocol
+    private let popupDetailUseCase: PopupDetailUseCaseProtocol
     private let popupDetailDataSource: PopupDetailDataSource
 
     // MARK: - Output
@@ -18,9 +19,11 @@ final class PopupDetailViewModel: MainCarouselViewModelProtocol {
     var popupReviewPublisher: (() -> Void)?
 
     init(imageFetchUseCase: ImageFetchUseCaseProtocol = ImageFetchUseCase(),
+         popupDetailUseCase: PopupDetailUseCaseProtocol = PopupDetailUseCase(),
          popupDetailDataSource: PopupDetailDataSource = PopupDetailDataSource()
     ) {
         self.imageFetchUseCase = imageFetchUseCase
+        self.popupDetailUseCase = popupDetailUseCase
         self.popupDetailDataSource = popupDetailDataSource
     }
 
@@ -40,6 +43,7 @@ extension PopupDetailViewModel {
     }
 
     func fetchPopupInformation() {
+        
         // 네트워킹 코드...
         // dataSource.updateData()
         carouselImagePublisher?()

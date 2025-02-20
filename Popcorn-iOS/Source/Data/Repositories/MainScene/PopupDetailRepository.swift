@@ -20,7 +20,7 @@ final class PopupDetailRepository: PopupDetailRepositoryProtocol {
     private let tokenRepository: TokenRepositoryProtocol
 
     init(
-        networkManager: NetworkManagerProtocol,
+        networkManager: NetworkManagerProtocol = NetworkManager(),
         tokenRepository: TokenRepositoryProtocol = TokenRepository(
             networkManager: NetworkManager(),
             keychainManager: KeychainManager()
