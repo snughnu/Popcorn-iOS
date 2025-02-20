@@ -14,7 +14,7 @@ struct PopupInformation {
     let startDate: Date
     let endDate: Date
     let isUserPick: Bool
-    let hashTags: [String]
+    var hashTags: [String]
     let address: String
     let organizationUrl: String
     let businesesHours: String

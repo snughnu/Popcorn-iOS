@@ -35,6 +35,7 @@
 		5651F4B92D65F66B00951B6B /* PopupReviewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5651F4B82D65F66600951B6B /* PopupReviewList.swift */; };
 		5651F4BD2D66EDA000951B6B /* PopupDetailRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5651F4BC2D66ED9800951B6B /* PopupDetailRepositoryProtocol.swift */; };
 		5651F4BF2D66FAF600951B6B /* PopupDetailUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5651F4BE2D66FAE800951B6B /* PopupDetailUseCaseProtocol.swift */; };
+		5651F4C12D66FB7700951B6B /* PopupDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5651F4C02D66FB7100951B6B /* PopupDetailUseCase.swift */; };
 		56537BB12CE0F5290092A292 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56537BA82CE0F5290092A292 /* Assets.xcassets */; };
 		56537BB32CE0F5290092A292 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56537BAB2CE0F5290092A292 /* LaunchScreen.storyboard */; };
 		56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56537BA72CE0F5290092A292 /* AppDelegate.swift */; };
@@ -185,6 +186,7 @@
 		5651F4B82D65F66600951B6B /* PopupReviewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupReviewList.swift; sourceTree = "<group>"; };
 		5651F4BC2D66ED9800951B6B /* PopupDetailRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetailRepositoryProtocol.swift; sourceTree = "<group>"; };
 		5651F4BE2D66FAE800951B6B /* PopupDetailUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetailUseCaseProtocol.swift; sourceTree = "<group>"; };
+		5651F4C02D66FB7100951B6B /* PopupDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetailUseCase.swift; sourceTree = "<group>"; };
 		56537B732CE0F5100092A292 /* Popcorn-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Popcorn-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		56537B892CE0F5110092A292 /* Popcorn-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Popcorn-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		56537BA72CE0F5290092A292 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -411,6 +413,7 @@
 			isa = PBXGroup;
 			children = (
 				563A1E472D58BC16008DA4F8 /* PopupFetchListUseCase.swift */,
+				5651F4C02D66FB7100951B6B /* PopupDetailUseCase.swift */,
 			);
 			path = Implementations;
 			sourceTree = "<group>";
@@ -1398,6 +1401,7 @@
 				56F6D46B2D4FBBB200C2BEBE /* TokenRepositoryProtocol.swift in Sources */,
 				BCB86A632D486A6F00F00F1F /* LoginRepository.swift in Sources */,
 				563A1E482D58BC19008DA4F8 /* PopupFetchListUseCase.swift in Sources */,
+				5651F4C12D66FB7700951B6B /* PopupDetailUseCase.swift in Sources */,
 				56D68A362D2409DB00EA1404 /* PopupRatingCollectionViewCell.swift in Sources */,
 				56F6D4862D534CCE00C2BEBE /* ImageFetchManagerRepository.swift in Sources */,
 				BC7420F82CE2395600BEED0A /* HttpMethod.swift in Sources */,
