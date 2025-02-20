@@ -29,9 +29,6 @@ extension PopupDetailDataSource {
 
 // MARK: - Output
 extension PopupDetailDataSource {
-    /// 컬렉션 뷰의 셀의 개수를 알기 위해 데이터의 개수를 반환하는 메서드입니다.
-    /// - indexPath: 팝업 상세정보 화면에서 셀의 개수가 여러개인 경우는 섹션 2(리뷰) 뿐입니다.
-    ///  이외는 셀의 개수가 1개이므로 `default`에서 1을 반환합니다.
     func numberOfReviews() -> Int {
         guard let popupReviews else { return 0 }
         return popupReviews.count
@@ -55,7 +52,7 @@ extension PopupDetailDataSource {
         return popupDetailInformation
     }
 
-    /// 평점의 개수가 가장 높은 평점의 인덱스를 반환. 단, 평점의 개수가 동률일 경우 평점이 높은 평점의 인덱스를 반환.
+    /// 평점의 개수가 가장 높은 평점의 인덱스를 반환. 단, 평점의 개수가 동률일 경우 평점의 인덱스가 높은 평점을 반환.
     func ratingItem() -> (PopupRatingViewData, Int) {
         guard let popupRating else { return (PopupRatingViewData.placeholder, 0) }
 
