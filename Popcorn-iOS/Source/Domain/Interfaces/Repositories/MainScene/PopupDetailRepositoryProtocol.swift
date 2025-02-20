@@ -9,6 +9,7 @@ import Foundation
 
 protocol PopupDetailRepositoryProtocol {
     func fetchPopupAllData(
+        popupId: Int,
         completion: @escaping (Result<(PopupInformation, PopupRatingDistribution, PopupReviewList), Error>) -> Void
     )
     func fetchPopupReviews(completion: @escaping (Result<PopupReviewList, Error>) -> Void)

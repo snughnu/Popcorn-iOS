@@ -6,11 +6,12 @@
 //
 
 protocol PopupDetailUseCaseProtocol {
-    func fetchPopupAllData(completion: @escaping (
-        Result<(PopupInformation, PopupRatingDistribution, PopupReviewList), Error>) -> Void
+    func fetchPopupAllData(
+        popupId: Int,
+        completion: @escaping (Result<(PopupInformation, PopupRatingDistribution, PopupReviewList), Error>) -> Void
     )
 
-    func fetchPopupReviews(completion: @escaping (Result<PopupReviewList, Error>) -> Void)
+    func fetchPopupReviews(popupId: Int, completion: @escaping (Result<PopupReviewList, Error>) -> Void)
 
     func extractHashTag(from popupInformation: PopupInformation) -> [String]
 }

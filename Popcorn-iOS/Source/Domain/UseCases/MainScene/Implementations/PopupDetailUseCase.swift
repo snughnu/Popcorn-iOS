@@ -16,9 +16,10 @@ final class PopupDetailUseCase: PopupDetailUseCaseProtocol {
     }
 
     func fetchPopupAllData(
+        popupId: Int,
         completion: @escaping (Result<(PopupInformation, PopupRatingDistribution, PopupReviewList), Error>
         ) -> Void) {
-        repository.fetchPopupAllData { [weak self] result in
+        repository.fetchPopupAllData(popupId: popupId) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(var (popupInfo, popupRatingDistribution, popupReviewList)):
@@ -30,7 +31,7 @@ final class PopupDetailUseCase: PopupDetailUseCaseProtocol {
         }
     }
 
-    func fetchPopupReviews(completion: @escaping (Result<PopupReviewList, any Error>) -> Void) {
+    func fetchPopupReviews(popupId: Int, completion: @escaping (Result<PopupReviewList, any Error>) -> Void) {
         repository.fetchPopupReviews(completion: completion)
     }
 
