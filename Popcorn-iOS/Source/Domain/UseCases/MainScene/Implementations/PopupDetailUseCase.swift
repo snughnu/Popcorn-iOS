@@ -31,8 +31,8 @@ final class PopupDetailUseCase: PopupDetailUseCaseProtocol {
         }
     }
 
-    func fetchPopupReviews(popupId: Int, completion: @escaping (Result<PopupReviewList, any Error>) -> Void) {
-        repository.fetchPopupReviews(completion: completion)
+    func fetchPopupReviews(popupId: Int, page: Int, completion: @escaping (Result<PopupReviewList, any Error>) -> Void) {
+        repository.fetchPopupReviews(popupId: popupId, page: page, completion: completion)
     }
 
     func extractHashTag(from popupInformation: PopupInformation) -> [String] {

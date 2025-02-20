@@ -153,6 +153,11 @@ final class PopupDetailRepository: PopupDetailRepositoryProtocol {
         }
     }
 
-    func fetchPopupReviews(completion: @escaping (Result<PopupReviewList, any Error>) -> Void) {
+    func fetchPopupReviews(
+        popupId: Int,
+        page: Int,
+        completion: @escaping (Result<PopupReviewList, any Error>
+        ) -> Void) {
+        
     }
 }

@@ -11,7 +11,7 @@ protocol PopupDetailUseCaseProtocol {
         completion: @escaping (Result<(PopupInformation, PopupRatingDistribution, PopupReviewList), Error>) -> Void
     )
 
-    func fetchPopupReviews(popupId: Int, completion: @escaping (Result<PopupReviewList, Error>) -> Void)
+    func fetchPopupReviews(popupId: Int, page: Int, completion: @escaping (Result<PopupReviewList, Error>) -> Void)
 
     func extractHashTag(from popupInformation: PopupInformation) -> [String]
 }
