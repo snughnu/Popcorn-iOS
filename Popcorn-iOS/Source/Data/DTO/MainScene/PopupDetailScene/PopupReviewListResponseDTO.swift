@@ -5,6 +5,8 @@
 //  Created by 제민우 on 2/20/25.
 //
 
+import Foundation
+
 struct PopupReviewListResponseDTO: Decodable {
     let reviews: [PopupReviewResponseDTO]
 }
@@ -28,5 +30,23 @@ struct PopupReviewResponseDTO: Decodable {
         case reviewText
         case likeCount
         case isLiked
+    }
+}
+
+extension PopupReviewResponseDTO {
+    func toEntity() -> PopupReview {
+        let errorDate = DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!
+        let reviewDate = DateFormatter.apiDateFormatter.date(from: reviewDate) ?? errorDate
+
+        return PopupReview(
+            profileImageUrl: profileImageUrl,
+            nickName: nickName,
+            reviewRating: reviewRating,
+            reviewDate: reviewDate,
+            reviewImagesUrl: reviewImagesUrl,
+            reviewText: reviewText,
+            likeCount: likeCount,
+            isLiked: isLiked
+        )
     }
 }

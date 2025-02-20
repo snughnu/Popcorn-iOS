@@ -9,7 +9,7 @@ import Foundation
 
 struct PopupInformationResponseDTO: Decodable {
     let popupId: Int
-    let popupImages: [String]
+    let popupImagesUrl: [String]
     let popupTitle: String
     let startDate: String
     let endDate: String
@@ -23,7 +23,7 @@ struct PopupInformationResponseDTO: Decodable {
 
     enum CodingKeys: String, CodingKey {
         case popupId
-        case popupImages = "popupImage"
+        case popupImagesUrl = "popupImage"
         case popupTitle = "title"
         case startDate = "startedAt"
         case endDate = "endedAt"
@@ -34,5 +34,28 @@ struct PopupInformationResponseDTO: Decodable {
         case businesesHours = "hours"
         case introduce = "contents"
         case reservationUrl
+    }
+}
+
+extension PopupInformationResponseDTO {
+    func toEntity() -> PopupInformation {
+        let errorDate = DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!
+        let startDate = DateFormatter.apiDateFormatter.date(from: startDate) ?? errorDate
+        let endDate = DateFormatter.apiDateFormatter.date(from: endDate) ?? errorDate
+
+        return PopupInformation(
+            popupId: popupId,
+            popupImagesUrl: popupImagesUrl,
+            popupTitle: popupTitle,
+            startDate: startDate,
+            endDate: endDate,
+            isUserPick: isUserPick,
+            hashTags: [],
+            address: address,
+            organizationUrl: officialLink,
+            businesesHours: businesesHours,
+            introduce: introduce,
+            reservationUrl: reservationUrl
+        )
     }
 }

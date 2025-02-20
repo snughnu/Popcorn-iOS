@@ -14,3 +14,15 @@ struct PopupRatingDistributionResponseDTO: Decodable {
         case ratingDistribution = "distribution"
     }
 }
+
+extension PopupRatingDistributionResponseDTO {
+    func toEntity() -> PopupRatingDistribution {
+        var entityRatingDistribution = [RatingDistribution: Int]()
+        
+        RatingDistribution.allCases.forEach { rating in
+            entityRatingDistribution[rating] = ratingDistribution[rating.ratingIndex]
+        }
+
+        return PopupRatingDistribution(averageRating: averageRating, ratingDistribution: entityRatingDistribution)
+    }
+}
