@@ -37,6 +37,7 @@
 		5651F4BF2D66FAF600951B6B /* PopupDetailUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5651F4BE2D66FAE800951B6B /* PopupDetailUseCaseProtocol.swift */; };
 		5651F4C12D66FB7700951B6B /* PopupDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5651F4C02D66FB7100951B6B /* PopupDetailUseCase.swift */; };
 		5651F4C52D671BAF00951B6B /* PopupRatingDistributionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5651F4C42D671BA400951B6B /* PopupRatingDistributionResponseDTO.swift */; };
+		5651F4C72D671C3800951B6B /* PopupReviewListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5651F4C62D671C2900951B6B /* PopupReviewListResponseDTO.swift */; };
 		56537BB12CE0F5290092A292 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56537BA82CE0F5290092A292 /* Assets.xcassets */; };
 		56537BB32CE0F5290092A292 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56537BAB2CE0F5290092A292 /* LaunchScreen.storyboard */; };
 		56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56537BA72CE0F5290092A292 /* AppDelegate.swift */; };
@@ -189,6 +190,7 @@
 		5651F4BE2D66FAE800951B6B /* PopupDetailUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetailUseCaseProtocol.swift; sourceTree = "<group>"; };
 		5651F4C02D66FB7100951B6B /* PopupDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetailUseCase.swift; sourceTree = "<group>"; };
 		5651F4C42D671BA400951B6B /* PopupRatingDistributionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupRatingDistributionResponseDTO.swift; sourceTree = "<group>"; };
+		5651F4C62D671C2900951B6B /* PopupReviewListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupReviewListResponseDTO.swift; sourceTree = "<group>"; };
 		56537B732CE0F5100092A292 /* Popcorn-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Popcorn-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		56537B892CE0F5110092A292 /* Popcorn-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Popcorn-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		56537BA72CE0F5290092A292 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -512,6 +514,7 @@
 			children = (
 				565461632D63180D00BC336D /* PopupInformationResponseDTO.swift */,
 				5651F4C42D671BA400951B6B /* PopupRatingDistributionResponseDTO.swift */,
+				5651F4C62D671C2900951B6B /* PopupReviewListResponseDTO.swift */,
 			);
 			path = PopupDetailScene;
 			sourceTree = "<group>";
@@ -1355,6 +1358,7 @@
 				BC7420FE2CE23FD700BEED0A /* NetworkError.swift in Sources */,
 				56D68A342D23FBB700EA1404 /* RatingDistributionView.swift in Sources */,
 				BCE6E6032CF323570036BAF6 /* SignUpFirstViewController.swift in Sources */,
+				5651F4C72D671C3800951B6B /* PopupReviewListResponseDTO.swift in Sources */,
 				56C040082D65E2BE007483F0 /* PopupRating.swift in Sources */,
 				56F6D47E2D53413B00C2BEBE /* ImageFetchManagerProtocol.swift in Sources */,
 				565461642D63181900BC336D /* PopupInformationResponseDTO.swift in Sources */,
