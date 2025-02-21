@@ -118,18 +118,6 @@ class SignUpSecondView: UIView {
         return stackView
     }()
 
-    private lazy var nickNameInterestStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
-            nickNameTextField,
-            interestStackView
-        ])
-        stackView.axis = .vertical
-        stackView.spacing = UIScreen.main.bounds.height * 28/852
-        stackView.alignment = .fill
-        stackView.distribution = .fill
-        return stackView
-    }()
-
     private lazy var individualAgreeStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             firstAgreeButton,
@@ -151,30 +139,6 @@ class SignUpSecondView: UIView {
         stackView.spacing = UIScreen.main.bounds.height * 15/852
         stackView.alignment = .leading
         stackView.distribution = .equalSpacing
-        return stackView
-    }()
-
-    private lazy var userChoiceStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
-            nickNameInterestStackView,
-            agreeStackView
-        ])
-        stackView.axis = .vertical
-        stackView.spacing = UIScreen.main.bounds.height * 32/852
-        stackView.alignment = .center
-        stackView.distribution = .fillProportionally
-        return stackView
-    }()
-
-    private lazy var entireStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
-            userChoiceStackView,
-            signUpButton
-        ])
-        stackView.axis = .vertical
-        stackView.spacing = UIScreen.main.bounds.height * 47/852
-        stackView.alignment = .fill
-        stackView.distribution = .fill
         return stackView
     }()
 
@@ -207,11 +171,14 @@ extension SignUpSecondView {
 extension SignUpSecondView {
     private func configureSubviews() {
         [
-            entireStackView,
-            profileImageView,
-            selectProfileImageButton,
+            signUpButton,
+            agreeStackView,
             firstArrowButton,
-            secondArrowButton
+            secondArrowButton,
+            interestStackView,
+            nickNameTextField,
+            profileImageView,
+            selectProfileImageButton
         ].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -219,38 +186,43 @@ extension SignUpSecondView {
     }
 
     private func configureLayout() {
+        let agreeSignUpspace = UIScreen.main.bounds.height * 47/852
+        let bottomSpace = UIScreen.main.bounds.height * 84/852
+
         NSLayoutConstraint.activate([
-            entireStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
-            entireStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            entireStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -84),
+            signUpButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
+            signUpButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
+            signUpButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -bottomSpace),
+            signUpButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 56/759),
+
+            agreeStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
+            agreeStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
+            agreeStackView.bottomAnchor.constraint(equalTo: signUpButton.topAnchor, constant: -agreeSignUpspace),
+
+            firstArrowButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
+            firstArrowButton.centerYAnchor.constraint(equalTo: firstAgreeButton.centerYAnchor),
+            secondArrowButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
+            secondArrowButton.centerYAnchor.constraint(equalTo: secondAgreeButton.centerYAnchor),
+
+            interestStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
+            interestStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
+            interestStackView.bottomAnchor.constraint(equalTo: agreeStackView.topAnchor, constant: -32),
+            interestStackView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 128/759),
+
+            nickNameTextField.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
+            nickNameTextField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
+            nickNameTextField.bottomAnchor.constraint(equalTo: interestStackView.topAnchor, constant: -28),
+            nickNameTextField.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 50/759),
 
             profileImageView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             profileImageView.bottomAnchor.constraint(equalTo: nickNameTextField.topAnchor, constant: -33),
-            profileImageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 106/393),
-            profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor),
+            profileImageView.widthAnchor.constraint(equalTo: profileImageView.heightAnchor),
+            profileImageView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 106/759),
 
             selectProfileImageButton.trailingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: -3),
             selectProfileImageButton.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor),
             selectProfileImageButton.widthAnchor.constraint(equalTo: profileImageView.widthAnchor, multiplier: 24/106),
-            selectProfileImageButton.heightAnchor.constraint(equalTo: selectProfileImageButton.widthAnchor),
-
-            nickNameTextField.widthAnchor.constraint(equalTo: entireStackView.widthAnchor),
-            nickNameTextField.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 50/759),
-
-            interestStackView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 128/759),
-            interestStackView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 341/393),
-
-            agreeStackView.widthAnchor.constraint(equalTo: entireStackView.widthAnchor),
-            agreeStackView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 104/759),
-
-            firstArrowButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            firstArrowButton.centerYAnchor.constraint(equalTo: firstAgreeButton.centerYAnchor),
-
-            secondArrowButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            secondArrowButton.centerYAnchor.constraint(equalTo: secondAgreeButton.centerYAnchor),
-
-            signUpButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 56/759),
-            signUpButton.widthAnchor.constraint(equalTo: nickNameTextField.widthAnchor)
+            selectProfileImageButton.heightAnchor.constraint(equalTo: selectProfileImageButton.widthAnchor)
         ])
     }
 }
