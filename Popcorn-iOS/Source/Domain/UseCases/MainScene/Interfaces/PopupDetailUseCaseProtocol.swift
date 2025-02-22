@@ -15,3 +15,12 @@ protocol PopupDetailUseCaseProtocol {
 
     func extractHashTag(from popupInformation: PopupInformation) -> [String]
 }
+
+extension PopupDetailUseCaseProtocol {
+    func fetchPopupAllData(
+        popupId: Int = 1,
+        completion: @escaping (Result<(PopupInformation, PopupRatingDistribution, PopupReviewList), Error>) -> Void
+    ) {
+        fetchPopupAllData(popupId: popupId, completion: completion)
+    }
+}

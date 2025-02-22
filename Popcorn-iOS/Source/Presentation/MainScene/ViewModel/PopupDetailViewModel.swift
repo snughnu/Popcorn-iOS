@@ -11,6 +11,7 @@ final class PopupDetailViewModel: MainCarouselViewModelProtocol {
     private let imageFetchUseCase: ImageFetchUseCaseProtocol
     private let popupDetailUseCase: PopupDetailUseCaseProtocol
     private let popupDetailDataSource: PopupDetailDataSource
+    private var reviewPage = 1
 
     // MARK: - Output
     var carouselImagePublisher: (() -> Void)?
@@ -43,16 +44,33 @@ extension PopupDetailViewModel {
     }
 
     func fetchPopupInformation() {
-        
-        // 네트워킹 코드...
-        // dataSource.updateData()
+        popupDetailUseCase.fetchPopupAllData { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let (popupInformation, popupRatingDistribution, popupReviewList)):
+                self.popupDetailDataSource.updateInformationData(popupInformation)
+                self.popupDetailDataSource.updateRatingData(popupRatingDistribution)
+                self.popupDetailDataSource.updateReviewData(popupReviewList)
+            case .failure:
+                popupDetailDataSource.showPlaceholderData()
+            }
+        }
         carouselImagePublisher?()
         popupInformationPublisher?()
+        popupReviewPublisher?()
     }
 
     func fetchPopupReview() {
-        // 네트워킹 코드...
-        // dataSource.updateData()
+        let popupId = popupDetailDataSource.getPopupId()
+        popupDetailUseCase.fetchPopupReviews(popupId: popupId, page: reviewPage) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let popupReviewList):
+                self.popupDetailDataSource.updateReviewData(popupReviewList)
+            case .failure:
+                popupDetailDataSource.showPlaceholderReviewData()
+            }
+        }
         popupReviewPublisher?()
     }
 

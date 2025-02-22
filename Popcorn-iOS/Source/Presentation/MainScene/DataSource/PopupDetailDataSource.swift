@@ -74,6 +74,23 @@ extension PopupDetailDataSource {
     func reviewItem(at index: Int) -> PopupReviewViewData {
         return popupReviews[index]
     }
+
+    func getPopupId() -> Int {
+        guard let popupMainInformation else { return 0 }
+        return popupMainInformation.popupId
+    }
+
+    func showPlaceholderData() {
+        popupMainInformation = PopupMainInformationViewData.placeholder
+        popupMainInformation = PopupMainInformationViewData.placeholder
+        popupDetailInformation = PopupDetailInformationViewData.placeholder
+        popupRating = PopupRatingViewData.placeholder
+        showPlaceholderReviewData()
+    }
+
+    func showPlaceholderReviewData() {
+        popupReviews = [PopupReviewViewData.placeholder]
+    }
 }
 
 // MARK: - Mocking
