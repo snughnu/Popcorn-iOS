@@ -89,7 +89,6 @@
 		BC55FE862D2AC8F100E269B6 /* ProfileImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC55FE852D2AC8F100E269B6 /* ProfileImagePickerViewController.swift */; };
 		BC55FE882D2AD51000E269B6 /* ProfileImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC55FE872D2AD51000E269B6 /* ProfileImagePickerView.swift */; };
 		BC58B0D42D3D231B00A8E42F /* SignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC58B0D32D3D231B00A8E42F /* SignUpRequestDTO.swift */; };
-		BC58B0D62D3D241A00A8E42F /* SignUpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC58B0D52D3D241A00A8E42F /* SignUpManager.swift */; };
 		BC5F3C0D2D52447900248DB0 /* SignUpFirstViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C0C2D52447900248DB0 /* SignUpFirstViewModel.swift */; };
 		BC5F3C102D52497700248DB0 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C0F2D52497700248DB0 /* SignUpUseCase.swift */; };
 		BC5F3C132D524A0800248DB0 /* SignUpRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F3C122D524A0800248DB0 /* SignUpRepository.swift */; };
@@ -112,6 +111,7 @@
 		BC90A0B82CF4CC9A003488F0 /* SignUpInterestButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC90A0B72CF4CC9A003488F0 /* SignUpInterestButton.swift */; };
 		BC90A0BC2CF4CF53003488F0 /* SignUpSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC90A0BB2CF4CF53003488F0 /* SignUpSecondViewController.swift */; };
 		BC9BF2012CECC52000AEE534 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9BF2002CECC52000AEE534 /* LoginViewController.swift */; };
+		BCA0FFD52D65A6A500A71375 /* InterestCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA0FFD42D65A6A500A71375 /* InterestCategory.swift */; };
 		BCB86A502D46368800F00F1F /* LoginRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB86A4F2D46368800F00F1F /* LoginRequestDTO.swift */; };
 		BCB86A532D467E7700F00F1F /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB86A522D467E7700F00F1F /* LoginViewModel.swift */; };
 		BCB86A552D475B9700F00F1F /* SocialLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB86A542D475B9700F00F1F /* SocialLoginViewModel.swift */; };
@@ -142,6 +142,8 @@
 		BCF6ED592D37DAA30038CCAE /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED582D37DAA30038CCAE /* DateFormatter+.swift */; };
 		BCF945162D48A50100E8B3EA /* SocialLoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF945152D48A50100E8B3EA /* SocialLoginUseCase.swift */; };
 		BCF945182D48A50C00E8B3EA /* SocialLoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF945172D48A50C00E8B3EA /* SocialLoginRepository.swift */; };
+		BCFB36A72D5DB52A009DE162 /* SignUpSecondViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFB36A62D5DB52A009DE162 /* SignUpSecondViewModel.swift */; };
+		BCFB36B22D61DACE009DE162 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFB36B12D61DACE009DE162 /* DIContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -237,7 +239,6 @@
 		BC55FE852D2AC8F100E269B6 /* ProfileImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerViewController.swift; sourceTree = "<group>"; };
 		BC55FE872D2AD51000E269B6 /* ProfileImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerView.swift; sourceTree = "<group>"; };
 		BC58B0D32D3D231B00A8E42F /* SignUpRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequestDTO.swift; sourceTree = "<group>"; };
-		BC58B0D52D3D241A00A8E42F /* SignUpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpManager.swift; sourceTree = "<group>"; };
 		BC5F3C0C2D52447900248DB0 /* SignUpFirstViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFirstViewModel.swift; sourceTree = "<group>"; };
 		BC5F3C0F2D52497700248DB0 /* SignUpUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
 		BC5F3C122D524A0800248DB0 /* SignUpRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepository.swift; sourceTree = "<group>"; };
@@ -260,6 +261,7 @@
 		BC90A0B72CF4CC9A003488F0 /* SignUpInterestButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInterestButton.swift; sourceTree = "<group>"; };
 		BC90A0BB2CF4CF53003488F0 /* SignUpSecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecondViewController.swift; sourceTree = "<group>"; };
 		BC9BF2002CECC52000AEE534 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		BCA0FFD42D65A6A500A71375 /* InterestCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestCategory.swift; sourceTree = "<group>"; };
 		BCB86A4F2D46368800F00F1F /* LoginRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestDTO.swift; sourceTree = "<group>"; };
 		BCB86A522D467E7700F00F1F /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		BCB86A542D475B9700F00F1F /* SocialLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginViewModel.swift; sourceTree = "<group>"; };
@@ -290,6 +292,8 @@
 		BCF6ED582D37DAA30038CCAE /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 		BCF945152D48A50100E8B3EA /* SocialLoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginUseCase.swift; sourceTree = "<group>"; };
 		BCF945172D48A50C00E8B3EA /* SocialLoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginRepository.swift; sourceTree = "<group>"; };
+		BCFB36A62D5DB52A009DE162 /* SignUpSecondViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecondViewModel.swift; sourceTree = "<group>"; };
+		BCFB36B12D61DACE009DE162 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -489,6 +493,7 @@
 		56537BBA2CE0F5370092A292 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				BCFB36B12D61DACE009DE162 /* DIContainer.swift */,
 				56537BAF2CE0F5290092A292 /* ViewController.swift */,
 				56537BAE2CE0F5290092A292 /* SceneDelegate.swift */,
 				56537BA72CE0F5290092A292 /* AppDelegate.swift */,
@@ -672,6 +677,7 @@
 			children = (
 				563A1E292D5390E0008DA4F8 /* PopupMainList.swift */,
 				56F6D4592D4FBA0C00C2BEBE /* PopupPreview.swift */,
+				BCA0FFD42D65A6A500A71375 /* InterestCategory.swift */,
 				56F6D45B2D4FBA0C00C2BEBE /* UserInterestPopup.swift */,
 				56F6D4582D4FBA0C00C2BEBE /* PopupInformation.swift */,
 			);
@@ -691,8 +697,8 @@
 		56F6D4642D4FBAD400C2BEBE /* LoginUseCase */ = {
 			isa = PBXGroup;
 			children = (
-				BCF945152D48A50100E8B3EA /* SocialLoginUseCase.swift */,
 				BCB86A602D4869AF00F00F1F /* LoginUseCase.swift */,
+				BCF945152D48A50100E8B3EA /* SocialLoginUseCase.swift */,
 			);
 			path = LoginUseCase;
 			sourceTree = "<group>";
@@ -807,6 +813,7 @@
 			isa = PBXGroup;
 			children = (
 				BC5F3C0C2D52447900248DB0 /* SignUpFirstViewModel.swift */,
+				BCFB36A62D5DB52A009DE162 /* SignUpSecondViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -878,7 +885,6 @@
 			isa = PBXGroup;
 			children = (
 				BC5F3C122D524A0800248DB0 /* SignUpRepository.swift */,
-				BC58B0D52D3D241A00A8E42F /* SignUpManager.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -1340,8 +1346,8 @@
 				BC58B0D42D3D231B00A8E42F /* SignUpRequestDTO.swift in Sources */,
 				564524E22D240BBA00B05355 /* StarRatingView.swift in Sources */,
 				BCF945162D48A50100E8B3EA /* SocialLoginUseCase.swift in Sources */,
-				BC58B0D62D3D241A00A8E42F /* SignUpManager.swift in Sources */,
 				BCD2DFFB2D298A5C000ED875 /* CompleteResetPwView.swift in Sources */,
+				BCFB36B22D61DACE009DE162 /* DIContainer.swift in Sources */,
 				560159422CF32F5900872662 /* UIButton+.swift in Sources */,
 				BC8113762CF6221400F82331 /* SignUpAgreeButton.swift in Sources */,
 				563A1E4C2D58C1FE008DA4F8 /* PopupDateFormatter.swift in Sources */,
@@ -1370,6 +1376,7 @@
 				56D68A362D2409DB00EA1404 /* PopupRatingCollectionViewCell.swift in Sources */,
 				56F6D4862D534CCE00C2BEBE /* ImageFetchManagerRepository.swift in Sources */,
 				BC7420F82CE2395600BEED0A /* HttpMethod.swift in Sources */,
+				BCFB36A72D5DB52A009DE162 /* SignUpSecondViewModel.swift in Sources */,
 				56B6D3722D2A5DA600FFB733 /* ReviewSortButtonHeaderView.swift in Sources */,
 				56F6D45D2D4FBA0C00C2BEBE /* NewToken.swift in Sources */,
 				BCD18D912D5B33F500831CCC /* IdToken.swift in Sources */,
@@ -1391,6 +1398,7 @@
 				56CD3A7D2CEC31B000BAC02D /* UIView+.swift in Sources */,
 				560159302CF319A700872662 /* UILabel+.swift in Sources */,
 				5649A5902CEC6F7600D9F4F5 /* ClosingSoonPopupCell.swift in Sources */,
+				BCA0FFD52D65A6A500A71375 /* InterestCategory.swift in Sources */,
 				56EAA92B2D34EA5A007265D3 /* UploadImageCollectionViewCell.swift in Sources */,
 				BC3201AB2D2CFC6900B73A14 /* ProfileImageCell.swift in Sources */,
 				BCC45D1A2CEB9A980045DC57 /* LoginTextField.swift in Sources */,

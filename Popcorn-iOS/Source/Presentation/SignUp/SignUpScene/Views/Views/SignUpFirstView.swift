@@ -185,10 +185,12 @@ extension SignUpFirstView {
     }
 
     private func configureLayout() {
+        let bottomSpace = UIScreen.main.bounds.height * 84/852
+
         NSLayoutConstraint.activate([
             entireStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
             entireStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            entireStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -84),
+            entireStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -bottomSpace),
 
             duplicateCheckButton.centerYAnchor.constraint(equalTo: idField.textFieldReference.centerYAnchor),
             duplicateCheckButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 90/393),

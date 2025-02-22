@@ -208,7 +208,7 @@ extension SignUpFirstViewModel {
             return
         }
         emailMessageHandler?("전송 중입니다..", true)
-        signUpUseCase.executeSendVerificationCode(email: email) { [weak self] result in
+        signUpUseCase.executeSendAuthNum(email: email) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let isSuccess):
@@ -226,7 +226,7 @@ extension SignUpFirstViewModel {
             authNumMessageHandler?("*모든 정보를 올바르게 입력해주세요.", false)
             return
         }
-        signUpUseCase.executeValidateVerificationCode(email: email, authNum: authNum) { [weak self] result in
+        signUpUseCase.executeValidateAuthNum(email: email, authNum: authNum) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 switch result {

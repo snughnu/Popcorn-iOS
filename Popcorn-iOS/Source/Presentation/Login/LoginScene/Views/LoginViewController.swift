@@ -73,7 +73,7 @@ extension LoginViewController {
         self.socialLoginViewModel.loginSuccessHandler = { [weak self] isNewUser in
             guard let self = self else { return }
             if isNewUser {
-                let signUpSecondViewController = SignUpSecondViewController()
+                let signUpSecondViewController = DIContainer.shared.makeSignUpSecondViewController()
                 self.navigationController?.setViewControllers([signUpSecondViewController], animated: true)
             } else {
                 let mainSceneViewController = MainSceneViewController()
@@ -116,15 +116,8 @@ extension LoginViewController {
         self.navigationController?.pushViewController(findIdPwViewController, animated: true)
     }
 
-    // TODO: DIContainer 생성하고 정리..
     @objc private func signUpButtonTapped() {
-        let networkManager = NetworkManager()
-        let keychainManager = KeychainManager()
-        let signUpRepository = SignUpRepository(networkManager: networkManager, keychainManager: keychainManager)
-        let signUpUseCase = SignUpUseCase(signUpRepository: signUpRepository)
-        let signUpViewModel = SignUpFirstViewModel(signUpUseCase: signUpUseCase)
-
-        let signUpFirstViewController = SignUpFirstViewController(signUpFirstViewModel: signUpViewModel)
+        let signUpFirstViewController = DIContainer.shared.makeSignUpFirstViewController()
         self.navigationController?.pushViewController(signUpFirstViewController, animated: true)
     }
 
