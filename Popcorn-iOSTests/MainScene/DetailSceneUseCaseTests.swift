@@ -31,7 +31,7 @@ final class DetailSceneUseCaseTests: XCTestCase {
             popupImagesUrl: [""],
             popupTitle: "",
             startDate: Date(),
-            endDate: Date(timeIntervalSince1970: 864000), // 1970-01-01 기준 +10일
+            endDate: Calendar.current.date(byAdding: .day, value: 10, to: Date())!,
             isUserPick: true,
             hashTags: [],
             address: "서울 강남구",
@@ -46,7 +46,7 @@ final class DetailSceneUseCaseTests: XCTestCase {
             popupImagesUrl: [""],
             popupTitle: "",
             startDate: Date(),
-            endDate: Date(timeIntervalSince1970: 432000), // 1970-01-01 기준 +5일
+            endDate: Calendar.current.date(byAdding: .day, value: 5, to: Date())!,
             isUserPick: true,
             hashTags: [],
             address: "부산 남구",
@@ -61,7 +61,7 @@ final class DetailSceneUseCaseTests: XCTestCase {
             popupImagesUrl: [""],
             popupTitle: "",
             startDate: Date(),
-            endDate: Date(timeIntervalSince1970: -432000), // 1970-01-01 기준 -5일
+            endDate: Calendar.current.date(byAdding: .day, value: -5, to: Date())!,
             isUserPick: true,
             hashTags: [],
             address: "부산 남구 대연동",
