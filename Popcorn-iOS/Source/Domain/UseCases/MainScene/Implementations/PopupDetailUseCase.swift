@@ -22,7 +22,8 @@ final class PopupDetailUseCase: PopupDetailUseCaseProtocol {
         repository.fetchPopupAllData(popupId: popupId) { [weak self] result in
             guard let self else { return }
             switch result {
-            case .success(var (popupInfo, popupRatingDistribution, popupReviewList)):
+            case .success(let (popupInfo, popupRatingDistribution, popupReviewList)):
+                var popupInfo = popupInfo
                 popupInfo.hashTags = self.extractHashTag(from: popupInfo)
                 completion(.success((popupInfo, popupRatingDistribution, popupReviewList)))
             case .failure(let error):
@@ -31,7 +32,11 @@ final class PopupDetailUseCase: PopupDetailUseCaseProtocol {
         }
     }
 
-    func fetchPopupReviews(popupId: Int, page: Int, completion: @escaping (Result<PopupReviewList, any Error>) -> Void) {
+    func fetchPopupReviews(
+        popupId: Int,
+        page: Int,
+        completion: @escaping (Result<PopupReviewList, any Error>
+        ) -> Void) {
         repository.fetchPopupReviews(popupId: popupId, page: page, completion: completion)
     }
 

@@ -18,7 +18,7 @@ struct PopupRatingDistributionResponseDTO: Decodable {
 extension PopupRatingDistributionResponseDTO {
     func toEntity() -> PopupRatingDistribution {
         var entityRatingDistribution = [RatingDistribution: Int]()
-        
+
         RatingDistribution.allCases.forEach { rating in
             entityRatingDistribution[rating] = ratingDistribution[rating.ratingIndex]
         }

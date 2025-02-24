@@ -5,14 +5,6 @@
 //  Created by 제민우 on 2/20/25.
 //
 
-
-//
-//  PopupDetailRepository.swift
-//  Popcorn-iOS
-//
-//  Created by 제민우 on 2/20/25.
-//
-
 import Foundation
 
 final class PopupDetailRepository: PopupDetailRepositoryProtocol {
