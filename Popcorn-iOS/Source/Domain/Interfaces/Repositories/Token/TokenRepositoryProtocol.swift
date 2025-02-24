@@ -18,5 +18,4 @@ protocol TokenRepositoryProtocol {
     func fetchRefreshTokenExpirationDate() -> Date?
 
     func reissueAccessToken(refreshToken: String, completion: @escaping (Result<NewToken, Error>) -> Void)
-    func reissueKakaoAccessToken(refreshToken: String, completion: @escaping (Result<Token, Error>) -> Void)
 }

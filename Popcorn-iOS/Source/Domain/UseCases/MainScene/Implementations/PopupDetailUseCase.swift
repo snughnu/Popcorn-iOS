@@ -36,7 +36,8 @@ final class PopupDetailUseCase: PopupDetailUseCaseProtocol {
         popupId: Int,
         page: Int,
         completion: @escaping (Result<PopupReviewList, any Error>
-        ) -> Void) {
+        ) -> Void
+    ) {
         repository.fetchPopupReviews(popupId: popupId, page: page, completion: completion)
     }
 

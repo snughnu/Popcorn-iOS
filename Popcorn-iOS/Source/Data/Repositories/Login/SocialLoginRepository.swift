@@ -10,63 +10,71 @@ import KakaoSDKUser
 
 // MARK: - Public interface
 final class SocialLoginRepository: SocialLoginRepositoryProtocol {
-    func loginWithKaKaoTalk(completion: @escaping (Result<Token, Error>) -> Void) {
+   // MARK: - Properties
+    private let networkManager: NetworkManagerProtocol
+    private let keychainManager: KeychainManagerProtocol
+
+    // MARK: - Initializer
+    init(
+        networkManager: NetworkManagerProtocol,
+        keychainManager: KeychainManagerProtocol
+    ) {
+        self.networkManager = networkManager
+        self.keychainManager = keychainManager
+    }
+}
+
+// MARK: - Public interface
+extension SocialLoginRepository {
+    func isKakaoTalkLoginAvailable() -> Bool {
+        return UserApi.isKakaoTalkLoginAvailable()
+    }
+
+    func loginWithKakaoTalk(completion: @escaping (Result<IdToken, Error>) -> Void) {
         UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
             if let error = error {
                 completion(.failure(error))
                 return
             }
-            guard let token = oauthToken else {
-                completion(.failure(NSError(domain: "InvalidToken", code: -1, userInfo: nil)))
+            guard let token = oauthToken,
+                  let idTokenString = token.idToken else {
+                completion(.failure(NSError(domain: "InvalidToken", code: -1)))
                 return
             }
 
-            let newToken = Token(
-                accessToken: token.accessToken,
-                refreshToken: token.refreshToken,
-                accessExpiredAt: ISO8601DateFormatter().string(from: token.expiredAt),
-                refreshExpiredAt: ISO8601DateFormatter().string(from: token.refreshTokenExpiredAt)
-            )
-            completion(.success(newToken))
+            completion(.success(IdToken(idToken: idTokenString)))
         }
     }
 
-    func loginWithKakaoWeb(completion: @escaping (Result<Token, Error>) -> Void) {
+    func loginWithKakaoWeb(completion: @escaping (Result<IdToken, Error>) -> Void) {
         UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
             if let error = error {
                 completion(.failure(error))
                 return
             }
-            guard let token = oauthToken else {
-                completion(.failure(NSError(domain: "InvalidToken", code: -1, userInfo: nil)))
+            guard let token = oauthToken,
+                  let idTokenString = token.idToken else {
+                completion(.failure(NSError(domain: "InvalidToken", code: -1)))
                 return
             }
 
-            let newToken = Token(
-                accessToken: token.accessToken,
-                refreshToken: token.refreshToken,
-                accessExpiredAt: ISO8601DateFormatter().string(from: token.expiredAt),
-                refreshExpiredAt: ISO8601DateFormatter().string(from: token.refreshTokenExpiredAt)
-            )
-            completion(.success(newToken))
+            completion(.success(IdToken(idToken: idTokenString)))
         }
     }
 
-    func fetchUserInfo(completion: @escaping (Result<String, Error>) -> Void) {
-        UserApi.shared.me { user, error in
-            if let error = error {
+    func fetchNewUserResult(idToken: String, completion: @escaping (Result<SocialLoginResponseDTO, Error>) -> Void) {
+        let endPoint = JSONBodyEndpoint<SocialLoginResponseDTO>(
+            httpMethod: .post,
+            path: APIConstant.isKakaoUserPath,
+            body: SocialLoginRequestDTO(idToken: idToken, provider: "KAKAO")
+        )
+        networkManager.request(endpoint: endPoint) { result in
+            switch result {
+            case .success(let loginResponse):
+                completion(.success(loginResponse))
+            case .failure(let error):
                 completion(.failure(error))
-                return
             }
-            guard let nickname = user?.kakaoAccount?.profile?.nickname else {
-                completion(.failure(NSError(domain: "InvalidUser", code: -1, userInfo: nil)))
-                return
-            }
-            completion(.success(nickname))
         }
-    }
-
-    func sendTokenToServer(completion: @escaping () -> Void) {
-        // TODO: 서버와 통신
     }
 }

@@ -54,15 +54,25 @@ extension SignUpFieldStackView {
 // MARK: - configure AutoLayout
 extension SignUpFieldStackView {
     private func configureLayout() {
+        let labelWrapperView = UIView()
+        labelWrapperView.addSubview(signUpLabel)
+
         addArrangedSubview(signUpTextField)
-        addArrangedSubview(signUpLabel)
+        addArrangedSubview(labelWrapperView)
 
         signUpTextField.translatesAutoresizingMaskIntoConstraints = false
+        labelWrapperView.translatesAutoresizingMaskIntoConstraints = false
         signUpLabel.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             signUpTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor),
 
-            signUpLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10)
+            labelWrapperView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            labelWrapperView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+
+            signUpLabel.leadingAnchor.constraint(equalTo: labelWrapperView.leadingAnchor, constant: 10),
+            signUpLabel.topAnchor.constraint(equalTo: labelWrapperView.topAnchor),
+            signUpLabel.bottomAnchor.constraint(equalTo: labelWrapperView.bottomAnchor)
         ])
     }
 }

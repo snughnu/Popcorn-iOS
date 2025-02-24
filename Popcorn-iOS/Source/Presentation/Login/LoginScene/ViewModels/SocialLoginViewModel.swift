@@ -6,65 +6,43 @@
 //
 
 import Foundation
-import KakaoSDKUser
 
 protocol SocialLoginViewModelProtocol {
-    var loginSuccessHandler: ((String) -> Void)? { get set }
-    var loginFailHandler: ((Error) -> Void)? { get set }
+    var loginSuccessHandler: ((Bool) -> Void)? { get set }
+    var loginFailHandler: ((String) -> Void)? { get set }
 
     func loginWithKakao()
 }
 
 final class SocialLoginViewModel: SocialLoginViewModelProtocol {
     // MARK: - Properties
-    private let socialLoginUseCase: SocialLogionUseCaseProtocol
+    private let socialLoginUseCase: SocialLoginUseCaseProtocol
 
     // MARK: - Output
-    var loginSuccessHandler: ((String) -> Void)?
-    var loginFailHandler: ((Error) -> Void)?
+    var loginSuccessHandler: ((Bool) -> Void)?
+    var loginFailHandler: ((String) -> Void)?
 
     // MARK: - Initializer
-    init(socialLoginUseCase: SocialLogionUseCaseProtocol) {
+    init(
+        socialLoginUseCase: SocialLoginUseCaseProtocol
+    ) {
         self.socialLoginUseCase = socialLoginUseCase
-    }
-}
-
-// MARK: - Private methods
-extension SocialLoginViewModel {
-    func loginWithKaKaoTalk() {
-        socialLoginUseCase.loginWithKakaoTalk { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let nickname):
-                    self?.loginSuccessHandler?(nickname)
-                case .failure(let error):
-                    self?.loginFailHandler?(error)
-                }
-            }
-        }
-    }
-
-    func loginWithKakaoWeb() {
-        socialLoginUseCase.loginWithKakaoWeb { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let nickname):
-                    self?.loginSuccessHandler?(nickname)
-                case .failure(let error):
-                    self?.loginFailHandler?(error)
-                }
-            }
-        }
     }
 }
 
 // MARK: - Public methods
 extension SocialLoginViewModel {
     func loginWithKakao() {
-        if UserApi.isKakaoTalkLoginAvailable() {
-            loginWithKaKaoTalk()
-        } else {
-            loginWithKakaoWeb()
+        socialLoginUseCase.loginWithKakao { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let isNewUser):
+                    self.loginSuccessHandler?(isNewUser)
+                case .failure:
+                    self.loginFailHandler?("카카오 로그인 실패")
+                }
+            }
         }
     }
 }

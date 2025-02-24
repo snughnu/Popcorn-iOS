@@ -22,6 +22,7 @@ struct APIConstant {
     static let sendAuthNumPath = "/mailsend"
     static let validateAuthNumPath = "/mailauthChk"
     static let signUpPath = "/auth/signup"
+    static let isKakaoUserPath = "/api/v1/auth/oauth/kakao"
 
     // MARK: - Main Scene
     static let mainScenePath = "/popups/home"

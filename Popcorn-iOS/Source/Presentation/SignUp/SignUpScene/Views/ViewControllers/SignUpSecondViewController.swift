@@ -8,9 +8,22 @@
 import UIKit
 
 class SignUpSecondViewController: UIViewController {
-    let signUpSecondView = SignUpSecondView()
+    // MARK: - Properties
+    private let signUpSecondView = SignUpSecondView()
+    private var signUpSecondViewModel: SignUpSecondViewModelProtocol
     private let screenHeight = UIScreen.main.bounds.height
-    private var selectedProfileId: Int?
+
+    // MARK: - Initializer
+    init(
+        signUpSecondViewModel: SignUpSecondViewModelProtocol
+    ) {
+        self.signUpSecondViewModel = signUpSecondViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func loadView() {
         view = signUpSecondView
@@ -18,11 +31,149 @@ class SignUpSecondViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        SignUpInterestButton.selectedButtons = []
-        setupNavigationBar()
+        bind(to: signUpSecondViewModel)
         setupAddActions()
         setupTextField()
-        updateSignUpButtonState()
+        setupNavigationBar()
+    }
+
+    private func showAlert(title: String, message: String, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default) { _ in completion?() })
+        present(alert, animated: true)
+    }
+}
+
+// MARK: - Bind func
+extension SignUpSecondViewController {
+    private func bind(to signUpSecondViewModel: SignUpSecondViewModelProtocol) {
+        self.signUpSecondViewModel.profileImageUpdateHandler = { [ weak self ] profileId in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                let image: UIImage?
+                switch profileId {
+                case 0: image = UIImage(resource: .popcornProfile0)
+                case 1: image = UIImage(resource: .popcornProfile1)
+                case 2: image = UIImage(resource: .popcornProfile2)
+                case 3: image = UIImage(resource: .popcornProfile3)
+                case 4: image = UIImage(resource: .popcornProfile4)
+                default:
+                    return
+                }
+                self.signUpSecondView.profileImageView.image = image
+            }
+        }
+
+        self.signUpSecondViewModel.updateAgreeStateHandler = { [ weak self ] state in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.signUpSecondView.allAgreeButton.isSelected = state.isAllAgreed
+                self.signUpSecondView.firstAgreeButton.isSelected = state.isFirstAgreed
+                self.signUpSecondView.secondAgreeButton.isSelected = state.isSecondAgreed
+
+                let allAgreeImage = state.isAllAgreed
+                    ? UIImage(resource: .checkButtonSelected)
+                    : UIImage(resource: .checkButton)
+                self.signUpSecondView.allAgreeButton.setImage(allAgreeImage, for: .normal)
+
+                let firstAgreeImage = state.isFirstAgreed
+                    ? UIImage(resource: .individualCheckButtonSelected)
+                    : UIImage(resource: .individualCheckButton)
+                self.signUpSecondView.firstAgreeButton.setImage(firstAgreeImage, for: .normal)
+
+                let secondAgreeImage = state.isSecondAgreed
+                    ? UIImage(resource: .individualCheckButtonSelected)
+                    : UIImage(resource: .individualCheckButton)
+                self.signUpSecondView.secondAgreeButton.setImage(secondAgreeImage, for: .normal)
+
+                let isSecondAgreeSelected = state.isSecondAgreed
+                var config = self.signUpSecondView.signUpButton.configuration
+                config?.baseBackgroundColor = isSecondAgreeSelected
+                    ? UIColor(resource: .popcornOrange)
+                    : UIColor(resource: .popcornGray2)
+                self.signUpSecondView.signUpButton.configuration = config
+                self.signUpSecondView.signUpButton.isEnabled = isSecondAgreeSelected
+            }
+        }
+
+        self.signUpSecondViewModel.signUpResultHandler = { [ weak self ] isSuccess, message in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.showAlert(title: isSuccess ? "회원가입 성공" : "회원가입 실패", message: message) {
+                    if isSuccess {
+                        let loginViewController = DIContainer.shared.makeLoginViewController()
+                        self.navigationController?.setViewControllers([loginViewController], animated: true)
+                    }
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Setup AddActions
+extension SignUpSecondViewController {
+    private func setupAddActions() {
+        signUpSecondView.selectProfileImageButton.addAction(UIAction { _ in
+            self.selectProfileImageButtonTapped()
+        }, for: .touchUpInside)
+
+        signUpSecondView.allAgreeButton.addAction(UIAction { _ in
+            self.signUpSecondViewModel.toggleAllAgree()
+        }, for: .touchUpInside)
+
+        signUpSecondView.firstAgreeButton.addAction(UIAction { _ in
+            self.signUpSecondViewModel.toggleFirstAgree()
+        }, for: .touchUpInside)
+
+        signUpSecondView.secondAgreeButton.addAction(UIAction { _ in
+            self.signUpSecondViewModel.toggleSecondAgree()
+        }, for: .touchUpInside)
+
+        signUpSecondView.signUpButton.addAction(UIAction { _ in
+            self.signUpButtonTapped()
+        }, for: .touchUpInside)
+    }
+
+    private func selectProfileImageButtonTapped() {
+        let profilePickerViewController = ProfileImagePickerViewController()
+        profilePickerViewController.selectedImageHandler = { [ weak self ] _, selectedIndex in
+            guard let self = self else { return }
+            guard let selectedIndex = selectedIndex else { return }
+            self.signUpSecondViewModel.updateSelectedProfile(index: selectedIndex)
+        }
+        present(profilePickerViewController, animated: true)
+    }
+
+    private func signUpButtonTapped() {
+        guard let nickName = signUpSecondView.nickNameTextField.text, !nickName.isEmpty else {
+            showAlert(title: "입력 오류", message: "닉네임을 입력해주세요.")
+            return
+        }
+        signUpSecondViewModel.updateSelectedInterests(signUpSecondView.selectedInterests)
+        signUpSecondViewModel.sendSignUpData(nickName: nickName)
+    }
+}
+
+// MARK: - TextField Delegate Protocol
+extension SignUpSecondViewController: UITextFieldDelegate {
+    private func setupTextField() {
+        signUpSecondView.nickNameTextField.delegate = self
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == signUpSecondView.nickNameTextField {
+            textField.backgroundColor = UIColor(resource: .popcornGray3)
+        }
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        if textField == signUpSecondView.nickNameTextField {
+            textField.backgroundColor = UIColor(resource: .popcornGray4)
+        }
     }
 }
 
@@ -47,193 +198,5 @@ extension SignUpSecondViewController {
 
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
-    }
-}
-
-// MARK: - Setup AddActions
-extension SignUpSecondViewController {
-    private func setupAddActions() {
-        signUpSecondView.selectProfileImageButton.addAction(UIAction { _ in
-            self.selectProfileImageButtonTapped()
-        }, for: .touchUpInside)
-
-        signUpSecondView.allAgreeButton.addAction(UIAction { _ in
-            self.allAgreeButtonTapped()
-        }, for: .touchUpInside)
-
-        signUpSecondView.firstAgreeButton.addAction(UIAction { _ in
-            self.firstAgreeButtonTapped()
-        }, for: .touchUpInside)
-
-        signUpSecondView.secondAgreeButton.addAction(UIAction { _ in
-            self.secondAgreeButtonTapped()
-        }, for: .touchUpInside)
-
-        signUpSecondView.signUpButton.addAction(UIAction { _ in
-            self.signUpButtonTapped()
-        }, for: .touchUpInside)
-    }
-}
-
-// MARK: - Profile Image Button Tapped
-extension SignUpSecondViewController {
-    private func selectProfileImageButtonTapped() {
-        let profilePickerVC = ProfileImagePickerViewController()
-        profilePickerVC.selectedImageHandler = { [weak self] selectedImage, selectedColor, selectedIndex in
-            guard let self = self else { return }
-            self.signUpSecondView.profileImageView.image = selectedImage
-            self.signUpSecondView.profileImageView.backgroundColor = selectedColor
-            self.selectedProfileId = selectedIndex
-        }
-        present(profilePickerVC, animated: true)
-    }
-}
-
-// MARK: - Agree Buttons Actions
-extension SignUpSecondViewController {
-    private func allAgreeButtonTapped() {
-        let isAllSelected = signUpSecondView.allAgreeButton.isSelected
-        let newState = !isAllSelected
-        signUpSecondView.allAgreeButton.isSelected = newState
-        signUpSecondView.firstAgreeButton.isSelected = newState
-        signUpSecondView.secondAgreeButton.isSelected = newState
-        updateAgreeButtonImages()
-        updateSignUpButtonState()
-    }
-
-    private func firstAgreeButtonTapped() {
-        signUpSecondView.firstAgreeButton.isSelected.toggle()
-        updateAllAgreeButtonState()
-        updateAgreeButtonImages()
-        updateSignUpButtonState()
-    }
-
-    private func secondAgreeButtonTapped() {
-        signUpSecondView.secondAgreeButton.isSelected.toggle()
-        updateAllAgreeButtonState()
-        updateAgreeButtonImages()
-        updateSignUpButtonState()
-    }
-
-    private func updateAllAgreeButtonState() {
-        let isAllAgreed = signUpSecondView.firstAgreeButton.isSelected &&
-                          signUpSecondView.secondAgreeButton.isSelected
-        signUpSecondView.allAgreeButton.isSelected = isAllAgreed
-    }
-
-    private func updateAgreeButtonImages() {
-        let allAgreeImage = signUpSecondView.allAgreeButton.isSelected
-            ? UIImage(resource: .checkButtonSelected)
-            : UIImage(resource: .checkButton)
-        signUpSecondView.allAgreeButton.setImage(allAgreeImage, for: .normal)
-
-        let firstAgreeImage = signUpSecondView.firstAgreeButton.isSelected
-            ? UIImage(resource: .individualCheckButtonSelected)
-            : UIImage(resource: .individualCheckButton)
-        signUpSecondView.firstAgreeButton.setImage(firstAgreeImage, for: .normal)
-
-        let secondAgreeImage = signUpSecondView.secondAgreeButton.isSelected
-            ? UIImage(resource: .individualCheckButtonSelected)
-            : UIImage(resource: .individualCheckButton)
-        signUpSecondView.secondAgreeButton.setImage(secondAgreeImage, for: .normal)
-    }
-
-    private func updateSignUpButtonState() {
-        let isSecondAgreeSelected = signUpSecondView.secondAgreeButton.isSelected
-        signUpSecondView.signUpButton.isEnabled = isSecondAgreeSelected
-        var config = signUpSecondView.signUpButton.configuration
-        config?.background.backgroundColor = isSecondAgreeSelected
-            ? UIColor(resource: .popcornOrange)
-            : UIColor(resource: .popcornGray2)
-        signUpSecondView.signUpButton.configuration = config
-    }
-}
-
-// MARK: - SignUp Button Action
-extension SignUpSecondViewController {
-    @objc private func signUpButtonTapped() {
-        let keychainManager = KeychainManager()
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: "signupData",
-            kSecMatchLimit as String: kSecMatchLimitOne,
-            kSecReturnData as String: true
-        ]
-
-        guard let jsonData = keychainManager.fetchItem(with: query) else {
-            print("키체인에서 데이터를 불러오지 못했습니다.")
-            return
-        }
-
-        do {
-            var signUpData = try JSONDecoder().decode(SignUpRequestDTO.self, from: jsonData)
-
-            guard let nickname = signUpSecondView.nickNameTextField.text, !nickname.isEmpty,
-                  let selectedProfileId = selectedProfileId else {
-                print("닉네임이 비어있거나 프로필을 선택하지 않았습니다.")
-                return
-            }
-
-            signUpData.secondSignupDto = SecondSignupDto(
-                nickname: nickname,
-                profileId: selectedProfileId,
-                interests: signUpSecondView.selectedInterests.map(convertInterestToEnglish)
-            )
-
-            SignUpManager.shared.submitSignupData(signupData: signUpData) { [weak self] result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success:
-                        print("회원가입 성공")
-//                        let loginVC = LoginViewController()
-//                        self?.navigationController?.pushViewController(loginVC, animated: true)
-                    case .failure(let error):
-                        print("회원가입 실패: \(error.localizedDescription)")
-                    }
-                }
-            }
-        } catch {
-            print("키체인 데이터 디코딩 실패: \(error)")
-        }
-    }
-
-    private func convertInterestToEnglish(_ interest: String) -> String {
-        let mapping: [String: String] = [
-            "패션": "FASHION",
-            "뷰티": "BEAUTY",
-            "음식": "FOOD",
-            "캐릭터": "CHARACTER",
-            "드라마/영화": "MOVIES",
-            "라이프 스타일": "LIFESTYLE",
-            "예술": "ART",
-            "IT": "IT",
-            "스포츠": "SPORTS",
-            "셀럽": "CELEBRITY",
-            "반려동물": "PETS"
-        ]
-        return mapping[interest] ?? interest
-    }
-}
-
-// MARK: - TextField Delegate Protocol
-extension SignUpSecondViewController: UITextFieldDelegate {
-    private func setupTextField() {
-        signUpSecondView.nickNameTextField.delegate = self
-    }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
-
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == signUpSecondView.nickNameTextField {
-            textField.backgroundColor = UIColor(resource: .popcornGray3)
-        }
-    }
-
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-        if textField == signUpSecondView.nickNameTextField {
-            textField.backgroundColor = UIColor(resource: .popcornGray4)
-        }
     }
 }

@@ -8,8 +8,8 @@
 import Foundation
 
 protocol SocialLoginRepositoryProtocol {
-    func loginWithKaKaoTalk(completion: @escaping (Result<Token, Error>) -> Void)
-    func loginWithKakaoWeb(completion: @escaping (Result<Token, Error>) -> Void)
-    func fetchUserInfo(completion: @escaping (Result<String, Error>) -> Void)
-    func sendTokenToServer(completion: @escaping () -> Void)
+    func isKakaoTalkLoginAvailable() -> Bool
+    func loginWithKakaoTalk(completion: @escaping (Result<IdToken, Error>) -> Void)
+    func loginWithKakaoWeb(completion: @escaping (Result<IdToken, Error>) -> Void)
+    func fetchNewUserResult(idToken: String, completion: @escaping (Result<SocialLoginResponseDTO, Error>) -> Void)
 }

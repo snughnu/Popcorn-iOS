@@ -18,7 +18,10 @@ final class SignUpRepository: SignUpRepositoryProtocol {
         self.networkManager = networkManager
         self.keychainManager = keychainManager
     }
+}
 
+// MARK: - Public method - FirstScene signUp method
+extension SignUpRepository {
     func fetchUsernameDuplicationResult(username: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         let endPoint = Endpoint<CheckUsernameResponseDTO>(
             httpMethod: .get,
@@ -123,33 +126,10 @@ final class SignUpRepository: SignUpRepositoryProtocol {
                     completion(.failure(error))
                 }
             case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-
-    func fetchSendSignUpDataResult(signupData: SignUpRequestDTO, completion: @escaping (Result<Bool, Error>) -> Void) {
-        let endPoint = JSONBodyEndpoint<SignUpResponseDTO>(
-            httpMethod: .post,
-            path: APIConstant.signUpPath,
-            body: signupData
-        )
-
-        networkManager.request(endpoint: endPoint) { result in
-            switch result {
-            case .success(let response):
-                let resultCode = response.resultCode
-                if (200...299).contains(resultCode) {
-                    completion(.success(true))
-                } else if resultCode == 102 {
+                if case .serverError(let serverError) = error, (400...499).contains(serverError.rawValue) {
                     completion(.success(false))
-                } else {
-                    let error = NSError(domain: "SignUpError",
-                                        code: resultCode,
-                                        userInfo: [NSLocalizedDescriptionKey: "알 수 없는 상태 코드: \(resultCode)"])
-                    completion(.failure(error))
+                    return
                 }
-            case .failure(let error):
                 completion(.failure(error))
             }
         }
@@ -179,5 +159,39 @@ final class SignUpRepository: SignUpRepositoryProtocol {
             print("데이터 인코딩 실패: \(error)")
         }
         return false
+    }
+}
+
+// MARK: - Public method - SecondScene signUp method
+extension SignUpRepository {
+    func fetchSignUpDataFromKeychain() -> SignUpRequestDTO? {
+        return keychainManager.loadSignupData()
+    }
+
+    func fetchSignUpResult(signupData: SignUpRequestDTO, completion: @escaping (Result<Bool, Error>) -> Void) {
+        let endPoint = JSONBodyEndpoint<SignUpResponseDTO>(
+            httpMethod: .post,
+            path: APIConstant.signUpPath,
+            body: signupData
+        )
+
+        networkManager.request(endpoint: endPoint) { result in
+            switch result {
+            case .success(let response):
+                let resultCode = response.resultCode
+                if (200...299).contains(resultCode) {
+                    completion(.success(true))
+                } else if resultCode == 102 {
+                    completion(.success(false))
+                } else {
+                    let error = NSError(domain: "SignUpError",
+                                        code: resultCode,
+                                        userInfo: [NSLocalizedDescriptionKey: "알 수 없는 상태 코드: \(resultCode)"])
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }
