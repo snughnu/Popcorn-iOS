@@ -13,12 +13,7 @@ final class PopupListRepository: PopupListRepositoryProtocol {
 
     private let popupListSyncQueue = DispatchQueue(label: "com.popcorn.popupListSyncQueue")
 
-    init(
-        networkManager: NetworkManagerProtocol = NetworkManager(),
-        tokenRepository: TokenRepositoryProtocol = TokenRepository(
-            networkManager: NetworkManager(),
-            keychainManager: KeychainManager())
-    ) {
+    init(networkManager: NetworkManagerProtocol, tokenRepository: TokenRepositoryProtocol) {
         self.networkManager = networkManager
         self.tokenRepository = tokenRepository
     }
@@ -41,13 +36,13 @@ final class PopupListRepository: PopupListRepositoryProtocol {
 
         let popupMainListEndpoint = Endpoint<PopupMainListResponseDTO>(
             httpMethod: .get,
-            path: APIConstant.popupPath,
+            path: APIConstant.mainScenePath,
             headers: ["Authorization": "Bearer \(token)"]
         )
 
         let todayRecommendPopupEndpoint = Endpoint<[PopupPreviewResponseDTO]>(
             httpMethod: .get,
-            path: APIConstant.popupPath
+            path: APIConstant.mainScenePath
         )
 
         dispatchGroup.enter()

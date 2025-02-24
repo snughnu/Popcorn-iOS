@@ -17,7 +17,7 @@ final class PopupDetailViewController: UIViewController {
 
     private var segmentIndex: Int = 0
 
-    init(viewModel: PopupDetailViewModel = PopupDetailViewModel()) {
+    init(viewModel: PopupDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -49,7 +49,7 @@ final class PopupDetailViewController: UIViewController {
             guard let self else { return }
             if segmentIndex == 1 {
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    self.collectionView.reloadSections(IndexSet(2...2))
                 }
             }
         }
@@ -153,8 +153,8 @@ extension PopupDetailViewController: UICollectionViewDataSource {
             let data = viewModel.getDataSource().detailInformationItem()
             cell.configureContents(
                 address: data.address,
-                officialLink: data.officialLink,
-                businessHourInfo: data.buisinessHours,
+                officialLink: data.organizationUrl,
+                businessHourInfo: data.businesesHours,
                 popupIntroduce: data.introduce
             )
 
@@ -172,7 +172,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
             cell.configureContents(
                 totalRatingCount: data.totalRatingCount,
                 averageRating: data.averageRating,
-                ratingDistribution: data.starBreakDown,
+                ratingDistribution: data.ratingDistribution,
                 maximumIndex: maximumIndex
             )
 
@@ -204,7 +204,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
                 }
             }
 
-            if let reviewImagesUrls = data.imagesUrl {
+            if let reviewImagesUrls = data.reviewImagesUrl {
                 reviewImagesUrls.forEach { url in
                     dispatchGroup.enter()
                     viewModel.fetchImage(url: url) { result in
@@ -221,7 +221,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
                 cell.configureContents(
                     profileImage: profileImage,
                     nickName: data.nickname,
-                    starRating: data.rating,
+                    starRating: data.reviewRating,
                     reviewDate: data.reviewDate,
                     reviewImages: reviewImages,
                     reviewText: data.reviewText

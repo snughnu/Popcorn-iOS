@@ -33,6 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             KeychainManagerProtocol.self,
             instance: KeychainManager()
         )
+        diContainer.register(
+            ImageFetchManagerProtocol.self,
+            instance: ImageFetchManager()
+        )
 
         // MARK: - Repositories
         diContainer.register(
@@ -40,6 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             instance: TokenRepository(
                 networkManager: diContainer.resolve(NetworkManagerProtocol.self),
                 keychainManager: diContainer.resolve(KeychainManagerProtocol.self)
+            )
+        )
+        diContainer.register(
+            ImageFetchManagerRepositoryProtocol.self,
+            instance: ImageFetchManagerRepository(
+                imageFetchManager: diContainer.resolve(ImageFetchManagerProtocol.self)
             )
         )
         diContainer.register(
@@ -62,12 +72,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 keychainManager: diContainer.resolve(KeychainManagerProtocol.self)
             )
         )
+        diContainer.register(
+            PopupListRepositoryProtocol.self,
+            instance: PopupListRepository(
+                networkManager: diContainer.resolve(NetworkManagerProtocol.self),
+                tokenRepository: diContainer.resolve(TokenRepositoryProtocol.self)
+            )
+        )
+        diContainer.register(
+            PopupDetailRepositoryProtocol.self,
+            instance: PopupDetailRepository(
+                networkManager: diContainer.resolve(NetworkManagerProtocol.self),
+                tokenRepository: diContainer.resolve(TokenRepositoryProtocol.self)
+            )
+        )
 
         // MARK: - UseCases
         diContainer.register(
             TokenUseCaseProtocol.self,
             instance: TokenUseCase(
                 tokenRepository: diContainer.resolve(TokenRepositoryProtocol.self)
+            )
+        )
+        diContainer.register(
+            ImageFetchUseCaseProtocol.self,
+            instance: ImageFetchUseCase(
+                repository: diContainer.resolve(ImageFetchManagerRepositoryProtocol.self)
             )
         )
         diContainer.register(
@@ -88,6 +118,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SignUpUseCaseProtocol.self,
             instance: SignUpUseCase(
                 signUpRepository: diContainer.resolve(SignUpRepositoryProtocol.self)
+            )
+        )
+        diContainer.register(
+            PopupFetchListUseCaseProtocol.self,
+            instance: PopupFetchListUseCase(
+                repository: diContainer.resolve(PopupListRepositoryProtocol.self)
+            )
+        )
+        diContainer.register(
+            PopupDetailUseCaseProtocol.self,
+            instance: PopupDetailUseCase(
+                repository: diContainer.resolve(PopupDetailRepositoryProtocol.self)
             )
         )
 
@@ -114,6 +156,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SignUpSecondViewModelProtocol.self,
             instance: SignUpSecondViewModel(
                 signUpUseCase: diContainer.resolve(SignUpUseCaseProtocol.self)
+            )
+        )
+        diContainer.register(
+            MainSceneViewModel.self,
+            instance: MainSceneViewModel(
+                popupFetchListUseCase: diContainer.resolve(PopupFetchListUseCaseProtocol.self),
+                imageFetchUseCase: diContainer.resolve(ImageFetchUseCaseProtocol.self)
+            )
+        )
+        diContainer.register(
+            PopupDetailViewModel.self,
+            instance: PopupDetailViewModel(
+                imageFetchUseCase: diContainer.resolve(ImageFetchUseCaseProtocol.self),
+                popupDetailUseCase: diContainer.resolve(PopupDetailUseCaseProtocol.self)
             )
         )
     }

@@ -9,7 +9,7 @@ import Foundation
 
 final class MainSceneViewModel: MainCarouselViewModelProtocol {
     private let popupFetchListUseCase: PopupFetchListUseCaseProtocol
-    private let imageFetchUseCase: ImageFetchUseCase
+    private let imageFetchUseCase: ImageFetchUseCaseProtocol
     private let mainSceneDataSource: MainSceneDataSource
 
     // MARK: - Output
@@ -18,8 +18,8 @@ final class MainSceneViewModel: MainCarouselViewModelProtocol {
     var fetchPopupImagesErrorPublisher: (() -> Void)?
 
     init(
-        popupFetchListUseCase: PopupFetchListUseCaseProtocol = PopupFetchListUseCase(),
-        imageFetchUseCase: ImageFetchUseCase = ImageFetchUseCase(),
+        popupFetchListUseCase: PopupFetchListUseCaseProtocol,
+        imageFetchUseCase: ImageFetchUseCaseProtocol,
         mainSceneDataSource: MainSceneDataSource = MainSceneDataSource()
     ) {
         self.imageFetchUseCase = imageFetchUseCase

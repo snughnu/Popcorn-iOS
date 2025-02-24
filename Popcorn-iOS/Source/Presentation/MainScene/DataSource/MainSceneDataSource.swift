@@ -71,23 +71,6 @@ extension MainSceneDataSource {
         }
     }
 
-    func providePopupPreviewData(
-        of category: MainCategory,
-        at index: Int,
-        sectionOfInterest: Int = 0
-    ) -> PopupPreviewViewData {
-        switch category {
-        case .todayRecommend:
-            return carouselPopupImageUrls[index]
-        case .userPick:
-            return userPickPopup[index]
-        case .userInterest:
-            return userInterestPopup[sectionOfInterest].popups[index]
-        case .closingSoon:
-            return closingSoonPopup[index]
-        }
-    }
-
     func showPlaceholderData() {
         self.carouselPopupImageUrls = []
         self.userPickPopup = [PopupPreviewViewData.placeholder]

@@ -9,17 +9,22 @@ import Foundation
 
 final class PopupDetailViewModel: MainCarouselViewModelProtocol {
     private let imageFetchUseCase: ImageFetchUseCaseProtocol
+    private let popupDetailUseCase: PopupDetailUseCaseProtocol
     private let popupDetailDataSource: PopupDetailDataSource
+    private var reviewPage = 1
 
     // MARK: - Output
     var carouselImagePublisher: (() -> Void)?
+    /// 상세화면 첫 진입시 캐러셀 이미지 헤더, 정보 탭, 후기 탭을 받아오고, 이를 뷰에 알리는 클로저
     var popupInformationPublisher: (() -> Void)?
     var popupReviewPublisher: (() -> Void)?
 
-    init(imageFetchUseCase: ImageFetchUseCaseProtocol = ImageFetchUseCase(),
+    init(imageFetchUseCase: ImageFetchUseCaseProtocol,
+         popupDetailUseCase: PopupDetailUseCaseProtocol,
          popupDetailDataSource: PopupDetailDataSource = PopupDetailDataSource()
     ) {
         self.imageFetchUseCase = imageFetchUseCase
+        self.popupDetailUseCase = popupDetailUseCase
         self.popupDetailDataSource = popupDetailDataSource
     }
 
@@ -39,8 +44,34 @@ extension PopupDetailViewModel {
     }
 
     func fetchPopupInformation() {
-        // 네트워킹 코드... 
+        popupDetailUseCase.fetchPopupAllData { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let (popupInformation, popupRatingDistribution, popupReviewList)):
+                self.popupDetailDataSource.updateInformationData(popupInformation)
+                self.popupDetailDataSource.updateRatingData(popupRatingDistribution)
+                self.popupDetailDataSource.updateReviewData(popupReviewList)
+            case .failure:
+                popupDetailDataSource.showPlaceholderData()
+            }
+        }
+        carouselImagePublisher?()
         popupInformationPublisher?()
+        popupReviewPublisher?()
+    }
+
+    func fetchPopupReview() {
+        let popupId = popupDetailDataSource.getPopupId()
+        popupDetailUseCase.fetchPopupReviews(popupId: popupId, page: reviewPage) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let popupReviewList):
+                self.popupDetailDataSource.updateReviewData(popupReviewList)
+            case .failure:
+                popupDetailDataSource.showPlaceholderReviewData()
+            }
+        }
+        popupReviewPublisher?()
     }
 
     func generateMockData() {
@@ -61,99 +92,126 @@ extension PopupDetailViewModel {
 
 // MARK: - View Model
 struct PopupMainInformationViewData {
+    let popupId: Int
+    let popupImagesUrl: [String]
     let popupTitle: String
     let popupPeriod: String
     let isUserPick: Bool
     let hashTags: [String]
 
     static let placeholder = PopupMainInformationViewData(
-        from: PopupMainInformation(
+        from: PopupInformation(
+            popupId: -1,
+            popupImagesUrl: [],
             popupTitle: "팝콘 팝업스토어",
-            startDate: Date(),
-            endDate: Date(),
+            startDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
+            endDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
             isUserPick: false,
-            hashTags: []
+            hashTags: [],
+            address: "",
+            organizationUrl: "",
+            businesesHours: "",
+            introduce: "",
+            reservationUrl: ""
         )
     )
 
-    init(from entity: PopupMainInformation) {
+    init(from entity: PopupInformation) {
         let startDateString = PopupDateFormatter.formattedPopupStoreDate(from: entity.startDate)
         let endDateString = PopupDateFormatter.formattedPopupStoreDate(from: entity.endDate)
 
+        self.popupId = entity.popupId
+        self.popupImagesUrl = entity.popupImagesUrl
         self.popupTitle = entity.popupTitle
-        self.isUserPick = entity.isUserPick
-        self.hashTags = entity.hashTags ?? []
         self.popupPeriod = "\(startDateString)~\(endDateString)"
+        self.isUserPick = entity.isUserPick
+        self.hashTags = entity.hashTags
     }
 }
 
 struct PopupDetailInformationViewData {
     let address: String
-    let officialLink: String
-    let buisinessHours: String
+    let organizationUrl: String
+    let businesesHours: String
     let introduce: String
+    let reservationUrl: String
 
     static let placeholder = PopupDetailInformationViewData(
-        from: PopupDetailInformation(
+        from: PopupInformation(
+            popupId: -1,
+            popupImagesUrl: [],
+            popupTitle: "팝콘 팝업스토어",
+            startDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
+            endDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
+            isUserPick: false,
+            hashTags: [],
             address: "",
-            officialLink: "",
+            organizationUrl: "",
             businesesHours: "",
-            introduce: ""
+            introduce: "",
+            reservationUrl: ""
+            )
         )
-    )
 
-    init(from entity: PopupDetailInformation) {
+    init(from entity: PopupInformation) {
         self.address = entity.address
-        self.officialLink = entity.officialLink
-        self.buisinessHours = entity.businesesHours
+        self.organizationUrl = entity.organizationUrl
+        self.businesesHours = entity.businesesHours
         self.introduce = entity.introduce
+        self.reservationUrl = entity.reservationUrl
     }
 }
 
 struct PopupRatingViewData {
     let totalRatingCount: Int
     let averageRating: Float
-    let starBreakDown: [Int: Int]
+    let ratingDistribution: [RatingDistribution: Int]
 
     static let placeholder = PopupRatingViewData(
-        from: PopupTotalReview(
+        from: PopupRatingDistribution(
             averageRating: 0,
-            starBreakDown: [0: 0, 1: 0, 2: 0, 3: 0, 4: 0],
-            review: [])
+            ratingDistribution: [.oneStar: 0, .twoStars: 0, .threeStars: 0, .fourStars: 0, .fiveStars: 0]
+        )
     )
 
-    init(from entity: PopupTotalReview) {
-        self.totalRatingCount = entity.review.count
+    init(from entity: PopupRatingDistribution) {
+        self.totalRatingCount = entity.ratingDistribution.values.reduce(0, +)
         self.averageRating = entity.averageRating
-        self.starBreakDown = entity.starBreakDown
+        self.ratingDistribution = entity.ratingDistribution
     }
 }
 
 struct PopupReviewViewData {
     let profileImageUrl: String?
     let nickname: String
-    let rating: Float
+    let reviewRating: Float
     let reviewDate: String
-    let imagesUrl: [String]?
+    let reviewImagesUrl: [String]?
     let reviewText: String
+    let likeCount: Int
+    let isLiked: Bool
 
     static let placeholder = PopupReviewViewData(
         from: PopupReview(
             profileImageUrl: nil,
-            nickName: "사용자",
+            nickName: "팝콘이",
             reviewRating: 0,
             reviewDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
             reviewImagesUrl: nil,
-            reviewText: ""
+            reviewText: "",
+            likeCount: 0,
+            isLiked: false
         )
     )
 
     init(from entity: PopupReview) {
         self.profileImageUrl = entity.profileImageUrl
         self.nickname = entity.nickName
-        self.rating = entity.reviewRating
+        self.reviewRating = entity.reviewRating
         self.reviewDate = PopupDateFormatter.formattedReviewDate(from: entity.reviewDate)
-        self.imagesUrl = entity.reviewImagesUrl
+        self.reviewImagesUrl = entity.reviewImagesUrl
         self.reviewText = entity.reviewText
+        self.likeCount = entity.likeCount
+        self.isLiked = entity.isLiked
     }
 }
