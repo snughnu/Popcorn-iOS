@@ -13,12 +13,7 @@ final class PopupListRepository: PopupListRepositoryProtocol {
 
     private let popupListSyncQueue = DispatchQueue(label: "com.popcorn.popupListSyncQueue")
 
-    init(
-        networkManager: NetworkManagerProtocol = NetworkManager(),
-        tokenRepository: TokenRepositoryProtocol = TokenRepository(
-            networkManager: NetworkManager(),
-            keychainManager: KeychainManager())
-    ) {
+    init(networkManager: NetworkManagerProtocol, tokenRepository: TokenRepositoryProtocol) {
         self.networkManager = networkManager
         self.tokenRepository = tokenRepository
     }

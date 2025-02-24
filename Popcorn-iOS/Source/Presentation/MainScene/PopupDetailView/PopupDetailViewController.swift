@@ -17,7 +17,7 @@ final class PopupDetailViewController: UIViewController {
 
     private var segmentIndex: Int = 0
 
-    init(viewModel: PopupDetailViewModel = PopupDetailViewModel()) {
+    init(viewModel: PopupDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

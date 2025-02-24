@@ -56,7 +56,8 @@ extension LoginViewController {
 
         self.loginViewModel.loginSuccessHandler = { [weak self] in
             guard let self = self else { return }
-            let mainSceneViewController = MainSceneViewController()
+            let mainViewModel = DIContainer.shared.resolve(MainSceneViewModel.self)
+            let mainSceneViewController = MainSceneViewController(mainViewModel: mainViewModel)
             self.navigationController?.setViewControllers([mainSceneViewController], animated: true)
         }
 
@@ -76,7 +77,8 @@ extension LoginViewController {
                 let signUpSecondViewController = DIContainer.shared.makeSignUpSecondViewController()
                 self.navigationController?.setViewControllers([signUpSecondViewController], animated: true)
             } else {
-                let mainSceneViewController = MainSceneViewController()
+                let mainViewModel = DIContainer.shared.resolve(MainSceneViewModel.self)
+                let mainSceneViewController = MainSceneViewController(mainViewModel: mainViewModel)
                 self.navigationController?.setViewControllers([mainSceneViewController], animated: true)
             }
         }

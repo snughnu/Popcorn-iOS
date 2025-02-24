@@ -15,7 +15,7 @@ final class MainSceneViewController: UIViewController {
         collectionViewLayout: generateCollectionViewLayout()
     )
 
-    init(mainViewModel: MainSceneViewModel = MainSceneViewModel()) {
+    init(mainViewModel: MainSceneViewModel) {
         self.mainViewModel = mainViewModel
         super.init(nibName: nil, bundle: nil)
     }

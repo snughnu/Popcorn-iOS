@@ -19,8 +19,8 @@ final class PopupDetailViewModel: MainCarouselViewModelProtocol {
     var popupInformationPublisher: (() -> Void)?
     var popupReviewPublisher: (() -> Void)?
 
-    init(imageFetchUseCase: ImageFetchUseCaseProtocol = ImageFetchUseCase(),
-         popupDetailUseCase: PopupDetailUseCaseProtocol = PopupDetailUseCase(),
+    init(imageFetchUseCase: ImageFetchUseCaseProtocol,
+         popupDetailUseCase: PopupDetailUseCaseProtocol,
          popupDetailDataSource: PopupDetailDataSource = PopupDetailDataSource()
     ) {
         self.imageFetchUseCase = imageFetchUseCase

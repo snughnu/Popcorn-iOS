@@ -27,7 +27,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             guard let self = self else { return }
             DispatchQueue.main.async {
                 if isTokenValid {
-                    let mainSceneViewController = MainSceneViewController()
+                    let viewModel = DIContainer.shared.resolve(MainSceneViewModel.self)
+                    let mainSceneViewController = MainSceneViewController(mainViewModel: viewModel)
                     self.window?.rootViewController = UINavigationController(
                         rootViewController: mainSceneViewController
                     )

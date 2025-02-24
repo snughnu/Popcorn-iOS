@@ -8,7 +8,7 @@
 final class PopupFetchListUseCase: PopupFetchListUseCaseProtocol {
     private let repository: PopupListRepositoryProtocol
 
-    init(repository: PopupListRepositoryProtocol = PopupListRepository()) {
+    init(repository: PopupListRepositoryProtocol) {
         self.repository = repository
     }
 

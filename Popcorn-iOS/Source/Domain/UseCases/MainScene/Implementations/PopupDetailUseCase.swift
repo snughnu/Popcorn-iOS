@@ -11,7 +11,7 @@ final class PopupDetailUseCase: PopupDetailUseCaseProtocol {
     private let repository: PopupDetailRepositoryProtocol
     private let popupListSyncQueue = DispatchQueue(label: "com.popcorn.PopupDetailUseCase")
 
-    init(repository: PopupDetailRepositoryProtocol = PopupDetailRepository()) {
+    init(repository: PopupDetailRepositoryProtocol) {
         self.repository = repository
     }
 
