@@ -40,6 +40,10 @@ final class PopupDetailUseCase: PopupDetailUseCaseProtocol {
         repository.fetchPopupReviews(popupId: popupId, page: page, completion: completion)
     }
 
+    func togglePopupPick(popupId: Int, completion: @escaping (Result<Bool, Error>) -> Void) {
+        repository.togglePopupPick(popupId: popupId, completion: completion)
+    }
+
     func extractHashTag(from popupInformation: PopupInformation) -> [String] {
         let address = popupInformation.address
         let dDay = PopupDateFormatter.calculateDDay(from: popupInformation.endDate)
