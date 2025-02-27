@@ -45,6 +45,7 @@
 		56537BB62CE0F5290092A292 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56537BAE2CE0F5290092A292 /* SceneDelegate.swift */; };
 		56537BB72CE0F5290092A292 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56537BAF2CE0F5290092A292 /* ViewController.swift */; };
 		565461642D63181900BC336D /* PopupInformationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565461632D63180D00BC336D /* PopupInformationResponseDTO.swift */; };
+		565535162D7065490072A9A4 /* PopupDetailCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565535152D70653D0072A9A4 /* PopupDetailCollectionViewCellDelegate.swift */; };
 		565C415C2D2028DD0016003A /* MainCollectionTitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565C415B2D2028DD0016003A /* MainCollectionTitleHeaderView.swift */; };
 		565C415F2D2032160016003A /* MainCarouselViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */; };
 		5660FD392D42186E00F9B4D9 /* APIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5660FD382D42186B00F9B4D9 /* APIConstant.swift */; };
@@ -211,6 +212,7 @@
 		56537BAE2CE0F5290092A292 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		56537BAF2CE0F5290092A292 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		565461632D63180D00BC336D /* PopupInformationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupInformationResponseDTO.swift; sourceTree = "<group>"; };
+		565535152D70653D0072A9A4 /* PopupDetailCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetailCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
 		565C415B2D2028DD0016003A /* MainCollectionTitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionTitleHeaderView.swift; sourceTree = "<group>"; };
 		565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCarouselViewModelProtocol.swift; sourceTree = "<group>"; };
 		5660FD382D42186B00F9B4D9 /* APIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstant.swift; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 		562447142D33B657000E94A0 /* Delegate */ = {
 			isa = PBXGroup;
 			children = (
+				565535152D70653D0072A9A4 /* PopupDetailCollectionViewCellDelegate.swift */,
 				5679D4092D700385005FA703 /* PopupTitleCollectionViewCellDelegate.swift */,
 				56EAA9362D34F4A6007265D3 /* WriteReviewButtonDelegate.swift */,
 				56EAA92E2D34EB06007265D3 /* StarRatingViewDelegate.swift */,
@@ -1503,6 +1506,7 @@
 				56F6D4842D534A2500C2BEBE /* ImageFetchManagerRepositoryProtocol.swift in Sources */,
 				566A0E4F2D3E23AF00B70929 /* WriteReviewViewModel.swift in Sources */,
 				56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */,
+				565535162D7065490072A9A4 /* PopupDetailCollectionViewCellDelegate.swift in Sources */,
 				56018C9B2CEC9AE000AC8ED5 /* MainCollectionHeaderView.swift in Sources */,
 				BCE8FA382D227CF100A7B8E2 /* CompleteFindIdViewController.swift in Sources */,
 				BC5F3C272D525FCE00248DB0 /* ValidateAuthNumRequestDTO.swift in Sources */,

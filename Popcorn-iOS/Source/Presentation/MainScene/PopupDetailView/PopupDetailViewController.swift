@@ -172,6 +172,8 @@ extension PopupDetailViewController: UICollectionViewDataSource {
                 popupIntroduce: data.introduce
             )
 
+            cell.delegate = self
+
             return cell
         case (1, 1):
             guard let cell = collectionView.dequeueReusableCell(
@@ -446,6 +448,13 @@ extension PopupDetailViewController: PopupTitleCollectionViewCellDelegate {
     }
 }
 
+// MARK: - Implement PopupDetailInfoCollectionViewCell Delegate
+extension PopupDetailViewController: PopupDetailCollectionViewCellDelegate {
+    func didTapReservationButton() {
+        let reservationUrlString = viewModel.getDataSource().detailInformationItem().reservationUrl
+        UIApplication.shared.open(URL(string: reservationUrlString)!, options: [:], completionHandler: nil)
+    }
+}
 // MARK: - Implement WriteReviewButton Delegate
 extension PopupDetailViewController: WriteReviewButtonDelegate {
     func didTapWriteReviewButtonDelegate() {

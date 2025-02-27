@@ -8,6 +8,8 @@
 import UIKit
 
 final class PopupDetailInfoCollectionViewCell: UICollectionViewCell {
+    weak var delegate: PopupDetailCollectionViewCellDelegate?
+
     private let locationImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(resource: .location)
@@ -176,6 +178,7 @@ final class PopupDetailInfoCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         configureSubviews()
         configureLayout()
+        configureActions()
     }
 
     required init?(coder: NSCoder) {
@@ -190,6 +193,18 @@ extension PopupDetailInfoCollectionViewCell {
         officialLinkLabel.text = officialLink
         businessHourInfoLabel.text = businessHourInfo
         popupIntroduceLabel.text = popupIntroduce
+    }
+}
+
+// MARK: - Configure Actions
+extension PopupDetailInfoCollectionViewCell {
+    func configureActions() {
+        reservationButton.addAction(
+            UIAction { _ in
+                self.delegate?.didTapReservationButton()
+            },
+            for: .touchUpInside
+        )
     }
 }
 
