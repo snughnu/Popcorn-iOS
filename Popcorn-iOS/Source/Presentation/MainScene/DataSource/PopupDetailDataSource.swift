@@ -106,7 +106,7 @@ extension PopupDetailDataSource {
             popupTitle: "팝콘 팝업스토어",
             startDate: Date(),
             endDate: Calendar.current.date(byAdding: .day, value: 10, to: Date())!,
-            isUserPick: true,
+            isPick: true,
             hashTags: ["#전시", "#팝업스토어", "#문화생활"],
             address: "서울특별시 강남구 강남대로 123",
             organizationUrl: "www.naver.com",

@@ -137,7 +137,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
             cell.configureContents(
                 title: data.popupTitle,
                 period: data.popupPeriod,
-                isUserPick: data.isUserPick,
+                isPick: data.isPick,
                 hashTags: data.hashTags
             )
 
