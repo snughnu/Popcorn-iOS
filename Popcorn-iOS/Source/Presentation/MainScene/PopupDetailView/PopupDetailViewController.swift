@@ -427,7 +427,7 @@ extension PopupDetailViewController {
 }
 
 // MARK: - Implement PopupPickButton Delegate
-extension PopupDetailViewController: PopupPickButtonDelegate {
+extension PopupDetailViewController: PopupTitleCollectionViewCellDelegate {
     func didTapPickButton() {
         let popupId = viewModel.getDataSource().getPopupId()
         viewModel.didTapPickButton(for: popupId)

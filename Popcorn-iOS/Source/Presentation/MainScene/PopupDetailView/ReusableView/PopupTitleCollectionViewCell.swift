@@ -8,7 +8,7 @@
 import UIKit
 
 final class PopupTitleCollectionViewCell: UICollectionViewCell {
-    weak var delegate: PopupPickButtonDelegate?
+    weak var delegate: PopupTitleCollectionViewCellDelegate?
 
     private let popupTitleLabel: UILabel = {
         let label = UILabel()
