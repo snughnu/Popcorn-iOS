@@ -172,6 +172,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 popupDetailUseCase: diContainer.resolve(PopupDetailUseCaseProtocol.self)
             )
         )
+
+        // MARK: - ViewControllers
+        diContainer.register(
+            LoginViewController.self,
+            instance: LoginViewController(
+                loginViewModel: diContainer.resolve(LoginViewModelProtocol.self),
+                socialLoginViewModel: diContainer.resolve(SocialLoginViewModelProtocol.self)
+            )
+        )
+        diContainer.register(
+            SignUpFirstViewController.self,
+            instance: SignUpFirstViewController(
+                signUpFirstViewModel: diContainer.resolve(SignUpFirstViewModelProtocol.self)
+            )
+        )
+        diContainer.register(
+            SignUpSecondViewController.self,
+            instance: SignUpSecondViewController(
+                signUpSecondViewModel: diContainer.resolve(SignUpSecondViewModelProtocol.self)
+            )
+        )
     }
 
     // MARK: UISceneSession Lifecycle
