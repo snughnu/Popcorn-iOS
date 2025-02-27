@@ -1063,8 +1063,8 @@
 		BCB86A642D486D8300F00F1F /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				563A1E3A2D54AB36008DA4F8 /* MainScene */,
 				56F6D4852D534CC600C2BEBE /* ImageFetchManagerRepository.swift */,
+				563A1E3A2D54AB36008DA4F8 /* MainScene */,
 				BC5F3C162D524A4100248DB0 /* Token */,
 				BC5F3C1A2D524A4B00248DB0 /* Login */,
 				BC5F3C1B2D524A4F00248DB0 /* SignUp */,
