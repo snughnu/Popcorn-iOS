@@ -96,7 +96,7 @@ struct PopupMainInformationViewData {
     let popupImagesUrl: [String]
     let popupTitle: String
     let popupPeriod: String
-    let isUserPick: Bool
+    let isPick: Bool
     let hashTags: [String]
 
     static let placeholder = PopupMainInformationViewData(
@@ -106,7 +106,7 @@ struct PopupMainInformationViewData {
             popupTitle: "팝콘 팝업스토어",
             startDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
             endDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
-            isUserPick: false,
+            isPick: false,
             hashTags: [],
             address: "",
             organizationUrl: "",
@@ -124,7 +124,7 @@ struct PopupMainInformationViewData {
         self.popupImagesUrl = entity.popupImagesUrl
         self.popupTitle = entity.popupTitle
         self.popupPeriod = "\(startDateString)~\(endDateString)"
-        self.isUserPick = entity.isUserPick
+        self.isPick = entity.isPick
         self.hashTags = entity.hashTags
     }
 }
@@ -143,7 +143,7 @@ struct PopupDetailInformationViewData {
             popupTitle: "팝콘 팝업스토어",
             startDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
             endDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
-            isUserPick: false,
+            isPick: false,
             hashTags: [],
             address: "",
             organizationUrl: "",
