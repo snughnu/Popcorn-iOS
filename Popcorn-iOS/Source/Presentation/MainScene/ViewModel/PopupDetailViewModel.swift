@@ -18,6 +18,7 @@ final class PopupDetailViewModel: MainCarouselViewModelProtocol {
     /// 상세화면 첫 진입시 캐러셀 이미지 헤더, 정보 탭, 후기 탭을 받아오고, 이를 뷰에 알리는 클로저
     var popupInformationPublisher: (() -> Void)?
     var popupReviewPublisher: (() -> Void)?
+    var popupPickPublisher: ((Bool) -> Void)?
 
     init(imageFetchUseCase: ImageFetchUseCaseProtocol,
          popupDetailUseCase: PopupDetailUseCaseProtocol,
@@ -30,6 +31,23 @@ final class PopupDetailViewModel: MainCarouselViewModelProtocol {
 
     func getDataSource() -> PopupDetailDataSource {
         return popupDetailDataSource
+    }
+}
+
+// MARK: - Input
+extension PopupDetailViewModel {
+    func didTapPickButton(for popupId: Int) {
+        popupDetailUseCase.togglePopupPick(popupId: popupId) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let isPick):
+                self.popupDetailDataSource.updatePickStatus(isPick)
+                popupPickPublisher?(isPick)
+            case .failure(let error):
+                // TODO: 에러 UI 처리
+                print("찜하기 실패: \(error)")
+            }
+        }
     }
 }
 
@@ -96,7 +114,7 @@ struct PopupMainInformationViewData {
     let popupImagesUrl: [String]
     let popupTitle: String
     let popupPeriod: String
-    let isPick: Bool
+    var isPick: Bool
     let hashTags: [String]
 
     static let placeholder = PopupMainInformationViewData(
