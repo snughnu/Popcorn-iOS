@@ -7,4 +7,5 @@
 
 protocol PopupTitleCollectionViewCellDelegate: AnyObject {
     func didTapPickButton()
+    func didTapShareButton()
 }

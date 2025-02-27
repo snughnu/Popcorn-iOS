@@ -99,6 +99,13 @@ extension PopupTitleCollectionViewCell {
             },
             for: .touchUpInside
         )
+
+        shareButton.addAction(
+            UIAction { _ in
+                self.delegate?.didTapShareButton()
+            },
+            for: .touchUpInside
+        )
     }
 }
 

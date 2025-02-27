@@ -432,6 +432,15 @@ extension PopupDetailViewController: PopupTitleCollectionViewCellDelegate {
         let popupId = viewModel.getDataSource().getPopupId()
         viewModel.didTapPickButton(for: popupId)
     }
+
+    func didTapShareButton() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            let popupUrl = URL(string: viewModel.getDataSource().detailInformationItem().organizationUrl)!
+            let activityVC = UIActivityViewController(activityItems: [popupUrl], applicationActivities: nil)
+            self.present(activityVC, animated: true)
+        }
+    }
 }
 
 // MARK: - Implement WriteReviewButton Delegate
