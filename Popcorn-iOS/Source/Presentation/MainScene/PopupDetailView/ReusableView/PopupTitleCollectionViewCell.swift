@@ -8,6 +8,8 @@
 import UIKit
 
 final class PopupTitleCollectionViewCell: UICollectionViewCell {
+    weak var delegate: PopupPickButtonDelegate?
+
     private let popupTitleLabel: UILabel = {
         let label = UILabel()
         label.popcornSemiBold(text: "팝업 제목", size: 24)
@@ -66,6 +68,7 @@ final class PopupTitleCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         configureSubviews()
         configureLayout()
+        configureActions()
     }
 
     required init?(coder: NSCoder) {
@@ -80,6 +83,22 @@ extension PopupTitleCollectionViewCell {
         popupPeriodLabel.text = period
         pickButton.isSelected = isPick
         addTagsToHashtagStackView(tags: hashTags)
+    }
+
+    func updatePickButtonStatus(isPick: Bool) {
+        pickButton.isSelected = isPick
+    }
+}
+
+// MARK: - Configure Actions
+extension PopupTitleCollectionViewCell {
+    private func configureActions() {
+        pickButton.addAction(
+            UIAction { _ in
+                self.delegate?.didTapPickButton()
+            },
+            for: .touchUpInside
+        )
     }
 }
 

@@ -53,6 +53,18 @@ final class PopupDetailViewController: UIViewController {
                 }
             }
         }
+
+        viewModel.popupPickPublisher = { [weak self] isPick in
+            guard let self else { return }
+
+            DispatchQueue.main.async {
+                // 찜 버튼이 있는 PopupTitleCollectionViewCellSection의 IndexPath
+                let indexPath = IndexPath(item: 0, section: 0)
+                if let cell = self.collectionView.cellForItem(at: indexPath) as? PopupTitleCollectionViewCell {
+                    cell.updatePickButtonStatus(isPick: isPick)
+                }
+            }
+        }
     }
 }
 
@@ -140,6 +152,8 @@ extension PopupDetailViewController: UICollectionViewDataSource {
                 isPick: data.isPick,
                 hashTags: data.hashTags
             )
+
+            cell.delegate = self
 
             return cell
         case (1, 0):
@@ -409,6 +423,14 @@ extension PopupDetailViewController {
         section.supplementaryContentInsetsReference = .none
 
         return section
+    }
+}
+
+// MARK: - Implement PopupPickButton Delegate
+extension PopupDetailViewController: PopupPickButtonDelegate {
+    func didTapPickButton() {
+        let popupId = viewModel.getDataSource().getPopupId()
+        viewModel.didTapPickButton(for: popupId)
     }
 }
 

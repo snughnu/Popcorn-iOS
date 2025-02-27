@@ -28,6 +28,10 @@ extension PopupDetailDataSource {
     func updateReviewData(_ data: PopupReviewList) {
         popupReviews += data.reviews.map { PopupReviewViewData(from: $0) }
     }
+
+    func updatePickStatus(_ isPick: Bool) {
+        popupMainInformation?.isPick = isPick
+    }
 }
 
 // MARK: - Output
