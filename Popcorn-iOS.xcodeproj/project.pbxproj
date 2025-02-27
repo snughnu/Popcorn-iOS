@@ -54,7 +54,7 @@
 		566A0E4F2D3E23AF00B70929 /* WriteReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566A0E4E2D3E23A800B70929 /* WriteReviewViewModel.swift */; };
 		56799DDB2D5C821F001F11F7 /* MainSceneDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56799DDA2D5C821B001F11F7 /* MainSceneDataSource.swift */; };
 		56799DE32D5D1466001F11F7 /* PopupDetailDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56799DE22D5D145D001F11F7 /* PopupDetailDataSource.swift */; };
-		5679D40A2D70038C005FA703 /* PopupPickButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679D4092D700385005FA703 /* PopupPickButtonDelegate.swift */; };
+		5679D40A2D70038C005FA703 /* PopupTitleCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679D4092D700385005FA703 /* PopupTitleCollectionViewCellDelegate.swift */; };
 		568FFAA72D6C517200FA5775 /* DetailSceneUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FFAA62D6C517200FA5775 /* DetailSceneUseCaseTests.swift */; };
 		568FFAAC2D6C553900FA5775 /* DummyPopupDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FFAAB2D6C552E00FA5775 /* DummyPopupDetailRepository.swift */; };
 		56A061282D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A061272D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift */; };
@@ -220,7 +220,7 @@
 		566A0E4E2D3E23A800B70929 /* WriteReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewModel.swift; sourceTree = "<group>"; };
 		56799DDA2D5C821B001F11F7 /* MainSceneDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneDataSource.swift; sourceTree = "<group>"; };
 		56799DE22D5D145D001F11F7 /* PopupDetailDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetailDataSource.swift; sourceTree = "<group>"; };
-		5679D4092D700385005FA703 /* PopupPickButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupPickButtonDelegate.swift; sourceTree = "<group>"; };
+		5679D4092D700385005FA703 /* PopupTitleCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTitleCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
 		568FFAA62D6C517200FA5775 /* DetailSceneUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSceneUseCaseTests.swift; sourceTree = "<group>"; };
 		568FFAAB2D6C552E00FA5775 /* DummyPopupDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyPopupDetailRepository.swift; sourceTree = "<group>"; };
 		56A061272D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetailInfoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -364,7 +364,7 @@
 		562447142D33B657000E94A0 /* Delegate */ = {
 			isa = PBXGroup;
 			children = (
-				5679D4092D700385005FA703 /* PopupPickButtonDelegate.swift */,
+				5679D4092D700385005FA703 /* PopupTitleCollectionViewCellDelegate.swift */,
 				56EAA9362D34F4A6007265D3 /* WriteReviewButtonDelegate.swift */,
 				56EAA92E2D34EB06007265D3 /* StarRatingViewDelegate.swift */,
 				562447152D33B65A000E94A0 /* ReviewCollectionViewCellDelegate.swift */,
@@ -1447,7 +1447,7 @@
 				56018CA22CECB1C400AC8ED5 /* MainSceneViewController.swift in Sources */,
 				56799DE32D5D1466001F11F7 /* PopupDetailDataSource.swift in Sources */,
 				56799DDB2D5C821F001F11F7 /* MainSceneDataSource.swift in Sources */,
-				5679D40A2D70038C005FA703 /* PopupPickButtonDelegate.swift in Sources */,
+				5679D40A2D70038C005FA703 /* PopupTitleCollectionViewCellDelegate.swift in Sources */,
 				BCE8FA342D2272F600A7B8E2 /* FindIdPwViewController.swift in Sources */,
 				BCE6E5F82CF31F1A0036BAF6 /* SignUpTextField.swift in Sources */,
 				BC58B0D42D3D231B00A8E42F /* SignUpRequestDTO.swift in Sources */,
