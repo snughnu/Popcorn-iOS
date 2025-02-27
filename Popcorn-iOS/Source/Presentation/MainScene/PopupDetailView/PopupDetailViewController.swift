@@ -436,8 +436,11 @@ extension PopupDetailViewController: PopupTitleCollectionViewCellDelegate {
     func didTapShareButton() {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            let popupUrl = URL(string: viewModel.getDataSource().detailInformationItem().organizationUrl)!
-            let activityVC = UIActivityViewController(activityItems: [popupUrl], applicationActivities: nil)
+            let popupUrlString = viewModel.getDataSource().detailInformationItem().organizationUrl
+            let shareText = "팝업스토어 정보를 확인해보세요! 👉 \(popupUrlString)"
+
+            let activityVC = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+            activityVC.excludedActivityTypes = [.airDrop, .print, .sharePlay]
             self.present(activityVC, animated: true)
         }
     }
