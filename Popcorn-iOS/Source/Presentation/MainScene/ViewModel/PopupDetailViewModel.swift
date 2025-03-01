@@ -211,7 +211,7 @@ struct PopupReviewViewData {
     let reviewDate: String
     let reviewImagesUrl: [String]?
     let reviewText: String
-    let likeCount: Int
+    let likeCount: String
     let isLiked: Bool
 
     static let placeholder = PopupReviewViewData(
@@ -234,7 +234,7 @@ struct PopupReviewViewData {
         self.reviewDate = PopupDateFormatter.formattedReviewDate(from: entity.reviewDate)
         self.reviewImagesUrl = entity.reviewImagesUrl
         self.reviewText = entity.reviewText
-        self.likeCount = entity.likeCount
+        self.likeCount = String(entity.likeCount)
         self.isLiked = entity.isLiked
     }
 }

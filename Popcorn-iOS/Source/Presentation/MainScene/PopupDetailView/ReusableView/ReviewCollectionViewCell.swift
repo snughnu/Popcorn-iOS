@@ -181,6 +181,7 @@ extension ReviewCollectionViewCell {
 
         nickNameLabel.text = reviewData.nickname
         reviewDateLabel.text = reviewData.reviewDate
+        reviewLikeCountLabel.text = reviewData.likeCount
         reviewLabel.text = reviewData.reviewText
 
         if let collectionView = superview as? UICollectionView {
