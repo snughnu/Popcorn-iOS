@@ -162,6 +162,8 @@ extension SignUpUseCase {
 }
 
 // MARK: - SecondScene signUp method
+// TODO: - API 나오면 리팩토링
+// 같은 API를 사용하면 이름만 변경, 다른 API를 사용하면 로직 추가
 extension SignUpUseCase {
     func executeSignUp(
         nickName: String,
@@ -172,7 +174,7 @@ extension SignUpUseCase {
         let convertedInterests = interests.map { convertInterestToEnglish($0) }
 
         if let idToken = signUpRepository.fetchIdToken() {
-            let kakaoSignUpData = KakaoSignUpRequestDTO(
+            let kakaoSignUpData = SocialSignUpRequestDTO(
                 idToken: idToken,
                 secondSignupDTO: SecondSignupDTO(
                     nickname: nickName,

@@ -74,7 +74,10 @@ extension SocialLoginRepository {
         }
     }
 
-    func fetchNewKakaoUserResult(idToken: String, completion: @escaping (Result<SocialLoginResponseDTO, Error>) -> Void) {
+    func fetchNewKakaoUserResult(
+        idToken: String,
+        completion: @escaping (Result<SocialLoginResponseDTO, Error>) -> Void
+    ) {
         let endPoint = JSONBodyEndpoint<SocialLoginResponseDTO>(
             httpMethod: .post,
             path: APIConstant.isKakaoUserPath,
@@ -96,11 +99,14 @@ extension SocialLoginRepository {
     }
 
     // TODO: - API 나온 후 리팩토링
-    func fetchNewAppleUserResult(idToken: String, completion: @escaping (Result<SocialLoginResponseDTO, Error>) -> Void) {
+    func fetchNewAppleUserResult(
+        idToken: String,
+        completion: @escaping (Result<SocialLoginResponseDTO, Error>) -> Void
+    ) {
         let endPoint = JSONBodyEndpoint<SocialLoginResponseDTO>(
             httpMethod: .post,
-            path: APIConstant.isKakaoUserPath,
-            body: SocialLoginRequestDTO(idToken: idToken, provider: "KAKAO")
+            path: APIConstant.isAppleUserPath,
+            body: SocialLoginRequestDTO(idToken: idToken, provider: "APPLE")
         )
         networkManager.request(endpoint: endPoint) { result in
             switch result {

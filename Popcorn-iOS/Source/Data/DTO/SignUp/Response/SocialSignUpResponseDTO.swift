@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct KakaoSignUpResponseDTO: Decodable {
+struct SocialSignUpResponseDTO: Decodable {
     let accessToken: String
     let refreshToken: String
     let accessExpiredAt: String

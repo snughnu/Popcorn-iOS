@@ -196,10 +196,10 @@ extension SignUpRepository {
     }
 
     func fetchKakaoSignUpResult(
-        signupData: KakaoSignUpRequestDTO,
+        signupData: SocialSignUpRequestDTO,
         completion: @escaping (Token) -> Void
     ) {
-        let endPoint = JSONBodyEndpoint<KakaoSignUpResponseDTO>(
+        let endPoint = JSONBodyEndpoint<SocialSignUpResponseDTO>(
             httpMethod: .post,
             path: APIConstant.kakaoSignUpPath,
             body: signupData
