@@ -10,8 +10,11 @@ import UIKit
 final class ReviewCollectionViewCell: UICollectionViewCell {
     private lazy var reviewImages = [UIImage]() {
         didSet {
-            reviewImagesHeightConstraint.constant = reviewImages.isEmpty ? 0 : 60
-
+            let newHeight = reviewImages.isEmpty ? CGFloat(0) : CGFloat(60)
+            if reviewImagesHeightConstraint.constant != newHeight {
+                reviewImagesHeightConstraint.constant = newHeight
+                layoutIfNeeded()
+            }
             reviewImagesCollectionView.reloadData()
         }
     }
@@ -181,6 +184,10 @@ extension ReviewCollectionViewCell {
         reviewDateLabel.text = reviewDate
         self.reviewImages = reviewImages
         reviewLabel.text = reviewText
+
+        if let collectionView = superview as? UICollectionView {
+            collectionView.performBatchUpdates(nil)
+        }
     }
 }
 
