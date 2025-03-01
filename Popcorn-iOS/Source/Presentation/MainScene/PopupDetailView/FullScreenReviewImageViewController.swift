@@ -69,8 +69,8 @@ extension FullScreenReviewImageViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(
-            MainCarouselCollectionViewCell.self,
-            forCellWithReuseIdentifier: MainCarouselCollectionViewCell.reuseIdentifier
+            FullScreenImageCollectionViewCell.self,
+            forCellWithReuseIdentifier: FullScreenImageCollectionViewCell.reuseIdentifier
         )
 
         if reviewImages.count == 1 {
@@ -130,9 +130,9 @@ extension FullScreenReviewImageViewController: UICollectionViewDataSource {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: MainCarouselCollectionViewCell.reuseIdentifier,
+            withReuseIdentifier: FullScreenImageCollectionViewCell.reuseIdentifier,
             for: indexPath
-        ) as? MainCarouselCollectionViewCell else {
+        ) as? FullScreenImageCollectionViewCell else {
             return UICollectionViewCell()
         }
 
