@@ -10,6 +10,7 @@ import UIKit
 final class MainCarouselPickHeaderView: UICollectionReusableView {
     private let carouselView = MainCarouselView(viewModel: nil)
     private let titleHeader = MainCollectionTitleHeaderView()
+    weak var delegate: MainCarouselViewDelegate?
 
     private let mainTextLogoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -35,6 +36,10 @@ extension MainCarouselPickHeaderView {
         titleHeader.configureContents(headerTitle: headerTitle)
         carouselView.updateViewModel(viewModel: viewModel)
         layoutSubviews()
+    }
+
+    func assignDelegate(_ delegate: MainCarouselViewDelegate) {
+        carouselView.delegate = delegate
     }
 }
 

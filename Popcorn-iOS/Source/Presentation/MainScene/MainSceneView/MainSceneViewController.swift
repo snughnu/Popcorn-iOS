@@ -252,6 +252,7 @@ extension MainSceneViewController: UICollectionViewDataSource {
                 return UICollectionReusableView()
             }
 
+            carouselHeader.assignDelegate(self)
             carouselHeader.configureContents(headerTitle: "찜 목록", viewModel: mainViewModel)
             return carouselHeader
         case 1..<(1 + mainViewModel.getDataSource().numbersOfInterest()):
@@ -370,6 +371,20 @@ extension MainSceneViewController {
         section.supplementaryContentInsetsReference = .none
 
         return section
+    }
+}
+
+// MARK: - Implement
+extension MainSceneViewController: MainCarouselViewDelegate {
+    func didTapCarouselImage(selectedIndex: Int) {
+        let popupId = mainViewModel.getDataSource().getCarouselPopupId(at: selectedIndex)
+
+        let detailViewController = PopupDetailViewController(
+            viewModel: DIContainer.shared.resolve(PopupDetailViewModel.self),
+            popupId: popupId
+        )
+
+        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
 

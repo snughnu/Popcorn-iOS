@@ -10,6 +10,8 @@ import UIKit
 final class MainCarouselView: UIView {
     private var viewModel: MainCarouselViewModelProtocol?
 
+    weak var delegate: MainCarouselViewDelegate?
+
     private let carouselCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -111,6 +113,13 @@ extension MainCarouselView: UICollectionViewDataSource {
             }
         }
         return cell
+    }
+}
+
+// MARK: - Configure UICollectionView Delegate
+extension MainCarouselView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.didTapCarouselImage(selectedIndex: indexPath.item)
     }
 }
 
