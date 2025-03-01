@@ -19,7 +19,7 @@ final class PopupRatingCollectionViewCell: UICollectionViewCell {
 
     private let ratingLabel: UILabel = {
         let label = UILabel()
-        label.popcornSemiBold(text: "5.0", size: 24)
+        label.popcornMedium(text: "5.0", size: 24)
         return label
     }()
 
@@ -137,21 +137,21 @@ extension PopupRatingCollectionViewCell {
             backgroundGrayView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 170/347),
 
             starRatingStackView.centerYAnchor.constraint(equalTo: backgroundGrayView.centerYAnchor),
-            starRatingStackView.leadingAnchor.constraint(equalTo: backgroundGrayView.leadingAnchor, constant: 38),
+            starRatingStackView.leadingAnchor.constraint(equalTo: backgroundGrayView.leadingAnchor, constant: 32),
 
             starRatingView.heightAnchor.constraint(equalTo: backgroundGrayView.heightAnchor, multiplier: 10/170),
-            starRatingView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 68.4/341),
+            starRatingView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 68.4/393),
 
             separatorView.leadingAnchor.constraint(equalTo: starRatingStackView.trailingAnchor, constant: 20),
             separatorView.centerYAnchor.constraint(equalTo: backgroundGrayView.centerYAnchor),
-            separatorView.heightAnchor.constraint(equalTo: backgroundGrayView.heightAnchor, multiplier: 94/170),
+            separatorView.heightAnchor.constraint(equalTo: backgroundGrayView.heightAnchor, multiplier: 84/170),
             separatorView.widthAnchor.constraint(equalToConstant: 1),
 
             ratingDistributionStackView.leadingAnchor.constraint(equalTo: separatorView.trailingAnchor, constant: 20),
             ratingDistributionStackView.centerYAnchor.constraint(equalTo: backgroundGrayView.centerYAnchor),
             ratingDistributionStackView.heightAnchor.constraint(
                 equalTo: backgroundGrayView.heightAnchor,
-                multiplier: 95/170
+                multiplier: 90/170
             ),
 
             writeReviewButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40),
