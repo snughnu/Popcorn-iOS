@@ -39,7 +39,6 @@ final class PopupRatingCollectionViewCell: UICollectionViewCell {
 
     private let writeReviewButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.popcornSemiBold(text: "리뷰 쓰기", size: 15)
         button.setTitleColor(UIColor(resource: .popcornGray1), for: .normal)
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor(resource: .popcornGray1).cgColor
@@ -86,7 +85,8 @@ extension PopupRatingCollectionViewCell {
         totalRatingCount: Int,
         averageRating: Float,
         ratingDistribution: [RatingDistribution: Int],
-        maximumIndex: Int
+        maximumIndex: Int,
+        isWriteReviewEnabled: Bool
     ) {
         let ratingLevelViews = [
             ratingLevel1View, ratingLevel2View, ratingLevel3View, ratingLevel4View, ratingLevel5View
@@ -103,6 +103,10 @@ extension PopupRatingCollectionViewCell {
         }
 
         ratingLevelViews[maximumIndex].highlightMaximumDistribution()
+
+        let writeReviewButtonTitle = isWriteReviewEnabled ? "리뷰 쓰기" : "종료 후 30일이 지나 리뷰 작성이 불가능해요"
+        writeReviewButton.popcornSemiBold(text: writeReviewButtonTitle, size: 15)
+        writeReviewButton.isEnabled = isWriteReviewEnabled
     }
 }
 

@@ -20,4 +20,13 @@ struct PopupInformation {
     let businesesHours: String
     let introduce: String
     let reservationUrl: String
+
+    var isFinished: Bool {
+        return Date() >= endDate
+    }
+
+    var isWriteReviewEnabled: Bool {
+        let reviewDeadline = Calendar.current.date(byAdding: .day, value: 30, to: endDate) ?? endDate
+        return Date() <= reviewDeadline
+    }
 }

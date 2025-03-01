@@ -169,7 +169,8 @@ extension PopupDetailViewController: UICollectionViewDataSource {
                 address: data.address,
                 officialLink: data.organizationUrl,
                 businessHourInfo: data.businesesHours,
-                popupIntroduce: data.introduce
+                popupIntroduce: data.introduce,
+                isFinished: data.isFinished
             )
 
             cell.delegate = self
@@ -185,11 +186,14 @@ extension PopupDetailViewController: UICollectionViewDataSource {
 
             cell.delegate = self
             let (data, maximumIndex) = viewModel.getDataSource().ratingItem()
+            let isWriteReviewEnabled = viewModel.isWriteReviewEnabled()
+
             cell.configureContents(
                 totalRatingCount: data.totalRatingCount,
                 averageRating: data.averageRating,
                 ratingDistribution: data.ratingDistribution,
-                maximumIndex: maximumIndex
+                maximumIndex: maximumIndex,
+                isWriteReviewEnabled: isWriteReviewEnabled
             )
 
             return cell

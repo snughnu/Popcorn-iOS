@@ -109,7 +109,7 @@ extension PopupDetailDataSource {
             popupImagesUrl: [imageUrl1, imageUrl2, imageUrl3],
             popupTitle: "팝콘 팝업스토어",
             startDate: Date(),
-            endDate: Calendar.current.date(byAdding: .day, value: 10, to: Date())!,
+            endDate: Calendar.current.date(byAdding: .day, value: -50, to: Date())!,
             isPick: true,
             hashTags: ["#전시", "#팝업스토어", "#문화생활"],
             address: "서울특별시 강남구 강남대로 123",

@@ -32,6 +32,14 @@ final class PopupDetailViewModel: MainCarouselViewModelProtocol {
     func getDataSource() -> PopupDetailDataSource {
         return popupDetailDataSource
     }
+
+    func isFinished() -> Bool {
+        return popupDetailDataSource.detailInformationItem().isFinished
+    }
+
+    func isWriteReviewEnabled() -> Bool {
+        return popupDetailDataSource.detailInformationItem().isWriteReviewEnabled
+    }
 }
 
 // MARK: - Input
@@ -49,7 +57,7 @@ extension PopupDetailViewModel {
             }
         }
     }
-    
+
     func didTapReviewLikeButton() {
         // 각 리뷰의 식별자를 파라미터로 받기
         // 유즈케이스를 통해 서버에 토글 요청
@@ -158,6 +166,8 @@ struct PopupDetailInformationViewData {
     let businesesHours: String
     let introduce: String
     let reservationUrl: String
+    let isFinished: Bool
+    let isWriteReviewEnabled: Bool
 
     static let placeholder = PopupDetailInformationViewData(
         from: PopupInformation(
@@ -182,6 +192,8 @@ struct PopupDetailInformationViewData {
         self.businesesHours = entity.businesesHours
         self.introduce = entity.introduce
         self.reservationUrl = entity.reservationUrl
+        self.isFinished = entity.isFinished
+        self.isWriteReviewEnabled = entity.isWriteReviewEnabled
     }
 }
 

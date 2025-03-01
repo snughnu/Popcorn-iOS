@@ -188,11 +188,13 @@ final class PopupDetailInfoCollectionViewCell: UICollectionViewCell {
 
 // MARK: - Public Interface
 extension PopupDetailInfoCollectionViewCell {
-    func configureContents(address: String, officialLink: String, businessHourInfo: String, popupIntroduce: String) {
+    func configureContents(address: String, officialLink: String, businessHourInfo: String, popupIntroduce: String, isFinished: Bool) {
         locationLabel.text = address
         officialLinkLabel.text = officialLink
         businessHourInfoLabel.text = businessHourInfo
         popupIntroduceLabel.text = popupIntroduce
+
+        reservationButton.isEnabled = !isFinished
     }
 }
 
