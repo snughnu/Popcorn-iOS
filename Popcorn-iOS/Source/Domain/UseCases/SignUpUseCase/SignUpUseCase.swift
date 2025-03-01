@@ -29,19 +29,22 @@ protocol SignUpUseCaseProtocol {
         nickName: String,
         profileId: Int,
         interests: [String],
-        completion: @escaping (Result<Bool, Error>) -> Void
+        completion: @escaping (Result<Bool, Error>, String) -> Void
     )
 }
 
 final class SignUpUseCase: SignUpUseCaseProtocol {
     // MARK: - Properties
     private let signUpRepository: SignUpRepositoryProtocol
+    private let tokenRepository: TokenRepositoryProtocol
 
     // MARK: - Initializer
     init(
-        signUpRepository: SignUpRepositoryProtocol
+        signUpRepository: SignUpRepositoryProtocol,
+        tokenRepository: TokenRepositoryProtocol
     ) {
         self.signUpRepository = signUpRepository
+        self.tokenRepository = tokenRepository
     }
 
     // MARK: - Private func
@@ -164,27 +167,49 @@ extension SignUpUseCase {
         nickName: String,
         profileId: Int,
         interests: [String],
-        completion: @escaping (Result<Bool, Error>) -> Void
+        completion: @escaping (Result<Bool, Error>, String) -> Void
     ) {
-        guard let firstSignUpData = signUpRepository.fetchSignUpDataFromKeychain() else {
-            completion(.failure(NSError(domain: "SignUpError",
-                                        code: -1,
-                                        userInfo: [NSLocalizedDescriptionKey: "회원가입 첫번째 데이터가 없습니다."]))
-            )
-            return
-        }
         let convertedInterests = interests.map { convertInterestToEnglish($0) }
-        let updateSignUpData = SignUpRequestDTO(
-            firstSignupDTO: firstSignUpData.firstSignupDTO,
-            secondSignupDTO: SecondSignupDTO(nickname: nickName, profileId: profileId, interests: convertedInterests)
-        )
 
-        signUpRepository.fetchSignUpResult(signupData: updateSignUpData) { result in
-            switch result {
-            case .success(let success):
-                completion(.success(success))
-            case .failure(let error):
-                completion(.failure(error))
+        if let idToken = signUpRepository.fetchIdToken() {
+            let kakaoSignUpData = KakaoSignUpRequestDTO(
+                idToken: idToken,
+                secondSignupDTO: SecondSignupDTO(
+                    nickname: nickName,
+                    profileId: profileId,
+                    interests: convertedInterests
+                )
+            )
+            signUpRepository.fetchKakaoSignUpResult(signupData: kakaoSignUpData) { [weak self] token in
+                guard let self = self else { return }
+                self.tokenRepository.saveToken(with: token, loginType: "kakao")
+                _ = self.signUpRepository.fetchDeleteIdTokenResult()
+                completion(.success(true), "메인 화면으로 이동합니다.")
+            }
+
+        } else {
+            guard let firstSignUpData = signUpRepository.fetchSignUpDataFromKeychain() else {
+                completion(.failure(NSError(domain: "SignUpError",
+                                            code: -1,
+                                            userInfo: nil)), "회원가입 첫번째 데이터가 없습니다."
+                )
+                return
+            }
+            let updateSignUpData = SignUpRequestDTO(
+                firstSignupDTO: firstSignUpData.firstSignupDTO,
+                secondSignupDTO: SecondSignupDTO(
+                    nickname: nickName,
+                    profileId: profileId,
+                    interests: convertedInterests
+                )
+            )
+            signUpRepository.fetchSignUpResult(signupData: updateSignUpData) { result in
+                switch result {
+                case .success(let success):
+                    completion(.success(success), success ? "로그인 화면으로 이동합니다." : "이미 가입된 이메일입니다.")
+                case .failure(let error):
+                    completion(.failure(error), "\(error.localizedDescription)")
+                }
             }
         }
     }

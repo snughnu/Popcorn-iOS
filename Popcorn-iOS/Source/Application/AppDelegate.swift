@@ -117,7 +117,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         diContainer.register(
             SignUpUseCaseProtocol.self,
             instance: SignUpUseCase(
-                signUpRepository: diContainer.resolve(SignUpRepositoryProtocol.self)
+                signUpRepository: diContainer.resolve(SignUpRepositoryProtocol.self),
+                tokenRepository: diContainer.resolve(TokenRepositoryProtocol.self)
             )
         )
         diContainer.register(

@@ -146,6 +146,8 @@
 		BCE8FA382D227CF100A7B8E2 /* CompleteFindIdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE8FA372D227CF100A7B8E2 /* CompleteFindIdViewController.swift */; };
 		BCE8FA542D228C4900A7B8E2 /* ResetPwView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE8FA532D228C4900A7B8E2 /* ResetPwView.swift */; };
 		BCE8FA562D228C5400A7B8E2 /* ResetPwViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE8FA552D228C5400A7B8E2 /* ResetPwViewController.swift */; };
+		BCEB9AFD2D73269400535658 /* KakaoSignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEB9AFC2D73269400535658 /* KakaoSignUpRequestDTO.swift */; };
+		BCEB9AFF2D7326ED00535658 /* KakaoSignUpResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEB9AFE2D7326ED00535658 /* KakaoSignUpResponseDTO.swift */; };
 		BCF6ED392D33DF530038CCAE /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED382D33DF530038CCAE /* LoginResponseDTO.swift */; };
 		BCF6ED492D3426A60038CCAE /* TokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED482D3426A60038CCAE /* TokenRepository.swift */; };
 		BCF6ED502D37CBEB0038CCAE /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED4F2D37CBEB0038CCAE /* KeychainManager.swift */; };
@@ -308,6 +310,8 @@
 		BCE8FA372D227CF100A7B8E2 /* CompleteFindIdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteFindIdViewController.swift; sourceTree = "<group>"; };
 		BCE8FA532D228C4900A7B8E2 /* ResetPwView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPwView.swift; sourceTree = "<group>"; };
 		BCE8FA552D228C5400A7B8E2 /* ResetPwViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPwViewController.swift; sourceTree = "<group>"; };
+		BCEB9AFC2D73269400535658 /* KakaoSignUpRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoSignUpRequestDTO.swift; sourceTree = "<group>"; };
+		BCEB9AFE2D7326ED00535658 /* KakaoSignUpResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoSignUpResponseDTO.swift; sourceTree = "<group>"; };
 		BCF6ED382D33DF530038CCAE /* LoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseDTO.swift; sourceTree = "<group>"; };
 		BCF6ED482D3426A60038CCAE /* TokenRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRepository.swift; sourceTree = "<group>"; };
 		BCF6ED4F2D37CBEB0038CCAE /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
@@ -993,6 +997,7 @@
 				BC5F3C202D525CC200248DB0 /* AuthNumRequestDTO.swift */,
 				BC5F3C262D525FCE00248DB0 /* ValidateAuthNumRequestDTO.swift */,
 				BC58B0D32D3D231B00A8E42F /* SignUpRequestDTO.swift */,
+				BCEB9AFC2D73269400535658 /* KakaoSignUpRequestDTO.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -1005,6 +1010,7 @@
 				BC5F3C282D52622300248DB0 /* SignUpResponseDTO.swift */,
 				BC6420822D58E03F001ACC51 /* AuthNumResultResponseDTO.swift */,
 				BC6420A82D5B1F76001ACC51 /* CheckDuplicationEmailResponseDTO.swift */,
+				BCEB9AFE2D7326ED00535658 /* KakaoSignUpResponseDTO.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1448,6 +1454,7 @@
 				BCF945162D48A50100E8B3EA /* SocialLoginUseCase.swift in Sources */,
 				BCD2DFFB2D298A5C000ED875 /* CompleteResetPwView.swift in Sources */,
 				BCFB36B22D61DACE009DE162 /* DIContainer.swift in Sources */,
+				BCEB9AFF2D7326ED00535658 /* KakaoSignUpResponseDTO.swift in Sources */,
 				560159422CF32F5900872662 /* UIButton+.swift in Sources */,
 				BC8113762CF6221400F82331 /* SignUpAgreeButton.swift in Sources */,
 				563A1E4C2D58C1FE008DA4F8 /* PopupDateFormatter.swift in Sources */,
@@ -1495,6 +1502,7 @@
 				56F6D4842D534A2500C2BEBE /* ImageFetchManagerRepositoryProtocol.swift in Sources */,
 				566A0E4F2D3E23AF00B70929 /* WriteReviewViewModel.swift in Sources */,
 				56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */,
+				BCEB9AFD2D73269400535658 /* KakaoSignUpRequestDTO.swift in Sources */,
 				56018C9B2CEC9AE000AC8ED5 /* MainCollectionHeaderView.swift in Sources */,
 				BCE8FA382D227CF100A7B8E2 /* CompleteFindIdViewController.swift in Sources */,
 				BC5F3C272D525FCE00248DB0 /* ValidateAuthNumRequestDTO.swift in Sources */,

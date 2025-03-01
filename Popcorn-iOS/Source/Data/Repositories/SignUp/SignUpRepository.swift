@@ -194,4 +194,29 @@ extension SignUpRepository {
             }
         }
     }
+
+    func fetchKakaoSignUpResult(
+        signupData: KakaoSignUpRequestDTO,
+        completion: @escaping (Token) -> Void
+    ) {
+        let endPoint = JSONBodyEndpoint<KakaoSignUpResponseDTO>(
+            httpMethod: .post,
+            path: APIConstant.kakaoSignUpPath,
+            body: signupData
+        )
+
+        networkManager.request(endpoint: endPoint) { result in
+            if case .success(let response) = result {
+                completion(response.toToken())
+            }
+        }
+    }
+
+    func fetchIdToken() -> String? {
+        return keychainManager.fetchIdToken()
+    }
+
+    func fetchDeleteIdTokenResult() -> Bool {
+        return keychainManager.deleteIdToken() == errSecSuccess
+    }
 }

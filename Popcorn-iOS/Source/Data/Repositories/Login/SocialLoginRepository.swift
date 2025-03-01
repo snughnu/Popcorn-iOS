@@ -26,7 +26,6 @@ final class SocialLoginRepository: SocialLoginRepositoryProtocol {
 
 // MARK: - Public interface
 extension SocialLoginRepository {
-    // MARK: - Kakao
     func isKakaoTalkLoginAvailable() -> Bool {
         return UserApi.isKakaoTalkLoginAvailable()
     }
@@ -43,7 +42,13 @@ extension SocialLoginRepository {
                 return
             }
 
-            completion(.success(IdToken(idToken: idTokenString)))
+            let idToken = IdToken(idToken: idTokenString)
+            let status = self.keychainManager.saveIdToken(idToken.idToken)
+            if status != errSecSuccess {
+                completion(.failure(NSError(domain: "KeychainError", code: Int(status))))
+                return
+            }
+            completion(.success(idToken))
         }
     }
 
@@ -59,7 +64,13 @@ extension SocialLoginRepository {
                 return
             }
 
-            completion(.success(IdToken(idToken: idTokenString)))
+            let idToken = IdToken(idToken: idTokenString)
+            let status = self.keychainManager.saveIdToken(idToken.idToken)
+            if status != errSecSuccess {
+                completion(.failure(NSError(domain: "KeychainError", code: Int(status))))
+                return
+            }
+            completion(.success(idToken))
         }
     }
 
