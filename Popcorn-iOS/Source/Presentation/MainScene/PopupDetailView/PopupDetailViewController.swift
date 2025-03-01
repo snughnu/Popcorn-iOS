@@ -495,6 +495,11 @@ extension PopupDetailViewController: ReviewCollectionViewCellDelegate {
         fullScreenImageViewController.modalPresentationStyle = .fullScreen
         present(fullScreenImageViewController, animated: true)
     }
+
+    func didTapReviewLikeButton() {
+        // 해당 리뷰의 식별자를 뷰 모델에 전달
+        viewModel.didTapReviewLikeButton()
+    }
 }
 
 // MARK: - Implement PopupInfoReviewSegmentHeaderView Delegate

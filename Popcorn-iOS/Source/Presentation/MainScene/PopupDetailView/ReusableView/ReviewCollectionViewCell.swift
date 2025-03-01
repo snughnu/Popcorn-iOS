@@ -67,7 +67,7 @@ final class ReviewCollectionViewCell: UICollectionViewCell {
     private let reviewLikeButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(resource: .reviewThumb), for: .normal)
-        button.setImage(UIImage(resource: .reviewThumb), for: .selected)
+        button.setImage(UIImage(resource: .reviewThumb), for: .selected)    // TODO: 디자인 에셋 나오면 변경
         return button
     }()
 
@@ -212,6 +212,18 @@ extension ReviewCollectionViewCell: UICollectionViewDataSource {
 extension ReviewCollectionViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.didTapReviewImages(images: reviewImages, selecetedIndex: indexPath.item)
+    }
+}
+
+// MARK: - Configure Actions
+extension ReviewCollectionViewCell {
+    private func configureActions() {
+        reviewLikeButton.addAction(
+            UIAction { _ in
+                self.delegate?.didTapReviewLikeButton()
+            },
+            for: .touchUpInside
+        )
     }
 }
 
