@@ -73,37 +73,9 @@ final class PopupDetailInfoCollectionViewCell: UICollectionViewCell {
         return label
     }()
 
-    private let reservationButton: UIButton = {
-        let button = UIButton()
-        var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor(resource: .popcornOrange)
-        config.background.cornerRadius = 10
-        config.attributedTitle = AttributedString(
-            "예약하기",
-            attributes: AttributeContainer([
-                .font: UIFont(name: RobotoFontName.robotoSemiBold, size: 15)!,
-                .foregroundColor: UIColor(.white)
-            ])
-        )
-        button.configuration = config
-        return button
-    }()
+    private let reservationButton = PopcornOrangeButton(text: "예약하기", isEnabled: true)
 
-    private let startChatButton: UIButton = {
-        let button = UIButton()
-        var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor(resource: .popcornOrange)
-        config.background.cornerRadius = 10
-        config.attributedTitle = AttributedString(
-            "채팅하기",
-            attributes: AttributeContainer([
-                .font: UIFont(name: RobotoFontName.robotoSemiBold, size: 15)!,
-                .foregroundColor: UIColor(.white)
-            ])
-        )
-        button.configuration = config
-        return button
-    }()
+    private let startChatButton = PopcornOrangeButton(text: "채팅하기", isEnabled: true)
 
     // MARK: - StackView
     private lazy var locationInfoStackView: UIStackView = {
