@@ -12,6 +12,7 @@ final class MainCarouselCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.image = UIImage(resource: .popupPreviewPlaceHolder)
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
 
