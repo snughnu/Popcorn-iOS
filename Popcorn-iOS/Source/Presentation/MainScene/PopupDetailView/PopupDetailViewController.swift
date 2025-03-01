@@ -9,6 +9,7 @@ import UIKit
 
 final class PopupDetailViewController: UIViewController {
     private let viewModel: PopupDetailViewModel
+    private let popupId: Int
 
     private lazy var collectionView = UICollectionView(
         frame: .zero,
@@ -18,7 +19,9 @@ final class PopupDetailViewController: UIViewController {
     private var segmentIndex: Int = 0
 
     init(viewModel: PopupDetailViewModel) {
+    init(viewModel: PopupDetailViewModel, popupId: Int) {
         self.viewModel = viewModel
+        self.popupId = popupId
         super.init(nibName: nil, bundle: nil)
     }
 
