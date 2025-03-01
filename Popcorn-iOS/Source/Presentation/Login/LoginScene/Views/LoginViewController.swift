@@ -132,7 +132,7 @@ extension LoginViewController {
     }
 
     @objc private func appleButtonTapped() {
-
+        socialLoginViewModel.loginWithApple()
     }
 }
 

@@ -26,6 +26,7 @@ final class SocialLoginRepository: SocialLoginRepositoryProtocol {
 
 // MARK: - Public interface
 extension SocialLoginRepository {
+    // MARK: - Kakao
     func isKakaoTalkLoginAvailable() -> Bool {
         return UserApi.isKakaoTalkLoginAvailable()
     }
@@ -62,7 +63,29 @@ extension SocialLoginRepository {
         }
     }
 
-    func fetchNewUserResult(idToken: String, completion: @escaping (Result<SocialLoginResponseDTO, Error>) -> Void) {
+    func fetchNewKakaoUserResult(idToken: String, completion: @escaping (Result<SocialLoginResponseDTO, Error>) -> Void) {
+        let endPoint = JSONBodyEndpoint<SocialLoginResponseDTO>(
+            httpMethod: .post,
+            path: APIConstant.isKakaoUserPath,
+            body: SocialLoginRequestDTO(idToken: idToken, provider: "KAKAO")
+        )
+        networkManager.request(endpoint: endPoint) { result in
+            switch result {
+            case .success(let loginResponse):
+                completion(.success(loginResponse))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    // MARK: - Apple
+    func loginWithApple(completion: @escaping (Result<IdToken, Error>) -> Void) {
+
+    }
+
+    // TODO: - API 나온 후 리팩토링
+    func fetchNewAppleUserResult(idToken: String, completion: @escaping (Result<SocialLoginResponseDTO, Error>) -> Void) {
         let endPoint = JSONBodyEndpoint<SocialLoginResponseDTO>(
             httpMethod: .post,
             path: APIConstant.isKakaoUserPath,
