@@ -1,5 +1,5 @@
 //
-//  FullScreenReviewImageViewController.swift
+//  FullScreenImageViewController.swift
 //  Popcorn-iOS
 //
 //  Created by 제민우 on 1/12/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class FullScreenReviewImageViewController: UIViewController {
+final class FullScreenImageViewController: UIViewController {
     private var reviewImages: [UIImage]
     private var selectedIndex: Int = 0
 
@@ -42,8 +42,8 @@ final class FullScreenReviewImageViewController: UIViewController {
         return button
     }()
 
-    init(reviewImages: [UIImage], selectedIndex: Int) {
-        self.reviewImages = reviewImages
+    init(images: [UIImage], selectedIndex: Int) {
+        self.reviewImages = images
         self.selectedIndex = selectedIndex
         super.init(nibName: nil, bundle: nil)
     }
@@ -63,7 +63,7 @@ final class FullScreenReviewImageViewController: UIViewController {
 }
 
 // MARK: - Initial Setting
-extension FullScreenReviewImageViewController {
+extension FullScreenImageViewController {
     private func configureInitialSetting() {
         view.backgroundColor = .white
         collectionView.delegate = self
@@ -94,7 +94,7 @@ extension FullScreenReviewImageViewController {
 }
 
 // MARK: - Configure Actions
-extension FullScreenReviewImageViewController {
+extension FullScreenImageViewController {
     private func configureActions() {
         nextPageButton.addTarget(self, action: #selector(handlePageChange(_:)), for: .touchUpInside)
         previousPageButton.addTarget(self, action: #selector(handlePageChange(_:)), for: .touchUpInside)
@@ -120,7 +120,7 @@ extension FullScreenReviewImageViewController {
 }
 
 // MARK: - Implement UICollectionView DataSource
-extension FullScreenReviewImageViewController: UICollectionViewDataSource {
+extension FullScreenImageViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return reviewImages.count
     }
@@ -143,7 +143,7 @@ extension FullScreenReviewImageViewController: UICollectionViewDataSource {
 }
 
 // MARK: - Implement UICollectionView Delegate
-extension FullScreenReviewImageViewController: UIScrollViewDelegate {
+extension FullScreenImageViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let page = Int(scrollView.contentOffset.x / scrollView.frame.width)
         updateButtonVisibility(currentIndex: page)
@@ -151,7 +151,7 @@ extension FullScreenReviewImageViewController: UIScrollViewDelegate {
 }
 
 // MARK: - Implement UICollectionView DelegateFlowLayout
-extension FullScreenReviewImageViewController: UICollectionViewDelegateFlowLayout {
+extension FullScreenImageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -165,7 +165,7 @@ extension FullScreenReviewImageViewController: UICollectionViewDelegateFlowLayou
 }
 
 // MARK: - Configure UI
-extension FullScreenReviewImageViewController {
+extension FullScreenImageViewController {
     private func configureSubviews() {
         [collectionView, closeButton, previousPageButton, nextPageButton].forEach {
             view.addSubview($0)
