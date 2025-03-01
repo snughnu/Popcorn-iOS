@@ -78,11 +78,11 @@ final class PopupTitleCollectionViewCell: UICollectionViewCell {
 
 // MARK: - Public Interface
 extension PopupTitleCollectionViewCell {
-    func configureContents(title: String, period: String, isPick: Bool, hashTags: [String]) {
-        popupTitleLabel.text = title
-        popupPeriodLabel.text = period
-        pickButton.isSelected = isPick
-        addTagsToHashtagStackView(tags: hashTags)
+    func configureContents(_ data: PopupMainInformationViewData) {
+        popupTitleLabel.text = data.popupTitle
+        popupPeriodLabel.text = data.popupPeriod
+        pickButton.isSelected = data.isPick
+        addTagsToHashtagStackView(tags: data.hashTags)
     }
 
     func updatePickButtonStatus(isPick: Bool) {

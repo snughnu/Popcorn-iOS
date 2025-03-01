@@ -146,12 +146,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
             }
 
             let data = viewModel.getDataSource().mainInformationItem()
-            cell.configureContents(
-                title: data.popupTitle,
-                period: data.popupPeriod,
-                isPick: data.isPick,
-                hashTags: data.hashTags
-            )
+            cell.configureContents(data)
 
             cell.delegate = self
 
@@ -165,13 +160,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
             }
 
             let data = viewModel.getDataSource().detailInformationItem()
-            cell.configureContents(
-                address: data.address,
-                officialLink: data.organizationUrl,
-                businessHourInfo: data.businesesHours,
-                popupIntroduce: data.introduce,
-                isFinished: data.isFinished
-            )
+            cell.configureContents(data)
 
             cell.delegate = self
 
@@ -188,13 +177,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
             let (data, maximumIndex) = viewModel.getDataSource().ratingItem()
             let isWriteReviewEnabled = viewModel.isWriteReviewEnabled()
 
-            cell.configureContents(
-                totalRatingCount: data.totalRatingCount,
-                averageRating: data.averageRating,
-                ratingDistribution: data.ratingDistribution,
-                maximumIndex: maximumIndex,
-                isWriteReviewEnabled: isWriteReviewEnabled
-            )
+            cell.configureContents(data: data, maximumIndex: maximumIndex, isWriteReviewEnabled: isWriteReviewEnabled)
 
             return cell
         case (2, 1):
