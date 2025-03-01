@@ -172,18 +172,16 @@ extension ReviewCollectionViewCell {
 extension ReviewCollectionViewCell {
     func configureContents(
         profileImage: UIImage,
-        nickName: String,
-        starRating: Float,
-        reviewDate: String,
         reviewImages: [UIImage],
-        reviewText: String
+        reviewData: PopupReviewViewData
     ) {
         profileImageView.image = profileImage
-        nickNameLabel.text = nickName
-        starRatingView.configureRating(at: starRating)
-        reviewDateLabel.text = reviewDate
         self.reviewImages = reviewImages
-        reviewLabel.text = reviewText
+        starRatingView.configureRating(at: reviewData.reviewRating)
+
+        nickNameLabel.text = reviewData.nickname
+        reviewDateLabel.text = reviewData.reviewDate
+        reviewLabel.text = reviewData.reviewText
 
         if let collectionView = superview as? UICollectionView {
             collectionView.performBatchUpdates(nil)

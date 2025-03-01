@@ -236,11 +236,8 @@ extension PopupDetailViewController: UICollectionViewDataSource {
             dispatchGroup.notify(queue: .main) {
                 cell.configureContents(
                     profileImage: profileImage,
-                    nickName: data.nickname,
-                    starRating: data.reviewRating,
-                    reviewDate: data.reviewDate,
                     reviewImages: reviewImages,
-                    reviewText: data.reviewText
+                    reviewData: data
                 )
             }
 
