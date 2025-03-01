@@ -166,6 +166,8 @@ extension PopupDetailInfoCollectionViewCell {
         businessHourInfoLabel.text = data.businesesHours
         popupIntroduceLabel.text = data.introduce
         reservationButton.isEnabled = !data.isFinished
+
+        layoutIfNeeded()
     }
 }
 
