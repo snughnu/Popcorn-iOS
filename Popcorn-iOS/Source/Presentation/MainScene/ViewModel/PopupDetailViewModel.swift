@@ -49,6 +49,11 @@ extension PopupDetailViewModel {
             }
         }
     }
+    
+    func didTapReviewLikeButton() {
+        // 각 리뷰의 식별자를 파라미터로 받기
+        // 유즈케이스를 통해 서버에 토글 요청
+    }
 }
 
 // MARK: - Networking
