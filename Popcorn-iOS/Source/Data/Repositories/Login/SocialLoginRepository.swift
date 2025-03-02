@@ -101,7 +101,22 @@ extension SocialLoginRepository {
 extension SocialLoginRepository {
     // MARK: - Apple
     func loginWithApple(completion: @escaping (Result<IdToken, Error>) -> Void) {
-        appleLoginManager.loginWithApple(completion: completion)
+        appleLoginManager.loginWithApple { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success(let idToken):
+                let status = self.keychainManager.saveIdToken(idToken.idToken)
+                if status != errSecSuccess {
+                    completion(.failure(NSError(domain: "KeychainError", code: Int(status), userInfo: nil)))
+                    return
+                }
+                completion(.success(idToken))
+
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 
     // TODO: - API 나온 후 리팩토링
