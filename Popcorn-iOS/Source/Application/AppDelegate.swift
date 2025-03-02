@@ -37,6 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ImageFetchManagerProtocol.self,
             instance: ImageFetchManager()
         )
+        diContainer.register(
+            AppleLoginManagerProtocol.self,
+            instance: AppleLoginManager()
+        )
 
         // MARK: - Repositories
         diContainer.register(
@@ -62,7 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SocialLoginRepositoryProtocol.self,
             instance: SocialLoginRepository(
                 networkManager: diContainer.resolve(NetworkManagerProtocol.self),
-                keychainManager: diContainer.resolve(KeychainManagerProtocol.self)
+                keychainManager: diContainer.resolve(KeychainManagerProtocol.self),
+                appleLoginManager: diContainer.resolve(AppleLoginManagerProtocol.self)
             )
         )
         diContainer.register(

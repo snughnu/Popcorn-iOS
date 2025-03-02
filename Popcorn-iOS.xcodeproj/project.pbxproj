@@ -97,6 +97,7 @@
 		BC29A5122D2EA5DF0059A5C5 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A5112D2EA5DF0059A5C5 /* KakaoSDKUser */; };
 		BC2D11622CEC5DF60030F4E0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2D11612CEC5DF60030F4E0 /* LoginView.swift */; };
 		BC3201AB2D2CFC6900B73A14 /* ProfileImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3201AA2D2CFC6900B73A14 /* ProfileImageCell.swift */; };
+		BC45013E2D74009100FF8B5B /* AppleLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC45013D2D74009100FF8B5B /* AppleLoginManager.swift */; };
 		BC55FE862D2AC8F100E269B6 /* ProfileImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC55FE852D2AC8F100E269B6 /* ProfileImagePickerViewController.swift */; };
 		BC55FE882D2AD51000E269B6 /* ProfileImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC55FE872D2AD51000E269B6 /* ProfileImagePickerView.swift */; };
 		BC58B0D42D3D231B00A8E42F /* SignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC58B0D32D3D231B00A8E42F /* SignUpRequestDTO.swift */; };
@@ -261,6 +262,7 @@
 		56F6D48C2D534D9500C2BEBE /* ImageFetchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchUseCase.swift; sourceTree = "<group>"; };
 		BC2D11612CEC5DF60030F4E0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BC3201AA2D2CFC6900B73A14 /* ProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCell.swift; sourceTree = "<group>"; };
+		BC45013D2D74009100FF8B5B /* AppleLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginManager.swift; sourceTree = "<group>"; };
 		BC55FE852D2AC8F100E269B6 /* ProfileImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerViewController.swift; sourceTree = "<group>"; };
 		BC55FE872D2AD51000E269B6 /* ProfileImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerView.swift; sourceTree = "<group>"; };
 		BC58B0D32D3D231B00A8E42F /* SignUpRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequestDTO.swift; sourceTree = "<group>"; };
@@ -920,6 +922,14 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		BC45013C2D74006300FF8B5B /* AppleLoginManager */ = {
+			isa = PBXGroup;
+			children = (
+				BC45013D2D74009100FF8B5B /* AppleLoginManager.swift */,
+			);
+			path = AppleLoginManager;
+			sourceTree = "<group>";
+		};
 		BC5F3C012D52428F00248DB0 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -1021,6 +1031,7 @@
 				5660FD382D42186B00F9B4D9 /* APIConstant.swift */,
 				5660FD352D42165400F9B4D9 /* NetworkManager */,
 				56F6D47A2D53409900C2BEBE /* ImageFetchManager */,
+				BC45013C2D74006300FF8B5B /* AppleLoginManager */,
 				BC7420F22CE22D0F00BEED0A /* Request */,
 			);
 			path = Network;
@@ -1404,6 +1415,7 @@
 				BCB86A532D467E7700F00F1F /* LoginViewModel.swift in Sources */,
 				56F6D48D2D534D9500C2BEBE /* ImageFetchUseCase.swift in Sources */,
 				BCE8FA2D2D2271F900A7B8E2 /* FindIdPwTextField.swift in Sources */,
+				BC45013E2D74009100FF8B5B /* AppleLoginManager.swift in Sources */,
 				BCB86A502D46368800F00F1F /* LoginRequestDTO.swift in Sources */,
 				56F6D48A2D534D5200C2BEBE /* ImageFetchUseCaseProtocol.swift in Sources */,
 				BCD18D952D5B346700831CCC /* SocialLoginRequestDTO.swift in Sources */,

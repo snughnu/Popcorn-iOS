@@ -13,18 +13,21 @@ final class SocialLoginRepository: SocialLoginRepositoryProtocol {
    // MARK: - Properties
     private let networkManager: NetworkManagerProtocol
     private let keychainManager: KeychainManagerProtocol
+    private let appleLoginManager: AppleLoginManagerProtocol
 
     // MARK: - Initializer
     init(
         networkManager: NetworkManagerProtocol,
-        keychainManager: KeychainManagerProtocol
+        keychainManager: KeychainManagerProtocol,
+        appleLoginManager: AppleLoginManagerProtocol
     ) {
         self.networkManager = networkManager
         self.keychainManager = keychainManager
+        self.appleLoginManager = appleLoginManager
     }
 }
 
-// MARK: - Public interface
+// MARK: - Public interface for kakao
 extension SocialLoginRepository {
     func isKakaoTalkLoginAvailable() -> Bool {
         return UserApi.isKakaoTalkLoginAvailable()
@@ -92,10 +95,13 @@ extension SocialLoginRepository {
             }
         }
     }
+}
 
+// MARK: - Public interface for apple
+extension SocialLoginRepository {
     // MARK: - Apple
     func loginWithApple(completion: @escaping (Result<IdToken, Error>) -> Void) {
-
+        appleLoginManager.loginWithApple(completion: completion)
     }
 
     // TODO: - API 나온 후 리팩토링
