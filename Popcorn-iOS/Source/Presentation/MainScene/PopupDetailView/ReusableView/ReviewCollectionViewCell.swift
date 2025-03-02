@@ -275,7 +275,7 @@ extension ReviewCollectionViewCell {
 
             reviewLabel.topAnchor.constraint(equalTo: reviewImagesCollectionView.bottomAnchor, constant: 12),
             reviewLabel.leadingAnchor.constraint(equalTo: reviewHeaderStackView.leadingAnchor),
-            reviewLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -25),
+            reviewLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -25),
             reviewLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
 
             bottomBorder.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 1),
