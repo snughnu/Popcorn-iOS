@@ -18,7 +18,6 @@ final class PopupDetailViewController: UIViewController {
 
     private var segmentIndex: Int = 0
 
-    init(viewModel: PopupDetailViewModel) {
     init(viewModel: PopupDetailViewModel, popupId: Int) {
         self.viewModel = viewModel
         self.popupId = popupId
@@ -252,6 +251,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
                 return UICollectionReusableView()
             }
 
+            carouselHeader.assignDelegate(self)
             carouselHeader.configureContents(viewModel: viewModel)
             return carouselHeader
         case (1, _):
@@ -415,6 +415,39 @@ extension PopupDetailViewController {
     }
 }
 
+// MARK: - Implement MainCarouselView Delegate
+extension PopupDetailViewController: MainCarouselViewDelegate {
+    func didTapCarouselImage(selectedIndex: Int) {
+        var images = [UIImage]()
+        let dispatchGroup = DispatchGroup()
+
+        viewModel.getDataSource().mainInformationItem().popupImagesUrl.forEach {
+            dispatchGroup.enter()
+            viewModel.fetchImage(url: $0) { result in
+                switch result {
+                case .success(let data):
+                    if let image = UIImage(data: data) {
+                        images.append(image)
+                    }
+                case .failure(let error):
+                    print(error)
+                    images.append(UIImage(resource: .imagePlaceHolder))
+                }
+                dispatchGroup.leave()
+            }
+        }
+
+        dispatchGroup.notify(queue: .main) {
+            let fullScreenImageViewController = FullScreenImageViewController(
+                images: images,
+                selectedIndex: selectedIndex
+            )
+            fullScreenImageViewController.modalPresentationStyle = .fullScreen
+            self.present(fullScreenImageViewController, animated: true)
+        }
+    }
+}
+
 // MARK: - Implement PopupPickButton Delegate
 extension PopupDetailViewController: PopupTitleCollectionViewCellDelegate {
     func didTapPickButton() {
@@ -475,8 +508,8 @@ extension PopupDetailViewController: WriteReviewButtonDelegate {
 // MARK: - Implement ReviewCollectionViewCell Delegate
 extension PopupDetailViewController: ReviewCollectionViewCellDelegate {
     func didTapReviewImages(images: [UIImage], selecetedIndex: Int) {
-        let fullScreenImageViewController = FullScreenReviewImageViewController(
-            reviewImages: images,
+        let fullScreenImageViewController = FullScreenImageViewController(
+            images: images,
             selectedIndex: selecetedIndex
         )
         fullScreenImageViewController.modalPresentationStyle = .fullScreen
