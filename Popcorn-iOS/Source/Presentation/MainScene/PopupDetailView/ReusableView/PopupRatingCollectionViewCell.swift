@@ -122,17 +122,17 @@ extension PopupRatingCollectionViewCell {
         }
 
         [backgroundGrayView, writeReviewButton].forEach {
-            addSubview($0)
+            contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            backgroundGrayView.topAnchor.constraint(equalTo: topAnchor, constant: 40),
-            backgroundGrayView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 26),
-            backgroundGrayView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            backgroundGrayView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 170/347),
+            backgroundGrayView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40),
+            backgroundGrayView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 26),
+            backgroundGrayView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            backgroundGrayView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 170/347),
 
             starRatingStackView.centerYAnchor.constraint(equalTo: backgroundGrayView.centerYAnchor),
             starRatingStackView.leadingAnchor.constraint(equalTo: backgroundGrayView.leadingAnchor, constant: 32),
@@ -152,7 +152,7 @@ extension PopupRatingCollectionViewCell {
                 multiplier: 90/170
             ),
 
-            writeReviewButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40),
+            writeReviewButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40),
             writeReviewButton.leadingAnchor.constraint(equalTo: backgroundGrayView.leadingAnchor),
             writeReviewButton.trailingAnchor.constraint(equalTo: backgroundGrayView.trailingAnchor),
             writeReviewButton.heightAnchor.constraint(equalToConstant: 57)
