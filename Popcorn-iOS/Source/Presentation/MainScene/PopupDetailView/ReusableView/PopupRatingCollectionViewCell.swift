@@ -137,9 +137,6 @@ extension PopupRatingCollectionViewCell {
             starRatingStackView.centerYAnchor.constraint(equalTo: backgroundGrayView.centerYAnchor),
             starRatingStackView.leadingAnchor.constraint(equalTo: backgroundGrayView.leadingAnchor, constant: 32),
 
-            starRatingView.heightAnchor.constraint(equalTo: backgroundGrayView.heightAnchor, multiplier: 10/170),
-            starRatingView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 68.4/393),
-
             separatorView.leadingAnchor.constraint(equalTo: starRatingStackView.trailingAnchor, constant: 20),
             separatorView.centerYAnchor.constraint(equalTo: backgroundGrayView.centerYAnchor),
             separatorView.heightAnchor.constraint(equalTo: backgroundGrayView.heightAnchor, multiplier: 84/170),
