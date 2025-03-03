@@ -374,7 +374,7 @@ extension MainSceneViewController {
     }
 }
 
-// MARK: - Implement
+// MARK: - Implement MainCarouselView Delegate
 extension MainSceneViewController: MainCarouselViewDelegate {
     func didTapCarouselImage(selectedIndex: Int) {
         let popupId = mainViewModel.getDataSource().getCarouselPopupId(at: selectedIndex)

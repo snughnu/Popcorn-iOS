@@ -475,6 +475,7 @@ extension PopupDetailViewController: PopupDetailCollectionViewCellDelegate {
         UIApplication.shared.open(URL(string: reservationUrlString)!, options: [:], completionHandler: nil)
     }
 }
+
 // MARK: - Implement WriteReviewButton Delegate
 extension PopupDetailViewController: WriteReviewButtonDelegate {
     func didTapWriteReviewButtonDelegate() {
