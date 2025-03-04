@@ -165,7 +165,26 @@ extension SignUpRepository {
 // MARK: - Public method - SecondScene signUp method
 extension SignUpRepository {
     func fetchSignUpDataFromKeychain() -> SignUpRequestDTO? {
-        return keychainManager.loadSignupData()
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: "signupData",
+            kSecReturnData as String: true,
+            kSecMatchLimit as String: kSecMatchLimitOne
+        ]
+
+        guard let data = keychainManager.fetchItem(with: query) else {
+            print("키체인에서 데이터를 불러올 수 없습니다.")
+            return nil
+        }
+
+        do {
+            let signupData = try JSONDecoder().decode(SignUpRequestDTO.self, from: data)
+            print("키체인 Load SignUp Data 성공: \(signupData)")
+            return signupData
+        } catch {
+            print("키체인 Load SignUp Data 디코딩 실패: \(error)")
+            return nil
+        }
     }
 
     func fetchSignUpResult(signupData: SignUpRequestDTO, completion: @escaping (Result<Bool, Error>) -> Void) {
