@@ -83,27 +83,4 @@ extension KeychainManager {
         }
         return status
     }
-
-    func fetchIdToken() -> String? {
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: "idToken",
-            kSecReturnData as String: true,
-            kSecMatchLimit as String: kSecMatchLimitOne
-        ]
-
-        guard let data = fetchItem(with: query) else { return nil }
-        return String(data: data, encoding: .utf8)
-    }
-
-    // MARK: - Delete IdToken
-    @discardableResult
-    func deleteIdToken() -> OSStatus {
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: "idToken"
-        ]
-
-        return deleteItem(with: query)
-    }
 }

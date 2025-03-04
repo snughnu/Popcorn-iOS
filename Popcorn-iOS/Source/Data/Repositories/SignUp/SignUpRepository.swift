@@ -232,10 +232,23 @@ extension SignUpRepository {
     }
 
     func fetchIdToken() -> String? {
-        return keychainManager.fetchIdToken()
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: "idToken",
+            kSecReturnData as String: true,
+            kSecMatchLimit as String: kSecMatchLimitOne
+        ]
+
+        guard let data = keychainManager.fetchItem(with: query) else { return nil }
+        return String(data: data, encoding: .utf8)
     }
 
     func fetchDeleteIdTokenResult() -> Bool {
-        return keychainManager.deleteIdToken() == errSecSuccess
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: "idToken"
+        ]
+
+        return keychainManager.deleteItem(with: query) == errSecSuccess
     }
 }
