@@ -46,12 +46,28 @@ extension SocialLoginRepository {
             }
 
             let idToken = IdToken(idToken: idTokenString)
-            let status = self.keychainManager.saveIdToken(idToken.idToken)
-            if status != errSecSuccess {
-                completion(.failure(NSError(domain: "KeychainError", code: Int(status))))
-                return
+            let query: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword,
+                kSecAttrAccount as String: "idToken"
+            ]
+            let attributes: [String: Any] = [
+                kSecValueData as String: Data(idToken.idToken.utf8),
+                kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
+            ]
+            let status = self.keychainManager.updateItem(with: query, as: attributes)
+            if status == errSecItemNotFound {
+                let addQuery = query.merging(attributes) { _, new in new }
+                let addStatus = self.keychainManager.addItem(with: addQuery)
+                if addStatus != errSecSuccess {
+                    completion(.failure(NSError(domain: "KeychainError", code: Int(addStatus))))
+                    return
+                }
+                else if status != errSecSuccess {
+                    completion(.failure(NSError(domain: "KeychainError", code: Int(status))))
+                    return
+                }
+                completion(.success(idToken))
             }
-            completion(.success(idToken))
         }
     }
 
@@ -68,8 +84,23 @@ extension SocialLoginRepository {
             }
 
             let idToken = IdToken(idToken: idTokenString)
-            let status = self.keychainManager.saveIdToken(idToken.idToken)
-            if status != errSecSuccess {
+            let query: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword,
+                kSecAttrAccount as String: "idToken"
+            ]
+            let attributes: [String: Any] = [
+                kSecValueData as String: Data(idToken.idToken.utf8),
+                kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
+            ]
+            let status = self.keychainManager.updateItem(with: query, as: attributes)
+            if status == errSecItemNotFound {
+                let addQuery = query.merging(attributes) { _, new in new }
+                let addStatus = self.keychainManager.addItem(with: addQuery)
+                if addStatus != errSecSuccess {
+                    completion(.failure(NSError(domain: "KeychainError", code: Int(addStatus))))
+                    return
+                }
+            } else if status != errSecSuccess {
                 completion(.failure(NSError(domain: "KeychainError", code: Int(status))))
                 return
             }
@@ -106,8 +137,23 @@ extension SocialLoginRepository {
 
             switch result {
             case .success(let idToken):
-                let status = self.keychainManager.saveIdToken(idToken.idToken)
-                if status != errSecSuccess {
+                let query: [String: Any] = [
+                    kSecClass as String: kSecClassGenericPassword,
+                    kSecAttrAccount as String: "idToken"
+                ]
+                let attributes: [String: Any] = [
+                    kSecValueData as String: Data(idToken.idToken.utf8),
+                    kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
+                ]
+                let status = self.keychainManager.updateItem(with: query, as: attributes)
+                if status == errSecItemNotFound {
+                    let addQuery = query.merging(attributes) { _, new in new }
+                    let addStatus = self.keychainManager.addItem(with: addQuery)
+                    if addStatus != errSecSuccess {
+                        completion(.failure(NSError(domain: "KeychainError", code: Int(addStatus), userInfo: nil)))
+                        return
+                    }
+                } else if status != errSecSuccess {
                     completion(.failure(NSError(domain: "KeychainError", code: Int(status), userInfo: nil)))
                     return
                 }

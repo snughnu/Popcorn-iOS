@@ -59,28 +59,3 @@ final class KeychainManager: KeychainManagerProtocol {
         return status
     }
 }
-
-// MARK: - IdToken
-extension KeychainManager {
-    @discardableResult
-    func saveIdToken(_ idToken: String) -> OSStatus {
-        let data = Data(idToken.utf8)
-
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: "idToken"
-        ]
-
-        let attributes: [String: Any] = [
-            kSecValueData as String: data,
-            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
-        ]
-
-        let status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
-        if status == errSecItemNotFound {
-            let addQuery = query.merging(attributes) { _, new in new }
-            return SecItemAdd(addQuery as CFDictionary, nil)
-        }
-        return status
-    }
-}
