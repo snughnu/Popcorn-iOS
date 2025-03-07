@@ -25,6 +25,45 @@ final class SocialLoginRepository: SocialLoginRepositoryProtocol {
         self.keychainManager = keychainManager
         self.appleLoginManager = appleLoginManager
     }
+
+    // MARK: - Private func
+    private func saveIdTokenAndLoginType(
+        idToken: IdToken,
+        loginType: String,
+        completion: @escaping (Result<IdToken, Error>) -> Void
+    ) {
+        let idTokenQuery: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: "idToken"
+        ]
+        let idTokenAttributes: [String: Any] = [
+            kSecValueData as String: Data(idToken.idToken.utf8),
+            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
+        ]
+
+        let loginTypeQuery: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: "loginType"
+        ]
+        let loginTypeAttributes: [String: Any] = [
+            kSecValueData as String: Data(loginType.utf8),
+            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
+        ]
+
+        let idTokenStatus = keychainManager.updateItem(with: idTokenQuery, as: idTokenAttributes)
+        if idTokenStatus == errSecItemNotFound {
+            let addQuery = idTokenQuery.merging(idTokenAttributes) { _, new in new }
+            _ = keychainManager.addItem(with: addQuery)
+        }
+
+        let loginTypeStatus = keychainManager.updateItem(with: loginTypeQuery, as: loginTypeAttributes)
+        if loginTypeStatus == errSecItemNotFound {
+            let addQuery = loginTypeQuery.merging(loginTypeAttributes) { _, new in new }
+            _ = keychainManager.addItem(with: addQuery)
+        }
+
+        completion(.success(idToken))
+    }
 }
 
 // MARK: - Public interface for kakao
@@ -46,28 +85,7 @@ extension SocialLoginRepository {
             }
 
             let idToken = IdToken(idToken: idTokenString)
-            let query: [String: Any] = [
-                kSecClass as String: kSecClassGenericPassword,
-                kSecAttrAccount as String: "idToken"
-            ]
-            let attributes: [String: Any] = [
-                kSecValueData as String: Data(idToken.idToken.utf8),
-                kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
-            ]
-            let status = self.keychainManager.updateItem(with: query, as: attributes)
-            if status == errSecItemNotFound {
-                let addQuery = query.merging(attributes) { _, new in new }
-                let addStatus = self.keychainManager.addItem(with: addQuery)
-                if addStatus != errSecSuccess {
-                    completion(.failure(NSError(domain: "KeychainError", code: Int(addStatus))))
-                    return
-                }
-                else if status != errSecSuccess {
-                    completion(.failure(NSError(domain: "KeychainError", code: Int(status))))
-                    return
-                }
-                completion(.success(idToken))
-            }
+            self.saveIdTokenAndLoginType(idToken: idToken, loginType: "kakao", completion: completion)
         }
     }
 
@@ -84,27 +102,7 @@ extension SocialLoginRepository {
             }
 
             let idToken = IdToken(idToken: idTokenString)
-            let query: [String: Any] = [
-                kSecClass as String: kSecClassGenericPassword,
-                kSecAttrAccount as String: "idToken"
-            ]
-            let attributes: [String: Any] = [
-                kSecValueData as String: Data(idToken.idToken.utf8),
-                kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
-            ]
-            let status = self.keychainManager.updateItem(with: query, as: attributes)
-            if status == errSecItemNotFound {
-                let addQuery = query.merging(attributes) { _, new in new }
-                let addStatus = self.keychainManager.addItem(with: addQuery)
-                if addStatus != errSecSuccess {
-                    completion(.failure(NSError(domain: "KeychainError", code: Int(addStatus))))
-                    return
-                }
-            } else if status != errSecSuccess {
-                completion(.failure(NSError(domain: "KeychainError", code: Int(status))))
-                return
-            }
-            completion(.success(idToken))
+            self.saveIdTokenAndLoginType(idToken: idToken, loginType: "kakao", completion: completion)
         }
     }
 
@@ -137,35 +135,13 @@ extension SocialLoginRepository {
 
             switch result {
             case .success(let idToken):
-                let query: [String: Any] = [
-                    kSecClass as String: kSecClassGenericPassword,
-                    kSecAttrAccount as String: "idToken"
-                ]
-                let attributes: [String: Any] = [
-                    kSecValueData as String: Data(idToken.idToken.utf8),
-                    kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
-                ]
-                let status = self.keychainManager.updateItem(with: query, as: attributes)
-                if status == errSecItemNotFound {
-                    let addQuery = query.merging(attributes) { _, new in new }
-                    let addStatus = self.keychainManager.addItem(with: addQuery)
-                    if addStatus != errSecSuccess {
-                        completion(.failure(NSError(domain: "KeychainError", code: Int(addStatus), userInfo: nil)))
-                        return
-                    }
-                } else if status != errSecSuccess {
-                    completion(.failure(NSError(domain: "KeychainError", code: Int(status), userInfo: nil)))
-                    return
-                }
-                completion(.success(idToken))
-
+                self.saveIdTokenAndLoginType(idToken: idToken, loginType: "apple", completion: completion)
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
 
-    // TODO: - API 나온 후 리팩토링
     func fetchNewAppleUserResult(
         idToken: String,
         completion: @escaping (Result<SocialLoginResponseDTO, Error>) -> Void

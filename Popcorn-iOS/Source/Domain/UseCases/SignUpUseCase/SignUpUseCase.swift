@@ -162,8 +162,6 @@ extension SignUpUseCase {
 }
 
 // MARK: - SecondScene signUp method
-// TODO: - API 나오면 리팩토링
-// 같은 API를 사용하면 이름만 변경, 다른 API를 사용하면 로직 추가
 extension SignUpUseCase {
     func executeSignUp(
         nickName: String,
@@ -173,8 +171,10 @@ extension SignUpUseCase {
     ) {
         let convertedInterests = interests.map { convertInterestToEnglish($0) }
 
-        if let idToken = signUpRepository.fetchIdToken() {
-            let kakaoSignUpData = SocialSignUpRequestDTO(
+        if let idToken = signUpRepository.fetchIdToken(),
+           let loginType = signUpRepository.fetchLoginType() {
+
+            let socialSignUpData = SocialSignUpRequestDTO(
                 idToken: idToken,
                 secondSignupDTO: SecondSignupDTO(
                     nickname: nickName,
@@ -182,22 +182,32 @@ extension SignUpUseCase {
                     interests: convertedInterests
                 )
             )
-            signUpRepository.fetchKakaoSignUpResult(signupData: kakaoSignUpData) { [weak self] token in
-                guard let self = self else { return }
-                self.tokenRepository.saveToken(with: token, loginType: "kakao")
-                _ = self.signUpRepository.fetchDeleteIdTokenResult()
-                completion(.success(true), "메인 화면으로 이동합니다.")
+
+            if loginType == "kakao" {
+                signUpRepository.fetchKakaoSignUpResult(signupData: socialSignUpData) { [weak self] token in
+                    guard let self = self else { return }
+                    self.tokenRepository.saveToken(with: token, loginType: "kakao")
+                    _ = self.signUpRepository.fetchDeleteIdTokenResult()
+                    completion(.success(true), "로그인 화면으로 이동합니다.")
+                }
+            } else if loginType == "apple" {
+                signUpRepository.fetchAppleSignUpResult(signupData: socialSignUpData) { [weak self] token in
+                    guard let self = self else { return }
+                    self.tokenRepository.saveToken(with: token, loginType: "apple")
+                    _ = self.signUpRepository.fetchDeleteIdTokenResult()
+                    completion(.success(true), "로그인 화면으로 이동합니다.")
+                }
             }
 
         } else {
             guard let firstSignUpData = signUpRepository.fetchSignUpDataFromKeychain() else {
                 completion(.failure(NSError(domain: "SignUpError",
                                             code: -1,
-                                            userInfo: nil)), "회원가입 첫번째 데이터가 없습니다."
-                )
+                                            userInfo: nil)), "회원가입 첫 번째 단계 데이터를 찾을 수 없습니다.")
                 return
             }
-            let updateSignUpData = SignUpRequestDTO(
+
+            let signUpData = SignUpRequestDTO(
                 firstSignupDTO: firstSignUpData.firstSignupDTO,
                 secondSignupDTO: SecondSignupDTO(
                     nickname: nickName,
@@ -205,7 +215,8 @@ extension SignUpUseCase {
                     interests: convertedInterests
                 )
             )
-            signUpRepository.fetchSignUpResult(signupData: updateSignUpData) { result in
+
+            signUpRepository.fetchSignUpResult(signupData: signUpData) { result in
                 switch result {
                 case .success(let success):
                     completion(.success(success), success ? "로그인 화면으로 이동합니다." : "이미 가입된 이메일입니다.")
