@@ -23,9 +23,9 @@ struct APIConstant {
     static let validateAuthNumPath = "/mailauthChk"
     static let signUpPath = "/auth/signup"
     static let isKakaoUserPath = "/api/v1/auth/oauth/kakao"
-    // TODO: - API 나오면 확인하기
-    static let isAppleUserPath = "/api/v1/auth/oauth/apple"
     static let kakaoSignUpPath = "/api/v1/auth/oauth/kakao/signup"
+    static let isAppleUserPath = "/api/v1/auth/oauth/apple"
+    static let appleSignUpPath = "/api/v1/auth/oauth/apple/signup"
 
     // MARK: - Main Scene
     static let mainScenePath = "/popups/home"
