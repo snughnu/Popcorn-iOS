@@ -12,6 +12,7 @@ protocol SocialLoginViewModelProtocol {
     var loginFailHandler: ((String) -> Void)? { get set }
 
     func loginWithKakao()
+    func loginWithApple()
 }
 
 final class SocialLoginViewModel: SocialLoginViewModelProtocol {
@@ -41,6 +42,20 @@ extension SocialLoginViewModel {
                     self.loginSuccessHandler?(isNewUser)
                 case .failure:
                     self.loginFailHandler?("카카오 로그인 실패")
+                }
+            }
+        }
+    }
+
+    func loginWithApple() {
+        socialLoginUseCase.loginWithApple { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let isNewUser):
+                    self.loginSuccessHandler?(isNewUser)
+                case .failure:
+                    self.loginFailHandler?("애플 로그인 실패")
                 }
             }
         }

@@ -101,7 +101,7 @@ extension SignUpSecondViewController {
             DispatchQueue.main.async {
                 self.showAlert(title: isSuccess ? "회원가입 성공" : "회원가입 실패", message: message) {
                     if isSuccess {
-                        let loginViewController = DIContainer.shared.makeLoginViewController()
+                        let loginViewController = DIContainer.shared.resolve(LoginViewController.self)
                         self.navigationController?.setViewControllers([loginViewController], animated: true)
                     }
                 }

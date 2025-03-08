@@ -9,6 +9,7 @@ import Foundation
 
 protocol SocialLoginUseCaseProtocol {
     func loginWithKakao(completion: @escaping (Result<Bool, Error>) -> Void)
+    func loginWithApple(completion: @escaping (Result<Bool, Error>) -> Void)
 }
 
 final class SocialLoginUseCase: SocialLoginUseCaseProtocol {
@@ -32,7 +33,7 @@ final class SocialLoginUseCase: SocialLoginUseCaseProtocol {
     ) {
         switch result {
         case .success(let idToken):
-            socialLoginRepository.fetchNewUserResult(idToken: idToken.idToken) { [weak self] result in
+            socialLoginRepository.fetchNewKakaoUserResult(idToken: idToken.idToken) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let response):
@@ -40,6 +41,36 @@ final class SocialLoginUseCase: SocialLoginUseCaseProtocol {
                         completion(.success(true))
                     } else if let token = response.toToken() {
                         self.tokenRepository.saveToken(with: token, loginType: "kakao")
+                        completion(.success(false))
+                    } else {
+                        let error = NSError(domain: "ServerError",
+                                            code: -1,
+                                            userInfo: [NSLocalizedDescriptionKey: "토큰이 없습니다."])
+                        completion(.failure(error))
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        case .failure(let error):
+            completion(.failure(error))
+        }
+    }
+
+    private func handleAppleLoginResult(
+        _ result: Result<IdToken, Error>,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        switch result {
+        case .success(let idToken):
+            socialLoginRepository.fetchNewAppleUserResult(idToken: idToken.idToken) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let response):
+                    if response.newUser {
+                        completion(.success(true))
+                    } else if let token = response.toToken() {
+                        self.tokenRepository.saveToken(with: token, loginType: "apple")
                         completion(.success(false))
                     } else {
                         let error = NSError(domain: "ServerError",
@@ -70,6 +101,13 @@ extension SocialLoginUseCase {
                 guard let self = self else { return }
                 self.handleKakaoLoginResult(result, completion: completion)
             }
+        }
+    }
+
+    func loginWithApple(completion: @escaping (Result<Bool, Error>) -> Void) {
+        socialLoginRepository.loginWithApple { [weak self] result in
+            guard let self = self else { return }
+            self.handleAppleLoginResult(result, completion: completion)
         }
     }
 }

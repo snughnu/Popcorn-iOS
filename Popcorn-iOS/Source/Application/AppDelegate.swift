@@ -37,6 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ImageFetchManagerProtocol.self,
             instance: ImageFetchManager()
         )
+        diContainer.register(
+            AppleLoginManagerProtocol.self,
+            instance: AppleLoginManager()
+        )
 
         // MARK: - Repositories
         diContainer.register(
@@ -62,7 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SocialLoginRepositoryProtocol.self,
             instance: SocialLoginRepository(
                 networkManager: diContainer.resolve(NetworkManagerProtocol.self),
-                keychainManager: diContainer.resolve(KeychainManagerProtocol.self)
+                keychainManager: diContainer.resolve(KeychainManagerProtocol.self),
+                appleLoginManager: diContainer.resolve(AppleLoginManagerProtocol.self)
             )
         )
         diContainer.register(
@@ -117,7 +122,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         diContainer.register(
             SignUpUseCaseProtocol.self,
             instance: SignUpUseCase(
-                signUpRepository: diContainer.resolve(SignUpRepositoryProtocol.self)
+                signUpRepository: diContainer.resolve(SignUpRepositoryProtocol.self),
+                tokenRepository: diContainer.resolve(TokenRepositoryProtocol.self)
             )
         )
         diContainer.register(
@@ -170,6 +176,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             instance: PopupDetailViewModel(
                 imageFetchUseCase: diContainer.resolve(ImageFetchUseCaseProtocol.self),
                 popupDetailUseCase: diContainer.resolve(PopupDetailUseCaseProtocol.self)
+            )
+        )
+
+        // MARK: - ViewControllers
+        diContainer.register(
+            LoginViewController.self,
+            instance: LoginViewController(
+                loginViewModel: diContainer.resolve(LoginViewModelProtocol.self),
+                socialLoginViewModel: diContainer.resolve(SocialLoginViewModelProtocol.self)
+            )
+        )
+        diContainer.register(
+            SignUpFirstViewController.self,
+            instance: SignUpFirstViewController(
+                signUpFirstViewModel: diContainer.resolve(SignUpFirstViewModelProtocol.self)
+            )
+        )
+        diContainer.register(
+            SignUpSecondViewController.self,
+            instance: SignUpSecondViewController(
+                signUpSecondViewModel: diContainer.resolve(SignUpSecondViewModelProtocol.self)
             )
         )
     }
