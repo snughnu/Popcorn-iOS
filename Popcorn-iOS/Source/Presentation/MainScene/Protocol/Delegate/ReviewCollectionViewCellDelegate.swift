@@ -9,4 +9,5 @@ import UIKit
 
 protocol ReviewCollectionViewCellDelegate: AnyObject {
     func didTapReviewImages(images: [UIImage], selecetedIndex: Int)
+    func didTapReviewLikeButton()
 }

@@ -53,6 +53,18 @@ final class PopupDetailViewController: UIViewController {
                 }
             }
         }
+
+        viewModel.popupPickPublisher = { [weak self] isPick in
+            guard let self else { return }
+
+            DispatchQueue.main.async {
+                // 찜 버튼이 있는 PopupTitleCollectionViewCellSection의 IndexPath
+                let indexPath = IndexPath(item: 0, section: 0)
+                if let cell = self.collectionView.cellForItem(at: indexPath) as? PopupTitleCollectionViewCell {
+                    cell.updatePickButtonStatus(isPick: isPick)
+                }
+            }
+        }
     }
 }
 
@@ -137,9 +149,11 @@ extension PopupDetailViewController: UICollectionViewDataSource {
             cell.configureContents(
                 title: data.popupTitle,
                 period: data.popupPeriod,
-                isUserPick: data.isUserPick,
+                isPick: data.isPick,
                 hashTags: data.hashTags
             )
+
+            cell.delegate = self
 
             return cell
         case (1, 0):
@@ -157,6 +171,8 @@ extension PopupDetailViewController: UICollectionViewDataSource {
                 businessHourInfo: data.businesesHours,
                 popupIntroduce: data.introduce
             )
+
+            cell.delegate = self
 
             return cell
         case (1, 1):
@@ -412,6 +428,33 @@ extension PopupDetailViewController {
     }
 }
 
+// MARK: - Implement PopupPickButton Delegate
+extension PopupDetailViewController: PopupTitleCollectionViewCellDelegate {
+    func didTapPickButton() {
+        let popupId = viewModel.getDataSource().getPopupId()
+        viewModel.didTapPickButton(for: popupId)
+    }
+
+    func didTapShareButton() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            let popupUrlString = viewModel.getDataSource().detailInformationItem().organizationUrl
+            let shareText = "팝업스토어 정보를 확인해보세요! 👉 \(popupUrlString)"
+
+            let activityVC = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+            activityVC.excludedActivityTypes = [.airDrop, .print, .sharePlay]
+            self.present(activityVC, animated: true)
+        }
+    }
+}
+
+// MARK: - Implement PopupDetailInfoCollectionViewCell Delegate
+extension PopupDetailViewController: PopupDetailCollectionViewCellDelegate {
+    func didTapReservationButton() {
+        let reservationUrlString = viewModel.getDataSource().detailInformationItem().reservationUrl
+        UIApplication.shared.open(URL(string: reservationUrlString)!, options: [:], completionHandler: nil)
+    }
+}
 // MARK: - Implement WriteReviewButton Delegate
 extension PopupDetailViewController: WriteReviewButtonDelegate {
     func didTapWriteReviewButtonDelegate() {
@@ -451,6 +494,11 @@ extension PopupDetailViewController: ReviewCollectionViewCellDelegate {
         )
         fullScreenImageViewController.modalPresentationStyle = .fullScreen
         present(fullScreenImageViewController, animated: true)
+    }
+
+    func didTapReviewLikeButton() {
+        // 해당 리뷰의 식별자를 뷰 모델에 전달
+        viewModel.didTapReviewLikeButton()
     }
 }
 

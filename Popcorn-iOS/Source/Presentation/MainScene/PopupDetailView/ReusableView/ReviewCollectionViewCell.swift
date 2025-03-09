@@ -46,7 +46,7 @@ final class ReviewCollectionViewCell: UICollectionViewCell {
 
     private let starRatingView = StarRatingView(starSpacing: 3.6)
 
-    private let separatorView: UIView = {
+    private let dateLabelSeparatorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(resource: .popcornGray2)
         return view
@@ -55,6 +55,26 @@ final class ReviewCollectionViewCell: UICollectionViewCell {
     private let reviewDateLabel: UILabel = {
         let label = UILabel()
         label.popcornMedium(text: "0000.00.00", size: 11)
+        return label
+    }()
+
+    private let reviewLikeButtonSeparatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(resource: .popcornGray2)
+        return view
+    }()
+
+    private let reviewLikeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(resource: .reviewThumb), for: .normal)
+        button.setImage(UIImage(resource: .reviewThumb), for: .selected)    // TODO: 디자인 에셋 나오면 변경
+        return button
+    }()
+
+    private let reviewLikeCountLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(resource: .popcornGray1)
+        label.popcornMedium(text: "0", size: 11)
         return label
     }()
 
@@ -72,8 +92,22 @@ final class ReviewCollectionViewCell: UICollectionViewCell {
     }()
 
     // MARK: - StackView
-    private lazy var starRatingReviewDateStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [starRatingView, separatorView, reviewDateLabel])
+    private lazy var reviewLikeStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [reviewLikeButton, reviewLikeCountLabel])
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        return stackView
+    }()
+
+    private lazy var reviewInfoStackView: UIStackView = {
+        let stackView = UIStackView(
+            arrangedSubviews: [
+                starRatingView, dateLabelSeparatorView, reviewDateLabel,
+                reviewLikeButtonSeparatorView, reviewLikeStackView
+            ]
+        )
         stackView.axis = .horizontal
         stackView.spacing = 10
         stackView.alignment = .center
@@ -81,8 +115,8 @@ final class ReviewCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
 
-    private lazy var reviewerInfoStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [nickNameLabel, starRatingReviewDateStackView])
+    private lazy var reviewerNickNameInfoStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [nickNameLabel, reviewInfoStackView])
         stackView.axis = .vertical
         stackView.spacing = 5
         stackView.alignment = .leading
@@ -91,7 +125,7 @@ final class ReviewCollectionViewCell: UICollectionViewCell {
     }()
 
     private lazy var reviewHeaderStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [profileImageView, reviewerInfoStackView])
+        let stackView = UIStackView(arrangedSubviews: [profileImageView, reviewerNickNameInfoStackView])
         stackView.axis = .horizontal
         stackView.spacing = 5
         stackView.alignment = .fill
@@ -181,6 +215,18 @@ extension ReviewCollectionViewCell: UICollectionViewDelegate {
     }
 }
 
+// MARK: - Configure Actions
+extension ReviewCollectionViewCell {
+    private func configureActions() {
+        reviewLikeButton.addAction(
+            UIAction { _ in
+                self.delegate?.didTapReviewLikeButton()
+            },
+            for: .touchUpInside
+        )
+    }
+}
+
 // MARK: - Configure UI
 extension ReviewCollectionViewCell {
     private func configureSubviews() {
@@ -194,14 +240,27 @@ extension ReviewCollectionViewCell {
         reviewImagesHeightConstraint = reviewImagesCollectionView.heightAnchor.constraint(equalToConstant: 0)
 
         NSLayoutConstraint.activate([
-            reviewHeaderStackView.topAnchor.constraint(equalTo: topAnchor, constant: 31),
+            reviewHeaderStackView.topAnchor.constraint(equalTo: topAnchor, constant: 30),
             reviewHeaderStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
+            reviewHeaderStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
 
             profileImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 32/393),
             profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor),
 
-            separatorView.heightAnchor.constraint(equalTo: starRatingReviewDateStackView.heightAnchor, constant: -3),
-            separatorView.widthAnchor.constraint(equalToConstant: 1),
+            dateLabelSeparatorView.heightAnchor.constraint(
+                equalTo: reviewInfoStackView.heightAnchor,
+                constant: -3
+            ),
+            dateLabelSeparatorView.widthAnchor.constraint(equalToConstant: 1),
+
+            reviewLikeButtonSeparatorView.heightAnchor.constraint(
+                equalTo: reviewInfoStackView.heightAnchor,
+                constant: -3
+            ),
+            reviewLikeButtonSeparatorView.widthAnchor.constraint(equalToConstant: 1),
+
+            reviewLikeButton.heightAnchor.constraint(equalTo: starRatingView.heightAnchor),
+            reviewLikeButton.widthAnchor.constraint(equalTo: reviewLikeButton.heightAnchor),
 
             reviewImagesCollectionView.topAnchor.constraint(equalTo: reviewHeaderStackView.bottomAnchor, constant: 15),
             reviewImagesCollectionView.leadingAnchor.constraint(equalTo: reviewHeaderStackView.leadingAnchor),

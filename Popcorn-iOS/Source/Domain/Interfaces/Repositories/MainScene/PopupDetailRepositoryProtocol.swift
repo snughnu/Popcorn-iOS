@@ -15,5 +15,6 @@ protocol PopupDetailRepositoryProtocol {
 
     func fetchPopupReviews(popupId: Int, page: Int, completion: @escaping (Result<PopupReviewList, Error>) -> Void)
 
-    // 팝업 좋아요 토글, 리뷰 좋아요 토글, 리뷰 작성 추가
+    func togglePopupPick(popupId: Int, completion: @escaping (Result<Bool, Error>) -> Void)
+    //  리뷰 좋아요 토글, 리뷰 작성 추가
 }

@@ -171,4 +171,35 @@ final class PopupDetailRepository: PopupDetailRepositoryProtocol {
             }
         }
     }
+
+    func togglePopupPick(popupId: Int, completion: @escaping (Result<Bool, any Error>) -> Void) {
+        // TODO: TokenRepository에서 access token 만료 시 자동으로 reissue 하는 로직 구현 후 리팩토링
+        guard let token = tokenRepository.fetchAccessToken() else {
+            completion(.failure(NSError(
+                domain: "PopupDetailRepository",
+                code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "액세스 토큰 만료"]
+            )))
+            return
+        }
+
+        let endpoint = Endpoint<DefaultResponseDTO>(
+            httpMethod: .post,
+            path: APIConstant.popupTogglePick(popupId: String(popupId)),
+            headers: ["Authorization": "Bearer \(token)"]
+        )
+
+        networkManager.request(endpoint: endpoint) { result in
+            switch result {
+            case .success(let response):
+                if let isPick = Bool(response.data) {
+                    completion(.success(isPick))
+                } else {
+                    completion(.failure(NetworkError.responseError))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }

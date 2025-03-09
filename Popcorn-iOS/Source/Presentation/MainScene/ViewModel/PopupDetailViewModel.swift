@@ -18,6 +18,7 @@ final class PopupDetailViewModel: MainCarouselViewModelProtocol {
     /// 상세화면 첫 진입시 캐러셀 이미지 헤더, 정보 탭, 후기 탭을 받아오고, 이를 뷰에 알리는 클로저
     var popupInformationPublisher: (() -> Void)?
     var popupReviewPublisher: (() -> Void)?
+    var popupPickPublisher: ((Bool) -> Void)?
 
     init(imageFetchUseCase: ImageFetchUseCaseProtocol,
          popupDetailUseCase: PopupDetailUseCaseProtocol,
@@ -30,6 +31,28 @@ final class PopupDetailViewModel: MainCarouselViewModelProtocol {
 
     func getDataSource() -> PopupDetailDataSource {
         return popupDetailDataSource
+    }
+}
+
+// MARK: - Input
+extension PopupDetailViewModel {
+    func didTapPickButton(for popupId: Int) {
+        popupDetailUseCase.togglePopupPick(popupId: popupId) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let isPick):
+                self.popupDetailDataSource.updatePickStatus(isPick)
+                popupPickPublisher?(isPick)
+            case .failure(let error):
+                // TODO: 에러 UI 처리
+                print("찜하기 실패: \(error)")
+            }
+        }
+    }
+    
+    func didTapReviewLikeButton() {
+        // 각 리뷰의 식별자를 파라미터로 받기
+        // 유즈케이스를 통해 서버에 토글 요청
     }
 }
 
@@ -96,7 +119,7 @@ struct PopupMainInformationViewData {
     let popupImagesUrl: [String]
     let popupTitle: String
     let popupPeriod: String
-    let isUserPick: Bool
+    var isPick: Bool
     let hashTags: [String]
 
     static let placeholder = PopupMainInformationViewData(
@@ -106,7 +129,7 @@ struct PopupMainInformationViewData {
             popupTitle: "팝콘 팝업스토어",
             startDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
             endDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
-            isUserPick: false,
+            isPick: false,
             hashTags: [],
             address: "",
             organizationUrl: "",
@@ -124,7 +147,7 @@ struct PopupMainInformationViewData {
         self.popupImagesUrl = entity.popupImagesUrl
         self.popupTitle = entity.popupTitle
         self.popupPeriod = "\(startDateString)~\(endDateString)"
-        self.isUserPick = entity.isUserPick
+        self.isPick = entity.isPick
         self.hashTags = entity.hashTags
     }
 }
@@ -143,7 +166,7 @@ struct PopupDetailInformationViewData {
             popupTitle: "팝콘 팝업스토어",
             startDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
             endDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
-            isUserPick: false,
+            isPick: false,
             hashTags: [],
             address: "",
             organizationUrl: "",

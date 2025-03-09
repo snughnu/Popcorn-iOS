@@ -8,6 +8,8 @@
 import UIKit
 
 final class PopupTitleCollectionViewCell: UICollectionViewCell {
+    weak var delegate: PopupTitleCollectionViewCellDelegate?
+
     private let popupTitleLabel: UILabel = {
         let label = UILabel()
         label.popcornSemiBold(text: "팝업 제목", size: 24)
@@ -66,6 +68,7 @@ final class PopupTitleCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         configureSubviews()
         configureLayout()
+        configureActions()
     }
 
     required init?(coder: NSCoder) {
@@ -75,11 +78,34 @@ final class PopupTitleCollectionViewCell: UICollectionViewCell {
 
 // MARK: - Public Interface
 extension PopupTitleCollectionViewCell {
-    func configureContents(title: String, period: String, isUserPick: Bool, hashTags: [String]) {
+    func configureContents(title: String, period: String, isPick: Bool, hashTags: [String]) {
         popupTitleLabel.text = title
         popupPeriodLabel.text = period
-        pickButton.isSelected = isUserPick
+        pickButton.isSelected = isPick
         addTagsToHashtagStackView(tags: hashTags)
+    }
+
+    func updatePickButtonStatus(isPick: Bool) {
+        pickButton.isSelected = isPick
+    }
+}
+
+// MARK: - Configure Actions
+extension PopupTitleCollectionViewCell {
+    private func configureActions() {
+        pickButton.addAction(
+            UIAction { _ in
+                self.delegate?.didTapPickButton()
+            },
+            for: .touchUpInside
+        )
+
+        shareButton.addAction(
+            UIAction { _ in
+                self.delegate?.didTapShareButton()
+            },
+            for: .touchUpInside
+        )
     }
 }
 

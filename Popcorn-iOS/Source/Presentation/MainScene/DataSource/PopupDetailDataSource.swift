@@ -28,6 +28,10 @@ extension PopupDetailDataSource {
     func updateReviewData(_ data: PopupReviewList) {
         popupReviews += data.reviews.map { PopupReviewViewData(from: $0) }
     }
+
+    func updatePickStatus(_ isPick: Bool) {
+        popupMainInformation?.isPick = isPick
+    }
 }
 
 // MARK: - Output
@@ -106,13 +110,13 @@ extension PopupDetailDataSource {
             popupTitle: "팝콘 팝업스토어",
             startDate: Date(),
             endDate: Calendar.current.date(byAdding: .day, value: 10, to: Date())!,
-            isUserPick: true,
+            isPick: true,
             hashTags: ["#전시", "#팝업스토어", "#문화생활"],
             address: "서울특별시 강남구 강남대로 123",
-            organizationUrl: "www.naver.com",
+            organizationUrl: "https://www.naver.com",
             businesesHours: "10:00 AM - 8:00 PM",
             introduce: "팝콘 전시회는 다양한 팝아트 작품과 굿즈를 만나볼 수 있는 공간입니다.",
-            reservationUrl: "www.naver.com"
+            reservationUrl: "https://www.naver.com"
         )
 
         let review1 = PopupReview(

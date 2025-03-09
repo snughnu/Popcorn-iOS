@@ -13,6 +13,8 @@ protocol PopupDetailUseCaseProtocol {
 
     func fetchPopupReviews(popupId: Int, page: Int, completion: @escaping (Result<PopupReviewList, Error>) -> Void)
 
+    func togglePopupPick(popupId: Int, completion: @escaping (Result<Bool, Error>) -> Void)
+
     func extractHashTag(from popupInformation: PopupInformation) -> [String]
 }
 

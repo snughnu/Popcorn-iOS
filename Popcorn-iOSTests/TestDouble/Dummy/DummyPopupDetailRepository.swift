@@ -8,6 +8,9 @@
 @testable import Popcorn_iOS
 
 final class DummyPopupDetailRepository: PopupDetailRepositoryProtocol {
+    func togglePopupPick(popupId: Int, completion: @escaping (Result<Bool, any Error>) -> Void) {
+    }
+    
     func fetchPopupAllData(popupId: Int, completion: @escaping (
         Result<(Popcorn_iOS.PopupInformation, Popcorn_iOS.PopupRatingDistribution,
                 Popcorn_iOS.PopupReviewList), any Error>) -> Void
