@@ -74,7 +74,7 @@ extension LoginViewController {
         self.socialLoginViewModel.loginSuccessHandler = { [weak self] isNewUser in
             guard let self = self else { return }
             if isNewUser {
-                let signUpSecondViewController = DIContainer.shared.makeSignUpSecondViewController()
+                let signUpSecondViewController = DIContainer.shared.resolve(SignUpSecondViewController.self)
                 self.navigationController?.setViewControllers([signUpSecondViewController], animated: true)
             } else {
                 let mainViewModel = DIContainer.shared.resolve(MainSceneViewModel.self)
@@ -119,7 +119,7 @@ extension LoginViewController {
     }
 
     @objc private func signUpButtonTapped() {
-        let signUpFirstViewController = DIContainer.shared.makeSignUpFirstViewController()
+        let signUpFirstViewController = DIContainer.shared.resolve(SignUpFirstViewController.self)
         self.navigationController?.pushViewController(signUpFirstViewController, animated: true)
     }
 
@@ -132,7 +132,7 @@ extension LoginViewController {
     }
 
     @objc private func appleButtonTapped() {
-
+        socialLoginViewModel.loginWithApple()
     }
 }
 

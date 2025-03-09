@@ -111,18 +111,14 @@ extension SignUpSecondViewModel {
             nickName: nickName,
             profileId: profileId,
             interests: selectedInterests
-        ) { [ weak self ] result in
+        ) { [ weak self ] result, message in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
-                case . success(let isSuccess):
-                    if isSuccess {
-                        self.signUpResultHandler?(true, "로그인 화면으로 이동합니다.")
-                    } else {
-                        self.signUpResultHandler?(false, "이미 가입된 이메일입니다.")
-                    }
-                case .failure(let error):
-                    self.signUpResultHandler?(false, "\(error.localizedDescription)")
+                case .success:
+                    self.signUpResultHandler?(true, message)
+                case .failure:
+                    self.signUpResultHandler?(false, message)
                 }
             }
         }

@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
 
         let tokenUseCase = DIContainer.shared.resolve(TokenUseCaseProtocol.self)
-        let loginViewController = DIContainer.shared.makeLoginViewController()
+        let loginViewController = DIContainer.shared.resolve(LoginViewController.self)
 
         // MARK: - 토큰 상태에 따른 초기화면 설정
         tokenUseCase.handleTokenExpiration { [weak self] isTokenValid in

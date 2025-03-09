@@ -28,25 +28,3 @@ final class DIContainer {
         return instance
     }
 }
-
-// MARK: - Make ViewController
-extension DIContainer {
-    func makeLoginViewController() -> LoginViewController {
-        return LoginViewController(
-            loginViewModel: resolve(LoginViewModelProtocol.self),
-            socialLoginViewModel: resolve(SocialLoginViewModelProtocol.self)
-        )
-    }
-
-    func makeSignUpFirstViewController() -> SignUpFirstViewController {
-        return SignUpFirstViewController(
-            signUpFirstViewModel: resolve(SignUpFirstViewModelProtocol.self)
-        )
-    }
-
-    func makeSignUpSecondViewController() -> SignUpSecondViewController {
-        return SignUpSecondViewController(
-            signUpSecondViewModel: resolve(SignUpSecondViewModelProtocol.self)
-        )
-    }
-}

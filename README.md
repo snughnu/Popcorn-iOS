@@ -14,8 +14,8 @@
 
 # 목차
 ### [1. 프로젝트 소개](https://github.com/GDSC-Popcorn/Popcorn-iOS/new/develop?filename=README.md#프로젝트-소개)
-#### [1.1 기술 스택](https://github.com/GDSC-Popcorn/Popcorn-iOS/new/develop?filename=README.md#기술-스택)
-#### [1.1 주요 기능](https://github.com/GDSC-Popcorn/Popcorn-iOS/new/develop?filename=README.md#주요-기능)
+ - [**기술 스택 선정 이유**](https://github.com/GDSC-Popcorn/Popcorn-iOS/new/develop?filename=README.md#기술-스택)
+ - [**주요 기능**](https://github.com/GDSC-Popcorn/Popcorn-iOS/new/develop?filename=README.md#주요-기능)
 ### [2. 기술적 도전기](https://github.com/GDSC-Popcorn/Popcorn-iOS/new/develop?filename=README.md#기술적-도전기)
 
 # 1. 프로젝트 소개
@@ -27,12 +27,21 @@
 
 또한 실시간 채팅을 이용해 팝업스토어의 현장 상황, 다양한 기타 정보들을 공유하여 사용자들이 소중한 시간을 지킬 수 있습니다!
 
-## 기술 스택
-**UIKit, MVVM-CleanArchitecture, Combine**  
+## 기술 스택 선정 이유
+Popcorn 팀은 다음의 세 기술들을 주요 기술로 선정하였습니다.
+- **UIKit**
+- **MVVM-CleanArchitecture**
+- **Combine**
+  
 [기술 스택 선정 이유](https://github.com/GDSC-Popcorn/Popcorn-iOS/wiki/iOS-기술-스택-소개-및-선정-이유)
 
 ## 주요 기능  
+### 로그인 화면
+### 회원가입 화면
+### 메인화면
 
-# 2. 기술적 도전기  
-- [제목은 팝콘 팀의 CI 도전기로 하겠습니다 그런데 GitHub Actions을 곁들인…](https://branch-cheque-736.notion.site/CI-GitHub-Actions-117b725a066581838f19dffcfd495703?pvs=4)
-- [SwiftLint 적용하기](https://branch-cheque-736.notion.site/SwiftLint-13ab725a06658039a908d82dba4a3d2b?pvs=4)
+
+# 2. 개발 기록
+- [제목은 팝콘 팀의 CI 도전기로 하겠습니다 그런데 GitHub Actions을 곁들인…](https://velog.io/@gration77/Popcorn-iOS-CI-적용기)
+- [SwiftLint 적용하기](https://velog.io/@gration77/Popcorn-Swift-Lint-적용기)
+- [Clean Architecture + MVVM? 해볼게요](https://velog.io/@gration77/Popcorn-CleanArchitecture)

@@ -100,6 +100,7 @@
 		BC29A5122D2EA5DF0059A5C5 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A5112D2EA5DF0059A5C5 /* KakaoSDKUser */; };
 		BC2D11622CEC5DF60030F4E0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2D11612CEC5DF60030F4E0 /* LoginView.swift */; };
 		BC3201AB2D2CFC6900B73A14 /* ProfileImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3201AA2D2CFC6900B73A14 /* ProfileImageCell.swift */; };
+		BC45013E2D74009100FF8B5B /* AppleLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC45013D2D74009100FF8B5B /* AppleLoginManager.swift */; };
 		BC55FE862D2AC8F100E269B6 /* ProfileImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC55FE852D2AC8F100E269B6 /* ProfileImagePickerViewController.swift */; };
 		BC55FE882D2AD51000E269B6 /* ProfileImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC55FE872D2AD51000E269B6 /* ProfileImagePickerView.swift */; };
 		BC58B0D42D3D231B00A8E42F /* SignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC58B0D32D3D231B00A8E42F /* SignUpRequestDTO.swift */; };
@@ -149,6 +150,8 @@
 		BCE8FA382D227CF100A7B8E2 /* CompleteFindIdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE8FA372D227CF100A7B8E2 /* CompleteFindIdViewController.swift */; };
 		BCE8FA542D228C4900A7B8E2 /* ResetPwView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE8FA532D228C4900A7B8E2 /* ResetPwView.swift */; };
 		BCE8FA562D228C5400A7B8E2 /* ResetPwViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE8FA552D228C5400A7B8E2 /* ResetPwViewController.swift */; };
+		BCEB9AFD2D73269400535658 /* SocialSignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEB9AFC2D73269400535658 /* SocialSignUpRequestDTO.swift */; };
+		BCEB9AFF2D7326ED00535658 /* SocialSignUpResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEB9AFE2D7326ED00535658 /* SocialSignUpResponseDTO.swift */; };
 		BCF6ED392D33DF530038CCAE /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED382D33DF530038CCAE /* LoginResponseDTO.swift */; };
 		BCF6ED492D3426A60038CCAE /* TokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED482D3426A60038CCAE /* TokenRepository.swift */; };
 		BCF6ED502D37CBEB0038CCAE /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF6ED4F2D37CBEB0038CCAE /* KeychainManager.swift */; };
@@ -265,6 +268,7 @@
 		56F6D48C2D534D9500C2BEBE /* ImageFetchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchUseCase.swift; sourceTree = "<group>"; };
 		BC2D11612CEC5DF60030F4E0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BC3201AA2D2CFC6900B73A14 /* ProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCell.swift; sourceTree = "<group>"; };
+		BC45013D2D74009100FF8B5B /* AppleLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginManager.swift; sourceTree = "<group>"; };
 		BC55FE852D2AC8F100E269B6 /* ProfileImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerViewController.swift; sourceTree = "<group>"; };
 		BC55FE872D2AD51000E269B6 /* ProfileImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerView.swift; sourceTree = "<group>"; };
 		BC58B0D32D3D231B00A8E42F /* SignUpRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequestDTO.swift; sourceTree = "<group>"; };
@@ -314,6 +318,8 @@
 		BCE8FA372D227CF100A7B8E2 /* CompleteFindIdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteFindIdViewController.swift; sourceTree = "<group>"; };
 		BCE8FA532D228C4900A7B8E2 /* ResetPwView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPwView.swift; sourceTree = "<group>"; };
 		BCE8FA552D228C5400A7B8E2 /* ResetPwViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPwViewController.swift; sourceTree = "<group>"; };
+		BCEB9AFC2D73269400535658 /* SocialSignUpRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSignUpRequestDTO.swift; sourceTree = "<group>"; };
+		BCEB9AFE2D7326ED00535658 /* SocialSignUpResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSignUpResponseDTO.swift; sourceTree = "<group>"; };
 		BCF6ED382D33DF530038CCAE /* LoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseDTO.swift; sourceTree = "<group>"; };
 		BCF6ED482D3426A60038CCAE /* TokenRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRepository.swift; sourceTree = "<group>"; };
 		BCF6ED4F2D37CBEB0038CCAE /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
@@ -924,6 +930,14 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		BC45013C2D74006300FF8B5B /* AppleLoginManager */ = {
+			isa = PBXGroup;
+			children = (
+				BC45013D2D74009100FF8B5B /* AppleLoginManager.swift */,
+			);
+			path = AppleLoginManager;
+			sourceTree = "<group>";
+		};
 		BC5F3C012D52428F00248DB0 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -1001,6 +1015,7 @@
 				BC5F3C202D525CC200248DB0 /* AuthNumRequestDTO.swift */,
 				BC5F3C262D525FCE00248DB0 /* ValidateAuthNumRequestDTO.swift */,
 				BC58B0D32D3D231B00A8E42F /* SignUpRequestDTO.swift */,
+				BCEB9AFC2D73269400535658 /* SocialSignUpRequestDTO.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -1013,6 +1028,7 @@
 				BC5F3C282D52622300248DB0 /* SignUpResponseDTO.swift */,
 				BC6420822D58E03F001ACC51 /* AuthNumResultResponseDTO.swift */,
 				BC6420A82D5B1F76001ACC51 /* CheckDuplicationEmailResponseDTO.swift */,
+				BCEB9AFE2D7326ED00535658 /* SocialSignUpResponseDTO.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1023,6 +1039,7 @@
 				5660FD382D42186B00F9B4D9 /* APIConstant.swift */,
 				5660FD352D42165400F9B4D9 /* NetworkManager */,
 				56F6D47A2D53409900C2BEBE /* ImageFetchManager */,
+				BC45013C2D74006300FF8B5B /* AppleLoginManager */,
 				BC7420F22CE22D0F00BEED0A /* Request */,
 			);
 			path = Network;
@@ -1407,6 +1424,7 @@
 				BCB86A532D467E7700F00F1F /* LoginViewModel.swift in Sources */,
 				56F6D48D2D534D9500C2BEBE /* ImageFetchUseCase.swift in Sources */,
 				BCE8FA2D2D2271F900A7B8E2 /* FindIdPwTextField.swift in Sources */,
+				BC45013E2D74009100FF8B5B /* AppleLoginManager.swift in Sources */,
 				BCB86A502D46368800F00F1F /* LoginRequestDTO.swift in Sources */,
 				56F6D48A2D534D5200C2BEBE /* ImageFetchUseCaseProtocol.swift in Sources */,
 				BCD18D952D5B346700831CCC /* SocialLoginRequestDTO.swift in Sources */,
@@ -1458,6 +1476,7 @@
 				BCF945162D48A50100E8B3EA /* SocialLoginUseCase.swift in Sources */,
 				BCD2DFFB2D298A5C000ED875 /* CompleteResetPwView.swift in Sources */,
 				BCFB36B22D61DACE009DE162 /* DIContainer.swift in Sources */,
+				BCEB9AFF2D7326ED00535658 /* SocialSignUpResponseDTO.swift in Sources */,
 				560159422CF32F5900872662 /* UIButton+.swift in Sources */,
 				BC8113762CF6221400F82331 /* SignUpAgreeButton.swift in Sources */,
 				563A1E4C2D58C1FE008DA4F8 /* PopupDateFormatter.swift in Sources */,
@@ -1506,7 +1525,8 @@
 				56F6D4842D534A2500C2BEBE /* ImageFetchManagerRepositoryProtocol.swift in Sources */,
 				566A0E4F2D3E23AF00B70929 /* WriteReviewViewModel.swift in Sources */,
 				56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */,
-				565535162D7065490072A9A4 /* PopupDetailCollectionViewCellDelegate.swift in Sources */,
+        565535162D7065490072A9A4 /* PopupDetailCollectionViewCellDelegate.swift in Sources */,
+				BCEB9AFD2D73269400535658 /* SocialSignUpRequestDTO.swift in Sources */,
 				56018C9B2CEC9AE000AC8ED5 /* MainCollectionHeaderView.swift in Sources */,
 				BCE8FA382D227CF100A7B8E2 /* CompleteFindIdViewController.swift in Sources */,
 				BC5F3C272D525FCE00248DB0 /* ValidateAuthNumRequestDTO.swift in Sources */,
@@ -1575,9 +1595,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Popcorn-iOS/Popcorn-iOS.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5JD4YAFH7N;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5JD4YAFH7N;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Popcorn-iOS/Resource/Info.plist";
@@ -1593,6 +1615,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Popcorn.Popcorn-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Popcorn Development";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1605,9 +1629,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Popcorn-iOS/Popcorn-iOS.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5JD4YAFH7N;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5JD4YAFH7N;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Popcorn-iOS/Resource/Info.plist";
@@ -1623,6 +1649,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Popcorn.Popcorn-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Popcorn Development";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
