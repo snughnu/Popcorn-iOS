@@ -162,6 +162,7 @@ extension WriteReviewViewController {
     private func configureInitialSetting() {
         view.backgroundColor = .white
 
+        configureNavigationBar()
         configureGestureRecognizer()
         configureCollectionView()
         reviewTextView.delegate = self
@@ -188,6 +189,29 @@ extension WriteReviewViewController {
             action: #selector(userStatisfactionRatingView.handleTapGesture(_:))
         )
         [panGesture, tapGesture].forEach { userStatisfactionRatingView.addGestureRecognizer($0) }
+    }
+}
+
+// MARK: - Configure Navigation Bar
+extension WriteReviewViewController {
+    private func configureNavigationBar() {
+        navigationItem.title = "리뷰 쓰기"
+
+        navigationItem.hidesBackButton = true
+
+        let backButton = UIBarButtonItem(
+            image: UIImage(resource: .naviBackButton),
+            style: .plain,
+            target: self,
+            action: #selector(popViewController)
+        )
+
+        navigationItem.leftBarButtonItem = backButton
+        navigationItem.leftBarButtonItem?.tintColor = .black
+    }
+
+    @objc private func popViewController() {
+        navigationController?.popViewController(animated: true)
     }
 }
 

@@ -55,6 +55,7 @@ final class MainSceneViewController: UIViewController {
 extension MainSceneViewController {
     private func configureInitialSetting() {
         view.backgroundColor = UIColor.white
+        configureNavigationBar()
         configureCollectionView()
     }
 
@@ -81,6 +82,24 @@ extension MainSceneViewController {
         )
     }
 
+}
+
+// MARK: - Configure Navigation Bar
+extension MainSceneViewController {
+    private func configureNavigationBar() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor.white
+        appearance.shadowColor = .clear
+        appearance.titleTextAttributes = [
+            .foregroundColor: UIColor.black,
+            .font: UIFont(name: RobotoFontName.robotoSemiBold, size: 21)!
+        ]
+
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+    }
 }
 
 // MARK: - Configure CollectionView DataSource

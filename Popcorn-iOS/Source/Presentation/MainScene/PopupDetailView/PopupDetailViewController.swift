@@ -28,6 +28,11 @@ final class PopupDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureInitialSetting()
@@ -75,6 +80,7 @@ extension PopupDetailViewController {
     private func configureInitialSetting() {
         view.backgroundColor = .white
         configureCollectionView()
+        configureNavigationBar()
     }
 
     private func configureCollectionView() {
@@ -112,6 +118,29 @@ extension PopupDetailViewController {
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: ReviewSortButtonHeaderView.reuseIdentifier
         )
+    }
+}
+
+// MARK: - Configure Navigation Bar
+extension PopupDetailViewController {
+    private func configureNavigationBar() {
+        navigationItem.title = "상세정보"
+
+        navigationItem.hidesBackButton = true
+
+        let backButton = UIBarButtonItem(
+            image: UIImage(resource: .naviBackButton),
+            style: .plain,
+            target: self,
+            action: #selector(popViewController)
+        )
+
+        navigationItem.leftBarButtonItem = backButton
+        navigationItem.leftBarButtonItem?.tintColor = .black
+    }
+
+    @objc private func popViewController() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
