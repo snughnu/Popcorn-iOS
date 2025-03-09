@@ -1526,6 +1526,7 @@
 				566A0E4F2D3E23AF00B70929 /* WriteReviewViewModel.swift in Sources */,
 				56537BB52CE0F5290092A292 /* AppDelegate.swift in Sources */,
 				565535162D7065490072A9A4 /* PopupDetailCollectionViewCellDelegate.swift in Sources */,
+                565535162D7065490072A9A4 /* PopupDetailCollectionViewCellDelegate.swift in Sources */,
 				BCEB9AFD2D73269400535658 /* SocialSignUpRequestDTO.swift in Sources */,
 				56018C9B2CEC9AE000AC8ED5 /* MainCollectionHeaderView.swift in Sources */,
 				BCE8FA382D227CF100A7B8E2 /* CompleteFindIdViewController.swift in Sources */,
