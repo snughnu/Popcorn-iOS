@@ -78,11 +78,11 @@ final class PopupTitleCollectionViewCell: UICollectionViewCell {
 
 // MARK: - Public Interface
 extension PopupTitleCollectionViewCell {
-    func configureContents(title: String, period: String, isPick: Bool, hashTags: [String]) {
-        popupTitleLabel.text = title
-        popupPeriodLabel.text = period
-        pickButton.isSelected = isPick
-        addTagsToHashtagStackView(tags: hashTags)
+    func configureContents(_ data: PopupMainInformationViewData) {
+        popupTitleLabel.text = data.popupTitle
+        popupPeriodLabel.text = data.popupPeriod
+        pickButton.isSelected = data.isPick
+        addTagsToHashtagStackView(tags: data.hashTags)
     }
 
     func updatePickButtonStatus(isPick: Bool) {
@@ -113,33 +113,33 @@ extension PopupTitleCollectionViewCell {
 extension PopupTitleCollectionViewCell {
     private func configureSubviews() {
         [popupTitlePeriodStackView, sharePickButtonStackView, hashTagStackView].forEach {
-            addSubview($0)
+            contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            popupTitlePeriodStackView.topAnchor.constraint(equalTo: topAnchor, constant: 25),
+            popupTitlePeriodStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 25),
             popupTitlePeriodStackView.leadingAnchor.constraint(
-                equalTo: leadingAnchor,
+                equalTo: contentView.leadingAnchor,
                 constant: 27
             ),
 
-            sharePickButtonStackView.topAnchor.constraint(equalTo: topAnchor, constant: 29),
+            sharePickButtonStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 29),
             sharePickButtonStackView.leadingAnchor.constraint(
                 greaterThanOrEqualTo: popupTitlePeriodStackView.trailingAnchor,
                 constant: 10
             ),
             sharePickButtonStackView.trailingAnchor.constraint(
-                equalTo: trailingAnchor,
+                equalTo: contentView.trailingAnchor,
                 constant: -37
             ),
 
             hashTagStackView.topAnchor.constraint(equalTo: popupTitlePeriodStackView.bottomAnchor, constant: 18),
-            hashTagStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 27),
-            hashTagStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -13),
-            hashTagStackView.centerXAnchor.constraint(equalTo: centerXAnchor)
+            hashTagStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 27),
+            hashTagStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -13),
+            hashTagStackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
     }
 }

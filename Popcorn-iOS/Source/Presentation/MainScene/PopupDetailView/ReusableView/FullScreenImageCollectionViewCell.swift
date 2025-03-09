@@ -1,18 +1,17 @@
 //
-//  MainCellPagingCollectionViewCell.swift
+//  FullScreenImageCollectionViewCell.swift
 //  Popcorn-iOS
 //
-//  Created by 제민우 on 11/16/24.
+//  Created by 제민우 on 3/1/25.
 //
 
 import UIKit
 
-final class MainCarouselCollectionViewCell: UICollectionViewCell {
+final class FullScreenImageCollectionViewCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(resource: .popupPreviewPlaceHolder)
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
 
@@ -28,14 +27,14 @@ final class MainCarouselCollectionViewCell: UICollectionViewCell {
 }
 
 // MARK: - Public Interface
-extension MainCarouselCollectionViewCell {
+extension FullScreenImageCollectionViewCell {
     func configureContents(image: UIImage) {
         imageView.image = image
     }
 }
 
 // MARK: - Configure UI
-extension MainCarouselCollectionViewCell {
+extension FullScreenImageCollectionViewCell {
     private func configureSubviews() {
         [imageView].forEach {
             contentView.addSubview($0)

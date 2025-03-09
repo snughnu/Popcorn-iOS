@@ -9,6 +9,7 @@ import UIKit
 
 final class PopupDetailViewController: UIViewController {
     private let viewModel: PopupDetailViewModel
+    private let popupId: Int
 
     private lazy var collectionView = UICollectionView(
         frame: .zero,
@@ -17,13 +18,19 @@ final class PopupDetailViewController: UIViewController {
 
     private var segmentIndex: Int = 0
 
-    init(viewModel: PopupDetailViewModel) {
+    init(viewModel: PopupDetailViewModel, popupId: Int) {
         self.viewModel = viewModel
+        self.popupId = popupId
         super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
     override func viewDidLoad() {
@@ -73,6 +80,7 @@ extension PopupDetailViewController {
     private func configureInitialSetting() {
         view.backgroundColor = .white
         configureCollectionView()
+        configureNavigationBar()
     }
 
     private func configureCollectionView() {
@@ -113,6 +121,29 @@ extension PopupDetailViewController {
     }
 }
 
+// MARK: - Configure Navigation Bar
+extension PopupDetailViewController {
+    private func configureNavigationBar() {
+        navigationItem.title = "상세정보"
+
+        navigationItem.hidesBackButton = true
+
+        let backButton = UIBarButtonItem(
+            image: UIImage(resource: .naviBackButton),
+            style: .plain,
+            target: self,
+            action: #selector(popViewController)
+        )
+
+        navigationItem.leftBarButtonItem = backButton
+        navigationItem.leftBarButtonItem?.tintColor = .black
+    }
+
+    @objc private func popViewController() {
+        navigationController?.popViewController(animated: true)
+    }
+}
+
 // MARK: - Implement CollectionView DataSource
 extension PopupDetailViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -146,13 +177,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
             }
 
             let data = viewModel.getDataSource().mainInformationItem()
-            cell.configureContents(
-                title: data.popupTitle,
-                period: data.popupPeriod,
-                isPick: data.isPick,
-                hashTags: data.hashTags
-            )
-
+            cell.configureContents(data)
             cell.delegate = self
 
             return cell
@@ -165,12 +190,9 @@ extension PopupDetailViewController: UICollectionViewDataSource {
             }
 
             let data = viewModel.getDataSource().detailInformationItem()
-            cell.configureContents(
-                address: data.address,
-                officialLink: data.organizationUrl,
-                businessHourInfo: data.businesesHours,
-                popupIntroduce: data.introduce
-            )
+            cell.configureContents(data)
+
+            cell.delegate = self
 
             cell.delegate = self
 
@@ -185,12 +207,9 @@ extension PopupDetailViewController: UICollectionViewDataSource {
 
             cell.delegate = self
             let (data, maximumIndex) = viewModel.getDataSource().ratingItem()
-            cell.configureContents(
-                totalRatingCount: data.totalRatingCount,
-                averageRating: data.averageRating,
-                ratingDistribution: data.ratingDistribution,
-                maximumIndex: maximumIndex
-            )
+            let isWriteReviewEnabled = viewModel.isWriteReviewEnabled()
+
+            cell.configureContents(data: data, maximumIndex: maximumIndex, isWriteReviewEnabled: isWriteReviewEnabled)
 
             return cell
         case (2, 1):
@@ -236,11 +255,8 @@ extension PopupDetailViewController: UICollectionViewDataSource {
             dispatchGroup.notify(queue: .main) {
                 cell.configureContents(
                     profileImage: profileImage,
-                    nickName: data.nickname,
-                    starRating: data.reviewRating,
-                    reviewDate: data.reviewDate,
                     reviewImages: reviewImages,
-                    reviewText: data.reviewText
+                    reviewData: data
                 )
             }
 
@@ -265,6 +281,7 @@ extension PopupDetailViewController: UICollectionViewDataSource {
                 return UICollectionReusableView()
             }
 
+            carouselHeader.assignDelegate(self)
             carouselHeader.configureContents(viewModel: viewModel)
             return carouselHeader
         case (1, _):
@@ -407,7 +424,7 @@ extension PopupDetailViewController {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(500))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
@@ -425,6 +442,39 @@ extension PopupDetailViewController {
         section.supplementaryContentInsetsReference = .none
 
         return section
+    }
+}
+
+// MARK: - Implement MainCarouselView Delegate
+extension PopupDetailViewController: MainCarouselViewDelegate {
+    func didTapCarouselImage(selectedIndex: Int) {
+        var images = [UIImage]()
+        let dispatchGroup = DispatchGroup()
+
+        viewModel.getDataSource().mainInformationItem().popupImagesUrl.forEach {
+            dispatchGroup.enter()
+            viewModel.fetchImage(url: $0) { result in
+                switch result {
+                case .success(let data):
+                    if let image = UIImage(data: data) {
+                        images.append(image)
+                    }
+                case .failure(let error):
+                    print(error)
+                    images.append(UIImage(resource: .imagePlaceHolder))
+                }
+                dispatchGroup.leave()
+            }
+        }
+
+        dispatchGroup.notify(queue: .main) {
+            let fullScreenImageViewController = FullScreenImageViewController(
+                images: images,
+                selectedIndex: selectedIndex
+            )
+            fullScreenImageViewController.modalPresentationStyle = .fullScreen
+            self.present(fullScreenImageViewController, animated: true)
+        }
     }
 }
 
@@ -455,6 +505,7 @@ extension PopupDetailViewController: PopupDetailCollectionViewCellDelegate {
         UIApplication.shared.open(URL(string: reservationUrlString)!, options: [:], completionHandler: nil)
     }
 }
+
 // MARK: - Implement WriteReviewButton Delegate
 extension PopupDetailViewController: WriteReviewButtonDelegate {
     func didTapWriteReviewButtonDelegate() {
@@ -488,8 +539,8 @@ extension PopupDetailViewController: WriteReviewButtonDelegate {
 // MARK: - Implement ReviewCollectionViewCell Delegate
 extension PopupDetailViewController: ReviewCollectionViewCellDelegate {
     func didTapReviewImages(images: [UIImage], selecetedIndex: Int) {
-        let fullScreenImageViewController = FullScreenReviewImageViewController(
-            reviewImages: images,
+        let fullScreenImageViewController = FullScreenImageViewController(
+            images: images,
             selectedIndex: selecetedIndex
         )
         fullScreenImageViewController.modalPresentationStyle = .fullScreen
