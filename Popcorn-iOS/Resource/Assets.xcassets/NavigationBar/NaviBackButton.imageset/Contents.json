@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "NaviBackButton1x.png",
+      "filename" : "NaviBackButton@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "NaviBackButton2x.png",
+      "filename" : "NaviBackButton@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "NaviBackButton3x.png",
+      "filename" : "NaviBackButton@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
