@@ -23,4 +23,9 @@ struct SecondSignupDTO: Codable {
 struct SignUpRequestDTO: Codable {
     let firstSignupDTO: FirstSignupDTO
     var secondSignupDTO: SecondSignupDTO?
+
+    enum CodingKeys: String, CodingKey {
+        case firstSignupDTO = "firstSignupDto"
+        case secondSignupDTO = "secondSignupDto"
+    }
 }

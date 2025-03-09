@@ -22,4 +22,9 @@ protocol SignUpRepositoryProtocol {
     // MARK: - SecondScene signUp method
     func fetchSignUpDataFromKeychain() -> SignUpRequestDTO?
     func fetchSignUpResult(signupData: SignUpRequestDTO, completion: @escaping (Result<Bool, Error>) -> Void)
+    func fetchKakaoSignUpResult(signupData: SocialSignUpRequestDTO, completion: @escaping (Token) -> Void)
+    func fetchAppleSignUpResult(signupData: SocialSignUpRequestDTO, completion: @escaping (Token) -> Void)
+    func fetchLoginType() -> String?
+    func fetchIdToken() -> String?
+    func fetchDeleteIdTokenResult() -> Bool
 }

@@ -12,10 +12,11 @@ enum InterestCategory: String {
     case beauty = "뷰티"
     case food = "음식"
     case character = "캐릭터"
-    case dramaMovie = "영화 / 드라마"
-    case lifeStyle = "라이프스타일"
-    case art = "아트"
+    case dramaMovie = "드라마/영화"
+    case lifeStyle = "라이프 스타일"
+    case art = "예술"
     case IT = "IT"
+    case sports = "스포츠"
     case celebrity = "셀럽"
     case pet = "반려동물"
 
@@ -29,6 +30,7 @@ enum InterestCategory: String {
         case "LIFESTYLE": self = .lifeStyle
         case "ART": self = .art
         case "IT": self = .IT
+        case "SPORTS": self = .sports
         case "CELEBRITY": self = .celebrity
         case "PETS": self = .pet
         default: return nil
@@ -48,6 +50,7 @@ extension InterestCategory {
         case .lifeStyle: return "LIFESTYLE"
         case .art: return "ART"
         case .IT: return "IT"
+        case .sports: return "SPORTS"
         case .celebrity: return "CELEBRITY"
         case .pet: return "PETS"
         }
