@@ -58,6 +58,11 @@ extension MainSceneDataSource {
         return userInterestPopup.count
     }
 
+    func getCarouselPopupId(at index: Int) -> Int {
+        guard index < carouselPopupImageUrls.count else { return 0 }
+        return carouselPopupImageUrls[index].popupId
+    }
+
     func item(at indexPath: IndexPath) -> PopupPreviewViewData {
         switch indexPath.section {
         case 0:

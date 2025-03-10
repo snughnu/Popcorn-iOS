@@ -26,6 +26,10 @@ extension CarouselHeaderView {
     func configureContents(viewModel: PopupDetailViewModel) {
         detailCarouselView.updateViewModel(viewModel: viewModel)
     }
+
+    func assignDelegate(_ delegate: MainCarouselViewDelegate) {
+        detailCarouselView.delegate = delegate
+    }
 }
 
 // MARK: - Configure UI

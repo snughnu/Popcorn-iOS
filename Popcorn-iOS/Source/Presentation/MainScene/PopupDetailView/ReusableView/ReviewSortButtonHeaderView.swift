@@ -58,7 +58,7 @@ final class ReviewSortButtonHeaderView: UICollectionReusableView {
         let stackView = UIStackView(arrangedSubviews: [recommendButton, latestButton])
         stackView.axis = .horizontal
         stackView.spacing = 12
-        stackView.alignment = .center
+        stackView.alignment = .fill
         stackView.distribution = .fillEqually
         return stackView
     }()
@@ -122,8 +122,8 @@ extension ReviewSortButtonHeaderView {
             separatorView.trailingAnchor.constraint(equalTo: trailingAnchor),
             separatorView.heightAnchor.constraint(equalToConstant: 9),
 
-            buttonStackView.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 22),
-            buttonStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
+            buttonStackView.topAnchor.constraint(equalTo: separatorView.bottomAnchor),
+            buttonStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             buttonStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
 
             bottomBorder.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 1),

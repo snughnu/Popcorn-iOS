@@ -10,8 +10,11 @@ import UIKit
 final class ReviewCollectionViewCell: UICollectionViewCell {
     private lazy var reviewImages = [UIImage]() {
         didSet {
-            reviewImagesHeightConstraint.constant = reviewImages.isEmpty ? 0 : 60
-
+            let newHeight = reviewImages.isEmpty ? CGFloat(0) : CGFloat(60)
+            if reviewImagesHeightConstraint.constant != newHeight {
+                reviewImagesHeightConstraint.constant = newHeight
+                layoutIfNeeded()
+            }
             reviewImagesCollectionView.reloadData()
         }
     }
@@ -169,18 +172,21 @@ extension ReviewCollectionViewCell {
 extension ReviewCollectionViewCell {
     func configureContents(
         profileImage: UIImage,
-        nickName: String,
-        starRating: Float,
-        reviewDate: String,
         reviewImages: [UIImage],
-        reviewText: String
+        reviewData: PopupReviewViewData
     ) {
         profileImageView.image = profileImage
-        nickNameLabel.text = nickName
-        starRatingView.configureRating(at: starRating)
-        reviewDateLabel.text = reviewDate
         self.reviewImages = reviewImages
-        reviewLabel.text = reviewText
+        starRatingView.configureRating(at: reviewData.reviewRating)
+
+        nickNameLabel.text = reviewData.nickname
+        reviewDateLabel.text = reviewData.reviewDate
+        reviewLikeCountLabel.text = reviewData.likeCount
+        reviewLabel.text = reviewData.reviewText
+
+        if let collectionView = superview as? UICollectionView {
+            collectionView.performBatchUpdates(nil)
+        }
     }
 }
 
@@ -231,7 +237,7 @@ extension ReviewCollectionViewCell {
 extension ReviewCollectionViewCell {
     private func configureSubviews() {
         [reviewHeaderStackView, reviewImagesCollectionView, reviewLabel, bottomBorder].forEach {
-            addSubview($0)
+            contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
@@ -240,11 +246,11 @@ extension ReviewCollectionViewCell {
         reviewImagesHeightConstraint = reviewImagesCollectionView.heightAnchor.constraint(equalToConstant: 0)
 
         NSLayoutConstraint.activate([
-            reviewHeaderStackView.topAnchor.constraint(equalTo: topAnchor, constant: 30),
-            reviewHeaderStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-            reviewHeaderStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            reviewHeaderStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
+            reviewHeaderStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
+            reviewHeaderStackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
 
-            profileImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 32/393),
+            profileImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 32/393),
             profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor),
 
             dateLabelSeparatorView.heightAnchor.constraint(
@@ -264,17 +270,17 @@ extension ReviewCollectionViewCell {
 
             reviewImagesCollectionView.topAnchor.constraint(equalTo: reviewHeaderStackView.bottomAnchor, constant: 15),
             reviewImagesCollectionView.leadingAnchor.constraint(equalTo: reviewHeaderStackView.leadingAnchor),
-            reviewImagesCollectionView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            reviewImagesCollectionView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             reviewImagesHeightConstraint,
 
             reviewLabel.topAnchor.constraint(equalTo: reviewImagesCollectionView.bottomAnchor, constant: 12),
             reviewLabel.leadingAnchor.constraint(equalTo: reviewHeaderStackView.leadingAnchor),
-            reviewLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -25),
-            reviewLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            reviewLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -25),
+            reviewLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
 
-            bottomBorder.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 1),
-            bottomBorder.leadingAnchor.constraint(equalTo: leadingAnchor),
-            bottomBorder.trailingAnchor.constraint(equalTo: trailingAnchor),
+            bottomBorder.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 1),
+            bottomBorder.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            bottomBorder.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             bottomBorder.heightAnchor.constraint(equalToConstant: 1)
         ])
     }

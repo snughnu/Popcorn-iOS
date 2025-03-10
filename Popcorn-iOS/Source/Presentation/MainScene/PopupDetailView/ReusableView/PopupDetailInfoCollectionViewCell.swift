@@ -73,37 +73,9 @@ final class PopupDetailInfoCollectionViewCell: UICollectionViewCell {
         return label
     }()
 
-    private let reservationButton: UIButton = {
-        let button = UIButton()
-        var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor(resource: .popcornOrange)
-        config.background.cornerRadius = 10
-        config.attributedTitle = AttributedString(
-            "예약하기",
-            attributes: AttributeContainer([
-                .font: UIFont(name: RobotoFontName.robotoSemiBold, size: 15)!,
-                .foregroundColor: UIColor(.white)
-            ])
-        )
-        button.configuration = config
-        return button
-    }()
+    private let reservationButton = PopcornOrangeButton(text: "예약하기", isEnabled: true)
 
-    private let startChatButton: UIButton = {
-        let button = UIButton()
-        var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor(resource: .popcornOrange)
-        config.background.cornerRadius = 10
-        config.attributedTitle = AttributedString(
-            "채팅하기",
-            attributes: AttributeContainer([
-                .font: UIFont(name: RobotoFontName.robotoSemiBold, size: 15)!,
-                .foregroundColor: UIColor(.white)
-            ])
-        )
-        button.configuration = config
-        return button
-    }()
+    private let startChatButton = PopcornOrangeButton(text: "채팅하기", isEnabled: true)
 
     // MARK: - StackView
     private lazy var locationInfoStackView: UIStackView = {
@@ -188,11 +160,14 @@ final class PopupDetailInfoCollectionViewCell: UICollectionViewCell {
 
 // MARK: - Public Interface
 extension PopupDetailInfoCollectionViewCell {
-    func configureContents(address: String, officialLink: String, businessHourInfo: String, popupIntroduce: String) {
-        locationLabel.text = address
-        officialLinkLabel.text = officialLink
-        businessHourInfoLabel.text = businessHourInfo
-        popupIntroduceLabel.text = popupIntroduce
+    func configureContents(_ data: PopupDetailInformationViewData) {
+        locationLabel.text = data.address
+        officialLinkLabel.text = data.organizationUrl
+        businessHourInfoLabel.text = data.businesesHours
+        popupIntroduceLabel.text = data.introduce
+        reservationButton.isEnabled = !data.isFinished
+
+        layoutIfNeeded()
     }
 }
 
@@ -216,7 +191,7 @@ extension PopupDetailInfoCollectionViewCell {
         }
 
         [popupInfoStackView, reservationStartChatButtonStackView].forEach {
-            addSubview($0)
+            contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
@@ -234,18 +209,27 @@ extension PopupDetailInfoCollectionViewCell {
             businessHourInfoLabel.trailingAnchor.constraint(equalTo: popupInfoStackView.trailingAnchor),
             popupIntroduceLabel.trailingAnchor.constraint(equalTo: popupInfoStackView.trailingAnchor),
 
-            popupInfoStackView.topAnchor.constraint(equalTo: topAnchor, constant: 30),
-            popupInfoStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 26),
-            popupInfoStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            popupInfoStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
+            popupInfoStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 26),
+            popupInfoStackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
 
             reservationStartChatButtonStackView.topAnchor.constraint(
                 equalTo: popupInfoStackView.bottomAnchor,
                 constant: 30
             ),
-            reservationStartChatButtonStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 23),
-            reservationStartChatButtonStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            reservationStartChatButtonStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
-            reservationStartChatButtonStackView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 55/393)
+            reservationStartChatButtonStackView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: 23
+            ),
+            reservationStartChatButtonStackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            reservationStartChatButtonStackView.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -30
+            ),
+            reservationStartChatButtonStackView.heightAnchor.constraint(
+                equalTo: contentView.widthAnchor,
+                multiplier: 55/393
+            )
         ])
     }
 }

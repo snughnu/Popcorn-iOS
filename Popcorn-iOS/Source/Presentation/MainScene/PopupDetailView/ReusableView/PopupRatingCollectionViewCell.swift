@@ -19,7 +19,7 @@ final class PopupRatingCollectionViewCell: UICollectionViewCell {
 
     private let ratingLabel: UILabel = {
         let label = UILabel()
-        label.popcornSemiBold(text: "5.0", size: 24)
+        label.popcornMedium(text: "5.0", size: 24)
         return label
     }()
 
@@ -39,7 +39,6 @@ final class PopupRatingCollectionViewCell: UICollectionViewCell {
 
     private let writeReviewButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.popcornSemiBold(text: "리뷰 쓰기", size: 15)
         button.setTitleColor(UIColor(resource: .popcornGray1), for: .normal)
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor(resource: .popcornGray1).cgColor
@@ -82,27 +81,26 @@ final class PopupRatingCollectionViewCell: UICollectionViewCell {
 
 // MARK: - Public Interface
 extension PopupRatingCollectionViewCell {
-    func configureContents(
-        totalRatingCount: Int,
-        averageRating: Float,
-        ratingDistribution: [RatingDistribution: Int],
-        maximumIndex: Int
-    ) {
+    func configureContents(data: PopupRatingViewData, maximumIndex: Int, isWriteReviewEnabled: Bool) {
         let ratingLevelViews = [
             ratingLevel1View, ratingLevel2View, ratingLevel3View, ratingLevel4View, ratingLevel5View
         ]
 
-        ratingLabel.text = String(averageRating)
-        starRatingView.configureRating(at: averageRating)
+        ratingLabel.text = String(data.averageRating)
+        starRatingView.configureRating(at: data.averageRating)
 
         zip(ratingLevelViews, RatingDistribution.allCases).forEach { view, rating in
             view.configureContents(
-                ratingCount: ratingDistribution[rating, default: 0],
-                totalRatingCount: totalRatingCount
+                ratingCount: data.ratingDistribution[rating, default: 0],
+                totalRatingCount: data.totalRatingCount
             )
         }
 
         ratingLevelViews[maximumIndex].highlightMaximumDistribution()
+
+        let writeReviewButtonTitle = isWriteReviewEnabled ? "리뷰 쓰기" : "종료 후 30일이 지나 리뷰 작성이 불가능해요"
+        writeReviewButton.popcornSemiBold(text: writeReviewButtonTitle, size: 15)
+        writeReviewButton.isEnabled = isWriteReviewEnabled
     }
 }
 
@@ -124,37 +122,34 @@ extension PopupRatingCollectionViewCell {
         }
 
         [backgroundGrayView, writeReviewButton].forEach {
-            addSubview($0)
+            contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            backgroundGrayView.topAnchor.constraint(equalTo: topAnchor, constant: 40),
-            backgroundGrayView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 26),
-            backgroundGrayView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            backgroundGrayView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 170/347),
+            backgroundGrayView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40),
+            backgroundGrayView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 26),
+            backgroundGrayView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            backgroundGrayView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 170/347),
 
             starRatingStackView.centerYAnchor.constraint(equalTo: backgroundGrayView.centerYAnchor),
-            starRatingStackView.leadingAnchor.constraint(equalTo: backgroundGrayView.leadingAnchor, constant: 38),
-
-            starRatingView.heightAnchor.constraint(equalTo: backgroundGrayView.heightAnchor, multiplier: 10/170),
-            starRatingView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 68.4/341),
+            starRatingStackView.leadingAnchor.constraint(equalTo: backgroundGrayView.leadingAnchor, constant: 32),
 
             separatorView.leadingAnchor.constraint(equalTo: starRatingStackView.trailingAnchor, constant: 20),
             separatorView.centerYAnchor.constraint(equalTo: backgroundGrayView.centerYAnchor),
-            separatorView.heightAnchor.constraint(equalTo: backgroundGrayView.heightAnchor, multiplier: 94/170),
+            separatorView.heightAnchor.constraint(equalTo: backgroundGrayView.heightAnchor, multiplier: 84/170),
             separatorView.widthAnchor.constraint(equalToConstant: 1),
 
             ratingDistributionStackView.leadingAnchor.constraint(equalTo: separatorView.trailingAnchor, constant: 20),
             ratingDistributionStackView.centerYAnchor.constraint(equalTo: backgroundGrayView.centerYAnchor),
             ratingDistributionStackView.heightAnchor.constraint(
                 equalTo: backgroundGrayView.heightAnchor,
-                multiplier: 95/170
+                multiplier: 90/170
             ),
 
-            writeReviewButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40),
+            writeReviewButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40),
             writeReviewButton.leadingAnchor.constraint(equalTo: backgroundGrayView.leadingAnchor),
             writeReviewButton.trailingAnchor.constraint(equalTo: backgroundGrayView.trailingAnchor),
             writeReviewButton.heightAnchor.constraint(equalToConstant: 57)

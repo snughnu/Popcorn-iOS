@@ -55,6 +55,7 @@ final class MainSceneViewController: UIViewController {
 extension MainSceneViewController {
     private func configureInitialSetting() {
         view.backgroundColor = UIColor.white
+        configureNavigationBar()
         configureCollectionView()
     }
 
@@ -81,6 +82,24 @@ extension MainSceneViewController {
         )
     }
 
+}
+
+// MARK: - Configure Navigation Bar
+extension MainSceneViewController {
+    private func configureNavigationBar() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor.white
+        appearance.shadowColor = .clear
+        appearance.titleTextAttributes = [
+            .foregroundColor: UIColor.black,
+            .font: UIFont(name: RobotoFontName.robotoSemiBold, size: 21)!
+        ]
+
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+    }
 }
 
 // MARK: - Configure CollectionView DataSource
@@ -252,6 +271,7 @@ extension MainSceneViewController: UICollectionViewDataSource {
                 return UICollectionReusableView()
             }
 
+            carouselHeader.assignDelegate(self)
             carouselHeader.configureContents(headerTitle: "찜 목록", viewModel: mainViewModel)
             return carouselHeader
         case 1..<(1 + mainViewModel.getDataSource().numbersOfInterest()):
@@ -370,6 +390,20 @@ extension MainSceneViewController {
         section.supplementaryContentInsetsReference = .none
 
         return section
+    }
+}
+
+// MARK: - Implement MainCarouselView Delegate
+extension MainSceneViewController: MainCarouselViewDelegate {
+    func didTapCarouselImage(selectedIndex: Int) {
+        let popupId = mainViewModel.getDataSource().getCarouselPopupId(at: selectedIndex)
+
+        let detailViewController = PopupDetailViewController(
+            viewModel: DIContainer.shared.resolve(PopupDetailViewModel.self),
+            popupId: popupId
+        )
+
+        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
 

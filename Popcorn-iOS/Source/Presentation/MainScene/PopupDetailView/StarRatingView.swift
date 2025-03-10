@@ -122,6 +122,7 @@ extension StarRatingView {
                 imageView.image = isUserInteractionEnabled ? fullStarImage : smallFullStarImage
                 imageView.contentMode = .scaleAspectFit
                 imageView.setContentHuggingPriority(.required, for: .horizontal)
+                imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
                 return imageView
             }()
 
