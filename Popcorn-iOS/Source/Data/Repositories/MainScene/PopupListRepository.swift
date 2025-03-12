@@ -125,7 +125,7 @@ extension PopupListRepository {
         let userPickPopups = mainListResponseDTO.userPickPopups.map { $0.toEntity() }
 
         let userInterestPopups: [UserInterestPopup] = mainListResponseDTO.userInterestPopups.compactMap { key, value in
-            guard let interestCategory = InterestCategory(serverValue: key) else { return nil }
+            guard let interestCategory = key.toEntity() else { return nil }
             return UserInterestPopup(
                 interestCategory: interestCategory,
                 popups: value.map { $0.toEntity() }

@@ -19,40 +19,4 @@ enum InterestCategory: String {
     case sports = "스포츠"
     case celebrity = "셀럽"
     case pet = "반려동물"
-
-    init?(serverValue: String) {
-        switch serverValue {
-        case "FASHION": self = .fashion
-        case "BEAUTY": self = .beauty
-        case "FOOD": self = .food
-        case "CHARACTERS": self = .character
-        case "MOVIES": self = .dramaMovie
-        case "LIFESTYLE": self = .lifeStyle
-        case "ART": self = .art
-        case "IT": self = .IT
-        case "SPORTS": self = .sports
-        case "CELEBRITY": self = .celebrity
-        case "PETS": self = .pet
-        default: return nil
-        }
-    }
-}
-
-// MARK: - InterestCategory 서버 매핑
-extension InterestCategory {
-    var serverValue: String {
-        switch self {
-        case .fashion: return "FASHION"
-        case .beauty: return "BEAUTY"
-        case .food: return "FOOD"
-        case .character: return "CHARACTER"
-        case .dramaMovie: return "MOVIES"
-        case .lifeStyle: return "LIFESTYLE"
-        case .art: return "ART"
-        case .IT: return "IT"
-        case .sports: return "SPORTS"
-        case .celebrity: return "CELEBRITY"
-        case .pet: return "PETS"
-        }
-    }
 }
