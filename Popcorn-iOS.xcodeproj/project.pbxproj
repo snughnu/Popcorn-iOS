@@ -83,6 +83,7 @@
 		56EAA9352D34EC2B007265D3 /* WriteReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EAA9342D34EC2B007265D3 /* WriteReviewViewController.swift */; };
 		56EAA9372D34F4AE007265D3 /* WriteReviewButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EAA9362D34F4A6007265D3 /* WriteReviewButtonDelegate.swift */; };
 		56ED58D12D815AE100046377 /* PopupOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56ED58D02D815AD200046377 /* PopupOverview.swift */; };
+		56ED58D32D815B9700046377 /* PopupOverviewResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56ED58D22D815B8A00046377 /* PopupOverviewResponseDTO.swift */; };
 		56F6D45D2D4FBA0C00C2BEBE /* NewToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4572D4FBA0C00C2BEBE /* NewToken.swift */; };
 		56F6D45E2D4FBA0C00C2BEBE /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D45A2D4FBA0C00C2BEBE /* Token.swift */; };
 		56F6D45F2D4FBA0C00C2BEBE /* PopupPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4592D4FBA0C00C2BEBE /* PopupPreview.swift */; };
@@ -256,6 +257,7 @@
 		56EAA9342D34EC2B007265D3 /* WriteReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewController.swift; sourceTree = "<group>"; };
 		56EAA9362D34F4A6007265D3 /* WriteReviewButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewButtonDelegate.swift; sourceTree = "<group>"; };
 		56ED58D02D815AD200046377 /* PopupOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupOverview.swift; sourceTree = "<group>"; };
+		56ED58D22D815B8A00046377 /* PopupOverviewResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupOverviewResponseDTO.swift; sourceTree = "<group>"; };
 		56F00A5F2D6CAD2C002B193D /* Popcorn-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Popcorn-iOS.entitlements"; sourceTree = "<group>"; };
 		56F6D4572D4FBA0C00C2BEBE /* NewToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewToken.swift; sourceTree = "<group>"; };
 		56F6D4582D4FBA0C00C2BEBE /* PopupInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupInformation.swift; sourceTree = "<group>"; };
@@ -556,6 +558,7 @@
 		565461622D6317FE00BC336D /* MainScene */ = {
 			isa = PBXGroup;
 			children = (
+				56ED58D22D815B8A00046377 /* PopupOverviewResponseDTO.swift */,
 				563A1E2C2D53912E008DA4F8 /* PopupMainListResponseDTO.swift */,
 				563A1E382D54AA96008DA4F8 /* PopupPreviewResponseDTO.swift */,
 			);
@@ -1512,6 +1515,7 @@
 				56CD3A722CEB83CF00BAC02D /* MainSceneViewModel.swift in Sources */,
 				BC5F3C232D525ED700248DB0 /* ValidateAuthNumResponseDTO.swift in Sources */,
 				5660FD3F2D421CE100F9B4D9 /* Cancellable.swift in Sources */,
+				56ED58D32D815B9700046377 /* PopupOverviewResponseDTO.swift in Sources */,
 				5660FD392D42186E00F9B4D9 /* APIConstant.swift in Sources */,
 				56F6D46F2D4FBBEC00C2BEBE /* SocialLoginRepositoryProtocol.swift in Sources */,
 				BC55FE882D2AD51000E269B6 /* ProfileImagePickerView.swift in Sources */,
