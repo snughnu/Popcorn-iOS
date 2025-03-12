@@ -84,6 +84,7 @@
 		56EAA9372D34F4AE007265D3 /* WriteReviewButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EAA9362D34F4A6007265D3 /* WriteReviewButtonDelegate.swift */; };
 		56ED58D12D815AE100046377 /* PopupOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56ED58D02D815AD200046377 /* PopupOverview.swift */; };
 		56ED58D32D815B9700046377 /* PopupOverviewResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56ED58D22D815B8A00046377 /* PopupOverviewResponseDTO.swift */; };
+		56ED58D92D81660B00046377 /* InterestCategoryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56ED58D82D8165FA00046377 /* InterestCategoryDTO.swift */; };
 		56F6D45D2D4FBA0C00C2BEBE /* NewToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4572D4FBA0C00C2BEBE /* NewToken.swift */; };
 		56F6D45E2D4FBA0C00C2BEBE /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D45A2D4FBA0C00C2BEBE /* Token.swift */; };
 		56F6D45F2D4FBA0C00C2BEBE /* PopupPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4592D4FBA0C00C2BEBE /* PopupPreview.swift */; };
@@ -258,6 +259,7 @@
 		56EAA9362D34F4A6007265D3 /* WriteReviewButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewButtonDelegate.swift; sourceTree = "<group>"; };
 		56ED58D02D815AD200046377 /* PopupOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupOverview.swift; sourceTree = "<group>"; };
 		56ED58D22D815B8A00046377 /* PopupOverviewResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupOverviewResponseDTO.swift; sourceTree = "<group>"; };
+		56ED58D82D8165FA00046377 /* InterestCategoryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestCategoryDTO.swift; sourceTree = "<group>"; };
 		56F00A5F2D6CAD2C002B193D /* Popcorn-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Popcorn-iOS.entitlements"; sourceTree = "<group>"; };
 		56F6D4572D4FBA0C00C2BEBE /* NewToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewToken.swift; sourceTree = "<group>"; };
 		56F6D4582D4FBA0C00C2BEBE /* PopupInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupInformation.swift; sourceTree = "<group>"; };
@@ -558,9 +560,9 @@
 		565461622D6317FE00BC336D /* MainScene */ = {
 			isa = PBXGroup;
 			children = (
-				56ED58D22D815B8A00046377 /* PopupOverviewResponseDTO.swift */,
 				563A1E2C2D53912E008DA4F8 /* PopupMainListResponseDTO.swift */,
 				563A1E382D54AA96008DA4F8 /* PopupPreviewResponseDTO.swift */,
+				56ED58D22D815B8A00046377 /* PopupOverviewResponseDTO.swift */,
 			);
 			path = MainScene;
 			sourceTree = "<group>";
@@ -796,6 +798,14 @@
 				56ED58D02D815AD200046377 /* PopupOverview.swift */,
 			);
 			path = PopupOverviewScene;
+			sourceTree = "<group>";
+		};
+		56ED58D72D8165F400046377 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				56ED58D82D8165FA00046377 /* InterestCategoryDTO.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		56F6D45C2D4FBA0C00C2BEBE /* Entities */ = {
@@ -1086,6 +1096,7 @@
 		BCB86A5C2D48636B00F00F1F /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				56ED58D72D8165F400046377 /* Common */,
 				56D423952D6EE75600180351 /* DefaultResponseDTO.swift */,
 				BCB86A5F2D48640A00F00F1F /* Login */,
 				563A1E2B2D539125008DA4F8 /* MainScene */,
@@ -1524,6 +1535,7 @@
 				56F6D46B2D4FBBB200C2BEBE /* TokenRepositoryProtocol.swift in Sources */,
 				BCB86A632D486A6F00F00F1F /* LoginRepository.swift in Sources */,
 				563A1E482D58BC19008DA4F8 /* PopupFetchListUseCase.swift in Sources */,
+				56ED58D92D81660B00046377 /* InterestCategoryDTO.swift in Sources */,
 				5651F4C12D66FB7700951B6B /* PopupDetailUseCase.swift in Sources */,
 				56D68A362D2409DB00EA1404 /* PopupRatingCollectionViewCell.swift in Sources */,
 				56F6D4862D534CCE00C2BEBE /* ImageFetchManagerRepository.swift in Sources */,
