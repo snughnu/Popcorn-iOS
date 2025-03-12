@@ -808,9 +808,18 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		56ED58DC2D81761500046377 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				BCA0FFD42D65A6A500A71375 /* InterestCategory.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		56F6D45C2D4FBA0C00C2BEBE /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				56ED58DC2D81761500046377 /* Category */,
 				56F6D4632D4FBAA000C2BEBE /* Token */,
 				56F6D4622D4FBA8300C2BEBE /* MainScene */,
 			);
@@ -821,7 +830,6 @@
 			isa = PBXGroup;
 			children = (
 				56C040002D65DF9E007483F0 /* MainScene */,
-				BCA0FFD42D65A6A500A71375 /* InterestCategory.swift */,
 			);
 			path = MainScene;
 			sourceTree = "<group>";
