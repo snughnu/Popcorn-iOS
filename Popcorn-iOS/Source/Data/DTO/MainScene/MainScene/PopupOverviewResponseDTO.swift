@@ -8,7 +8,7 @@
 import Foundation
 
 struct PopupOverviewResponseDTO: Decodable {
-    let popupId: String
+    let popupId: Int
     let popupImageUrl: String
     let popupTitle: String
     let startDate: String
@@ -22,7 +22,6 @@ struct PopupOverviewResponseDTO: Decodable {
         case startDate = "startedAt"
         case endDate = "endedAt"
         case address = "location"
-        
     }
 }
 
@@ -33,6 +32,7 @@ extension PopupOverviewResponseDTO {
         let startDate = DateFormatter.apiDateFormatter.date(from: startDate) ?? errorDate
 
         return PopupOverview(
+            popupId: popupId,
             popupImageUrl: popupImageUrl,
             popupTitle: popupTitle,
             startDate: startDate,
