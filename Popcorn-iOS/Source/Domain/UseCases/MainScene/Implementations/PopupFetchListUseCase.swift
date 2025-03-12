@@ -16,7 +16,18 @@ final class PopupFetchListUseCase: PopupFetchListUseCaseProtocol {
         repository.fetchPopupMainList(completion: completion)
     }
 
-    func fetchCategorizedPopupList(completion: @escaping (Result<[PopupPreview], NetworkError>) -> Void) {
-        // TODO: API 나온 후 구현
+    func fetchPopupOverview(
+        category: PopupSectionCategory,
+        page: Int,
+        completion: @escaping (Result<[PopupOverview], any Error>) -> Void
+    ) {
+        repository.fetchPopupOverview(category: category, page: page) { result in
+            switch result {
+            case .success(let endpoint):
+                completion(.success(endpoint))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }
