@@ -8,6 +8,7 @@
 import Foundation
 
 struct PopupOverview {
+    let popupId: Int
     let popupImageUrl: String
     let popupTitle: String
     let startDate: Date
