@@ -7,13 +7,6 @@
 
 import Foundation
 
-enum MainCategory {
-    case todayRecommend
-    case userPick
-    case userInterest
-    case closingSoon
-}
-
 final class MainSceneDataSource {
     private var carouselPopupImageUrls: [PopupPreviewViewData] = []
     private var userPickPopup: [PopupPreviewViewData] = []
@@ -41,7 +34,7 @@ extension MainSceneDataSource {
 
 // MARK: - Output
 extension MainSceneDataSource {
-    func numbersOfPopup(of category: MainCategory, at index: Int = 0) -> Int {
+    func numbersOfPopup(of category: PopupSectionCategory, at index: Int = 0) -> Int {
         switch category {
         case .todayRecommend:
             return carouselPopupImageUrls.count

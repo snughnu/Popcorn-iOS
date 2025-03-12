@@ -115,7 +115,7 @@ extension MainSceneViewController: UICollectionViewDataSource {
         case 0:
             return mainViewModel.getDataSource().numbersOfPopup(of: .userPick)
         case 1..<(1 + numberOfInterest):
-            return mainViewModel.getDataSource().numbersOfPopup(of: .userInterest, at: section - 1)
+            return mainViewModel.getDataSource().numbersOfPopup(of: .userInterest(.none), at: section - 1)
         case (1 + numberOfInterest):
             return mainViewModel.getDataSource().numbersOfPopup(of: .closingSoon)
         default:
