@@ -24,7 +24,7 @@ final class PopupOverviewViewModel {
     init(
         category: PopupSectionCategory,
         popupFetchUseCase: PopupFetchListUseCaseProtocol,
-        imageFetchUseCase: ImageFetchUseCaseProtocol
+        imageFetchUseCase: ImageFetchUseCaseProtocol = DIContainer.shared.resolve(ImageFetchUseCaseProtocol.self)
     ) {
         self.popupFetchUseCase = popupFetchUseCase
         self.imageFetchUseCase = imageFetchUseCase
@@ -40,6 +40,10 @@ extension PopupOverviewViewModel {
 
     func item(at index: Int) -> PopupOverviewViewData {
         return popupOverview[index]
+    }
+
+    func getCategory() -> PopupSectionCategory {
+        return category
     }
 }
 

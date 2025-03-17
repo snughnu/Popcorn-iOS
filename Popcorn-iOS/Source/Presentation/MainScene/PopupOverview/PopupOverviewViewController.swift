@@ -24,6 +24,11 @@ final class PopupOverviewViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureInitialSetting()
@@ -45,6 +50,7 @@ final class PopupOverviewViewController: UIViewController {
 extension PopupOverviewViewController {
     private func configureInitialSetting() {
         view.backgroundColor = .white
+        configureNavigationBar()
 
         popupOverviewTableview.dataSource = self
         popupOverviewTableview.delegate = self
@@ -54,6 +60,30 @@ extension PopupOverviewViewController {
             PopupOverviewTableViewCell.self,
             forCellReuseIdentifier: PopupOverviewTableViewCell.reuseIdentifier
         )
+    }
+}
+
+// MARK: - Configure Navigation Bar
+extension PopupOverviewViewController {
+    private func configureNavigationBar() {
+        let category = viewModel.getCategory()
+        navigationItem.title = CategoryMapper.mapToTitle(category)
+
+        navigationItem.hidesBackButton = true
+
+        let backButton = UIBarButtonItem(
+            image: UIImage(resource: .naviBackButton),
+            style: .plain,
+            target: self,
+            action: #selector(popViewController)
+        )
+
+        navigationItem.leftBarButtonItem = backButton
+        navigationItem.leftBarButtonItem?.tintColor = .black
+    }
+
+    @objc private func popViewController() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
