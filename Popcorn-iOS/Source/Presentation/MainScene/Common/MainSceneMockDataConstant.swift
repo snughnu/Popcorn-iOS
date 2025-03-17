@@ -17,7 +17,7 @@ struct MainSceneMockDataConstant {
         "https://gist.github.com/user-attachments/assets/c5b3f41b-eb6b-41aa-8eec-1bc4c1dff59a",      // 드래곤볼
         "https://gist.github.com/user-attachments/assets/e6fe6c4e-937f-4156-a6a1-a4232ab4feab"      // 풋볼
     ]
-
+    
     // MARK: - Popup Titles
     let popupTitles = [
         "아닐라 팝업스토어",
@@ -27,7 +27,7 @@ struct MainSceneMockDataConstant {
         "드래곤볼 팝업스토어 in 잠실",
         "풋볼스탠다드 팝업스토어"
     ]
-
+    
     // MARK: - Dates
     let startDateBefore5 = Calendar.current.date(byAdding: .day, value: -5, to: Date())!
     let startDateAfter10 = Calendar.current.date(byAdding: .day, value: 10, to: Date())!
@@ -36,7 +36,7 @@ struct MainSceneMockDataConstant {
     let endDateAfter10 = Calendar.current.date(byAdding: .day, value: 10, to: Date())!
     let endDateAfter20 = Calendar.current.date(byAdding: .day, value: 20, to: Date())!
     let endDateBefore35 = Calendar.current.date(byAdding: .day, value: -35, to: Date())!
-
+    
     // MARK: - Addresses
     let addresses = [
         "서울특별시 강남구 팝콘로 1234",
@@ -46,7 +46,7 @@ struct MainSceneMockDataConstant {
         "서울특별시 송파구 잠실 팝콘로 121",
         "서울특별시 마포구 홍대 팝콘로 4"
     ]
-
+    
     static func generatePopupPreview() -> [PopupPreview] {
         let mockData = MainSceneMockDataConstant()
         return zip(mockData.popupTitles, zip(mockData.imageUrls, mockData.addresses)).enumerated().map { index, data in
@@ -60,64 +60,94 @@ struct MainSceneMockDataConstant {
             )
         }
     }
-
+    
     static func generateDetailData() -> (PopupInformation, PopupRatingDistribution, [PopupReview]) {
-           let mockData = MainSceneMockDataConstant()
-
-           let popupInfo = PopupInformation(
-               popupId: 1,
-               popupImagesUrl: [
+        let mockData = MainSceneMockDataConstant()
+        
+        let popupInfo = PopupInformation(
+            popupId: 1,
+            popupImagesUrl: [
                 mockData.imageUrls[3],
                 mockData.imageUrls[1],
                 mockData.imageUrls[0],
                 mockData.imageUrls[3]
-               ],
-               popupTitle: "팝콘 팝업스토어",
-               startDate: Date(),
-               endDate: Calendar.current.date(byAdding: .day, value: 50, to: Date())!,
-               isPick: true,
-               hashTags: ["#캐릭터", "#영화", "#음식"],
-               address: "서울특별시 강남구 강남대로 1234567",
-               organizationUrl: "https://www.naver.com",
-               businesesHours: "10:00 AM - 8:00 PM",
-               introduce: "귀여운 팝콘 마을부터 팝콘 친구들, 그리고 귀여운 굿즈들까지! 팝콘 마을 놀이터 물론 팝콘이들이 전달해주는 영화추천까지 다양한 체험존도 경험해보세요! 팝콘은 오는 4월 1일 서울을 시작으로 전국적으로 찾아갈 예정이니 많관부❤",
-               reservationUrl: "https://www.naver.com"
-           )
+            ],
+            popupTitle: "팝콘 팝업스토어",
+            startDate: Date(),
+            endDate: Calendar.current.date(byAdding: .day, value: 50, to: Date())!,
+            isPick: true,
+            hashTags: ["#캐릭터", "#영화", "#음식"],
+            address: "서울특별시 강남구 강남대로 1234567",
+            organizationUrl: "https://www.naver.com",
+            businesesHours: "10:00 AM - 8:00 PM",
+            introduce: "귀여운 팝콘 마을부터 팝콘 친구들, 그리고 귀여운 굿즈들까지! 팝콘 마을 놀이터 물론 팝콘이들이 전달해주는 영화추천까지 다양한 체험존도 경험해보세요! 팝콘은 오는 4월 1일 서울을 시작으로 전국적으로 찾아갈 예정이니 많관부❤",
+            reservationUrl: "https://www.naver.com"
+        )
 
-           let ratingDistribution = PopupRatingDistribution(
-               averageRating: 4.5,
-               ratingDistribution: [.fiveStars: 50, .fourStars: 30, .threeStars: 10, .twoStars: 5, .oneStar: 5]
-           )
+        let ratingDistribution = PopupRatingDistribution(
+            averageRating: 4.5,
+            ratingDistribution: [.fiveStars: 50, .fourStars: 30, .threeStars: 10, .twoStars: 5, .oneStar: 5]
+        )
 
-           let reviews = (1...4).map { index in
-               PopupReview(
-                   profileImageUrl: nil,
-                   nickName: "사용자\(index)",
-                   reviewRating: Float(arc4random_uniform(2) + 4),
-                   reviewDate: mockData.startDateBefore5,
-                   reviewImagesUrl: nil,
-                   reviewText: "정말 재미있는 팝업스토어였어요!",
-                   likeCount: Int(arc4random_uniform(100)),
-                   isLiked: index % 2 == 0
-               )
-           }
-
-           return (popupInfo, ratingDistribution, reviews)
-       }
-
-       static func generatePopupOverviewData() -> [PopupOverview] {
-           let mockData = MainSceneMockDataConstant()
-           let imageUrls = mockData.imageUrls
-
-           return zip(mockData.popupTitles, zip(imageUrls, mockData.addresses)).enumerated().map { index, data in
-               PopupOverview(
-                   popupId: index + 1,
-                   popupImageUrl: data.1.0,
-                   popupTitle: data.0,
-                   startDate: mockData.startDateBefore5,
-                   endDate: mockData.endDateAfter10,
-                   address: data.1.1
-               )
-           }
-       }
-   }
+        let reviews = [
+            PopupReview(
+                profileImageUrl: "https://randomuser.me/api/portraits/men/1.jpg",
+                nickName: "팝콘이1",
+                reviewRating: 4.5,
+                reviewDate: mockData.startDateBefore5,
+                reviewImagesUrl: [mockData.imageUrls[2], mockData.imageUrls[5], mockData.imageUrls[3]],
+                reviewText: "퇴근 후 바로 방문했는데 너무 재밌어요!!!!",
+                likeCount: 30,
+                isLiked: false
+            ),
+            PopupReview(
+                profileImageUrl: "https://randomuser.me/api/portraits/women/2.jpg",
+                nickName: "팝콘 화이팅a",
+                reviewRating: 5,
+                reviewDate: mockData.startDateBefore5,
+                reviewImagesUrl: [mockData.imageUrls[4], mockData.imageUrls[1]],
+                reviewText: "저는 오픈런했는데 사람이 너무 많았어요ㅠ 그래도 추천합니다!!",
+                likeCount: 15,
+                isLiked: false
+            ),
+            PopupReview(
+                profileImageUrl: "https://randomuser.me/api/portraits/women/3.jpg",
+                nickName: "핑핑구",
+                reviewRating: 3.5,
+                reviewDate: mockData.startDateBefore5,
+                reviewImagesUrl: [mockData.imageUrls[3]],
+                reviewText: "구성이 알차고 좋아요. 그런데 사람이 너무 많습니다.",
+                likeCount: 7,
+                isLiked: true
+            ),
+            PopupReview(
+                profileImageUrl: "https://randomuser.me/api/portraits/men/4.jpg",
+                nickName: "핑구구구",
+                reviewRating: 4,
+                reviewDate: mockData.startDateBefore5,
+                reviewImagesUrl: [mockData.imageUrls[0], mockData.imageUrls[1], mockData.imageUrls[2]],
+                reviewText: "팝콘 캐릭터 너무 귀여워요~~ 다음에 또 팝업 열리면 무조건 갈듯",
+                likeCount: 4,
+                isLiked: false
+            )
+        ]
+        
+        return (popupInfo, ratingDistribution, reviews)
+    }
+    
+    static func generatePopupOverviewData() -> [PopupOverview] {
+        let mockData = MainSceneMockDataConstant()
+        let imageUrls = mockData.imageUrls
+        
+        return zip(mockData.popupTitles, zip(imageUrls, mockData.addresses)).enumerated().map { index, data in
+            PopupOverview(
+                popupId: index + 1,
+                popupImageUrl: data.1.0,
+                popupTitle: data.0,
+                startDate: mockData.startDateBefore5,
+                endDate: mockData.endDateAfter10,
+                address: data.1.1
+            )
+        }
+    }
+}
