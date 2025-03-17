@@ -86,43 +86,37 @@ extension MainSceneDataSource {
 // MARK: - Mocking
 extension MainSceneDataSource {
     func genereateMockData() {
-        let imageUrl1 = "https://velog.velcdn.com/images/gration77/post/e15e428d-2a5b-47fb-98a5-43f28d20ea58/image.jpeg"
-        let imageUrl2 = "https://velog.velcdn.com/images/gration77/post/3a6ba214-83b1-4c08-99f6-e973d1a3bb5e/image.png"
-        let imageUrl3 = "https://velog.velcdn.com/images/gration77/post/4ad770f3-e573-48e8-a2ee-2ca3c302f122/image.png"
+        let mockPopups = MainSceneMockDataConstant.generatePopupPreview()
 
-        let mockPopups: [PopupPreviewViewData] = [
-            PopupPreviewViewData(from: PopupPreview(
-                popupId: 1,
-                popupImageUrl: imageUrl1,
-                popupTitle: "아기자기 팝업스토어",
-                popupEndDate: Date().addingTimeInterval(86400 * 10),
-                popupStartDate: Date().addingTimeInterval(-86400 * 5),
-                popupLocation: "서울특별시 강남구"
-            )),
-            PopupPreviewViewData(from: PopupPreview(
-                popupId: 2,
-                popupImageUrl: imageUrl2,
-                popupTitle: "핑구 팝업스토어",
-                popupEndDate: Date().addingTimeInterval(86400 * 3),
-                popupStartDate: Date().addingTimeInterval(-86400 * 2),
-                popupLocation: "서울특별시 마포구"
-            )),
-            PopupPreviewViewData(from: PopupPreview(
-                popupId: 3,
-                popupImageUrl: imageUrl3,
-                popupTitle: "트렌드 패션 팝업스토어",
-                popupEndDate: Date().addingTimeInterval(86400 * 7),
-                popupStartDate: Date().addingTimeInterval(-86400 * 1),
-                popupLocation: "서울특별시 서초구"
-            ))
+        self.carouselPopupImageUrls = [
+            PopupPreviewViewData(from: mockPopups[3]),
+            PopupPreviewViewData(from: mockPopups[1]),
+            PopupPreviewViewData(from: mockPopups[2]),
+            PopupPreviewViewData(from: mockPopups[3])
         ]
 
-        self.carouselPopupImageUrls = [mockPopups[0], mockPopups[1], mockPopups[2]]
-        self.userPickPopup = mockPopups
+        self.userPickPopup = mockPopups.map { PopupPreviewViewData(from: $0) }
         self.userInterestPopup = [
-            UserInterestPopupViewData(interestCategory: "캐릭터", popups: [mockPopups[1]]),
-            UserInterestPopupViewData(interestCategory: "패션", popups: [mockPopups[2], mockPopups[0]])
+            UserInterestPopupViewData(interestCategory: "캐릭터", popups: [
+                PopupPreviewViewData(from: mockPopups[0]),
+                PopupPreviewViewData(from: mockPopups[2]),
+                PopupPreviewViewData(from: mockPopups[1]),
+                PopupPreviewViewData(from: mockPopups[3])
+            ]),
+            UserInterestPopupViewData(interestCategory: "패션", popups: [
+                PopupPreviewViewData(from: mockPopups[4]),
+                PopupPreviewViewData(from: mockPopups[3]),
+                PopupPreviewViewData(from: mockPopups[2]),
+                PopupPreviewViewData(from: mockPopups[1])
+            ])
         ]
-        self.closingSoonPopup = [mockPopups[2], mockPopups[1], mockPopups[0]]
+
+        self.closingSoonPopup = [
+            PopupPreviewViewData(from: mockPopups[0]),
+            PopupPreviewViewData(from: mockPopups[2]),
+            PopupPreviewViewData(from: mockPopups[3]),
+            PopupPreviewViewData(from: mockPopups[2]),
+            PopupPreviewViewData(from: mockPopups[1])
+        ]
     }
 }

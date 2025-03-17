@@ -123,79 +123,8 @@ struct PopupOverviewViewData {
 // MARK: - Mocking
 extension PopupOverviewViewModel {
     func generateMockData() {
-        let chiImageUrl = "https://gist.github.com/user-attachments/assets/a45d0e3f-b1a0-4675-b0b0-82cb7f9e4721"
-        let akiriImageUrl = "https://gist.github.com/user-attachments/assets/660ccd91-fd4a-4d1b-a98d-9c3b6d5bc34f"
-        let pinguImageUrl = "https://gist.github.com/user-attachments/assets/ffc183ff-4d2e-4f45-b6e6-b602b15b53cc"
-        let dragonBallImageUrl = "https://gist.github.com/user-attachments/assets/c5b3f41b-eb6b-41aa-8eec-1bc4c1dff59a"
-        let footbalImageUrl = "https://gist.github.com/user-attachments/assets/e6fe6c4e-937f-4156-a6a1-a4232ab4feab"
-        let anilaImageUrl = "https://gist.github.com/user-attachments/assets/12289a42-36d3-4f65-901e-632e7529acfa"
+        let overview = MainSceneMockDataConstant.generatePopupOverviewData()
 
-        let anilaData = PopupOverviewViewData(
-            from: PopupOverview(
-                popupId: -1,
-                popupImageUrl: anilaImageUrl,
-                popupTitle: "핑구 팝업스토어",
-                startDate: Date(),
-                endDate: Date().addingTimeInterval(3600 * 24 * 7),
-                address: "서울특별시 영등포구 여의대로 108 파크원 지하 1층"
-            )
-        )
-
-        let chiData = PopupOverviewViewData(
-            from: PopupOverview(
-                popupId: -1,
-                popupImageUrl: chiImageUrl,
-                popupTitle: "핑구 팝업스토어",
-                startDate: Date(),
-                endDate: Date().addingTimeInterval(3600 * 24 * 7),
-                address: "서울특별시 영등포구 여의대로 108 파크원 지하 1층"
-            )
-        )
-
-        let akiriData = PopupOverviewViewData(
-            from: PopupOverview(
-                popupId: -1,
-                popupImageUrl: akiriImageUrl,
-                popupTitle: "핑구 팝업스토어",
-                startDate: Date(),
-                endDate: Date().addingTimeInterval(3600 * 24 * 7),
-                address: "서울특별시 영등포구 여의대로 108 파크원 지하 1층"
-            )
-        )
-
-        let pinguData = PopupOverviewViewData(
-            from: PopupOverview(
-                popupId: -1,
-                popupImageUrl: pinguImageUrl,
-                popupTitle: "핑구 팝업스토어",
-                startDate: Date(),
-                endDate: Date().addingTimeInterval(3600 * 24 * 7),
-                address: "서울특별시 영등포구 여의대로 108 파크원 지하 1층"
-            )
-        )
-
-        let dragonBallData = PopupOverviewViewData(
-            from: PopupOverview(
-                popupId: -1,
-                popupImageUrl: dragonBallImageUrl,
-                popupTitle: "핑구 팝업스토어",
-                startDate: Date(),
-                endDate: Date().addingTimeInterval(3600 * 24 * 7),
-                address: "서울특별시 영등포구 여의대로 108 파크원 지하 1층"
-            )
-        )
-
-        let footBallData = PopupOverviewViewData(
-            from: PopupOverview(
-                popupId: -1,
-                popupImageUrl: footbalImageUrl,
-                popupTitle: "핑구 팝업스토어",
-                startDate: Date(),
-                endDate: Date().addingTimeInterval(3600 * 24 * 7),
-                address: "서울특별시 영등포구 여의대로 108 파크원 지하 1층"
-            )
-        )
-
-        popupOverview = [anilaData, chiData, akiriData, pinguData, dragonBallData, footBallData]
+        popupOverview = overview.map { PopupOverviewViewData(from: $0) }
     }
 }
