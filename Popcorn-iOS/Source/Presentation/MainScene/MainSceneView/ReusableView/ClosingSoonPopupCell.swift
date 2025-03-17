@@ -42,7 +42,7 @@ final class ClosingSoonPopupCell: UICollectionViewCell {
         let label = UILabel()
         label.popcornMedium(text: "OO광역시 OO구 OO로OO", size: 10)
         label.textColor = .black
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         return label
     }()
 
@@ -59,7 +59,7 @@ final class ClosingSoonPopupCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 0
-        stackView.alignment = .fill
+        stackView.alignment = .top
         stackView.distribution = .fill
         return stackView
     }()
