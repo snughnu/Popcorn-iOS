@@ -741,7 +741,6 @@
 		56C5DDC62CE99AC80090D3A2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				5606D56C2D87FC27008C3E6F /* CategoryMapper.swift */,
 				563A1E4A2D58C1F2008DA4F8 /* Util */,
 				56C5DDCB2CE9B1D50090D3A2 /* View */,
 			);
@@ -805,6 +804,7 @@
 			isa = PBXGroup;
 			children = (
 				56EAA9312D34EB93007265D3 /* View */,
+				5606D56C2D87FC27008C3E6F /* CategoryMapper.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
