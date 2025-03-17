@@ -61,6 +61,7 @@ extension MainSceneViewController {
 
     private func configureCollectionView() {
         mainCollectionView.dataSource = self
+        mainCollectionView.delegate = self
 
         mainCollectionView.register(
             PickOrInterestCell.self,
@@ -393,9 +394,17 @@ extension MainSceneViewController {
     }
 }
 
-// MARK: - Implement MainCarouselView Delegate
-extension MainSceneViewController: MainCarouselViewDelegate {
+// MARK: - Navigate To PopupDetailViewController
+extension MainSceneViewController: UICollectionViewDelegate, MainCarouselViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        navigateToPopupDetailViewController(selectedIndex: indexPath.item)
+    }
+
     func didTapCarouselImage(selectedIndex: Int) {
+        navigateToPopupDetailViewController(selectedIndex: selectedIndex)
+    }
+
+    func navigateToPopupDetailViewController(selectedIndex: Int) {
         let popupId = mainViewModel.getDataSource().getCarouselPopupId(at: selectedIndex)
 
         let detailViewController = PopupDetailViewController(
