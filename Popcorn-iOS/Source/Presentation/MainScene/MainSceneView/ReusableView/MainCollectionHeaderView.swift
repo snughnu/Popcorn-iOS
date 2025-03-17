@@ -26,6 +26,10 @@ extension MainCollectionHeaderView {
     func configureContents(headerTitle: String, shouldHiddenShowButton: Bool = false) {
         header.configureContents(headerTitle: headerTitle, shouldHiddenShowButton: shouldHiddenShowButton)
     }
+
+    func assignDelegate(_ delegate: MainTitleHeaderViewDelegate) {
+        header.delegate = delegate
+    }
 }
 
 // MARK: - Configure UI

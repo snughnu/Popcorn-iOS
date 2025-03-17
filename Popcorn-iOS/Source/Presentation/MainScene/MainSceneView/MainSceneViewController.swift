@@ -81,7 +81,6 @@ extension MainSceneViewController {
             withReuseIdentifier: MainCollectionHeaderView.reuseIdentifier
         )
     }
-
 }
 
 // MARK: - Configure Navigation Bar
@@ -287,6 +286,7 @@ extension MainSceneViewController: UICollectionViewDataSource {
                 .getDataSource()
                 .provideUserInterestTitle(sectionOfInterest: indexPath.section - 1)
 
+            header.assignDelegate(self)
             header.configureContents(headerTitle: headerTitle)
             return header
         case (1 + mainViewModel.getDataSource().numbersOfInterest()):
@@ -404,6 +404,24 @@ extension MainSceneViewController: MainCarouselViewDelegate {
         )
 
         self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
+}
+
+// MARK: - Implement MainTitleHeaderViewDelegate Delegate {
+extension MainSceneViewController: MainTitleHeaderViewDelegate {
+    func didTapHeader(_ title: String) {
+        guard let category = CategoryMapper.mapStringToPopupSectionCategory(title) else { return }
+
+        let viewModel = PopupOverviewViewModel(
+            category: category,
+            popupFetchUseCase: DIContainer.shared.resolve(PopupFetchListUseCaseProtocol.self)
+        )
+
+        let popupOverviewViewController = PopupOverviewViewController(
+            viewModel: viewModel
+        )
+
+        navigationController?.pushViewController(popupOverviewViewController, animated: true)
     }
 }
 

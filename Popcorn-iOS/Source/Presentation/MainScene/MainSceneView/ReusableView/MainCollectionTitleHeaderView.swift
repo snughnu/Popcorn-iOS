@@ -43,10 +43,13 @@ final class MainCollectionTitleHeaderView: UIView {
         return view
     }()
 
+    weak var delegate: MainTitleHeaderViewDelegate?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureSubviews()
         configureLayout()
+        configureGesture()
     }
 
     required init?(coder: NSCoder) {
@@ -61,6 +64,17 @@ extension MainCollectionTitleHeaderView {
         overviewStackView.isHidden = shouldHiddenShowButton
     }
 }
+
+// MARK: - Configure Gesture
+extension MainCollectionTitleHeaderView {
+    private func configureGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
+        self.addGestureRecognizer(tapGesture)
+    }
+
+    @objc func handleTapGesture(_ gesture: UITapGestureRecognizer) {
+        guard let title = headerLabel.text else { return }
+        delegate?.didTapHeader(title)
     }
 }
 
