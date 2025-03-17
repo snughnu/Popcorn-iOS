@@ -53,6 +53,7 @@
 		5660FD3F2D421CE100F9B4D9 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5660FD3E2D421CDE00F9B4D9 /* Cancellable.swift */; };
 		5660FD492D421E9E00F9B4D9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5660FD482D421E9A00F9B4D9 /* NetworkManager.swift */; };
 		566A0E4F2D3E23AF00B70929 /* WriteReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566A0E4E2D3E23A800B70929 /* WriteReviewViewModel.swift */; };
+		5679312B2D81D9E400BF828D /* PopupOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679312A2D81D9DF00BF828D /* PopupOverviewViewModel.swift */; };
 		56799DDB2D5C821F001F11F7 /* MainSceneDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56799DDA2D5C821B001F11F7 /* MainSceneDataSource.swift */; };
 		56799DE32D5D1466001F11F7 /* PopupDetailDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56799DE22D5D145D001F11F7 /* PopupDetailDataSource.swift */; };
 		5679D40A2D70038C005FA703 /* PopupTitleCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679D4092D700385005FA703 /* PopupTitleCollectionViewCellDelegate.swift */; };
@@ -229,6 +230,7 @@
 		5660FD3E2D421CDE00F9B4D9 /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		5660FD482D421E9A00F9B4D9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		566A0E4E2D3E23A800B70929 /* WriteReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewModel.swift; sourceTree = "<group>"; };
+		5679312A2D81D9DF00BF828D /* PopupOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupOverviewViewModel.swift; sourceTree = "<group>"; };
 		56799DDA2D5C821B001F11F7 /* MainSceneDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneDataSource.swift; sourceTree = "<group>"; };
 		56799DE22D5D145D001F11F7 /* PopupDetailDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetailDataSource.swift; sourceTree = "<group>"; };
 		5679D4092D700385005FA703 /* PopupTitleCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTitleCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
@@ -749,6 +751,7 @@
 			isa = PBXGroup;
 			children = (
 				56CD3A702CEB83CF00BAC02D /* MainSceneViewModel.swift */,
+				5679312A2D81D9DF00BF828D /* PopupOverviewViewModel.swift */,
 				56A0C8522D2AB2E5005E6C51 /* PopupDetailViewModel.swift */,
 				566A0E4E2D3E23A800B70929 /* WriteReviewViewModel.swift */,
 			);
@@ -1474,6 +1477,7 @@
 				5651F4BF2D66FAF600951B6B /* PopupDetailUseCaseProtocol.swift in Sources */,
 				BCE6E6002CF321AE0036BAF6 /* SignUpFirstView.swift in Sources */,
 				BCF6ED502D37CBEB0038CCAE /* KeychainManager.swift in Sources */,
+				5679312B2D81D9E400BF828D /* PopupOverviewViewModel.swift in Sources */,
 				56EAA9352D34EC2B007265D3 /* WriteReviewViewController.swift in Sources */,
 				BC7420FA2CE23A9500BEED0A /* Requestable.swift in Sources */,
 				563A1E432D58B8B0008DA4F8 /* PopupFetchListUseCaseProtocol.swift in Sources */,
