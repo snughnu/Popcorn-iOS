@@ -41,7 +41,10 @@ final class PopupOverviewViewController: UIViewController {
     func bind(to viewModel: PopupOverviewViewModel) {
         viewModel.popupOverviewPublisher = { [weak self] in
             guard let self else { return }
-            self.popupOverviewTableview.reloadData()
+
+            DispatchQueue.main.async {
+                self.popupOverviewTableview.reloadData()
+            }
         }
     }
 }
@@ -135,6 +138,7 @@ extension PopupOverviewViewController: UITableViewDataSource {
 
 // MARK: - Implement UITableview Delegate
 extension PopupOverviewViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data = viewModel.item(at: indexPath.row)
 

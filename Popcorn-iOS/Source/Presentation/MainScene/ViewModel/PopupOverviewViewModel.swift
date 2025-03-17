@@ -58,6 +58,7 @@ extension PopupOverviewViewModel {
     }
 
     func fetchPopupOverview() {
+        print("hi")
         popupFetchUseCase.fetchPopupOverview(category: category, page: page) { [weak self] result in
             guard let self else { return }
             switch result {
@@ -83,8 +84,9 @@ extension PopupOverviewViewModel {
     }
 
     func fetchMore() {
-        page += 1
-        fetchPopupOverview()
+        // MARK: - 서버 구현 완료 후 주석 풀기
+//        page += 1
+//        fetchPopupOverview()
     }
 }
 
