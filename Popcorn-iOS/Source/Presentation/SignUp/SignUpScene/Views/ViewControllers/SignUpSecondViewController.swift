@@ -197,6 +197,24 @@ extension SignUpSecondViewController {
     }
 
     @objc private func backButtonTapped() {
+        self.resetSignUpData()
         navigationController?.popViewController(animated: true)
+    }
+
+    private func resetSignUpData() {
+        signUpSecondView.profileImageView.image = nil
+        signUpSecondView.nickNameTextField.text = ""
+        SignUpInterestButton.resetSelectedInterests()
+        signUpSecondView.allAgreeButton.isSelected = false
+        signUpSecondView.firstAgreeButton.isSelected = false
+        signUpSecondView.secondAgreeButton.isSelected = false
+        signUpSecondView.allAgreeButton.setImage(UIImage(resource: .checkButton), for: .normal)
+        signUpSecondView.firstAgreeButton.setImage(UIImage(resource: .individualCheckButton), for: .normal)
+        signUpSecondView.secondAgreeButton.setImage(UIImage(resource: .individualCheckButton), for: .normal)
+        signUpSecondView.signUpButton.isEnabled = false
+        var config = signUpSecondView.signUpButton.configuration
+        config?.baseBackgroundColor = UIColor(resource: .popcornGray2)
+        signUpSecondView.signUpButton.configuration = config
+        self.signUpSecondViewModel.resetData()
     }
 }

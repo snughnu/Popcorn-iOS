@@ -99,4 +99,11 @@ extension SignUpInterestButton {
         }
         setNeedsUpdateConfiguration()
     }
+
+    static func resetSelectedInterests() {
+        for button in selectedButtons {
+            button.isSelected = false
+        }
+        selectedButtons.removeAll()
+    }
 }
