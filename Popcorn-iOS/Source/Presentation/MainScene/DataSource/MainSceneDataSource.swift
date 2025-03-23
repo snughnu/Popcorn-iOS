@@ -24,7 +24,7 @@ extension MainSceneDataSource {
         self.userInterestPopup = popupMainList.userInterestPopup
             .map { category in
                 return UserInterestPopupViewData(
-                    interestCategory: category.interestCategory.rawValue,
+                    interestCategory: CategoryMapper.mapToUserInterestedTitle(category.interestCategory),
                     popups: category.popups.compactMap { PopupPreviewViewData(from: $0) }
                 )
             }
