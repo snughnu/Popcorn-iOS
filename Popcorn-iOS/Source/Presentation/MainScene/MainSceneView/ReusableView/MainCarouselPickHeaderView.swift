@@ -38,8 +38,9 @@ extension MainCarouselPickHeaderView {
         layoutSubviews()
     }
 
-    func assignDelegate(_ delegate: MainCarouselViewDelegate) {
+    func assignDelegate(_ delegate: MainCarouselViewDelegate & MainTitleHeaderViewDelegate) {
         carouselView.delegate = delegate
+        titleHeader.delegate = delegate
     }
 }
 

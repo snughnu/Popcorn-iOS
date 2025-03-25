@@ -61,6 +61,7 @@ extension MainSceneViewController {
 
     private func configureCollectionView() {
         mainCollectionView.dataSource = self
+        mainCollectionView.delegate = self
 
         mainCollectionView.register(
             PickOrInterestCell.self,
@@ -81,7 +82,6 @@ extension MainSceneViewController {
             withReuseIdentifier: MainCollectionHeaderView.reuseIdentifier
         )
     }
-
 }
 
 // MARK: - Configure Navigation Bar
@@ -115,7 +115,7 @@ extension MainSceneViewController: UICollectionViewDataSource {
         case 0:
             return mainViewModel.getDataSource().numbersOfPopup(of: .userPick)
         case 1..<(1 + numberOfInterest):
-            return mainViewModel.getDataSource().numbersOfPopup(of: .userInterest, at: section - 1)
+            return mainViewModel.getDataSource().numbersOfPopup(of: .userInterest(.none), at: section - 1)
         case (1 + numberOfInterest):
             return mainViewModel.getDataSource().numbersOfPopup(of: .closingSoon)
         default:
@@ -287,6 +287,7 @@ extension MainSceneViewController: UICollectionViewDataSource {
                 .getDataSource()
                 .provideUserInterestTitle(sectionOfInterest: indexPath.section - 1)
 
+            header.assignDelegate(self)
             header.configureContents(headerTitle: headerTitle)
             return header
         case (1 + mainViewModel.getDataSource().numbersOfInterest()):
@@ -393,9 +394,17 @@ extension MainSceneViewController {
     }
 }
 
-// MARK: - Implement MainCarouselView Delegate
-extension MainSceneViewController: MainCarouselViewDelegate {
+// MARK: - Navigate To PopupDetailViewController
+extension MainSceneViewController: UICollectionViewDelegate, MainCarouselViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        navigateToPopupDetailViewController(selectedIndex: indexPath.item)
+    }
+
     func didTapCarouselImage(selectedIndex: Int) {
+        navigateToPopupDetailViewController(selectedIndex: selectedIndex)
+    }
+
+    func navigateToPopupDetailViewController(selectedIndex: Int) {
         let popupId = mainViewModel.getDataSource().getCarouselPopupId(at: selectedIndex)
 
         let detailViewController = PopupDetailViewController(
@@ -404,6 +413,24 @@ extension MainSceneViewController: MainCarouselViewDelegate {
         )
 
         self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
+}
+
+// MARK: - Implement MainTitleHeaderViewDelegate Delegate {
+extension MainSceneViewController: MainTitleHeaderViewDelegate {
+    func didTapHeader(_ title: String) {
+        guard let category = CategoryMapper.mapStringToPopupSectionCategory(title) else { return }
+
+        let viewModel = PopupOverviewViewModel(
+            category: category,
+            popupFetchUseCase: DIContainer.shared.resolve(PopupFetchListUseCaseProtocol.self)
+        )
+
+        let popupOverviewViewController = PopupOverviewViewController(
+            viewModel: viewModel
+        )
+
+        navigationController?.pushViewController(popupOverviewViewController, animated: true)
     }
 }
 
