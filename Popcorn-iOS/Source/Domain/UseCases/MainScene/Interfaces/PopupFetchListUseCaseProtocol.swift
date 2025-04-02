@@ -7,5 +7,9 @@
 
 protocol PopupFetchListUseCaseProtocol {
     func fetchPopupMainList(completion: @escaping (Result<PopupMainList, Error>) -> Void)
-    func fetchCategorizedPopupList(completion: @escaping (Result<[PopupPreview], NetworkError>) -> Void)
+    func fetchPopupOverview(
+        category: PopupSectionCategory,
+        page: Int,
+        completion: @escaping (Result<[PopupOverview], Error>) -> Void
+    ) 
 }

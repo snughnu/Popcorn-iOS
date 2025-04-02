@@ -29,10 +29,8 @@ struct APIConstant {
 
     // MARK: - Main Scene
     static let mainScenePath = "/popups/home"
-    static let moreUserPickPath = "/popups/likes"
-    static let moreInterestPath = "/popups/interest"
-
-    static func moreUserPickPath(category: String) -> String {
+    static let userPickOverviewPath = "/popups/likes"
+    static func interestOverviewPath(category: String) -> String {
         return "/popups/interests/\(category)"
     }
 

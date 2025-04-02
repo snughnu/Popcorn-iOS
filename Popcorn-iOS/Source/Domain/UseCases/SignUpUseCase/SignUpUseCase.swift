@@ -49,7 +49,21 @@ final class SignUpUseCase: SignUpUseCaseProtocol {
 
     // MARK: - Private func
     private func convertInterestToEnglish(_ interest: String) -> String {
-        return InterestCategory(rawValue: interest)?.serverValue ?? interest
+        return switch interest {
+        case "패션": "FASHION"
+        case "뷰티": "BEAUTY"
+        case "음식": "FOOD"
+        case "캐릭터": "CHARACTERS"
+        case "드라마/영화": "MOVIES"
+        case "라이프 스타일": "LIFESTYLE"
+        case "예술": "ART"
+        case "IT": "IT"
+        case "스포츠": "SPORTS"
+        case "셀럽": "CELEBRITY"
+        case "반려동물": "PETS"
+        default:
+            ""
+        }
     }
 }
 
