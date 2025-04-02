@@ -15,28 +15,28 @@ final class TokenRepository: TokenRepositoryProtocol {
 
     private let accessTokenAttributes: [String: Any] = [
         kSecClass as String: kSecClassGenericPassword,
-        kSecAttrAccount as String: "Popcorn",
-        kSecAttrService as String: "accessToken"
+        kSecAttrAccount as String: "accessToken",
+        kSecAttrService as String: "Popcorn"
     ]
     private let refreshTokenAttributes: [String: Any] = [
         kSecClass as String: kSecClassGenericPassword,
-        kSecAttrAccount as String: "Popcorn",
-        kSecAttrService as String: "refreshToken"
+        kSecAttrAccount as String: "refreshToken",
+        kSecAttrService as String: "Popcorn"
     ]
     private let accessExpiredAtAttributes: [String: Any] = [
         kSecClass as String: kSecClassGenericPassword,
-        kSecAttrAccount as String: "Popcorn",
-        kSecAttrService as String: "accessExpiredAt"
+        kSecAttrAccount as String: "accessExpiredAt",
+        kSecAttrService as String: "Popcorn"
     ]
     private let refreshExpiredAtAttributes: [String: Any] = [
         kSecClass as String: kSecClassGenericPassword,
-        kSecAttrAccount as String: "Popcorn",
-        kSecAttrService as String: "refreshExpiredAt"
+        kSecAttrAccount as String: "refreshExpiredAt",
+        kSecAttrService as String: "Popcorn"
     ]
     private let loginTypeAttributes: [String: Any] = [
         kSecClass as String: kSecClassGenericPassword,
-        kSecAttrAccount as String: "Popcorn",
-        kSecAttrService as String: "loginType"
+        kSecAttrAccount as String: "loginType",
+        kSecAttrService as String: "Popcorn"
     ]
     private let fetchQuery: [String: Any] = [
         kSecMatchLimit as String: kSecMatchLimitOne,
@@ -64,8 +64,10 @@ final class TokenRepository: TokenRepositoryProtocol {
         var item = attributes
         item[kSecValueData as String] = data
 
-        _ = keychainManager.deleteItem(with: attributes)
-        _ = keychainManager.addItem(with: item)
+        let addStatus = keychainManager.addItem(with: item)
+        if addStatus == errSecDuplicateItem {
+            _ = keychainManager.updateItem(with: attributes, as: [kSecValueData as String: data])
+        }
     }
 }
 
