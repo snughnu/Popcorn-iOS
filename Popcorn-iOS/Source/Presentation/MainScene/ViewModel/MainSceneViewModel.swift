@@ -12,6 +12,7 @@ final class MainSceneViewModel: MainCarouselViewModelProtocol {
     private let imageFetchUseCase: ImageFetchUseCaseProtocol
     private let mainSceneDataSource: MainSceneDataSource
 
+    private var hasNextPage = true
     // MARK: - Output
     var carouselImagePublisher: (() -> Void)?
     var fetchPopupDataPublisher: (() -> Void)?
@@ -46,7 +47,9 @@ extension MainSceneViewModel {
         popupFetchListUseCase.fetchPopupMainList { [weak self] result in
             guard let self else { return }
             switch result {
-            case .success(let popupMainList):
+            case .success(let response):
+                let popupMainList = response.0
+                hasNextPage = response.1
                 self.mainSceneDataSource.updateData(popupMainList)
                 fetchPopupDataPublisher?()
             case .failure:

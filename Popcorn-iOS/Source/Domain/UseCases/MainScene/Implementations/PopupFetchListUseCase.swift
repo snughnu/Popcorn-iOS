@@ -12,7 +12,9 @@ final class PopupFetchListUseCase: PopupFetchListUseCaseProtocol {
         self.repository = repository
     }
 
-    func fetchPopupMainList(completion: @escaping (Result<PopupMainList, any Error>) -> Void) {
+    func fetchPopupMainList(
+        completion: @escaping (Result<(data: PopupMainList, hasNextPage: Bool), any Error>) -> Void
+    ) {
         repository.fetchPopupMainList(completion: completion)
     }
 
