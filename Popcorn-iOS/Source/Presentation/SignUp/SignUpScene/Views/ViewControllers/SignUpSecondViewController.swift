@@ -101,7 +101,12 @@ extension SignUpSecondViewController {
             DispatchQueue.main.async {
                 self.showAlert(title: isSuccess ? "회원가입 성공" : "회원가입 실패", message: message) {
                     if isSuccess {
-                        let loginViewController = DIContainer.shared.resolve(LoginViewController.self)
+                        let loginViewModel = DIContainer.shared.resolve(LoginViewModelProtocol.self)
+                        let socialLoginViewModel = DIContainer.shared.resolve(SocialLoginViewModelProtocol.self)
+                        let loginViewController = LoginViewController(
+                            loginViewModel: loginViewModel,
+                            socialLoginViewModel: socialLoginViewModel
+                        )
                         self.navigationController?.setViewControllers([loginViewController], animated: true)
                     }
                 }
@@ -197,24 +202,6 @@ extension SignUpSecondViewController {
     }
 
     @objc private func backButtonTapped() {
-        self.resetSignUpData()
         navigationController?.popViewController(animated: true)
-    }
-
-    private func resetSignUpData() {
-        signUpSecondView.profileImageView.image = nil
-        signUpSecondView.nickNameTextField.text = ""
-        SignUpInterestButton.resetSelectedInterests()
-        signUpSecondView.allAgreeButton.isSelected = false
-        signUpSecondView.firstAgreeButton.isSelected = false
-        signUpSecondView.secondAgreeButton.isSelected = false
-        signUpSecondView.allAgreeButton.setImage(UIImage(resource: .checkButton), for: .normal)
-        signUpSecondView.firstAgreeButton.setImage(UIImage(resource: .individualCheckButton), for: .normal)
-        signUpSecondView.secondAgreeButton.setImage(UIImage(resource: .individualCheckButton), for: .normal)
-        signUpSecondView.signUpButton.isEnabled = false
-        var config = signUpSecondView.signUpButton.configuration
-        config?.baseBackgroundColor = UIColor(resource: .popcornGray2)
-        signUpSecondView.signUpButton.configuration = config
-        self.signUpSecondViewModel.resetData()
     }
 }

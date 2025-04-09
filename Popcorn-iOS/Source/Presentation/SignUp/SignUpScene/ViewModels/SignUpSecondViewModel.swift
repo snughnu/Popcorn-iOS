@@ -25,8 +25,6 @@ protocol SignUpSecondViewModelProtocol {
     func toggleFirstAgree()
     func toggleSecondAgree()
     func sendSignUpData(nickName: String)
-
-    func resetData()
 }
 
 final class SignUpSecondViewModel: SignUpSecondViewModelProtocol {
@@ -124,22 +122,5 @@ extension SignUpSecondViewModel {
                 }
             }
         }
-    }
-}
-
-// MARK: - Public interface - Reset Data
-extension SignUpSecondViewModel {
-    func resetData() {
-        selectedProfileId = nil
-        profileImageUpdateHandler?(-1)
-
-        selectedInterests.removeAll()
-
-        isAllAgreed = false
-        isFirstAgreed = false
-        isSecondAgreed = false
-
-        let defaultState = AgreeState(isAllAgreed: false, isFirstAgreed: false, isSecondAgreed: false)
-        updateAgreeStateHandler?(defaultState)
     }
 }

@@ -118,7 +118,8 @@ extension LoginViewController {
     }
 
     @objc private func signUpButtonTapped() {
-        let signUpFirstViewController = DIContainer.shared.resolve(SignUpFirstViewController.self)
+        let signUpFirstViewModel = DIContainer.shared.resolve(SignUpFirstViewModelProtocol.self)
+        let signUpFirstViewController = SignUpFirstViewController(signUpFirstViewModel: signUpFirstViewModel)
         self.navigationController?.pushViewController(signUpFirstViewController, animated: true)
     }
 
