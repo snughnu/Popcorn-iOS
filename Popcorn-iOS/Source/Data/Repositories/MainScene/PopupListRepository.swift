@@ -41,11 +41,45 @@ final class PopupListRepository: PopupListRepositoryProtocol {
             print(result)
             switch result {
             case .success(let response):
-                let hasNextPage = response.currentPages < response.totalPages ? true : false
+                let hasNextPage = response.currentPages < response.totalPages
                 let popupMainList = self.convertToPopupMainList(response)
                 completion(.success((popupMainList, hasNextPage)))
             case .failure(let error):
                 print(error)
+            }
+        }
+    }
+
+    func fetchClosingSoonPopup(
+        page: Int,
+        completion: @escaping (Result<(data: [PopupPreview], hasNextPage: Bool), Error>) -> Void
+    ) {
+        guard let token = tokenRepository.fetchAccessToken() else {
+            // TODO: TokenRepository에서 access token 만료 시 자동으로 reissue 하는 로직 구현 후 리팩토링
+            completion(.failure(NSError(
+                domain: "PopupListRepository",
+                code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "액세스 토큰 만료"]
+            )))
+            return
+        }
+
+        let closingSoonPopupEndpoint = Endpoint<ClosingSoonPopupResponseDTO>(
+            httpMethod: .get,
+            path: APIConstant.mainScenePath,
+            queryItems: [URLQueryItem(name: "page", value: String(page))],
+            headers: ["Authorization": "Bearer \(token)"]
+        )
+
+        networkManager.request(endpoint: closingSoonPopupEndpoint) { result in
+            switch result {
+            case .success(let response):
+                let popups = response.popups.map { $0.toEntity() }
+                let hasNextPage = response.currentPages < response.totalPages
+                completion(.success((popups, hasNextPage)))
+            case .failure(let error):
+                print(error)
+                completion(.failure(error))
             }
         }
     }
