@@ -11,5 +11,5 @@ protocol PopupFetchListUseCaseProtocol {
         category: PopupSectionCategory,
         page: Int,
         completion: @escaping (Result<[PopupOverview], Error>) -> Void
-    ) 
+    )
 }
