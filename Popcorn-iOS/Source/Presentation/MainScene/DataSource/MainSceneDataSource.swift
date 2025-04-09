@@ -30,6 +30,10 @@ extension MainSceneDataSource {
             }
             .sorted { $0.interestCategory < $1.interestCategory }
     }
+
+    func updateClosingSoonPopup(_ popups: [PopupPreview]) {
+        self.closingSoonPopup = popups.compactMap { PopupPreviewViewData(from: $0) }
+    }
 }
 
 // MARK: - Output

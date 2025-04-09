@@ -81,7 +81,7 @@ struct MainSceneMockDataConstant {
             organizationUrl: "https://www.naver.com",
             businesesHours: "10:00 AM - 8:00 PM",
             introduce: """
-                귀여운 팝콘 마을부터 팝콘 친구들, 그리고 귀여운 굿즈들까지! 
+                귀여운 팝콘 마을부터 팝콘 친구들, 그리고 귀여운 굿즈들까지!
                 팝콘 마을 놀이터는 물론, 팝콘이들이 전달해주는 영화 추천까지 다양한 체험존도 경험해보세요! 
                 팝콘은 오는 4월 1일 서울을 시작으로 전국적으로 찾아갈 예정이니 많관부❤
             """,

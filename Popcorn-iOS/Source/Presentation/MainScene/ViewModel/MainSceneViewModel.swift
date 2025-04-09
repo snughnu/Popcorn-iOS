@@ -13,6 +13,8 @@ final class MainSceneViewModel: MainCarouselViewModelProtocol {
     private let mainSceneDataSource: MainSceneDataSource
 
     private var hasNextPage = true
+    private var page = 1
+
     // MARK: - Output
     var carouselImagePublisher: (() -> Void)?
     var fetchPopupDataPublisher: (() -> Void)?
@@ -46,14 +48,32 @@ extension MainSceneViewModel {
     func fetchPopupList() {
         popupFetchListUseCase.fetchPopupMainList { [weak self] result in
             guard let self else { return }
+
             switch result {
             case .success(let response):
-                let popupMainList = response.0
-                hasNextPage = response.1
+                let popupMainList = response.data
+                self.hasNextPage = response.hasNextPage
                 self.mainSceneDataSource.updateData(popupMainList)
                 fetchPopupDataPublisher?()
             case .failure:
                 self.mainSceneDataSource.showPlaceholderData()
+            }
+        }
+    }
+
+    /// 지금 놓치면 안 될 팝업스토어 페이지네이션 시 사용
+    func fetchClosingSoonPopup(page: Int) {
+        popupFetchListUseCase.fetchClosingSoongPopups(page: page) { [weak self] result in
+            guard let self else { return }
+
+            switch result {
+            case .success(let response):
+                self.page += 1
+                let closingSoonPopups = response.data
+                self.hasNextPage = response.hasNextPage
+                self.mainSceneDataSource.updateClosingSoonPopup(closingSoonPopups)
+            case .failure:
+                mainSceneDataSource.updateClosingSoonPopup([])
             }
         }
     }
