@@ -122,15 +122,6 @@ final class LoginView: UIView {
         return button
     }()
 
-    let googleButton: UIButton = {
-        let button = UIButton()
-        var config = UIButton.Configuration.plain()
-        config.image = UIImage(resource: .loginGoogle)
-        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-        button.configuration = config
-        return button
-    }()
-
     let appleButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.plain()
@@ -217,7 +208,6 @@ final class LoginView: UIView {
     private lazy var socialLoginButtonStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             kakaoButton,
-            googleButton,
             appleButton
         ])
         stackView.axis = .horizontal
@@ -326,11 +316,11 @@ extension LoginView {
 
             socialLoginButtonStackView.leadingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.leadingAnchor,
-                constant: 116
+                constant: 146
             ),
             socialLoginButtonStackView.trailingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.trailingAnchor,
-                constant: -116
+                constant: -146
             ),
             socialLoginButtonStackView.topAnchor.constraint(
                 equalTo: socialLoginSeparateStackView.bottomAnchor,

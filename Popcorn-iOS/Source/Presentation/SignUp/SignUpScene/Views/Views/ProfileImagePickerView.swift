@@ -102,18 +102,18 @@ extension ProfileImagePickerView {
             titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 30),
 
             closeButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -31),
-            closeButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            closeButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 30),
             closeButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 12/393),
             closeButton.heightAnchor.constraint(equalTo: closeButton.widthAnchor),
 
             separatorLine.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             separatorLine.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            separatorLine.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
+            separatorLine.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 26),
             separatorLine.heightAnchor.constraint(equalToConstant: 2),
 
             collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: separatorLine.bottomAnchor, constant: 15),
+            collectionView.topAnchor.constraint(equalTo: separatorLine.bottomAnchor, constant: 19),
             collectionView.heightAnchor.constraint(equalToConstant: calculateCollectionViewHeight()),
 
             completeButton.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor, constant: 32),
