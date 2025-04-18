@@ -49,6 +49,15 @@ class SearchView: UIView {
         return textField
     }()
 
+    private let micButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .clear
+        config.image = UIImage(resource: .mic)
+        button.configuration = config
+        return button
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureInitialSetting()
@@ -71,8 +80,13 @@ extension SearchView {
 // MARK: - Configure AutoLayout
 extension SearchView {
     private func configureSubviews() {
-        addSubview(searchTextField)
-        searchTextField.translatesAutoresizingMaskIntoConstraints = false
+        [
+            searchTextField,
+            micButton
+        ].forEach {
+            addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
 
     private func configureLayout() {
@@ -81,7 +95,10 @@ extension SearchView {
             searchTextField.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 9),
             searchTextField.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
             searchTextField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            searchTextField.heightAnchor.constraint(equalToConstant: searchTextFieldHeight)
+            searchTextField.heightAnchor.constraint(equalToConstant: searchTextFieldHeight),
+
+            micButton.trailingAnchor.constraint(equalTo: searchTextField.trailingAnchor, constant: -5),
+            micButton.centerYAnchor.constraint(equalTo: searchTextField.centerYAnchor)
         ])
     }
 }
