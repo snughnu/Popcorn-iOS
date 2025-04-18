@@ -21,7 +21,7 @@ class SearchBottomSheetView: UIView {
 // MARK: - Configure Initial Setting
 extension SearchBottomSheetView {
     private func configureInitialSetting() {
-        backgroundColor = .green
+        backgroundColor = UIColor(.white)
         layer.cornerRadius = 10
         layer.masksToBounds = true
     }
