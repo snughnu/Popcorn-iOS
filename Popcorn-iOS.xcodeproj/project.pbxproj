@@ -107,6 +107,7 @@
 		56F6D4862D534CCE00C2BEBE /* ImageFetchManagerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4852D534CC600C2BEBE /* ImageFetchManagerRepository.swift */; };
 		56F6D48A2D534D5200C2BEBE /* ImageFetchUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4892D534D4B00C2BEBE /* ImageFetchUseCaseProtocol.swift */; };
 		56F6D48D2D534D9500C2BEBE /* ImageFetchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D48C2D534D9500C2BEBE /* ImageFetchUseCase.swift */; };
+		BC16506F2DBA01CC0026A0FC /* SearchPopupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC16506E2DBA01CC0026A0FC /* SearchPopupTableViewCell.swift */; };
 		BC29A50E2D2EA5DF0059A5C5 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A50D2D2EA5DE0059A5C5 /* KakaoSDKAuth */; };
 		BC29A5102D2EA5DF0059A5C5 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A50F2D2EA5DF0059A5C5 /* KakaoSDKCommon */; };
 		BC29A5122D2EA5DF0059A5C5 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A5112D2EA5DF0059A5C5 /* KakaoSDKUser */; };
@@ -295,6 +296,7 @@
 		56F6D4852D534CC600C2BEBE /* ImageFetchManagerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchManagerRepository.swift; sourceTree = "<group>"; };
 		56F6D4892D534D4B00C2BEBE /* ImageFetchUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchUseCaseProtocol.swift; sourceTree = "<group>"; };
 		56F6D48C2D534D9500C2BEBE /* ImageFetchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchUseCase.swift; sourceTree = "<group>"; };
+		BC16506E2DBA01CC0026A0FC /* SearchPopupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPopupTableViewCell.swift; sourceTree = "<group>"; };
 		BC2D11612CEC5DF60030F4E0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BC3201AA2D2CFC6900B73A14 /* ProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCell.swift; sourceTree = "<group>"; };
 		BC45013D2D74009100FF8B5B /* AppleLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginManager.swift; sourceTree = "<group>"; };
@@ -1071,6 +1073,7 @@
 			children = (
 				BC45B92E2DACCBDF009D8E4F /* SearchView.swift */,
 				BC45B92C2DACCBB4009D8E4F /* SearchBottomSheetView.swift */,
+				BC16506E2DBA01CC0026A0FC /* SearchPopupTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1592,6 +1595,7 @@
 				56A0C8472D2A744C005E6C51 /* ReviewCollectionViewCell.swift in Sources */,
 				56EAA9372D34F4AE007265D3 /* WriteReviewButtonDelegate.swift in Sources */,
 				BC90A0BC2CF4CF53003488F0 /* SignUpSecondViewController.swift in Sources */,
+				BC16506F2DBA01CC0026A0FC /* SearchPopupTableViewCell.swift in Sources */,
 				BCE8FA322D2272EB00A7B8E2 /* FindIdPwView.swift in Sources */,
 				BC45B9332DACCC17009D8E4F /* SearchViewController.swift in Sources */,
 				562447072D33975B000E94A0 /* FullScreenImageViewController.swift in Sources */,
