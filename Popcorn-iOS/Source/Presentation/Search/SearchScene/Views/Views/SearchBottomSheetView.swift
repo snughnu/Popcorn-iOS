@@ -12,11 +12,18 @@ class SearchBottomSheetView: UIView {
         var config = UIButton.Configuration.filled()
         config.title = "내 위치는 여기"
         config.image = UIImage(resource: .location)
-        config.baseBackgroundColor = .white
+        config.baseBackgroundColor = UIColor(.white)
         config.baseForegroundColor = UIColor(.black)
         config.imagePadding = 4
         config.contentInsets = NSDirectionalEdgeInsets(top: 7, leading: 14, bottom: 7, trailing: 14)
         config.cornerStyle = .capsule
+
+        config.background.backgroundColorTransformer = UIConfigurationColorTransformer { _ in UIColor(.white) }
+        config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { _ in
+            var attr = AttributeContainer()
+            attr.foregroundColor = UIColor(.black)
+            return attr
+        }
 
         let button = UIButton(configuration: config, primaryAction: nil)
         button.layer.borderWidth = 1
@@ -24,6 +31,7 @@ class SearchBottomSheetView: UIView {
         button.clipsToBounds = true
         let height = button.intrinsicContentSize.height
         button.layer.cornerRadius = height / 2
+        button.isEnabled = false
 
         if let baseFont = UIFont(name: RobotoFontName.robotoMedium, size: 15) {
             let scaledFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: baseFont)
@@ -31,6 +39,14 @@ class SearchBottomSheetView: UIView {
             button.titleLabel?.adjustsFontForContentSizeCategory = true
         }
         return button
+    }()
+
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        tableView.rowHeight = 340
+        return tableView
     }()
 
     override init(frame: CGRect) {
@@ -58,7 +74,8 @@ extension SearchBottomSheetView {
 extension SearchBottomSheetView {
     private func configureSubviews() {
         [
-            locationButton
+            locationButton,
+            tableView
         ].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -68,7 +85,12 @@ extension SearchBottomSheetView {
     private func configureLayout() {
         NSLayoutConstraint.activate([
             locationButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            locationButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 43)
+            locationButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 43),
+
+            tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: locationButton.bottomAnchor, constant: 20),
+            tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
