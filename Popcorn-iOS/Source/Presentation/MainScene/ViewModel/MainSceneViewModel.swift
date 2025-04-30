@@ -48,14 +48,14 @@ extension MainSceneViewModel {
     func fetchPopupList() {
         popupFetchListUseCase.fetchPopupMainList { [weak self] result in
             guard let self else { return }
-
             switch result {
             case .success(let response):
                 let popupMainList = response.data
                 self.hasNextPage = response.hasNextPage
                 self.mainSceneDataSource.updateData(popupMainList)
                 fetchPopupDataPublisher?()
-            case .failure:
+            case .failure(let error):
+                print(error)
                 self.mainSceneDataSource.showPlaceholderData()
             }
         }
