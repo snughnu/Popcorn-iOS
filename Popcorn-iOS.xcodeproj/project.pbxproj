@@ -114,6 +114,11 @@
 		BC2D11622CEC5DF60030F4E0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2D11612CEC5DF60030F4E0 /* LoginView.swift */; };
 		BC3201AB2D2CFC6900B73A14 /* ProfileImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3201AA2D2CFC6900B73A14 /* ProfileImageCell.swift */; };
 		BC45013E2D74009100FF8B5B /* AppleLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC45013D2D74009100FF8B5B /* AppleLoginManager.swift */; };
+		BC45B9292DACCB4D009D8E4F /* SearchFilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC45B9282DACCB4D009D8E4F /* SearchFilterButton.swift */; };
+		BC45B92D2DACCBB4009D8E4F /* SearchBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC45B92C2DACCBB4009D8E4F /* SearchBottomSheetView.swift */; };
+		BC45B92F2DACCBDF009D8E4F /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC45B92E2DACCBDF009D8E4F /* SearchView.swift */; };
+		BC45B9332DACCC17009D8E4F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC45B9322DACCC17009D8E4F /* SearchViewController.swift */; };
+		BC45B9352DACCC28009D8E4F /* SearchBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC45B9342DACCC28009D8E4F /* SearchBottomSheetViewController.swift */; };
 		BC55FE862D2AC8F100E269B6 /* ProfileImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC55FE852D2AC8F100E269B6 /* ProfileImagePickerViewController.swift */; };
 		BC55FE882D2AD51000E269B6 /* ProfileImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC55FE872D2AD51000E269B6 /* ProfileImagePickerView.swift */; };
 		BC58B0D42D3D231B00A8E42F /* SignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC58B0D32D3D231B00A8E42F /* SignUpRequestDTO.swift */; };
@@ -295,6 +300,11 @@
 		BC2D11612CEC5DF60030F4E0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BC3201AA2D2CFC6900B73A14 /* ProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCell.swift; sourceTree = "<group>"; };
 		BC45013D2D74009100FF8B5B /* AppleLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginManager.swift; sourceTree = "<group>"; };
+		BC45B9282DACCB4D009D8E4F /* SearchFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterButton.swift; sourceTree = "<group>"; };
+		BC45B92C2DACCBB4009D8E4F /* SearchBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBottomSheetView.swift; sourceTree = "<group>"; };
+		BC45B92E2DACCBDF009D8E4F /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		BC45B9322DACCC17009D8E4F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		BC45B9342DACCC28009D8E4F /* SearchBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBottomSheetViewController.swift; sourceTree = "<group>"; };
 		BC55FE852D2AC8F100E269B6 /* ProfileImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerViewController.swift; sourceTree = "<group>"; };
 		BC55FE872D2AD51000E269B6 /* ProfileImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerView.swift; sourceTree = "<group>"; };
 		BC58B0D32D3D231B00A8E42F /* SignUpRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequestDTO.swift; sourceTree = "<group>"; };
@@ -715,6 +725,7 @@
 				BCE6E5F02CF31EBC0036BAF6 /* SignUp */,
 				BCE8FA292D2271C800A7B8E2 /* FindIdPw */,
 				56C5DDB82CE7989E0090D3A2 /* MainScene */,
+				BC45B9242DACC4DA009D8E4F /* Search */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1006,6 +1017,74 @@
 				BC45013D2D74009100FF8B5B /* AppleLoginManager.swift */,
 			);
 			path = AppleLoginManager;
+			sourceTree = "<group>";
+		};
+		BC45B9242DACC4DA009D8E4F /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				BC45B9252DACCAF3009D8E4F /* SearchScene */,
+				BC45B9262DACCAFA009D8E4F /* Common */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		BC45B9252DACCAF3009D8E4F /* SearchScene */ = {
+			isa = PBXGroup;
+			children = (
+				BC45B92B2DACCB85009D8E4F /* Views */,
+				BC45B92A2DACCB7F009D8E4F /* ViewModels */,
+			);
+			path = SearchScene;
+			sourceTree = "<group>";
+		};
+		BC45B9262DACCAFA009D8E4F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				BC45B9272DACCB0E009D8E4F /* View */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		BC45B9272DACCB0E009D8E4F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BC45B9282DACCB4D009D8E4F /* SearchFilterButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BC45B92A2DACCB7F009D8E4F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		BC45B92B2DACCB85009D8E4F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BC45B9302DACCBE9009D8E4F /* Views */,
+				BC45B9312DACCBED009D8E4F /* ViewControllers */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BC45B9302DACCBE9009D8E4F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BC45B92E2DACCBDF009D8E4F /* SearchView.swift */,
+				BC45B92C2DACCBB4009D8E4F /* SearchBottomSheetView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BC45B9312DACCBED009D8E4F /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BC45B9322DACCC17009D8E4F /* SearchViewController.swift */,
+				BC45B9342DACCC28009D8E4F /* SearchBottomSheetViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		BC5F3C012D52428F00248DB0 /* SignUp */ = {
@@ -1482,6 +1561,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC55FE862D2AC8F100E269B6 /* ProfileImagePickerViewController.swift in Sources */,
+				BC45B9292DACCB4D009D8E4F /* SearchFilterButton.swift in Sources */,
 				5651F4D22D674B5900951B6B /* PopupDetailRepository.swift in Sources */,
 				56EAA92F2D34EB08007265D3 /* StarRatingViewDelegate.swift in Sources */,
 				565C415F2D2032160016003A /* MainCarouselViewModelProtocol.swift in Sources */,
@@ -1516,6 +1596,7 @@
 				56EAA9372D34F4AE007265D3 /* WriteReviewButtonDelegate.swift in Sources */,
 				BC90A0BC2CF4CF53003488F0 /* SignUpSecondViewController.swift in Sources */,
 				BCE8FA322D2272EB00A7B8E2 /* FindIdPwView.swift in Sources */,
+				BC45B9332DACCC17009D8E4F /* SearchViewController.swift in Sources */,
 				562447072D33975B000E94A0 /* FullScreenImageViewController.swift in Sources */,
 				56A0C8492D2A9947005E6C51 /* ReviewImageCollectionViewCell.swift in Sources */,
 				56F6D4802D53417200C2BEBE /* ImageFetchManager.swift in Sources */,
@@ -1540,6 +1621,7 @@
 				BCB86A552D475B9700F00F1F /* SocialLoginViewModel.swift in Sources */,
 				BC5F3C292D52622300248DB0 /* SignUpResponseDTO.swift in Sources */,
 				56018CA22CECB1C400AC8ED5 /* MainSceneViewController.swift in Sources */,
+				BC45B92F2DACCBDF009D8E4F /* SearchView.swift in Sources */,
 				56799DE32D5D1466001F11F7 /* PopupDetailDataSource.swift in Sources */,
 				56799DDB2D5C821F001F11F7 /* MainSceneDataSource.swift in Sources */,
 				5679D40A2D70038C005FA703 /* PopupTitleCollectionViewCellDelegate.swift in Sources */,
@@ -1626,8 +1708,10 @@
 				5651F4BD2D66EDA000951B6B /* PopupDetailRepositoryProtocol.swift in Sources */,
 				BCF945182D48A50C00E8B3EA /* SocialLoginRepository.swift in Sources */,
 				56C98C712CF488960001CFD4 /* PopupDetailViewController.swift in Sources */,
+				BC45B92D2DACCBB4009D8E4F /* SearchBottomSheetView.swift in Sources */,
 				BC81E6D12D3EA543003CBE7D /* ReissueResponseDTO.swift in Sources */,
 				BC2D11622CEC5DF60030F4E0 /* LoginView.swift in Sources */,
+				BC45B9352DACCC28009D8E4F /* SearchBottomSheetViewController.swift in Sources */,
 				BCE8FA362D227CE000A7B8E2 /* CompleteFindIdView.swift in Sources */,
 				5606D56F2D880EC2008C3E6F /* MainSceneMockDataConstant.swift in Sources */,
 				BCB86A612D4869AF00F00F1F /* LoginUseCase.swift in Sources */,

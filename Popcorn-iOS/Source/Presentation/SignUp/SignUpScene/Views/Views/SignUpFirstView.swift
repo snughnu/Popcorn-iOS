@@ -8,6 +8,9 @@
 import UIKit
 
 class SignUpFirstView: UIView {
+    let scrollView = UIScrollView()
+    private let contentView = UIView()
+
     let nameField = SignUpFieldStackView(
         labelText: "*이름을 입력해주세요.",
         placeholder: "이름",
@@ -176,21 +179,33 @@ extension SignUpFirstView {
 // MARK: - Configure Layout
 extension SignUpFirstView {
     private func configureSubviews() {
-        [
-            entireStackView
-        ].forEach {
-            addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
+        addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+
+        scrollView.addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+
+        contentView.addSubview(entireStackView)
+        entireStackView.translatesAutoresizingMaskIntoConstraints = false
     }
 
     private func configureLayout() {
-        let bottomSpace = UIScreen.main.bounds.height * 84/852
-
         NSLayoutConstraint.activate([
-            entireStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
-            entireStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            entireStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -bottomSpace),
+            scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+
+            entireStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
+            entireStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32),
+            entireStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -32),
+            entireStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
             duplicateCheckButton.centerYAnchor.constraint(equalTo: idField.textFieldReference.centerYAnchor),
             duplicateCheckButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 90/393),

@@ -107,7 +107,10 @@ extension SignUpFirstViewController {
         self.signUpFirstViewModel.navigateToSignUpSecondHandler = { [weak self] in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                let signUpSecondViewController = DIContainer.shared.resolve(SignUpSecondViewController.self)
+                let signUpSecondViewModel = DIContainer.shared.resolve(SignUpSecondViewModelProtocol.self)
+                let signUpSecondViewController = SignUpSecondViewController(
+                    signUpSecondViewModel: signUpSecondViewModel
+                )
                 self.navigationController?.pushViewController(signUpSecondViewController, animated: true)
             }
         }
@@ -293,6 +296,13 @@ extension SignUpFirstViewController {
         let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         spacer.width = 20
         navigationItem.leftBarButtonItems = [spacer, leftBarButtonItem]
+
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+        appearance.shadowColor = .clear
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
 
     @objc private func backButtonTapped() {
@@ -311,24 +321,25 @@ extension SignUpFirstViewController {
                                                selector: #selector(keyboardWillHide),
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        signUpFirstView.scrollView.addGestureRecognizer(tapGesture)
+    }
+
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
 
     @objc func keyboardWillShow(_ sender: Notification) {
-        guard let keyboardFrame = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-              let currentTextField = UIResponder.currentResponder as? UITextField else { return }
-        let keyboardTopY = keyboardFrame.cgRectValue.origin.y
-        let convertedTextFieldFrame = view.convert(currentTextField.frame, from: currentTextField.superview)
-        let textFieldBottomY = convertedTextFieldFrame.origin.y + convertedTextFieldFrame.size.height
-        if textFieldBottomY > keyboardTopY {
-            let textFieldTopY = convertedTextFieldFrame.origin.y
-            let newFrame = textFieldTopY - keyboardTopY/1.6
-            view.frame.origin.y = -newFrame
-        }
+        guard let keyboardFrame = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyboardHeight = keyboardFrame.cgRectValue.height
+        signUpFirstView.scrollView.contentInset.bottom = keyboardHeight + 20
+        signUpFirstView.scrollView.verticalScrollIndicatorInsets.bottom = keyboardHeight + 20
     }
 
     @objc func keyboardWillHide(_ sender: Notification) {
-        if view.frame.origin.y != 0 {
-            view.frame.origin.y = 0
-        }
+        signUpFirstView.scrollView.contentInset.bottom = 0
+        signUpFirstView.scrollView.verticalScrollIndicatorInsets.bottom = 0
     }
 }

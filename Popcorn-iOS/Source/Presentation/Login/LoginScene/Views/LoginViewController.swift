@@ -101,7 +101,6 @@ extension LoginViewController {
         loginView.findButton.addTarget(self, action: #selector(findButtonTapped), for: .touchUpInside)
         loginView.signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         loginView.kakaoButton.addTarget(self, action: #selector(kakaoButtonTapped), for: .touchUpInside)
-        loginView.googleButton.addTarget(self, action: #selector(googleButtonTapped), for: .touchUpInside)
         loginView.appleButton.addTarget(self, action: #selector(appleButtonTapped), for: .touchUpInside)
     }
 
@@ -119,16 +118,13 @@ extension LoginViewController {
     }
 
     @objc private func signUpButtonTapped() {
-        let signUpFirstViewController = DIContainer.shared.resolve(SignUpFirstViewController.self)
+        let signUpFirstViewModel = DIContainer.shared.resolve(SignUpFirstViewModelProtocol.self)
+        let signUpFirstViewController = SignUpFirstViewController(signUpFirstViewModel: signUpFirstViewModel)
         self.navigationController?.pushViewController(signUpFirstViewController, animated: true)
     }
 
     @objc private func kakaoButtonTapped() {
         socialLoginViewModel.loginWithKakao()
-    }
-
-    @objc private func googleButtonTapped() {
-
     }
 
     @objc private func appleButtonTapped() {
