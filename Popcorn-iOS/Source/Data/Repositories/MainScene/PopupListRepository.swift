@@ -38,14 +38,13 @@ final class PopupListRepository: PopupListRepositoryProtocol {
 
         networkManager.request(endpoint: popupMainListEndpoint) { [weak self] result in
             guard let self else { return }
-            print(result)
             switch result {
             case .success(let response):
-                let hasNextPage = response.currentPages < response.totalPages
+                let hasNextPage = response.currentPage < response.totalPage
                 let popupMainList = self.convertToPopupMainList(response)
                 completion(.success((popupMainList, hasNextPage)))
             case .failure(let error):
-                print(error)
+                print(error.description)
             }
         }
     }
@@ -146,15 +145,15 @@ extension PopupListRepository {
         _ mainListResponseDTO: PopupMainListResponseDTO
     ) -> PopupMainList {
         let recommendedPopups = mainListResponseDTO.todayRecommendPopups.map { $0.toEntity() }
-        let userPickPopups = mainListResponseDTO.userPickPopups.map { $0.toEntity() }
-
-        let userInterestPopups: [UserInterestPopup] = mainListResponseDTO.userInterestPopups.compactMap { key, value in
-            guard let interestCategory = key.toEntity() else { return nil }
-            return UserInterestPopup(
-                interestCategory: interestCategory,
-                popups: value.map { $0.toEntity() }
-            )
-        }
+        let userPickPopups = mainListResponseDTO.userPickPopups?.map { $0.toEntity() } ?? []
+        let userInterestPopups: [UserInterestPopup] = mainListResponseDTO.userInterestPopups?
+            .compactMap { key, value in
+                if let interestCategory = InterestCategoryDTO(category: key).toEntity() {
+                    return UserInterestPopup(interestCategory: interestCategory, popups: value.map { $0.toEntity() })
+                } else {
+                    return nil
+                }
+            } ?? []
 
         let closingSoonPopups = mainListResponseDTO.closingSoonPopups.map { $0.toEntity() }
 

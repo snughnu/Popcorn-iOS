@@ -14,6 +14,17 @@ struct PopupPreviewResponseDTO: Decodable {
     let startDate: String
     let endDate: String
     let address: String
+    let interestCategory: String
+
+    enum CodingKeys: String, CodingKey {
+        case popupId
+        case title
+        case imageUrl = "popupImage"
+        case startDate = "startedAt"
+        case endDate = "endedAt"
+        case address = "location"
+        case interestCategory = "interest"
+    }
 }
 
 extension PopupPreviewResponseDTO {

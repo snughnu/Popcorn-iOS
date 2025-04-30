@@ -9,18 +9,18 @@ import Foundation
 
 struct PopupMainListResponseDTO: Decodable {
     let todayRecommendPopups: [PopupPreviewResponseDTO]
-    let userPickPopups: [PopupPreviewResponseDTO]
-    let userInterestPopups: [InterestCategoryDTO: [PopupPreviewResponseDTO]]
+    let userPickPopups: [PopupPreviewResponseDTO]?
+    let userInterestPopups: [String: [PopupPreviewResponseDTO]]?
     let closingSoonPopups: [PopupPreviewResponseDTO]
-    let totalPages: Int
-    let currentPages: Int
+    let totalPage: Int
+    let currentPage: Int
 
     enum CodingKeys: String, CodingKey {
-        case todayRecommendPopups
+        case todayRecommendPopups = "todayRecommend"
         case userPickPopups = "topLikedPopups"
-        case userInterestPopups = "categoryPopups"
+        case userInterestPopups = "interestedPopups"
         case closingSoonPopups = "allPopups"
-        case totalPages
-        case currentPages
+        case totalPage = "totalPages"
+        case currentPage
     }
 }
