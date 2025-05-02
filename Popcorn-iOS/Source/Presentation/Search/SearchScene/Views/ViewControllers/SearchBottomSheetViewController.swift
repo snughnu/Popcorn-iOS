@@ -31,7 +31,7 @@ class SearchBottomSheetViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(
             SearchPopupTableViewCell.self,
-            forCellReuseIdentifier: "SearchPopupTableViewCell"
+            forCellReuseIdentifier: SearchPopupTableViewCell.reuseIdentifier
         )
     }
 }
@@ -44,7 +44,7 @@ extension SearchBottomSheetViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: "SearchPopupTableViewCell",
+            withIdentifier: SearchPopupTableViewCell.reuseIdentifier,
             for: indexPath
         ) as? SearchPopupTableViewCell else {
             return UITableViewCell()
