@@ -14,7 +14,7 @@ class SearchBottomSheetView: UIView {
         return imageView
     }()
 
-    private lazy var myLocationButton: UIButton = {
+    private let myLocationButton: UIButton = {
         var config = UIButton.Configuration.filled()
         config.title = "내 위치는 여기"
         config.image = UIImage(resource: .location)
