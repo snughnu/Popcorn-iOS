@@ -8,6 +8,10 @@
 struct InterestCategoryDTO: Codable, Hashable {
     let category: String
 
+    init(category: String) {
+        self.category = category
+    }
+
     init(from entity: InterestCategory) {
         switch entity {
         case .fashion:

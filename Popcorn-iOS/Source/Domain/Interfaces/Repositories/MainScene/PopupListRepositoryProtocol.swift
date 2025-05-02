@@ -6,7 +6,13 @@
 //
 
 protocol PopupListRepositoryProtocol {
-    func fetchPopupMainList(completion: @escaping (Result<PopupMainList, Error>) -> Void)
+    func fetchPopupMainList(completion: @escaping (Result<(data: PopupMainList, hasNextPage: Bool), Error>) -> Void)
+
+    func fetchClosingSoonPopup(
+        page: Int,
+        completion: @escaping (Result<(data: [PopupPreview], hasNextPage: Bool), Error>) -> Void
+    )
+
     func fetchPopupOverview(
         category: PopupSectionCategory,
         page: Int,

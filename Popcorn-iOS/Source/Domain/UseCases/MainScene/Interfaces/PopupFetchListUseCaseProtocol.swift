@@ -6,10 +6,16 @@
 //
 
 protocol PopupFetchListUseCaseProtocol {
-    func fetchPopupMainList(completion: @escaping (Result<PopupMainList, Error>) -> Void)
+    func fetchPopupMainList(completion: @escaping (Result<(data: PopupMainList, hasNextPage: Bool), Error>) -> Void)
+
+    func fetchClosingSoongPopups(
+        page: Int,
+        completion: @escaping (Result<(data: [PopupPreview], hasNextPage: Bool), Error>) -> Void
+    )
+
     func fetchPopupOverview(
         category: PopupSectionCategory,
         page: Int,
         completion: @escaping (Result<[PopupOverview], Error>) -> Void
-    ) 
+    )
 }

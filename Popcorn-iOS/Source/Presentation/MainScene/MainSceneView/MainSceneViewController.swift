@@ -35,6 +35,7 @@ final class MainSceneViewController: UIViewController {
         configureSubviews()
         configureLayout()
         bind(to: mainViewModel)
+//        mainViewModel.fetchPopupList()
         mainViewModel.fetchMockData()
     }
 
@@ -46,7 +47,9 @@ final class MainSceneViewController: UIViewController {
 
         viewModel.fetchPopupImagesErrorPublisher = { [weak self] in
             guard let self else { return }
-            self.mainCollectionView.reloadData()
+            DispatchQueue.main.async {
+                self.mainCollectionView.reloadData()
+            }
         }
     }
 }
