@@ -18,7 +18,7 @@ final class PopupListRepository: PopupListRepositoryProtocol {
         self.tokenRepository = tokenRepository
     }
 
-    func fetchPopupMainList(completion: @escaping (Result<PopupMainList, Error>) -> Void) {
+    func fetchPopupMainList(completion: @escaping (Result<(data: PopupMainList, hasNextPage: Bool), Error>) -> Void) {
         guard let token = tokenRepository.fetchAccessToken() else {
             // TODO: TokenRepository에서 access token 만료 시 자동으로 reissue 하는 로직 구현 후 리팩토링
             completion(.failure(NSError(
@@ -29,85 +29,57 @@ final class PopupListRepository: PopupListRepositoryProtocol {
             return
         }
 
-        let dispatchGroup = DispatchGroup()
-        var popupMainListResponse: PopupMainListResponseDTO?
-        var todayRecommendPopupResponse: [PopupPreviewResponseDTO]?
-        var capturedErrors = [NetworkError]()
-
         let popupMainListEndpoint = Endpoint<PopupMainListResponseDTO>(
             httpMethod: .get,
             path: APIConstant.mainScenePath,
+            queryItems: [URLQueryItem(name: "page", value: "1")],
             headers: ["Authorization": "Bearer \(token)"]
         )
 
-        let todayRecommendPopupEndpoint = Endpoint<[PopupPreviewResponseDTO]>(
+        networkManager.request(endpoint: popupMainListEndpoint) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let response):
+                let hasNextPage = response.currentPage < response.totalPage
+                let popupMainList = self.convertToPopupMainList(response)
+                completion(.success((popupMainList, hasNextPage)))
+            case .failure(let error):
+                print(error.description)
+            }
+        }
+    }
+
+    func fetchClosingSoonPopup(
+        page: Int,
+        completion: @escaping (Result<(data: [PopupPreview], hasNextPage: Bool), Error>) -> Void
+    ) {
+        guard let token = tokenRepository.fetchAccessToken() else {
+            // TODO: TokenRepository에서 access token 만료 시 자동으로 reissue 하는 로직 구현 후 리팩토링
+            completion(.failure(NSError(
+                domain: "PopupListRepository",
+                code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "액세스 토큰 만료"]
+            )))
+            return
+        }
+
+        let closingSoonPopupEndpoint = Endpoint<ClosingSoonPopupResponseDTO>(
             httpMethod: .get,
-            path: APIConstant.mainScenePath
+            path: APIConstant.mainScenePath,
+            queryItems: [URLQueryItem(name: "page", value: String(page))],
+            headers: ["Authorization": "Bearer \(token)"]
         )
 
-        dispatchGroup.enter()
-        networkManager.request(endpoint: popupMainListEndpoint) { [weak self] result in
-            guard let self else {
-                dispatchGroup.leave()
-                return
+        networkManager.request(endpoint: closingSoonPopupEndpoint) { result in
+            switch result {
+            case .success(let response):
+                let popups = response.popups.map { $0.toEntity() }
+                let hasNextPage = response.currentPages < response.totalPages
+                completion(.success((popups, hasNextPage)))
+            case .failure(let error):
+                print(error)
+                completion(.failure(error))
             }
-
-            self.popupListSyncQueue.async {
-                defer { dispatchGroup.leave() }
-
-                if !capturedErrors.isEmpty { return }
-
-                switch result {
-                case .success(let response):
-                    popupMainListResponse = response
-                case .failure(let error):
-                    capturedErrors.append(error)
-                }
-            }
-        }
-
-        dispatchGroup.enter()
-        networkManager.request(endpoint: todayRecommendPopupEndpoint) { [weak self] result in
-            guard let self else {
-                dispatchGroup.leave()
-                return
-            }
-
-            self.popupListSyncQueue.async {
-                defer { dispatchGroup.leave() }
-
-                if !capturedErrors.isEmpty { return }
-
-                switch result {
-                case .success(let response):
-                    todayRecommendPopupResponse = response
-                case .failure(let error):
-                    capturedErrors.append(error)
-                }
-            }
-        }
-
-        dispatchGroup.notify(queue: .main) { [weak self] in
-            if !capturedErrors.isEmpty {
-                let combinedError = NSError(
-                    domain: "PopupListRepsitory",
-                    code: -2,
-                    userInfo: [
-                        NSLocalizedDescriptionKey: "메인화면 데이터 요청 실패",
-                        "error": capturedErrors
-                    ]
-                )
-
-                completion(.failure(combinedError))
-                return
-            }
-
-            guard let self,
-                  let popupMainListResponse,
-                  let todayRecommendPopupResponse else { return }
-
-            let popupMainList = self.convertToPopupMainList(popupMainListResponse, todayRecommendPopupResponse)
-            completion(.success(popupMainList))
         }
     }
 
@@ -170,19 +142,18 @@ final class PopupListRepository: PopupListRepositoryProtocol {
 
 extension PopupListRepository {
     private func convertToPopupMainList(
-        _ mainListResponseDTO: PopupMainListResponseDTO,
-        _ todayRecommendResponseDTO: [PopupPreviewResponseDTO]
+        _ mainListResponseDTO: PopupMainListResponseDTO
     ) -> PopupMainList {
-        let recommendedPopups = todayRecommendResponseDTO.map { $0.toEntity() }
-        let userPickPopups = mainListResponseDTO.userPickPopups.map { $0.toEntity() }
-
-        let userInterestPopups: [UserInterestPopup] = mainListResponseDTO.userInterestPopups.compactMap { key, value in
-            guard let interestCategory = key.toEntity() else { return nil }
-            return UserInterestPopup(
-                interestCategory: interestCategory,
-                popups: value.map { $0.toEntity() }
-            )
-        }
+        let recommendedPopups = mainListResponseDTO.todayRecommendPopups.map { $0.toEntity() }
+        let userPickPopups = mainListResponseDTO.userPickPopups?.map { $0.toEntity() } ?? []
+        let userInterestPopups: [UserInterestPopup] = mainListResponseDTO.userInterestPopups?
+            .compactMap { key, value in
+                if let interestCategory = InterestCategoryDTO(category: key).toEntity() {
+                    return UserInterestPopup(interestCategory: interestCategory, popups: value.map { $0.toEntity() })
+                } else {
+                    return nil
+                }
+            } ?? []
 
         let closingSoonPopups = mainListResponseDTO.closingSoonPopups.map { $0.toEntity() }
 

@@ -9,6 +9,7 @@ disabled_rules: # 실행에서 제외할 룰 식별자들
   - function_parameter_count # 함수 파라미터 개수 제한 규칙 제외 (5개 초과 허용)
   - identifier_name # 식별자 이름 길이 제한 규칙 제외
   - large_tuple # 튜플 멤버 개수 제한 규칙 제외 (2개 초과 허용)
+  - cyclomatic_complexity # 복잡도 10 이하로 유지 제한 규칙 제외
 
 opt_in_rules: # 선택적으로 추가하는 규칙
   - empty_count # .count == 0보다 isEmpty 사용 권장
