@@ -37,10 +37,6 @@ class SearchBottomSheetView: UIView {
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor(resource: .popcornGray1).cgColor
         button.isEnabled = true
-
-        let height = button.intrinsicContentSize.height
-        button.cornerRadius(radius: height / 2)
-
         return button
     }()
 
@@ -51,6 +47,11 @@ class SearchBottomSheetView: UIView {
         tableView.rowHeight = 340
         return tableView
     }()
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        myLocationButton.cornerRadius(radius: myLocationButton.bounds.height / 2)
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
