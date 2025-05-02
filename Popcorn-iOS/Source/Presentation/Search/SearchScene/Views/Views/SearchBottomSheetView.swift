@@ -14,7 +14,7 @@ class SearchBottomSheetView: UIView {
         return imageView
     }()
 
-    private lazy var locationButton: UIButton = {
+    private lazy var myLocationButton: UIButton = {
         var config = UIButton.Configuration.filled()
         config.title = "내 위치는 여기"
         config.image = UIImage(resource: .location)
@@ -22,28 +22,25 @@ class SearchBottomSheetView: UIView {
         config.baseForegroundColor = UIColor(.black)
         config.imagePadding = 4
         config.contentInsets = NSDirectionalEdgeInsets(top: 7, leading: 14, bottom: 7, trailing: 14)
-        config.cornerStyle = .capsule
-
-        config.background.backgroundColorTransformer = UIConfigurationColorTransformer { _ in UIColor(.white) }
-        config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { _ in
-            var attr = AttributeContainer()
-            attr.foregroundColor = UIColor(.black)
-            return attr
-        }
-
-        let button = UIButton(configuration: config, primaryAction: nil)
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor(resource: .popcornGray1).cgColor
-        button.clipsToBounds = true
-        let height = button.intrinsicContentSize.height
-        button.layer.cornerRadius = height / 2
-        button.isEnabled = false
 
         if let baseFont = UIFont(name: RobotoFontName.robotoMedium, size: 15) {
             let scaledFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: baseFont)
-            button.titleLabel?.font = scaledFont
-            button.titleLabel?.adjustsFontForContentSizeCategory = true
+
+            config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { _ in
+                var attr = AttributeContainer()
+                attr.font = scaledFont
+                return attr
+            }
         }
+
+        let button = UIButton(configuration: config)
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor(resource: .popcornGray1).cgColor
+        button.isEnabled = true
+
+        let height = button.intrinsicContentSize.height
+        button.cornerRadius(radius: height / 2)
+
         return button
     }()
 
@@ -81,7 +78,7 @@ extension SearchBottomSheetView {
     private func configureSubviews() {
         [
             grabber,
-            locationButton,
+            myLocationButton,
             tableView
         ].forEach {
             addSubview($0)
@@ -94,12 +91,12 @@ extension SearchBottomSheetView {
             grabber.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             grabber.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 22),
 
-            locationButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            locationButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 43),
+            myLocationButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            myLocationButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 43),
 
             tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: locationButton.bottomAnchor, constant: 20),
+            tableView.topAnchor.constraint(equalTo: myLocationButton.bottomAnchor, constant: 20),
             tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
     }

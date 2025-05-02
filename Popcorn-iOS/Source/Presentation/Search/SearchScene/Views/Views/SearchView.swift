@@ -89,7 +89,7 @@ class SearchView: UIView {
         return scrollView
     }()
 
-    private let locationButton: UIButton = {
+    private let findLocationButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = .clear
@@ -125,7 +125,7 @@ extension SearchView {
             searchTextField,
             micButton,
             filterScrollView,
-            locationButton
+            findLocationButton
         ].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -163,8 +163,8 @@ extension SearchView {
             filterStackView.bottomAnchor.constraint(equalTo: filterScrollView.bottomAnchor),
             filterStackView.heightAnchor.constraint(equalTo: filterScrollView.heightAnchor),
 
-            locationButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -26),
-            locationButton.topAnchor.constraint(equalTo: filterScrollView.bottomAnchor, constant: 31)
+            findLocationButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -26),
+            findLocationButton.topAnchor.constraint(equalTo: filterScrollView.bottomAnchor, constant: 31)
         ])
     }
 }
