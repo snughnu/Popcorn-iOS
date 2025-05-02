@@ -50,8 +50,13 @@ extension SearchBottomSheetViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        // TODO: 데이터 주입
-        cell.popupNameLabel.text = popupData[indexPath.row]
+        // 임시 데이터
+        let title = popupData[indexPath.row]
+        let image = UIImage(resource: .popup)
+        let distance = "416m"
+        let period = "24.11.04 ~ 24.11.17"
+
+        cell.configurePopupData(image: image, title: title, distance: distance, period: period)
         return cell
     }
 }

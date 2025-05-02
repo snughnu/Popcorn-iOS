@@ -8,33 +8,30 @@
 import UIKit
 
 class SearchPopupTableViewCell: UITableViewCell {
-    let popupImageView: UIImageView = {
+    private let popupImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(resource: .popup)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
     }()
 
-    let popupNameLabel: UILabel = {
+    private let popupNameLabel: UILabel = {
         let label = UILabel()
         guard let baseFont = UIFont(name: RobotoFontName.robotoSemiBold, size: 21) else { return label }
         let scaleFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: baseFont)
         let fontSize = scaleFont.pointSize
         label.font = scaleFont
         label.textColor = UIColor(.black)
-        label.text = "팝업스토어 제목"
         return label
     }()
 
-    let distanceLabel: UILabel = {
+    private let distanceLabel: UILabel = {
         let label = UILabel()
         guard let baseFont = UIFont(name: RobotoFontName.robotoMedium, size: 15) else { return label }
         let scaleFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: baseFont)
         let fontSize = scaleFont.pointSize
         label.font = scaleFont
         label.textColor = UIColor(.red)
-        label.text = "416m"
         return label
     }()
 
@@ -44,14 +41,13 @@ class SearchPopupTableViewCell: UITableViewCell {
         return view
     }()
 
-    let openPeriodLabel: UILabel = {
+    private let openPeriodLabel: UILabel = {
         let label = UILabel()
         guard let baseFont = UIFont(name: RobotoFontName.robotoMedium, size: 15) else { return label }
         let scaleFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: baseFont)
         let fontSize = scaleFont.pointSize
         label.font = scaleFont
         label.textColor = UIColor(.black)
-        label.text = "24.11.04 ~ 24.11.17"
         return label
     }()
 
@@ -117,5 +113,15 @@ extension SearchPopupTableViewCell {
             arrowButton.centerYAnchor.constraint(equalTo: popupNameLabel.centerYAnchor),
             arrowButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -25)
         ])
+    }
+}
+
+// MARK: - Public method: 셀 구성 (이미지, 제목, 거리, 기간)
+extension SearchPopupTableViewCell {
+    func configurePopupData(image: UIImage, title: String, distance: String, period: String) {
+        popupImageView.image = image
+        popupNameLabel.text = title
+        distanceLabel.text = distance
+        openPeriodLabel.text = period
     }
 }
