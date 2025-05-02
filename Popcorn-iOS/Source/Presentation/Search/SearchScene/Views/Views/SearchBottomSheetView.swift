@@ -8,6 +8,12 @@
 import UIKit
 
 class SearchBottomSheetView: UIView {
+    private let grabber: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(resource: .grabber)
+        return imageView
+    }()
+
     private lazy var locationButton: UIButton = {
         var config = UIButton.Configuration.filled()
         config.title = "내 위치는 여기"
@@ -74,6 +80,7 @@ extension SearchBottomSheetView {
 extension SearchBottomSheetView {
     private func configureSubviews() {
         [
+            grabber,
             locationButton,
             tableView
         ].forEach {
@@ -84,6 +91,9 @@ extension SearchBottomSheetView {
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
+            grabber.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            grabber.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 22),
+
             locationButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             locationButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 43),
 
