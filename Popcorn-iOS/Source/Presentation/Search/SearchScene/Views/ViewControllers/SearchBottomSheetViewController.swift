@@ -41,7 +41,7 @@ extension SearchBottomSheetViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return popupData.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "SearchPopupTableViewCell",
@@ -49,7 +49,7 @@ extension SearchBottomSheetViewController: UITableViewDataSource {
         ) as? SearchPopupTableViewCell else {
             return UITableViewCell()
         }
-        
+
         // TODO: 데이터 주입
         cell.popupNameLabel.text = popupData[indexPath.row]
         return cell

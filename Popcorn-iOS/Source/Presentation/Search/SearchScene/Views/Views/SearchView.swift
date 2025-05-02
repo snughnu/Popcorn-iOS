@@ -5,9 +5,15 @@
 //  Created by 김성훈 on 4/14/25.
 //
 
+import MapKit
 import UIKit
 
 class SearchView: UIView {
+    private let mapView: MKMapView = {
+        let mapView = MKMapView()
+        return mapView
+    }()
+
     private let searchTextField: UITextField = {
         let textField = UITextField()
         guard let baseFont = UIFont(name: RobotoFontName.robotoMedium, size: 17) else { return textField }
@@ -80,7 +86,7 @@ extension SearchView {
 // MARK: - Configure AutoLayout
 extension SearchView {
     private func configureSubviews() {
-        [
+        [   mapView,
             searchTextField,
             micButton
         ].forEach {
@@ -92,7 +98,12 @@ extension SearchView {
     private func configureLayout() {
         let searchTextFieldHeight: CGFloat = (searchTextField.font?.pointSize ?? 17) * 50 / 17
         NSLayoutConstraint.activate([
-            searchTextField.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 9),
+            mapView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            mapView.topAnchor.constraint(equalTo: self.topAnchor),
+            mapView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+
+            searchTextField.topAnchor.constraint(equalTo: self.topAnchor, constant: 63),
             searchTextField.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
             searchTextField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
             searchTextField.heightAnchor.constraint(equalToConstant: searchTextFieldHeight),
