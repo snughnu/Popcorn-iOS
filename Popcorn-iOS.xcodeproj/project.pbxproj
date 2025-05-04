@@ -108,13 +108,14 @@
 		56F6D4862D534CCE00C2BEBE /* ImageFetchManagerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4852D534CC600C2BEBE /* ImageFetchManagerRepository.swift */; };
 		56F6D48A2D534D5200C2BEBE /* ImageFetchUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4892D534D4B00C2BEBE /* ImageFetchUseCaseProtocol.swift */; };
 		56F6D48D2D534D9500C2BEBE /* ImageFetchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D48C2D534D9500C2BEBE /* ImageFetchUseCase.swift */; };
+		BC16506F2DBA01CC0026A0FC /* SearchPopupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC16506E2DBA01CC0026A0FC /* SearchPopupTableViewCell.swift */; };
 		BC29A50E2D2EA5DF0059A5C5 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A50D2D2EA5DE0059A5C5 /* KakaoSDKAuth */; };
 		BC29A5102D2EA5DF0059A5C5 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A50F2D2EA5DF0059A5C5 /* KakaoSDKCommon */; };
 		BC29A5122D2EA5DF0059A5C5 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = BC29A5112D2EA5DF0059A5C5 /* KakaoSDKUser */; };
 		BC2D11622CEC5DF60030F4E0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2D11612CEC5DF60030F4E0 /* LoginView.swift */; };
 		BC3201AB2D2CFC6900B73A14 /* ProfileImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3201AA2D2CFC6900B73A14 /* ProfileImageCell.swift */; };
+		BC3234672DC491190005D8D7 /* SearchFilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3234662DC491190005D8D7 /* SearchFilterButton.swift */; };
 		BC45013E2D74009100FF8B5B /* AppleLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC45013D2D74009100FF8B5B /* AppleLoginManager.swift */; };
-		BC45B9292DACCB4D009D8E4F /* SearchFilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC45B9282DACCB4D009D8E4F /* SearchFilterButton.swift */; };
 		BC45B92D2DACCBB4009D8E4F /* SearchBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC45B92C2DACCBB4009D8E4F /* SearchBottomSheetView.swift */; };
 		BC45B92F2DACCBDF009D8E4F /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC45B92E2DACCBDF009D8E4F /* SearchView.swift */; };
 		BC45B9332DACCC17009D8E4F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC45B9322DACCC17009D8E4F /* SearchViewController.swift */; };
@@ -297,10 +298,11 @@
 		56F6D4852D534CC600C2BEBE /* ImageFetchManagerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchManagerRepository.swift; sourceTree = "<group>"; };
 		56F6D4892D534D4B00C2BEBE /* ImageFetchUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchUseCaseProtocol.swift; sourceTree = "<group>"; };
 		56F6D48C2D534D9500C2BEBE /* ImageFetchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchUseCase.swift; sourceTree = "<group>"; };
+		BC16506E2DBA01CC0026A0FC /* SearchPopupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPopupTableViewCell.swift; sourceTree = "<group>"; };
 		BC2D11612CEC5DF60030F4E0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BC3201AA2D2CFC6900B73A14 /* ProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCell.swift; sourceTree = "<group>"; };
+		BC3234662DC491190005D8D7 /* SearchFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterButton.swift; sourceTree = "<group>"; };
 		BC45013D2D74009100FF8B5B /* AppleLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginManager.swift; sourceTree = "<group>"; };
-		BC45B9282DACCB4D009D8E4F /* SearchFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterButton.swift; sourceTree = "<group>"; };
 		BC45B92C2DACCBB4009D8E4F /* SearchBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBottomSheetView.swift; sourceTree = "<group>"; };
 		BC45B92E2DACCBDF009D8E4F /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		BC45B9322DACCC17009D8E4F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -1023,7 +1025,6 @@
 			isa = PBXGroup;
 			children = (
 				BC45B9252DACCAF3009D8E4F /* SearchScene */,
-				BC45B9262DACCAFA009D8E4F /* Common */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1035,22 +1036,6 @@
 				BC45B92A2DACCB7F009D8E4F /* ViewModels */,
 			);
 			path = SearchScene;
-			sourceTree = "<group>";
-		};
-		BC45B9262DACCAFA009D8E4F /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				BC45B9272DACCB0E009D8E4F /* View */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
-		BC45B9272DACCB0E009D8E4F /* View */ = {
-			isa = PBXGroup;
-			children = (
-				BC45B9282DACCB4D009D8E4F /* SearchFilterButton.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		BC45B92A2DACCB7F009D8E4F /* ViewModels */ = {
@@ -1074,6 +1059,8 @@
 			children = (
 				BC45B92E2DACCBDF009D8E4F /* SearchView.swift */,
 				BC45B92C2DACCBB4009D8E4F /* SearchBottomSheetView.swift */,
+				BC16506E2DBA01CC0026A0FC /* SearchPopupTableViewCell.swift */,
+				BC3234662DC491190005D8D7 /* SearchFilterButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1561,7 +1548,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC55FE862D2AC8F100E269B6 /* ProfileImagePickerViewController.swift in Sources */,
-				BC45B9292DACCB4D009D8E4F /* SearchFilterButton.swift in Sources */,
 				5651F4D22D674B5900951B6B /* PopupDetailRepository.swift in Sources */,
 				56EAA92F2D34EB08007265D3 /* StarRatingViewDelegate.swift in Sources */,
 				565C415F2D2032160016003A /* MainCarouselViewModelProtocol.swift in Sources */,
@@ -1595,6 +1581,7 @@
 				56A0C8472D2A744C005E6C51 /* ReviewCollectionViewCell.swift in Sources */,
 				56EAA9372D34F4AE007265D3 /* WriteReviewButtonDelegate.swift in Sources */,
 				BC90A0BC2CF4CF53003488F0 /* SignUpSecondViewController.swift in Sources */,
+				BC16506F2DBA01CC0026A0FC /* SearchPopupTableViewCell.swift in Sources */,
 				BCE8FA322D2272EB00A7B8E2 /* FindIdPwView.swift in Sources */,
 				BC45B9332DACCC17009D8E4F /* SearchViewController.swift in Sources */,
 				562447072D33975B000E94A0 /* FullScreenImageViewController.swift in Sources */,
@@ -1666,6 +1653,7 @@
 				56D68A362D2409DB00EA1404 /* PopupRatingCollectionViewCell.swift in Sources */,
 				56F6D4862D534CCE00C2BEBE /* ImageFetchManagerRepository.swift in Sources */,
 				BC7420F82CE2395600BEED0A /* HttpMethod.swift in Sources */,
+				BC3234672DC491190005D8D7 /* SearchFilterButton.swift in Sources */,
 				BCFB36A72D5DB52A009DE162 /* SignUpSecondViewModel.swift in Sources */,
 				56D657942D73061300726AFC /* FullScreenImageCollectionViewCell.swift in Sources */,
 				56D423962D6EE75A00180351 /* DefaultResponseDTO.swift in Sources */,

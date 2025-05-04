@@ -5,9 +5,15 @@
 //  Created by 김성훈 on 4/14/25.
 //
 
+import MapKit
 import UIKit
 
 class SearchView: UIView {
+    private let mapView: MKMapView = {
+        let mapView = MKMapView()
+        return mapView
+    }()
+
     private let searchTextField: UITextField = {
         let textField = UITextField()
         guard let baseFont = UIFont(name: RobotoFontName.robotoMedium, size: 17) else { return textField }
@@ -58,6 +64,41 @@ class SearchView: UIView {
         return button
     }()
 
+    private let filterButtons: [SearchFilterButton] = [
+        SearchFilterButton(title: "거리순", image: UIImage(resource: .bottomArrow)),
+        SearchFilterButton(title: "지역"),
+        SearchFilterButton(title: "기간"),
+        SearchFilterButton(title: "위치"),
+        SearchFilterButton(title: "카테고리")
+    ]
+
+    private let filterStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 15
+        stackView.alignment = .fill
+        stackView.distribution = .fillProportionally
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+
+    private let filterScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.alwaysBounceHorizontal = true
+        return scrollView
+    }()
+
+    private let findLocationButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .clear
+        config.image = UIImage(resource: .myLocation)
+        config.contentInsets = .zero
+        button.configuration = config
+        return button
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureInitialSetting()
@@ -80,25 +121,50 @@ extension SearchView {
 // MARK: - Configure AutoLayout
 extension SearchView {
     private func configureSubviews() {
-        [
+        [   mapView,
             searchTextField,
-            micButton
+            micButton,
+            filterScrollView,
+            findLocationButton
         ].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+
+        filterScrollView.addSubview(filterStackView)
+        filterButtons.forEach {
+            filterStackView.addArrangedSubview($0)
         }
     }
 
     private func configureLayout() {
         let searchTextFieldHeight: CGFloat = (searchTextField.font?.pointSize ?? 17) * 50 / 17
         NSLayoutConstraint.activate([
-            searchTextField.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 9),
+            mapView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            mapView.topAnchor.constraint(equalTo: self.topAnchor),
+            mapView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+
             searchTextField.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
             searchTextField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            searchTextField.topAnchor.constraint(equalTo: self.topAnchor, constant: 63),
             searchTextField.heightAnchor.constraint(equalToConstant: searchTextFieldHeight),
 
             micButton.trailingAnchor.constraint(equalTo: searchTextField.trailingAnchor, constant: -5),
-            micButton.centerYAnchor.constraint(equalTo: searchTextField.centerYAnchor)
+            micButton.centerYAnchor.constraint(equalTo: searchTextField.centerYAnchor),
+
+            filterScrollView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            filterScrollView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            filterScrollView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 18),
+
+            filterStackView.leadingAnchor.constraint(equalTo: filterScrollView.leadingAnchor, constant: 23),
+            filterStackView.trailingAnchor.constraint(equalTo: filterScrollView.trailingAnchor, constant: -23),
+            filterStackView.topAnchor.constraint(equalTo: filterScrollView.topAnchor),
+            filterStackView.bottomAnchor.constraint(equalTo: filterScrollView.bottomAnchor),
+            filterStackView.heightAnchor.constraint(equalTo: filterScrollView.heightAnchor),
+
+            findLocationButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -26),
+            findLocationButton.topAnchor.constraint(equalTo: filterScrollView.bottomAnchor, constant: 31)
         ])
     }
 }
