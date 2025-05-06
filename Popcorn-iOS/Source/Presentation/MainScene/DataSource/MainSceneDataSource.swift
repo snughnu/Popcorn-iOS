@@ -72,6 +72,10 @@ extension MainSceneDataSource {
             return PopupPreviewViewData.placeholder
         }
     }
+    
+    func getCarouselImageUrl(at indexPath: IndexPath) -> String {
+        return carouselPopupImageUrls[indexPath.row].popupImageUrl
+    }
 
     func showPlaceholderData() {
         self.carouselPopupImageUrls = []

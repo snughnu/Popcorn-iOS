@@ -91,7 +91,7 @@ extension MainSceneViewModel {
     }
 
     func provideCarouselImageUrl(at indexPath: IndexPath) -> String {
-        return mainSceneDataSource.item(at: indexPath).popupImageUrl
+        return mainSceneDataSource.getCarouselImageUrl(at: indexPath)
     }
 }
 
