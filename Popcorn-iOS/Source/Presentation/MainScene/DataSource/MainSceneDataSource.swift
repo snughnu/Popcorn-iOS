@@ -60,19 +60,24 @@ extension MainSceneDataSource {
         return carouselPopupImageUrls[index].popupId
     }
 
-    func item(at indexPath: IndexPath) -> PopupPreviewViewData {
-        switch indexPath.section {
-        case 0:
-            return userPickPopup[indexPath.row]
-        case 1..<(1 + userInterestPopup.count):
-            return userInterestPopup[indexPath.section - 1].popups[indexPath.row]
-        case (1 + userInterestPopup.count):
-            return closingSoonPopup[indexPath.row]
-        default:
-            return PopupPreviewViewData.placeholder
+    func item(for section: MainSceneSection, item: Int) -> PopupPreviewViewData {
+        let placeHolder = PopupPreviewViewData.placeholder
+
+        switch section {
+        case .userPick:
+            guard item < userPickPopup.count else { return placeHolder }
+            return userPickPopup[item]
+        case .userInterest(let index):
+            guard index < userInterestPopup.count, item < userInterestPopup[index].popups.count else {
+                return placeHolder
+            }
+            return userInterestPopup[index].popups[item]
+        case .closingSoon:
+            guard item < closingSoonPopup.count else { return placeHolder }
+            return closingSoonPopup[item]
         }
     }
-    
+
     func getCarouselImageUrl(at indexPath: IndexPath) -> String {
         return carouselPopupImageUrls[indexPath.row].popupImageUrl
     }
@@ -86,8 +91,9 @@ extension MainSceneDataSource {
         self.closingSoonPopup = [PopupPreviewViewData.placeholder]
     }
 
-    func provideUserInterestTitle(sectionOfInterest: Int) -> String {
-        return userInterestPopup[sectionOfInterest].interestCategory
+    func provideUserInterestTitle(for section: MainSceneSection) -> String {
+        guard case .userInterest(let index) = section, index < userInterestPopup.count else { return "" }
+        return userInterestPopup[index].interestCategory
     }
 }
 
