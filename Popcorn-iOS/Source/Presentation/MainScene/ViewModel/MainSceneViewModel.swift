@@ -7,11 +7,19 @@
 
 import Foundation
 
+enum MainSceneSection: Equatable {
+    case userPick
+    case userInterest(index: Int)
+    case closingSoon
+}
+
 final class MainSceneViewModel: MainCarouselViewModelProtocol {
     private let popupFetchListUseCase: PopupFetchListUseCaseProtocol
     private let imageFetchUseCase: ImageFetchUseCaseProtocol
     private let mainSceneDataSource: MainSceneDataSource
 
+    /// 오늘의 추천, 찜 목록, 관심사, 지금 놓치면 안될 팝업 섹션들 중 현재 화면에 표시될 섹션을 담는 배열
+    private(set) var sections = [MainSceneSection]()
     private var hasNextPage = true
     private var page = 1
 
@@ -33,6 +41,25 @@ final class MainSceneViewModel: MainCarouselViewModelProtocol {
     func getDataSource() -> MainSceneDataSource {
         return mainSceneDataSource
     }
+
+    private func updateSections() {
+        sections = buildSections()
+    }
+
+    private func buildSections() -> [MainSceneSection] {
+        var sections = [MainSceneSection]()
+        
+        if mainSceneDataSource.numbersOfPopup(of: .userPick) > 0 {
+            sections.append(.userPick)
+        }
+
+        let interestCount = mainSceneDataSource.numbersOfInterest()
+        sections += (0..<interestCount).map { .userInterest(index: $0) }
+
+        sections.append(.closingSoon)
+        
+        return sections
+    }
 }
 
 // MARK: - Networking
@@ -53,6 +80,7 @@ extension MainSceneViewModel {
                 let popupMainList = response.data
                 self.hasNextPage = response.hasNextPage
                 self.mainSceneDataSource.updateData(popupMainList)
+                self.updateSections()
                 fetchPopupDataPublisher?()
             case .failure(let error):
                 print(error)
