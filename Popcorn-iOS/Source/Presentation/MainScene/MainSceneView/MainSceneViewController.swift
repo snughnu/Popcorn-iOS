@@ -35,14 +35,15 @@ final class MainSceneViewController: UIViewController {
         configureSubviews()
         configureLayout()
         bind(to: mainViewModel)
-//        mainViewModel.fetchPopupList()
-        mainViewModel.fetchMockData()
+        mainViewModel.fetchPopupList()
     }
 
     func bind(to viewModel: MainSceneViewModel) {
-        viewModel.fetchPopupImagesErrorPublisher = { [weak self] in
+        viewModel.fetchPopupDataPublisher = { [weak self] in
             guard let self else { return }
-            self.mainCollectionView.reloadData()
+            DispatchQueue.main.async {
+                self.mainCollectionView.reloadData()
+            }
         }
 
         viewModel.fetchPopupImagesErrorPublisher = { [weak self] in
