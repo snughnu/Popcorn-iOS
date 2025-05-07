@@ -65,14 +65,14 @@ struct MainSceneMockDataConstant {
         let mockData = MainSceneMockDataConstant()
 
         let popupInfo = PopupInformation(
-            popupId: 1,
-            popupImagesUrl: [
+            id: 1,
+            imageUrls: [
                 mockData.imageUrls[3],
                 mockData.imageUrls[1],
                 mockData.imageUrls[0],
                 mockData.imageUrls[3]
             ],
-            popupTitle: "팝콘 팝업스토어",
+            title: "팝콘 팝업스토어",
             startDate: Date(),
             endDate: Calendar.current.date(byAdding: .day, value: 50, to: Date())!,
             isPick: true,
@@ -97,40 +97,40 @@ struct MainSceneMockDataConstant {
             PopupReview(
                 profileImageUrl: "https://randomuser.me/api/portraits/men/1.jpg",
                 nickName: "팝콘이1",
-                reviewRating: 4.5,
-                reviewDate: mockData.startDateBefore5,
-                reviewImagesUrl: [mockData.imageUrls[2], mockData.imageUrls[5], mockData.imageUrls[3]],
-                reviewText: "퇴근 후 바로 방문했는데 너무 재밌어요!!!!",
+                rating: 4.5,
+                createdAt: mockData.startDateBefore5,
+                reviewImageUrls: [mockData.imageUrls[2], mockData.imageUrls[5], mockData.imageUrls[3]],
+                content: "퇴근 후 바로 방문했는데 너무 재밌어요!!!!",
                 likeCount: 30,
                 isLiked: false
             ),
             PopupReview(
                 profileImageUrl: "https://randomuser.me/api/portraits/women/2.jpg",
                 nickName: "팝콘 화이팅a",
-                reviewRating: 5,
-                reviewDate: mockData.startDateBefore5,
-                reviewImagesUrl: [mockData.imageUrls[4], mockData.imageUrls[1]],
-                reviewText: "저는 오픈런했는데 사람이 너무 많았어요ㅠ 그래도 추천합니다!!",
+                rating: 5,
+                createdAt: mockData.startDateBefore5,
+                reviewImageUrls: [mockData.imageUrls[4], mockData.imageUrls[1]],
+                content: "저는 오픈런했는데 사람이 너무 많았어요ㅠ 그래도 추천합니다!!",
                 likeCount: 15,
                 isLiked: false
             ),
             PopupReview(
                 profileImageUrl: "https://randomuser.me/api/portraits/women/3.jpg",
                 nickName: "핑핑구",
-                reviewRating: 3.5,
-                reviewDate: mockData.startDateBefore5,
-                reviewImagesUrl: [mockData.imageUrls[3]],
-                reviewText: "구성이 알차고 좋아요. 그런데 사람이 너무 많습니다.",
+                rating: 3.5,
+                createdAt: mockData.startDateBefore5,
+                reviewImageUrls: [mockData.imageUrls[3]],
+                content: "구성이 알차고 좋아요. 그런데 사람이 너무 많습니다.",
                 likeCount: 7,
                 isLiked: true
             ),
             PopupReview(
                 profileImageUrl: "https://randomuser.me/api/portraits/men/4.jpg",
                 nickName: "핑구구구",
-                reviewRating: 4,
-                reviewDate: mockData.startDateBefore5,
-                reviewImagesUrl: [mockData.imageUrls[0], mockData.imageUrls[1], mockData.imageUrls[2]],
-                reviewText: "팝콘 캐릭터 너무 귀여워요~~ 다음에 또 팝업 열리면 무조건 갈듯",
+                rating: 4,
+                createdAt: mockData.startDateBefore5,
+                reviewImageUrls: [mockData.imageUrls[0], mockData.imageUrls[1], mockData.imageUrls[2]],
+                content: "팝콘 캐릭터 너무 귀여워요~~ 다음에 또 팝업 열리면 무조건 갈듯",
                 likeCount: 4,
                 isLiked: false
             )
@@ -145,9 +145,9 @@ struct MainSceneMockDataConstant {
 
         return zip(mockData.popupTitles, zip(imageUrls, mockData.addresses)).enumerated().map { index, data in
             PopupOverview(
-                popupId: index + 1,
-                popupImageUrl: data.1.0,
-                popupTitle: data.0,
+                id: index + 1,
+                imageUrl: data.1.0,
+                title: data.0,
                 startDate: mockData.startDateBefore5,
                 endDate: mockData.endDateAfter10,
                 address: data.1.1

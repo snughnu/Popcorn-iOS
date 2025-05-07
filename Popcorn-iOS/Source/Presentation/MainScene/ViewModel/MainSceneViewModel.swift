@@ -127,7 +127,7 @@ extension MainSceneViewModel {
 
     func getTodayRecommendPopupId(at index: Int) -> Int {
         // TODO: - -1 반환 대신 nil 리턴, detailViewController 생성자에서 popupId가 nil일 때 처리.
-        return mainSceneDataSource.getTodayRecommend(item: index)?.popupId ?? -1
+        return mainSceneDataSource.getTodayRecommend(item: index)?.id ?? -1
     }
 
     func getInterestCategoryTitle(for section: MainSceneSection) -> String {
@@ -142,7 +142,7 @@ extension MainSceneViewModel {
     }
 
     func provideCarouselImageUrl(at indexPath: IndexPath) -> String {
-        return mainSceneDataSource.getTodayRecommend(item: indexPath.item)?.popupImageUrl ?? ""
+        return mainSceneDataSource.getTodayRecommend(item: indexPath.item)?.imageUrl ?? ""
     }
 }
 
@@ -167,15 +167,15 @@ struct PopupPreviewViewData {
     )
 
     init(from popupPreview: PopupPreview) {
-        self.popupId = popupPreview.popupId
-        self.popupImageUrl = popupPreview.popupImageUrl
-        self.popupTitle = popupPreview.popupTitle
-        self.popupLocation = popupPreview.popupLocation
-        self.popupDDay = "D-\(PopupDateFormatter.calculateDDay(from: popupPreview.popupEndDate))"
+        self.popupId = popupPreview.id
+        self.popupImageUrl = popupPreview.imageUrl
+        self.popupTitle = popupPreview.title
+        self.popupLocation = popupPreview.location
+        self.popupDDay = "D-\(PopupDateFormatter.calculateDDay(from: popupPreview.endDate))"
 
-        self.popupPeriod = popupPreview.popupStartDate.map { startDate in
+        self.popupPeriod = popupPreview.startDate.map { startDate in
             let startDateString = PopupDateFormatter.formattedPopupStoreDate(from: startDate)
-            let endDateString = PopupDateFormatter.formattedPopupStoreDate(from: popupPreview.popupEndDate)
+            let endDateString = PopupDateFormatter.formattedPopupStoreDate(from: popupPreview.endDate)
             return "\(startDateString)~\(endDateString)"
         }
     }

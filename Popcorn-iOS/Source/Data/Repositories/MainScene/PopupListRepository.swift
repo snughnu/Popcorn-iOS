@@ -158,10 +158,10 @@ extension PopupListRepository {
         let closingSoonPopups = mainListResponseDTO.closingSoonPopups.map { $0.toEntity() }
 
         return PopupMainList(
-            recommendedPopups: recommendedPopups,
-            userPickPopups: userPickPopups,
-            userInterestPopup: userInterestPopups,
-            closingSoonPopup: closingSoonPopups
+            todayRecommend: recommendedPopups,
+            userPick: userPickPopups,
+            userInterest: userInterestPopups,
+            closingSoon: closingSoonPopups
         )
     }
 }

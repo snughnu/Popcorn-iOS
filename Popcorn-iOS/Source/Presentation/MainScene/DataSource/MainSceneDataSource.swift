@@ -17,10 +17,10 @@ final class MainSceneDataSource {
 // MARK: - Input
 extension MainSceneDataSource {
     func updateData(_ list: PopupMainList) {
-        self.todayRecommend = list.recommendedPopups
-        self.userPick = list.userPickPopups
-        self.closingSoon = list.closingSoonPopup
-        self.userInterest = list.userInterestPopup
+        self.todayRecommend = list.todayRecommend
+        self.userPick = list.userPick
+        self.closingSoon = list.closingSoon
+        self.userInterest = list.userInterest
             .map { (CategoryMapper.mapToUserInterestedTitle($0.interestCategory), $0.popups) }
             .sorted { $0.title < $1.title }
     }
