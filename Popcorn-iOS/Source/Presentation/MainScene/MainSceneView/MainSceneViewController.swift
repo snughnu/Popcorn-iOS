@@ -206,35 +206,13 @@ extension MainSceneViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        if let popupDDay = popupData.popupDDay {
-            mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
-                switch result {
-                case .success(let imageData):
-                    let image = UIImage(data: imageData) ?? UIImage(resource: .popupPreviewPlaceHolder)
-                    DispatchQueue.main.async {
-                        cell.configureContents(
-                            popupImage: image,
-                            popupTitle: popupData.popupTitle,
-                            dDay: popupDDay
-                        )
-                    }
-                case .failure:
-                    DispatchQueue.main.async {
-                        cell.configureContents(
-                            popupImage: UIImage(resource: .popupPreviewPlaceHolder),
-                            popupTitle: popupData.popupTitle,
-                            dDay: popupDDay
-                        )
-                    }
-                }
+        mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
+            let image = popupData.convertToImage(from: result)
+            DispatchQueue.main.async {
+                cell.configureContents(with: popupData, image: image)
             }
-        } else {
-            cell.configureContents(
-                popupImage: UIImage(resource: .popupPreviewPlaceHolder),
-                popupTitle: PopupPreviewViewData.placeholder.popupTitle,
-                dDay: PopupPreviewViewData.placeholder.popupDDay!
-            )
         }
+
         return cell
     }
 
@@ -250,32 +228,17 @@ extension MainSceneViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        if let popupPeriod = popupData.popupPeriod,
-           let popupLocation = popupData.popupLocation {
-            mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
-                switch result {
-                case .success(let imageData):
-                    let image = UIImage(data: imageData) ?? UIImage(resource: .popupPreviewPlaceHolder)
-                    DispatchQueue.main.async {
-                        cell.configureContents(
-                            popupImage: image,
-                            popupTitle: popupData.popupTitle,
-                            period: popupPeriod,
-                            location: popupLocation
-                        )
-                    }
-                case .failure:
-                    DispatchQueue.main.async {
-                        cell.configureContents(
-                            popupImage: UIImage(resource: .popupPreviewPlaceHolder),
-                            popupTitle: popupData.popupTitle,
-                            period: popupPeriod,
-                            location: popupLocation
-                        )
-                    }
-                }
+        let popupPeriod = popupData.popupPeriod ?? PopupPreviewViewData.placeholder.popupPeriod!
+        let popupLocation = popupData.popupLocation ??  PopupPreviewViewData.placeholder.popupLocation!
+
+        mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
+            let image = popupData.convertToImage(from: result)
+
+            DispatchQueue.main.async {
+                cell.configureContents(with: popupData, image: image)
             }
         }
+
         return cell
     }
 }
@@ -431,5 +394,18 @@ extension MainSceneViewController {
 extension MainSceneViewController {
     private func mockingData() {
         mainViewModel.fetchMockData()
+    }
+}
+
+// MARK: - Extensions
+extension PopupPreviewViewData {
+    func convertToImage(from result: Result<Data, ImageFetchError>) -> UIImage {
+        switch result {
+        case .success(let data):
+            return UIImage(data: data) ?? UIImage(resource: .popupPreviewPlaceHolder)
+        case .failure(let error):
+            print("팝업 프리뷰 이미지 로딩 실패: \(error.localizedDescription)")
+            return UIImage(resource: .popupPreviewPlaceHolder)
+        }
     }
 }

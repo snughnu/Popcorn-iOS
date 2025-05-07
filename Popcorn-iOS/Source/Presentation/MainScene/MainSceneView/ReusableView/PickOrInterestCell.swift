@@ -48,14 +48,19 @@ final class PickOrInterestCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    private func configure(popupImage: UIImage, popupTitle: String, dDay: String) {
+        popupImageView.image = popupImage
+        popupTitleLabel.text = popupTitle
+        dDayLabel.text = dDay
+    }
 }
 
 // MARK: - Public Interface
 extension PickOrInterestCell {
-    func configureContents(popupImage: UIImage, popupTitle: String, dDay: String) {
-        popupImageView.image = popupImage
-        popupTitleLabel.text = popupTitle
-        dDayLabel.text = dDay
+    func configureContents(with popupData: PopupPreviewViewData, image: UIImage) {
+        let popupDDay = popupData.popupDDay ?? PopupPreviewViewData.placeholder.popupDDay!
+        configure(popupImage: image, popupTitle: popupData.popupTitle, dDay: popupDDay)
     }
 }
 
