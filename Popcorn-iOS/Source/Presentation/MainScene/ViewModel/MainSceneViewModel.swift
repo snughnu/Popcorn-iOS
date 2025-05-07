@@ -38,18 +38,13 @@ final class MainSceneViewModel: MainCarouselViewModelProtocol {
         self.mainSceneDataSource = mainSceneDataSource
     }
 
-    func getDataSource() -> MainSceneDataSource {
-        return mainSceneDataSource
-    }
-
     private func updateSections() {
         sections = buildSections()
     }
 
     private func buildSections() -> [MainSceneSection] {
         var sections = [MainSceneSection]()
-        
-        if mainSceneDataSource.numbersOfPopup(of: .userPick) > 0 {
+        if mainSceneDataSource.numberOfPopups(in: .userPick) > 0 {
             sections.append(.userPick)
         }
 
@@ -57,7 +52,7 @@ final class MainSceneViewModel: MainCarouselViewModelProtocol {
         sections += (0..<interestCount).map { .userInterest(index: $0) }
 
         sections.append(.closingSoon)
-        
+
         return sections
     }
 }
@@ -84,7 +79,7 @@ extension MainSceneViewModel {
                 fetchPopupDataPublisher?()
             case .failure(let error):
                 print(error)
-                self.mainSceneDataSource.showPlaceholderData()
+//                self.mainSceneDataSource.showPlaceholderData()
             }
         }
     }
@@ -107,19 +102,47 @@ extension MainSceneViewModel {
     }
 
     func fetchMockData() {
-        mainSceneDataSource.genereateMockData()
+//        mainSceneDataSource.genereateMockData()
         fetchPopupDataPublisher?()
+    }
+}
+
+// MARK: - DataSource
+extension MainSceneViewModel {
+    func numberOfPopups(in section: MainSceneSection) -> Int {
+        return mainSceneDataSource.numberOfPopups(in: section)
+    }
+
+    func numberOfInterest() -> Int {
+        return mainSceneDataSource.numbersOfInterest()
+    }
+
+    func getPopup(for section: MainSceneSection, at index: Int) -> PopupPreviewViewData {
+        guard let popup = mainSceneDataSource.popup(for: section, item: index) else {
+            return PopupPreviewViewData.placeholder
+        }
+
+        return PopupPreviewViewData(from: popup)
+    }
+
+    func getTodayRecommendPopupId(at index: Int) -> Int {
+        // TODO: - -1 반환 대신 nil 리턴, detailViewController 생성자에서 popupId가 nil일 때 처리.
+        return mainSceneDataSource.getTodayRecommend(item: index)?.popupId ?? -1
+    }
+
+    func getInterestCategoryTitle(for section: MainSceneSection) -> String {
+        mainSceneDataSource.interestCategoryTitle(for: section) ?? ""
     }
 }
 
 // MARK: - Implement MainCarouselDataSource
 extension MainSceneViewModel {
     func numbersOfCarouselImage() -> Int {
-        return mainSceneDataSource.numbersOfPopup(of: .todayRecommend)
+        return mainSceneDataSource.numberOfTodayRecommend()
     }
 
     func provideCarouselImageUrl(at indexPath: IndexPath) -> String {
-        return mainSceneDataSource.getCarouselImageUrl(at: indexPath)
+        return mainSceneDataSource.getTodayRecommend(item: indexPath.item)?.popupImageUrl ?? ""
     }
 }
 

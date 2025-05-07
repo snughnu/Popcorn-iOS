@@ -8,129 +8,75 @@
 import Foundation
 
 final class MainSceneDataSource {
-    private var carouselPopupImageUrls: [PopupPreviewViewData] = []
-    private var userPickPopup: [PopupPreviewViewData] = []
-    private var userInterestPopup: [UserInterestPopupViewData] = []
-    private var closingSoonPopup: [PopupPreviewViewData] = []
+    private var todayRecommend: [PopupPreview] = []
+    private var userPick: [PopupPreview] = []
+    private var userInterest: [(title: String, popups: [PopupPreview])] = []
+    private var closingSoon: [PopupPreview] = []
 }
 
 // MARK: - Input
 extension MainSceneDataSource {
-    func updateData(_ popupMainList: PopupMainList) {
-        self.carouselPopupImageUrls = popupMainList.recommendedPopups.compactMap { PopupPreviewViewData(from: $0)}
-        self.userPickPopup = popupMainList.userPickPopups.compactMap { PopupPreviewViewData(from: $0) }
-        self.closingSoonPopup = popupMainList.closingSoonPopup.compactMap { PopupPreviewViewData(from: $0) }
-
-        self.userInterestPopup = popupMainList.userInterestPopup
-            .map { category in
-                return UserInterestPopupViewData(
-                    interestCategory: CategoryMapper.mapToUserInterestedTitle(category.interestCategory),
-                    popups: category.popups.compactMap { PopupPreviewViewData(from: $0) }
-                )
-            }
-            .sorted { $0.interestCategory < $1.interestCategory }
+    func updateData(_ list: PopupMainList) {
+        self.todayRecommend = list.recommendedPopups
+        self.userPick = list.userPickPopups
+        self.closingSoon = list.closingSoonPopup
+        self.userInterest = list.userInterestPopup
+            .map { (CategoryMapper.mapToUserInterestedTitle($0.interestCategory), $0.popups) }
+            .sorted { $0.title < $1.title }
     }
 
     func updateClosingSoonPopup(_ popups: [PopupPreview]) {
-        self.closingSoonPopup = popups.compactMap { PopupPreviewViewData(from: $0) }
+        self.closingSoon = popups
     }
 }
 
 // MARK: - Output
 extension MainSceneDataSource {
-    func numbersOfPopup(of category: PopupSectionCategory, at index: Int = 0) -> Int {
-        switch category {
-        case .todayRecommend:
-            return carouselPopupImageUrls.count
+    func numberOfPopups(in section: MainSceneSection) -> Int {
+        switch section {
         case .userPick:
-            return userPickPopup.count
-        case .userInterest:
-            return userInterestPopup[index].popups.count
+            return userPick.count
+        case .userInterest(let index):
+            guard index < userInterest.count else { return 0 }
+            return userInterest[index].popups.count
         case .closingSoon:
-            return closingSoonPopup.count
+            return closingSoon.count
         }
+    }
+
+    func numberOfTodayRecommend() -> Int {
+        return todayRecommend.count
     }
 
     func numbersOfInterest() -> Int {
-        return userInterestPopup.count
+        return userInterest.count
     }
 
-    func getCarouselPopupId(at index: Int) -> Int {
-        guard index < carouselPopupImageUrls.count else { return 0 }
-        return carouselPopupImageUrls[index].popupId
-    }
-
-    func item(for section: MainSceneSection, item: Int) -> PopupPreviewViewData {
-        let placeHolder = PopupPreviewViewData.placeholder
-
+    func popup(for section: MainSceneSection, item: Int) -> PopupPreview? {
         switch section {
         case .userPick:
-            guard item < userPickPopup.count else { return placeHolder }
-            return userPickPopup[item]
+            guard item < userPick.count else { return nil }
+            return userPick[item]
         case .userInterest(let index):
-            guard index < userInterestPopup.count, item < userInterestPopup[index].popups.count else {
-                return placeHolder
-            }
-            return userInterestPopup[index].popups[item]
+            guard index < userPick.count, item < userInterest[index].popups.count else { return nil }
+            return userInterest[index].popups[item]
         case .closingSoon:
-            guard item < closingSoonPopup.count else { return placeHolder }
-            return closingSoonPopup[item]
+            guard item < closingSoon.count else { return nil }
+            return closingSoon[item]
         }
     }
 
-    func getCarouselImageUrl(at indexPath: IndexPath) -> String {
-        return carouselPopupImageUrls[indexPath.row].popupImageUrl
+    /// MainCarouselView가 데이터를 채우기 위해 사용하는 메서드
+    func getTodayRecommend(item: Int) -> PopupPreview? {
+        guard item < todayRecommend.count else { return nil }
+        return todayRecommend[item]
     }
 
-    func showPlaceholderData() {
-        self.carouselPopupImageUrls = []
-        self.userPickPopup = [PopupPreviewViewData.placeholder]
-        self.userInterestPopup = [
-            UserInterestPopupViewData(interestCategory: "관심사", popups: [PopupPreviewViewData.placeholder])
-        ]
-        self.closingSoonPopup = [PopupPreviewViewData.placeholder]
-    }
+    func interestCategoryTitle(for section: MainSceneSection) -> String? {
+        guard case .userInterest(let index) = section, index < userInterest.count else {
+            return nil
+        }
 
-    func provideUserInterestTitle(for section: MainSceneSection) -> String {
-        guard case .userInterest(let index) = section, index < userInterestPopup.count else { return "" }
-        return userInterestPopup[index].interestCategory
-    }
-}
-
-// MARK: - Mocking
-extension MainSceneDataSource {
-    func genereateMockData() {
-        let mockPopups = MainSceneMockDataConstant.generatePopupPreview()
-
-        self.carouselPopupImageUrls = [
-            PopupPreviewViewData(from: mockPopups[3]),
-            PopupPreviewViewData(from: mockPopups[1]),
-            PopupPreviewViewData(from: mockPopups[2]),
-            PopupPreviewViewData(from: mockPopups[3])
-        ]
-
-        self.userPickPopup = mockPopups.map { PopupPreviewViewData(from: $0) }
-        self.userInterestPopup = [
-            UserInterestPopupViewData(interestCategory: "캐릭터", popups: [
-                PopupPreviewViewData(from: mockPopups[0]),
-                PopupPreviewViewData(from: mockPopups[2]),
-                PopupPreviewViewData(from: mockPopups[1]),
-                PopupPreviewViewData(from: mockPopups[3])
-            ]),
-            UserInterestPopupViewData(interestCategory: "패션", popups: [
-                PopupPreviewViewData(from: mockPopups[4]),
-                PopupPreviewViewData(from: mockPopups[3]),
-                PopupPreviewViewData(from: mockPopups[2]),
-                PopupPreviewViewData(from: mockPopups[1])
-            ])
-        ]
-
-        self.closingSoonPopup = [
-            PopupPreviewViewData(from: mockPopups[0]),
-            PopupPreviewViewData(from: mockPopups[2]),
-            PopupPreviewViewData(from: mockPopups[3]),
-            PopupPreviewViewData(from: mockPopups[2]),
-            PopupPreviewViewData(from: mockPopups[1])
-        ]
+        return userInterest[index].title
     }
 }
