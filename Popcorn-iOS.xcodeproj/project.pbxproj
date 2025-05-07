@@ -93,6 +93,7 @@
 		56ED58D32D815B9700046377 /* PopupOverviewResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56ED58D22D815B8A00046377 /* PopupOverviewResponseDTO.swift */; };
 		56ED58D92D81660B00046377 /* InterestCategoryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56ED58D82D8165FA00046377 /* InterestCategoryDTO.swift */; };
 		56ED58DF2D81783A00046377 /* PopupSectionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56ED58DE2D81783100046377 /* PopupSectionCategory.swift */; };
+		56EF8DEA2DCB43DA00025BEB /* PopupPreviewCellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EF8DE92DCB43DA00025BEB /* PopupPreviewCellable.swift */; };
 		56F6D45D2D4FBA0C00C2BEBE /* NewToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4572D4FBA0C00C2BEBE /* NewToken.swift */; };
 		56F6D45E2D4FBA0C00C2BEBE /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D45A2D4FBA0C00C2BEBE /* Token.swift */; };
 		56F6D45F2D4FBA0C00C2BEBE /* PopupPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F6D4592D4FBA0C00C2BEBE /* PopupPreview.swift */; };
@@ -282,6 +283,7 @@
 		56ED58D22D815B8A00046377 /* PopupOverviewResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupOverviewResponseDTO.swift; sourceTree = "<group>"; };
 		56ED58D82D8165FA00046377 /* InterestCategoryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestCategoryDTO.swift; sourceTree = "<group>"; };
 		56ED58DE2D81783100046377 /* PopupSectionCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupSectionCategory.swift; sourceTree = "<group>"; };
+		56EF8DE92DCB43DA00025BEB /* PopupPreviewCellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupPreviewCellable.swift; sourceTree = "<group>"; };
 		56F00A5F2D6CAD2C002B193D /* Popcorn-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Popcorn-iOS.entitlements"; sourceTree = "<group>"; };
 		56F6D4572D4FBA0C00C2BEBE /* NewToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewToken.swift; sourceTree = "<group>"; };
 		56F6D4582D4FBA0C00C2BEBE /* PopupInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupInformation.swift; sourceTree = "<group>"; };
@@ -403,6 +405,7 @@
 			children = (
 				562447142D33B657000E94A0 /* Delegate */,
 				565C415E2D20320A0016003A /* MainCarouselViewModelProtocol.swift */,
+				56EF8DE92DCB43DA00025BEB /* PopupPreviewCellable.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1691,6 +1694,7 @@
 				5643991D2D44F10E0031688B /* MultipartBodyEndpoint.swift in Sources */,
 				BCE8FA562D228C5400A7B8E2 /* ResetPwViewController.swift in Sources */,
 				BC6420832D58E03F001ACC51 /* AuthNumResultResponseDTO.swift in Sources */,
+				56EF8DEA2DCB43DA00025BEB /* PopupPreviewCellable.swift in Sources */,
 				BC5F3C212D525CC200248DB0 /* AuthNumRequestDTO.swift in Sources */,
 				56A061282D21697E00BC92A8 /* PopupDetailInfoCollectionViewCell.swift in Sources */,
 				5651F4BD2D66EDA000951B6B /* PopupDetailRepositoryProtocol.swift in Sources */,

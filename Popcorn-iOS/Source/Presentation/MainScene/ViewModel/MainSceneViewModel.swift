@@ -154,7 +154,7 @@ struct PopupPreviewViewData {
     let popupPeriod: String?
     let popupDDay: String?
     let popupLocation: String?
-    
+
     static let placeholder = PopupPreviewViewData(
         from: PopupPreview(
             popupId: -1,
@@ -165,14 +165,14 @@ struct PopupPreviewViewData {
             popupLocation: "팝콘시 팝콘구 팝콘로 0번길"
         )
     )
-    
+
     init(from popupPreview: PopupPreview) {
         self.popupId = popupPreview.popupId
         self.popupImageUrl = popupPreview.popupImageUrl
         self.popupTitle = popupPreview.popupTitle
         self.popupLocation = popupPreview.popupLocation
         self.popupDDay = "D-\(PopupDateFormatter.calculateDDay(from: popupPreview.popupEndDate))"
-        
+
         self.popupPeriod = popupPreview.popupStartDate.map { startDate in
             let startDateString = PopupDateFormatter.formattedPopupStoreDate(from: startDate)
             let endDateString = PopupDateFormatter.formattedPopupStoreDate(from: popupPreview.popupEndDate)

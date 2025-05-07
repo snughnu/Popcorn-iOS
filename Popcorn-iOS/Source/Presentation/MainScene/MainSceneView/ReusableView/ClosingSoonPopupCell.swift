@@ -83,7 +83,7 @@ final class ClosingSoonPopupCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func configure(popupImage: UIImage, popupTitle: String, period: String, location: String) {
+    private func configureContents(popupImage: UIImage, popupTitle: String, period: String, location: String) {
         popupImageView.image = popupImage
         popupTitleLabel.text = popupTitle
         popupPeriodLabel.text = period
@@ -92,11 +92,11 @@ final class ClosingSoonPopupCell: UICollectionViewCell {
 }
 
 // MARK: - Public Interface
-extension ClosingSoonPopupCell {
-    func configureContents(with popupData: PopupPreviewViewData, image: UIImage) {
+extension ClosingSoonPopupCell: PopupPreviewCellable {
+    func configure(with popupData: PopupPreviewViewData, image: UIImage) {
         let popupPeriod = popupData.popupPeriod ?? PopupPreviewViewData.placeholder.popupPeriod!
         let popupLocation = popupData.popupLocation ??  PopupPreviewViewData.placeholder.popupLocation!
-        configure(popupImage: image, popupTitle: popupData.popupTitle, period: popupPeriod, location: popupLocation)
+        configureContents(popupImage: image, popupTitle: popupData.popupTitle, period: popupPeriod, location: popupLocation)
     }
 }
 
