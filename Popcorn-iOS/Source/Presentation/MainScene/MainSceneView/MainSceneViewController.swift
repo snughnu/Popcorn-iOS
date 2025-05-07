@@ -132,18 +132,30 @@ extension MainSceneViewController: UICollectionViewDataSource {
     ) -> UICollectionViewCell {
         let section = mainViewModel.sections[indexPath.section]
         let popupData = mainViewModel.getPopup(for: section, at: indexPath.item)
+        let reuseIdentifier: String
 
         switch section {
-        case .userPick:
-            let cell = configurePickOrInterestCell(collectionView, for: indexPath, popupData)
-            return cell
-        case .userInterest:
-            let cell = configurePickOrInterestCell(collectionView, for: indexPath, popupData)
-            return cell
+        case .userPick, .userInterest:
+            reuseIdentifier = PickOrInterestCell.reuseIdentifier
         case .closingSoon:
-            let cell = configureClosingSoonPopupCell(collectionView, for: indexPath, popupData)
-            return cell
+            reuseIdentifier = ClosingSoonPopupCell.reuseIdentifier
         }
+
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: reuseIdentifier,
+            for: indexPath
+        ) as? PopupPreviewCellable else {
+            return UICollectionViewCell()
+        }
+
+        mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
+            let image = popupData.convertToImage(from: result)
+            DispatchQueue.main.async {
+                cell.configure(with: popupData, image: image)
+            }
+        }
+
+        return cell as! UICollectionViewCell
     }
 
     func collectionView(
@@ -192,54 +204,6 @@ extension MainSceneViewController: UICollectionViewDataSource {
             header.configureContents(headerTitle: "지금 놓치면 안 될 팝업스토어", shouldHiddenShowButton: true)
             return header
         }
-    }
-
-    private func configurePickOrInterestCell(
-        _ collectionView: UICollectionView,
-        for indexPath: IndexPath,
-        _ popupData: PopupPreviewViewData
-    ) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: PickOrInterestCell.reuseIdentifier,
-            for: indexPath
-        ) as? PickOrInterestCell else {
-            return UICollectionViewCell()
-        }
-
-        mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
-            let image = popupData.convertToImage(from: result)
-            DispatchQueue.main.async {
-                cell.configureContents(with: popupData, image: image)
-            }
-        }
-
-        return cell
-    }
-
-    private func configureClosingSoonPopupCell(
-        _ collectionView: UICollectionView,
-        for indexPath: IndexPath,
-        _ popupData: PopupPreviewViewData
-    ) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: ClosingSoonPopupCell.reuseIdentifier,
-            for: indexPath
-        ) as? ClosingSoonPopupCell else {
-            return UICollectionViewCell()
-        }
-
-        let popupPeriod = popupData.popupPeriod ?? PopupPreviewViewData.placeholder.popupPeriod!
-        let popupLocation = popupData.popupLocation ??  PopupPreviewViewData.placeholder.popupLocation!
-
-        mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
-            let image = popupData.convertToImage(from: result)
-
-            DispatchQueue.main.async {
-                cell.configureContents(with: popupData, image: image)
-            }
-        }
-
-        return cell
     }
 }
 
