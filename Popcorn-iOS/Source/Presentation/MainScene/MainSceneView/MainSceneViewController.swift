@@ -208,17 +208,18 @@ extension MainSceneViewController: UICollectionViewDataSource {
 
         if let popupDDay = popupData.popupDDay {
             mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let imageData):
-                        if let image = UIImage(data: imageData) {
-                            cell.configureContents(
-                                popupImage: image,
-                                popupTitle: popupData.popupTitle,
-                                dDay: popupDDay
-                            )
-                        }
-                    case .failure:
+                switch result {
+                case .success(let imageData):
+                    let image = UIImage(data: imageData) ?? UIImage(resource: .popupPreviewPlaceHolder)
+                    DispatchQueue.main.async {
+                        cell.configureContents(
+                            popupImage: image,
+                            popupTitle: popupData.popupTitle,
+                            dDay: popupDDay
+                        )
+                    }
+                case .failure:
+                    DispatchQueue.main.async {
                         cell.configureContents(
                             popupImage: UIImage(resource: .popupPreviewPlaceHolder),
                             popupTitle: popupData.popupTitle,
@@ -252,20 +253,19 @@ extension MainSceneViewController: UICollectionViewDataSource {
         if let popupPeriod = popupData.popupPeriod,
            let popupLocation = popupData.popupLocation {
             mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let imageData):
-                        DispatchQueue.main.async {
-                            if let image = UIImage(data: imageData) {
-                                cell.configureContents(
-                                    popupImage: image,
-                                    popupTitle: popupData.popupTitle,
-                                    period: popupPeriod,
-                                    location: popupLocation
-                                )
-                            }
-                        }
-                    case .failure:
+                switch result {
+                case .success(let imageData):
+                    let image = UIImage(data: imageData) ?? UIImage(resource: .popupPreviewPlaceHolder)
+                    DispatchQueue.main.async {
+                        cell.configureContents(
+                            popupImage: image,
+                            popupTitle: popupData.popupTitle,
+                            period: popupPeriod,
+                            location: popupLocation
+                        )
+                    }
+                case .failure:
+                    DispatchQueue.main.async {
                         cell.configureContents(
                             popupImage: UIImage(resource: .popupPreviewPlaceHolder),
                             popupTitle: popupData.popupTitle,
@@ -275,13 +275,6 @@ extension MainSceneViewController: UICollectionViewDataSource {
                     }
                 }
             }
-        } else {
-            cell.configureContents(
-                popupImage: UIImage(resource: .popupPreviewPlaceHolder),
-                popupTitle: PopupPreviewViewData.placeholder.popupTitle,
-                period: PopupPreviewViewData.placeholder.popupPeriod!,
-                location: PopupPreviewViewData.placeholder.popupLocation!
-            )
         }
         return cell
     }
