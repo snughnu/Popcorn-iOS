@@ -41,10 +41,10 @@ extension PopupReviewResponseDTO {
         return PopupReview(
             profileImageUrl: profileImageUrl,
             nickName: nickName,
-            reviewRating: reviewRating,
-            reviewDate: reviewDate,
-            reviewImagesUrl: reviewImagesUrl,
-            reviewText: reviewText,
+            rating: reviewRating,
+            createdAt: reviewDate,
+            reviewImageUrls: reviewImagesUrl,
+            content: reviewText,
             likeCount: likeCount,
             isLiked: isLiked
         )

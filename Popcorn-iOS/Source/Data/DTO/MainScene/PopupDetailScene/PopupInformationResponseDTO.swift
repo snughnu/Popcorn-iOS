@@ -44,9 +44,9 @@ extension PopupInformationResponseDTO {
         let endDate = DateFormatter.apiDateFormatter.date(from: endDate) ?? errorDate
 
         return PopupInformation(
-            popupId: popupId,
-            popupImagesUrl: popupImagesUrl,
-            popupTitle: popupTitle,
+            id: popupId,
+            imageUrls: popupImagesUrl,
+            title: popupTitle,
             startDate: startDate,
             endDate: endDate,
             isPick: isPick,

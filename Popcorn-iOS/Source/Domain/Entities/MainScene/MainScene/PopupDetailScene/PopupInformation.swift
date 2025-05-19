@@ -8,9 +8,9 @@
 import Foundation
 
 struct PopupInformation {
-    let popupId: Int
-    let popupImagesUrl: [String]
-    let popupTitle: String
+    let id: Int
+    let imageUrls: [String]
+    let title: String
     let startDate: Date
     let endDate: Date
     let isPick: Bool

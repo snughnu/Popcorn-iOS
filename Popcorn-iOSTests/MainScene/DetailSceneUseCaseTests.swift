@@ -27,9 +27,9 @@ final class DetailSceneUseCaseTests: XCTestCase {
     func test_해시태그가_정상적으로_추출되는지() {
         // Given
         let popupInfo1 = PopupInformation(
-            popupId: -1,
-            popupImagesUrl: [""],
-            popupTitle: "",
+            id: -1,
+            imageUrls: [""],
+            title: "",
             startDate: Date(),
             endDate: Calendar.current.date(byAdding: .day, value: 10, to: Date())!,
             isPick: true,
@@ -42,9 +42,9 @@ final class DetailSceneUseCaseTests: XCTestCase {
         )
         
         let popupInfo2 = PopupInformation(
-            popupId: -1,
-            popupImagesUrl: [""],
-            popupTitle: "",
+            id: -1,
+            imageUrls: [""],
+            title: "",
             startDate: Date(),
             endDate: Calendar.current.date(byAdding: .day, value: 5, to: Date())!,
             isPick: true,
@@ -55,11 +55,10 @@ final class DetailSceneUseCaseTests: XCTestCase {
             introduce: "",
             reservationUrl: ""
         )
-        
         let popupInfo3 = PopupInformation(
-            popupId: -1,
-            popupImagesUrl: [""],
-            popupTitle: "",
+            id: -1,
+            imageUrls: [""],
+            title: "",
             startDate: Date(),
             endDate: Calendar.current.date(byAdding: .day, value: -5, to: Date())!,
             isPick: true,

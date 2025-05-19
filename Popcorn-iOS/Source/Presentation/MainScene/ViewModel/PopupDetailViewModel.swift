@@ -132,9 +132,9 @@ struct PopupMainInformationViewData {
 
     static let placeholder = PopupMainInformationViewData(
         from: PopupInformation(
-            popupId: -1,
-            popupImagesUrl: [],
-            popupTitle: "팝콘 팝업스토어",
+            id: -1,
+            imageUrls: [],
+            title: "팝콘 팝업스토어",
             startDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
             endDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
             isPick: false,
@@ -151,9 +151,9 @@ struct PopupMainInformationViewData {
         let startDateString = PopupDateFormatter.formattedPopupStoreDate(from: entity.startDate)
         let endDateString = PopupDateFormatter.formattedPopupStoreDate(from: entity.endDate)
 
-        self.popupId = entity.popupId
-        self.popupImagesUrl = entity.popupImagesUrl
-        self.popupTitle = entity.popupTitle
+        self.popupId = entity.id
+        self.popupImagesUrl = entity.imageUrls
+        self.popupTitle = entity.title
         self.popupPeriod = "\(startDateString)~\(endDateString)"
         self.isPick = entity.isPick
         self.hashTags = entity.hashTags
@@ -171,9 +171,9 @@ struct PopupDetailInformationViewData {
 
     static let placeholder = PopupDetailInformationViewData(
         from: PopupInformation(
-            popupId: -1,
-            popupImagesUrl: [],
-            popupTitle: "팝콘 팝업스토어",
+            id: -1,
+            imageUrls: [],
+            title: "팝콘 팝업스토어",
             startDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
             endDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
             isPick: false,
@@ -230,10 +230,10 @@ struct PopupReviewViewData {
         from: PopupReview(
             profileImageUrl: nil,
             nickName: "팝콘이",
-            reviewRating: 0,
-            reviewDate: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
-            reviewImagesUrl: nil,
-            reviewText: "",
+            rating: 0,
+            createdAt: DateFormatter.apiDateFormatter.date(from: "1900-01-01 00:00:00")!,
+            reviewImageUrls: nil,
+            content: "",
             likeCount: 0,
             isLiked: false
         )
@@ -242,10 +242,10 @@ struct PopupReviewViewData {
     init(from entity: PopupReview) {
         self.profileImageUrl = entity.profileImageUrl
         self.nickname = entity.nickName
-        self.reviewRating = entity.reviewRating
-        self.reviewDate = PopupDateFormatter.formattedReviewDate(from: entity.reviewDate)
-        self.reviewImagesUrl = entity.reviewImagesUrl
-        self.reviewText = entity.reviewText
+        self.reviewRating = entity.rating
+        self.reviewDate = PopupDateFormatter.formattedReviewDate(from: entity.createdAt)
+        self.reviewImagesUrl = entity.reviewImageUrls
+        self.reviewText = entity.content
         self.likeCount = String(entity.likeCount)
         self.isLiked = entity.isLiked
     }

@@ -35,14 +35,15 @@ final class MainSceneViewController: UIViewController {
         configureSubviews()
         configureLayout()
         bind(to: mainViewModel)
-//        mainViewModel.fetchPopupList()
-        mainViewModel.fetchMockData()
+        mainViewModel.fetchPopupList()
     }
 
     func bind(to viewModel: MainSceneViewModel) {
-        viewModel.fetchPopupImagesErrorPublisher = { [weak self] in
+        viewModel.fetchPopupDataPublisher = { [weak self] in
             guard let self else { return }
-            self.mainCollectionView.reloadData()
+            DispatchQueue.main.async {
+                self.mainCollectionView.reloadData()
+            }
         }
 
         viewModel.fetchPopupImagesErrorPublisher = { [weak self] in
@@ -108,21 +109,20 @@ extension MainSceneViewController {
 // MARK: - Configure CollectionView DataSource
 extension MainSceneViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2 + mainViewModel.getDataSource().numbersOfInterest()
+        let sections = mainViewModel.sections
+        return sections.count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let numberOfInterest = mainViewModel.getDataSource().numbersOfInterest()
+        let section = mainViewModel.sections[section]
 
         switch section {
-        case 0:
-            return mainViewModel.getDataSource().numbersOfPopup(of: .userPick)
-        case 1..<(1 + numberOfInterest):
-            return mainViewModel.getDataSource().numbersOfPopup(of: .userInterest(.none), at: section - 1)
-        case (1 + numberOfInterest):
-            return mainViewModel.getDataSource().numbersOfPopup(of: .closingSoon)
-        default:
-            return 0
+        case .userPick:
+            return mainViewModel.numberOfPopups(in: .userPick)
+        case .userInterest(let index):
+            return mainViewModel.numberOfPopups(in: .userInterest(index: index))
+        case .closingSoon:
+            return mainViewModel.numberOfPopups(in: .closingSoon)
         }
     }
 
@@ -130,133 +130,32 @@ extension MainSceneViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        let numbersOfInterest = mainViewModel.getDataSource().numbersOfInterest()
-        let popupData = mainViewModel.getDataSource().item(at: indexPath)
+        let section = mainViewModel.sections[indexPath.section]
+        let popupData = mainViewModel.getPopup(for: section, at: indexPath.item)
+        let reuseIdentifier: String
 
-        switch indexPath.section {
-        case 0:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: PickOrInterestCell.reuseIdentifier,
-                for: indexPath
-            ) as? PickOrInterestCell else {
-                return UICollectionViewCell()
-            }
+        switch section {
+        case .userPick, .userInterest:
+            reuseIdentifier = PickOrInterestCell.reuseIdentifier
+        case .closingSoon:
+            reuseIdentifier = ClosingSoonPopupCell.reuseIdentifier
+        }
 
-            if let popupDDay = popupData.popupDDay {
-                mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
-                    DispatchQueue.main.async {
-                        switch result {
-                        case .success(let imageData):
-                            if let image = UIImage(data: imageData) {
-                                cell.configureContents(
-                                    popupImage: image,
-                                    popupTitle: popupData.popupTitle,
-                                    dDay: popupDDay
-                                )
-                            }
-                        case .failure:
-                            cell.configureContents(
-                                popupImage: UIImage(resource: .popupPreviewPlaceHolder),
-                                popupTitle: popupData.popupTitle,
-                                dDay: popupDDay
-                            )
-                        }
-                    }
-                }
-            } else {
-                cell.configureContents(
-                    popupImage: UIImage(resource: .popupPreviewPlaceHolder),
-                    popupTitle: PopupPreviewViewData.placeholder.popupTitle,
-                    dDay: PopupPreviewViewData.placeholder.popupDDay!
-                )
-            }
-            return cell
-
-        case (1..<(1 + numbersOfInterest)):
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: PickOrInterestCell.reuseIdentifier,
-                for: indexPath
-            ) as? PickOrInterestCell else {
-                return UICollectionViewCell()
-            }
-
-            if let popupDDay = popupData.popupDDay {
-                mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
-                    DispatchQueue.main.async {
-                        switch result {
-                        case .success(let imageData):
-                            if let image = UIImage(data: imageData) {
-                                cell.configureContents(
-                                    popupImage: image,
-                                    popupTitle: popupData.popupTitle,
-                                    dDay: popupDDay
-                                )
-                            }
-                        case .failure:
-                            cell.configureContents(
-                                popupImage: UIImage(resource: .popupPreviewPlaceHolder),
-                                popupTitle: popupData.popupTitle,
-                                dDay: popupDDay
-                            )
-                        }
-                    }
-                }
-            } else {
-                cell.configureContents(
-                    popupImage: UIImage(resource: .popupPreviewPlaceHolder),
-                    popupTitle: PopupPreviewViewData.placeholder.popupTitle,
-                    dDay: PopupPreviewViewData.placeholder.popupDDay!
-                )
-            }
-            return cell
-
-        case (1 + numbersOfInterest):
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ClosingSoonPopupCell.reuseIdentifier,
-                for: indexPath
-            ) as? ClosingSoonPopupCell else {
-                return UICollectionViewCell()
-            }
-
-            if let popupPeriod = popupData.popupPeriod,
-               let popupLocation = popupData.popupLocation {
-                mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
-                    DispatchQueue.main.async {
-                        switch result {
-                        case .success(let imageData):
-                            DispatchQueue.main.async {
-                                if let image = UIImage(data: imageData) {
-                                    cell.configureContents(
-                                        popupImage: image,
-                                        popupTitle: popupData.popupTitle,
-                                        period: popupPeriod,
-                                        location: popupLocation
-                                    )
-                                }
-                            }
-                        case .failure:
-                            cell.configureContents(
-                                popupImage: UIImage(resource: .popupPreviewPlaceHolder),
-                                popupTitle: popupData.popupTitle,
-                                period: popupPeriod,
-                                location: popupLocation
-                            )
-                        }
-                    }
-                }
-            } else {
-                cell.configureContents(
-                    popupImage: UIImage(resource: .popupPreviewPlaceHolder),
-                    popupTitle: PopupPreviewViewData.placeholder.popupTitle,
-                    period: PopupPreviewViewData.placeholder.popupPeriod!,
-                    location: PopupPreviewViewData.placeholder.popupLocation!
-                )
-            }
-
-            return cell
-        default:
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: reuseIdentifier,
+            for: indexPath
+        ) as? PopupPreviewCellable else {
             return UICollectionViewCell()
         }
+
+        mainViewModel.fetchImage(url: popupData.popupImageUrl) { result in
+            let image = popupData.convertToImage(from: result)
+            DispatchQueue.main.async {
+                cell.configure(with: popupData, image: image)
+            }
+        }
+
+        return cell as! UICollectionViewCell
     }
 
     func collectionView(
@@ -264,8 +163,10 @@ extension MainSceneViewController: UICollectionViewDataSource {
         viewForSupplementaryElementOfKind kind: String,
         at indexPath: IndexPath
     ) -> UICollectionReusableView {
-        switch indexPath.section {
-        case 0:
+        let section = mainViewModel.sections[indexPath.section]
+
+        switch section {
+        case .userPick:
             guard let carouselHeader = collectionView.dequeueReusableSupplementaryView(
                 ofKind: UICollectionView.elementKindSectionHeader,
                 withReuseIdentifier: MainCarouselPickHeaderView.reuseIdentifier,
@@ -277,7 +178,7 @@ extension MainSceneViewController: UICollectionViewDataSource {
             carouselHeader.assignDelegate(self)
             carouselHeader.configureContents(headerTitle: "찜 목록", viewModel: mainViewModel)
             return carouselHeader
-        case 1..<(1 + mainViewModel.getDataSource().numbersOfInterest()):
+        case .userInterest:
             guard let header = collectionView.dequeueReusableSupplementaryView(
                 ofKind: UICollectionView.elementKindSectionHeader,
                 withReuseIdentifier: MainCollectionHeaderView.reuseIdentifier,
@@ -286,14 +187,12 @@ extension MainSceneViewController: UICollectionViewDataSource {
                 return UICollectionReusableView()
             }
 
-            let headerTitle = mainViewModel
-                .getDataSource()
-                .provideUserInterestTitle(sectionOfInterest: indexPath.section - 1)
+            let headerTitle = mainViewModel.getInterestCategoryTitle(for: section)
 
             header.assignDelegate(self)
             header.configureContents(headerTitle: headerTitle)
             return header
-        case (1 + mainViewModel.getDataSource().numbersOfInterest()):
+        case .closingSoon:
             guard let header = collectionView.dequeueReusableSupplementaryView(
                 ofKind: UICollectionView.elementKindSectionHeader,
                 withReuseIdentifier: MainCollectionHeaderView.reuseIdentifier,
@@ -304,8 +203,6 @@ extension MainSceneViewController: UICollectionViewDataSource {
 
             header.configureContents(headerTitle: "지금 놓치면 안 될 팝업스토어", shouldHiddenShowButton: true)
             return header
-        default:
-            return UICollectionReusableView()
         }
     }
 }
@@ -315,16 +212,15 @@ extension MainSceneViewController {
     private func generateCollectionViewLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { [weak self] sectionIndex, _ in
             guard let self else { return nil }
+            let layout = mainViewModel.sections[sectionIndex]
 
-            switch sectionIndex {
-            case 0:
+            switch layout {
+            case .userPick:
                 return generateHorizontalLayout(isPickSection: true)
-            case 1..<(1 + self.mainViewModel.getDataSource().numbersOfInterest()):
+            case .userInterest:
                 return generateHorizontalLayout()
-            case self.mainViewModel.getDataSource().numbersOfInterest() + 1:
+            case .closingSoon:
                 return generateVerticalGridLayout()
-            default:
-                return generateHorizontalLayout()
             }
         }
     }
@@ -408,7 +304,7 @@ extension MainSceneViewController: UICollectionViewDelegate, MainCarouselViewDel
     }
 
     func navigateToPopupDetailViewController(selectedIndex: Int) {
-        let popupId = mainViewModel.getDataSource().getCarouselPopupId(at: selectedIndex)
+        let popupId = mainViewModel.getTodayRecommendPopupId(at: selectedIndex)
 
         let detailViewController = PopupDetailViewController(
             viewModel: DIContainer.shared.resolve(PopupDetailViewModel.self),
@@ -462,5 +358,18 @@ extension MainSceneViewController {
 extension MainSceneViewController {
     private func mockingData() {
         mainViewModel.fetchMockData()
+    }
+}
+
+// MARK: - Extensions
+extension PopupPreviewViewData {
+    func convertToImage(from result: Result<Data, ImageFetchError>) -> UIImage {
+        switch result {
+        case .success(let data):
+            return UIImage(data: data) ?? UIImage(resource: .popupPreviewPlaceHolder)
+        case .failure(let error):
+            print("팝업 프리뷰 이미지 로딩 실패: \(error.localizedDescription)")
+            return UIImage(resource: .popupPreviewPlaceHolder)
+        }
     }
 }

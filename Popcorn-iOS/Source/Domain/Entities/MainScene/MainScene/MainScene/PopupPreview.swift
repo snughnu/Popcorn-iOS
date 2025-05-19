@@ -8,12 +8,12 @@
 import Foundation
 
 struct PopupPreview {
-    let popupId: Int
-    let popupImageUrl: String
-    let popupTitle: String
-    let popupEndDate: Date
-    let popupStartDate: Date?
-    let popupLocation: String?
+    let id: Int
+    let imageUrl: String
+    let title: String
+    let endDate: Date
+    let startDate: Date?
+    let location: String?
 
     init(
         popupId: Int,
@@ -23,11 +23,11 @@ struct PopupPreview {
         popupStartDate: Date? = nil,
         popupLocation: String? = nil
     ) {
-        self.popupId = popupId
-        self.popupImageUrl = popupImageUrl
-        self.popupTitle = popupTitle
-        self.popupEndDate = popupEndDate
-        self.popupStartDate = popupStartDate
-        self.popupLocation = popupLocation
+        self.id = popupId
+        self.imageUrl = popupImageUrl
+        self.title = popupTitle
+        self.endDate = popupEndDate
+        self.startDate = popupStartDate
+        self.location = popupLocation
     }
 }

@@ -82,15 +82,21 @@ final class ClosingSoonPopupCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-}
 
-// MARK: - Public Interface
-extension ClosingSoonPopupCell {
-    func configureContents(popupImage: UIImage, popupTitle: String, period: String, location: String) {
+    private func configureContents(popupImage: UIImage, popupTitle: String, period: String, location: String) {
         popupImageView.image = popupImage
         popupTitleLabel.text = popupTitle
         popupPeriodLabel.text = period
         popupLocationLabel.text = location
+    }
+}
+
+// MARK: - Public Interface
+extension ClosingSoonPopupCell: PopupPreviewCellable {
+    func configure(with popupData: PopupPreviewViewData, image: UIImage) {
+        let popupPeriod = popupData.popupPeriod ?? PopupPreviewViewData.placeholder.popupPeriod!
+        let popupLocation = popupData.popupLocation ??  PopupPreviewViewData.placeholder.popupLocation!
+        configureContents(popupImage: image, popupTitle: popupData.popupTitle, period: popupPeriod, location: popupLocation)
     }
 }
 

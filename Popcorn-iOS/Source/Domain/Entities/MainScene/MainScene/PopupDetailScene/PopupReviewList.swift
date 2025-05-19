@@ -14,10 +14,10 @@ struct PopupReviewList {
 struct PopupReview {
     let profileImageUrl: String?
     let nickName: String
-    let reviewRating: Float
-    let reviewDate: Date
-    let reviewImagesUrl: [String]?
-    let reviewText: String
+    let rating: Float
+    let createdAt: Date
+    let reviewImageUrls: [String]?
+    let content: String
     let likeCount: Int
     let isLiked: Bool
 }

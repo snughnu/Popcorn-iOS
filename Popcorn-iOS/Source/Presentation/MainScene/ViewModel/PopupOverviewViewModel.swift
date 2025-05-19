@@ -99,9 +99,9 @@ struct PopupOverviewViewData {
 
     static let placeHolder = PopupOverviewViewData(
         from: PopupOverview(
-            popupId: -1,
-            popupImageUrl: "",
-            popupTitle: "팝콘팝업스토어",
+            id: -1,
+            imageUrl: "",
+            title: "팝콘팝업스토어",
             startDate: Date(),
             endDate: Date(),
             address: "팝콘시 팝콘구 팝콘로 0번길"
@@ -112,9 +112,9 @@ struct PopupOverviewViewData {
         let startDate = PopupDateFormatter.formattedPopupStoreDate(from: entity.startDate)
         let endDate = PopupDateFormatter.formattedPopupStoreDate(from: entity.endDate)
 
-        popupId = entity.popupId
-        popupImageUrl = entity.popupImageUrl
-        popupTitle = entity.popupTitle
+        popupId = entity.id
+        popupImageUrl = entity.imageUrl
+        popupTitle = entity.title
         popupPeriod = startDate + "~" + endDate
         popupAddress = entity.address
     }

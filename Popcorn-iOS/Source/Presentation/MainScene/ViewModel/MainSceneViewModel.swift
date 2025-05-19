@@ -7,11 +7,19 @@
 
 import Foundation
 
+enum MainSceneSection: Equatable {
+    case userPick
+    case userInterest(index: Int)
+    case closingSoon
+}
+
 final class MainSceneViewModel: MainCarouselViewModelProtocol {
     private let popupFetchListUseCase: PopupFetchListUseCaseProtocol
     private let imageFetchUseCase: ImageFetchUseCaseProtocol
     private let mainSceneDataSource: MainSceneDataSource
 
+    /// 오늘의 추천, 찜 목록, 관심사, 지금 놓치면 안될 팝업 섹션들 중 현재 화면에 표시될 섹션을 담는 배열
+    private(set) var sections = [MainSceneSection]()
     private var hasNextPage = true
     private var page = 1
 
@@ -30,8 +38,22 @@ final class MainSceneViewModel: MainCarouselViewModelProtocol {
         self.mainSceneDataSource = mainSceneDataSource
     }
 
-    func getDataSource() -> MainSceneDataSource {
-        return mainSceneDataSource
+    private func updateSections() {
+        sections = buildSections()
+    }
+
+    private func buildSections() -> [MainSceneSection] {
+        var sections = [MainSceneSection]()
+        if mainSceneDataSource.numberOfPopups(in: .userPick) > 0 {
+            sections.append(.userPick)
+        }
+
+        let interestCount = mainSceneDataSource.numbersOfInterest()
+        sections += (0..<interestCount).map { .userInterest(index: $0) }
+
+        sections.append(.closingSoon)
+
+        return sections
     }
 }
 
@@ -53,10 +75,11 @@ extension MainSceneViewModel {
                 let popupMainList = response.data
                 self.hasNextPage = response.hasNextPage
                 self.mainSceneDataSource.updateData(popupMainList)
+                self.updateSections()
                 fetchPopupDataPublisher?()
             case .failure(let error):
                 print(error)
-                self.mainSceneDataSource.showPlaceholderData()
+//                self.mainSceneDataSource.showPlaceholderData()
             }
         }
     }
@@ -79,19 +102,47 @@ extension MainSceneViewModel {
     }
 
     func fetchMockData() {
-        mainSceneDataSource.genereateMockData()
+//        mainSceneDataSource.genereateMockData()
         fetchPopupDataPublisher?()
+    }
+}
+
+// MARK: - DataSource
+extension MainSceneViewModel {
+    func numberOfPopups(in section: MainSceneSection) -> Int {
+        return mainSceneDataSource.numberOfPopups(in: section)
+    }
+
+    func numberOfInterest() -> Int {
+        return mainSceneDataSource.numbersOfInterest()
+    }
+
+    func getPopup(for section: MainSceneSection, at index: Int) -> PopupPreviewViewData {
+        guard let popup = mainSceneDataSource.popup(for: section, item: index) else {
+            return PopupPreviewViewData.placeholder
+        }
+
+        return PopupPreviewViewData(from: popup)
+    }
+
+    func getTodayRecommendPopupId(at index: Int) -> Int {
+        // TODO: - -1 반환 대신 nil 리턴, detailViewController 생성자에서 popupId가 nil일 때 처리.
+        return mainSceneDataSource.getTodayRecommend(item: index)?.id ?? -1
+    }
+
+    func getInterestCategoryTitle(for section: MainSceneSection) -> String {
+        mainSceneDataSource.interestCategoryTitle(for: section) ?? ""
     }
 }
 
 // MARK: - Implement MainCarouselDataSource
 extension MainSceneViewModel {
     func numbersOfCarouselImage() -> Int {
-        return mainSceneDataSource.numbersOfPopup(of: .todayRecommend)
+        return mainSceneDataSource.numberOfTodayRecommend()
     }
 
     func provideCarouselImageUrl(at indexPath: IndexPath) -> String {
-        return mainSceneDataSource.item(at: indexPath).popupImageUrl
+        return mainSceneDataSource.getTodayRecommend(item: indexPath.item)?.imageUrl ?? ""
     }
 }
 
@@ -116,15 +167,15 @@ struct PopupPreviewViewData {
     )
 
     init(from popupPreview: PopupPreview) {
-        self.popupId = popupPreview.popupId
-        self.popupImageUrl = popupPreview.popupImageUrl
-        self.popupTitle = popupPreview.popupTitle
-        self.popupLocation = popupPreview.popupLocation
-        self.popupDDay = "D-\(PopupDateFormatter.calculateDDay(from: popupPreview.popupEndDate))"
+        self.popupId = popupPreview.id
+        self.popupImageUrl = popupPreview.imageUrl
+        self.popupTitle = popupPreview.title
+        self.popupLocation = popupPreview.location
+        self.popupDDay = "D-\(PopupDateFormatter.calculateDDay(from: popupPreview.endDate))"
 
-        self.popupPeriod = popupPreview.popupStartDate.map { startDate in
+        self.popupPeriod = popupPreview.startDate.map { startDate in
             let startDateString = PopupDateFormatter.formattedPopupStoreDate(from: startDate)
-            let endDateString = PopupDateFormatter.formattedPopupStoreDate(from: popupPreview.popupEndDate)
+            let endDateString = PopupDateFormatter.formattedPopupStoreDate(from: popupPreview.endDate)
             return "\(startDateString)~\(endDateString)"
         }
     }
