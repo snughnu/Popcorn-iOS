@@ -15,6 +15,32 @@ protocol NetworkManagerProtocol {
     ) -> Cancellable?
 }
 
+extension NetworkManagerProtocol {
+    func request<Request: Requestable>(
+        endpoint: Request
+    ) async throws -> Request.Response {
+        guard let request = endpoint.makeURLRequest() else {
+            throw NetworkError.invalidURL
+        }
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkError.responseError
+        }
+
+        guard (200..<300) ~= httpResponse.statusCode else {
+            if let serverError = ServerError(rawValue: httpResponse.statusCode) {
+                throw NetworkError.serverError(serverError)
+            } else {
+                throw NetworkError.unknown
+            }
+        }
+
+        return try JSONDecoder().decode(Request.Response.self, from: data)
+    }
+}
+
 final class NetworkManager: NetworkManagerProtocol {
     private let session: URLSession
     private let decoder: JSONDecoder
