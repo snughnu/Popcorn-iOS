@@ -38,14 +38,13 @@ extension NetworkManagerProtocol {
 extension NetworkManagerProtocol {
     private func validate(data: Data, response: URLResponse) throws {
         guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.responseError
+            throw NetworkError.invalidResponse
         }
 
         guard (200..<300) ~= httpResponse.statusCode else {
-            let serverError: ServerError = .init(rawValue: httpResponse.statusCode) ?? .unknown
-            // 네트워크 에러 수정 후 사용 예정
+            let serverErrorCode: ServerErrorCode = .init(rawValue: httpResponse.statusCode) ?? .unknown
             let errorMessage = try? decode(DefaultResponseDTO<String>.self, from: data).data
-            throw NetworkError.serverError(serverError)
+            throw NetworkError.serverError(code: serverErrorCode, message: errorMessage)
         }
 
         guard !data.isEmpty else {
@@ -57,7 +56,7 @@ extension NetworkManagerProtocol {
         do {
             return try JSONDecoder().decode(T.self, from: data)
         } catch {
-            throw NetworkError.decodingError(error)
+            throw NetworkError.decodingFailed(error)
         }
     }
 }
@@ -83,20 +82,20 @@ final class NetworkManager: NetworkManagerProtocol {
 
         let completionHandler: (Data?, URLResponse?, Error?) -> Void = { data, response, error in
             if let error {
-                completion(.failure(NetworkError.requestFailed(error.localizedDescription)))
+                completion(.failure(NetworkError.urlSessionFailed(error)))
                 return
             }
 
             guard let httpResponse = response as? HTTPURLResponse else {
-                completion(.failure(NetworkError.responseError))
+                completion(.failure(NetworkError.invalidResponse))
                 return
             }
 
             guard (200..<400) ~= httpResponse.statusCode else {
-                if let serverError = ServerError(rawValue: httpResponse.statusCode) {
-                    completion(.failure(NetworkError.serverError(serverError)))
+                if let serverErrorCode = ServerErrorCode(rawValue: httpResponse.statusCode) {
+                    completion(.failure(NetworkError.serverError(code: serverErrorCode)))
                 } else {
-                    completion(.failure(NetworkError.unknown))
+                    completion(.failure(NetworkError.unknown()))
                 }
                 return
             }
@@ -115,7 +114,7 @@ final class NetworkManager: NetworkManagerProtocol {
                 let decodedData: Request.Response = try JSONDecoder().decode(Request.Response.self, from: data)
                 completion(.success(decodedData))
             } catch {
-                completion(.failure(NetworkError.decodingError(error)))
+                completion(.failure(NetworkError.decodingFailed(error)))
             }
         }
 
