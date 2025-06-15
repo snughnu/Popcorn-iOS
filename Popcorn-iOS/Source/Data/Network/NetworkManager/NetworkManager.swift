@@ -39,6 +39,27 @@ extension NetworkManagerProtocol {
 
         return try JSONDecoder().decode(Request.Response.self, from: data)
     }
+
+    func upload<Request: JSONBodyRequestable>(
+        endpoint: Request
+    ) async throws -> Request.Response {
+        let (request, body) = try endpoint.makeURLRequest()
+        let (data, response) = try await URLSession.shared.upload(for: request, from: body)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkError.responseError
+        }
+        
+        guard (200..<300) ~= httpResponse.statusCode else {
+            if let serverError = ServerError(rawValue: httpResponse.statusCode) {
+                throw NetworkError.serverError(serverError)
+            } else {
+                throw NetworkError.unknown
+            }
+        }
+
+        return try JSONDecoder().decode(Request.Response.self, from: data)
+    }
 }
 
 final class NetworkManager: NetworkManagerProtocol {
