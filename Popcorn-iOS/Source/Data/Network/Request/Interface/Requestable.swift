@@ -23,7 +23,7 @@ extension Requestable {
     func makeURL() -> URL? {
         guard var components = URLComponents(string: baseURL) else { return nil }
         components.path = path
-        components.queryItems = queryItems
+        components.queryItems = queryItems.isEmpty ? nil : queryItems
 
         return components.url
     }
