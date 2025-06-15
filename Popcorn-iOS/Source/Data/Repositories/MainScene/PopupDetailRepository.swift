@@ -183,7 +183,7 @@ final class PopupDetailRepository: PopupDetailRepositoryProtocol {
             return
         }
 
-        let endpoint = Endpoint<DefaultResponseDTO>(
+        let endpoint = Endpoint<DefaultResponseDTO<Bool>>(
             httpMethod: .post,
             path: APIConstant.popupTogglePick(popupId: String(popupId)),
             headers: ["Authorization": "Bearer \(token)"]
@@ -192,11 +192,8 @@ final class PopupDetailRepository: PopupDetailRepositoryProtocol {
         networkManager.request(endpoint: endpoint) { result in
             switch result {
             case .success(let response):
-                if let isPick = Bool(response.data) {
-                    completion(.success(isPick))
-                } else {
-                    completion(.failure(NetworkError.responseError))
-                }
+                let isPick = response.data
+                completion(.success(isPick))
             case .failure(let error):
                 completion(.failure(error))
             }

@@ -43,6 +43,8 @@ extension NetworkManagerProtocol {
 
         guard (200..<300) ~= httpResponse.statusCode else {
             let serverError: ServerError = .init(rawValue: httpResponse.statusCode) ?? .unknown
+            // 네트워크 에러 수정 후 사용 예정
+            let errorMessage = try? decode(DefaultResponseDTO<String>.self, from: data).data
             throw NetworkError.serverError(serverError)
         }
 
