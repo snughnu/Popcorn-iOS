@@ -19,25 +19,10 @@ extension NetworkManagerProtocol {
     func request<Request: Requestable>(
         endpoint: Request
     ) async throws -> Request.Response {
-        guard let request = endpoint.makeURLRequest() else {
-            throw NetworkError.invalidURL
-        }
-
+        guard let request = endpoint.makeURLRequest() else { throw NetworkError.invalidURL }
         let (data, response) = try await URLSession.shared.data(for: request)
-
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.responseError
-        }
-
-        guard (200..<300) ~= httpResponse.statusCode else {
-            if let serverError = ServerError(rawValue: httpResponse.statusCode) {
-                throw NetworkError.serverError(serverError)
-            } else {
-                throw NetworkError.unknown
-            }
-        }
-
-        return try JSONDecoder().decode(Request.Response.self, from: data)
+        try validate(data: data, response: response)
+        return try decode(Request.Response.self, from: data)
     }
 
     func upload<Request: JSONBodyRequestable>(
@@ -45,20 +30,33 @@ extension NetworkManagerProtocol {
     ) async throws -> Request.Response {
         let (request, body) = try endpoint.makeURLRequest()
         let (data, response) = try await URLSession.shared.upload(for: request, from: body)
-        
+        try validate(data: data, response: response)
+        return try decode(Request.Response.self, from: data)
+    }
+}
+
+extension NetworkManagerProtocol {
+    private func validate(data: Data, response: URLResponse) throws {
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.responseError
         }
-        
+
         guard (200..<300) ~= httpResponse.statusCode else {
-            if let serverError = ServerError(rawValue: httpResponse.statusCode) {
-                throw NetworkError.serverError(serverError)
-            } else {
-                throw NetworkError.unknown
-            }
+            let serverError: ServerError = .init(rawValue: httpResponse.statusCode) ?? .unknown
+            throw NetworkError.serverError(serverError)
         }
 
-        return try JSONDecoder().decode(Request.Response.self, from: data)
+        guard !data.isEmpty else {
+            throw NetworkError.emptyData
+        }
+    }
+
+    private func decode<T: Decodable>(_ type: T.Type, from data: Data) throws -> T {
+        do {
+            return try JSONDecoder().decode(T.self, from: data)
+        } catch {
+            throw NetworkError.decodingError(error)
+        }
     }
 }
 
@@ -118,14 +116,6 @@ final class NetworkManager: NetworkManagerProtocol {
                 completion(.failure(NetworkError.decodingError(error)))
             }
         }
-
-//        let task: Cancellable
-//
-//        if let body = request.httpBody {
-//            task = session.uploadTask(with: request, from: body, completionHandler: completionHandler)
-//        } else {
-//            task = session.dataTask(with: request, completionHandler: completionHandler)
-//        }
 
         let task = session.dataTask(with: request, completionHandler: completionHandler)
         task.resume()
