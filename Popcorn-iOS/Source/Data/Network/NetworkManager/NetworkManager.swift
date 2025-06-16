@@ -15,6 +15,52 @@ protocol NetworkManagerProtocol {
     ) -> Cancellable?
 }
 
+extension NetworkManagerProtocol {
+    func request<Request: Requestable>(
+        endpoint: Request
+    ) async throws -> Request.Response {
+        guard let request = endpoint.makeURLRequest() else { throw NetworkError.invalidURL }
+        let (data, response) = try await URLSession.shared.data(for: request)
+        try validate(data: data, response: response)
+        return try decode(Request.Response.self, from: data)
+    }
+
+    func upload<Request: JSONBodyRequestable>(
+        endpoint: Request
+    ) async throws -> Request.Response {
+        let (request, body) = try endpoint.makeURLRequest()
+        let (data, response) = try await URLSession.shared.upload(for: request, from: body)
+        try validate(data: data, response: response)
+        return try decode(Request.Response.self, from: data)
+    }
+}
+
+extension NetworkManagerProtocol {
+    private func validate(data: Data, response: URLResponse) throws {
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkError.invalidResponse
+        }
+
+        guard (200..<300) ~= httpResponse.statusCode else {
+            let serverErrorCode: ServerErrorCode = .init(rawValue: httpResponse.statusCode) ?? .unknown
+            let errorMessage = try? decode(DefaultResponseDTO<String>.self, from: data).data
+            throw NetworkError.serverError(code: serverErrorCode, message: errorMessage)
+        }
+
+        guard !data.isEmpty else {
+            throw NetworkError.emptyData
+        }
+    }
+
+    private func decode<T: Decodable>(_ type: T.Type, from data: Data) throws -> T {
+        do {
+            return try JSONDecoder().decode(T.self, from: data)
+        } catch {
+            throw NetworkError.decodingFailed(error)
+        }
+    }
+}
+
 final class NetworkManager: NetworkManagerProtocol {
     private let session: URLSession
     private let decoder: JSONDecoder
@@ -36,20 +82,20 @@ final class NetworkManager: NetworkManagerProtocol {
 
         let completionHandler: (Data?, URLResponse?, Error?) -> Void = { data, response, error in
             if let error {
-                completion(.failure(NetworkError.requestFailed(error.localizedDescription)))
+                completion(.failure(NetworkError.urlSessionFailed(error)))
                 return
             }
 
             guard let httpResponse = response as? HTTPURLResponse else {
-                completion(.failure(NetworkError.responseError))
+                completion(.failure(NetworkError.invalidResponse))
                 return
             }
 
             guard (200..<400) ~= httpResponse.statusCode else {
-                if let serverError = ServerError(rawValue: httpResponse.statusCode) {
-                    completion(.failure(NetworkError.serverError(serverError)))
+                if let serverErrorCode = ServerErrorCode(rawValue: httpResponse.statusCode) {
+                    completion(.failure(NetworkError.serverError(code: serverErrorCode)))
                 } else {
-                    completion(.failure(NetworkError.unknown))
+                    completion(.failure(NetworkError.unknown()))
                 }
                 return
             }
@@ -68,17 +114,9 @@ final class NetworkManager: NetworkManagerProtocol {
                 let decodedData: Request.Response = try JSONDecoder().decode(Request.Response.self, from: data)
                 completion(.success(decodedData))
             } catch {
-                completion(.failure(NetworkError.decodingError(error)))
+                completion(.failure(NetworkError.decodingFailed(error)))
             }
         }
-
-//        let task: Cancellable
-//
-//        if let body = request.httpBody {
-//            task = session.uploadTask(with: request, from: body, completionHandler: completionHandler)
-//        } else {
-//            task = session.dataTask(with: request, completionHandler: completionHandler)
-//        }
 
         let task = session.dataTask(with: request, completionHandler: completionHandler)
         task.resume()

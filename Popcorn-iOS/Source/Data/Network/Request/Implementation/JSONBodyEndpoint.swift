@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct JSONBodyEndpoint<R: Decodable>: Requestable {
+struct JSONBodyEndpoint<R: Decodable>: JSONBodyRequestable {
     typealias Response = R
 
     let baseURL: String
